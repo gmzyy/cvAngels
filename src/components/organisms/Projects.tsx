@@ -12,21 +12,21 @@ export default function Projects() {
           title="AUTH CORE (Identity System)"
           description="Sistema de identidad dockerizado. Integración de MySQL y JWT para la gestión segura de sesiones y control de acceso basado en roles con una arquitectura limpia."
           tech={["NestJS", "Prisma", "MySQL", "Docker", "JWT"]}
-          github="https://github.com/Gmzyy/tu-repo-auth-core"
+          github="https://github.com/gmzyy/auth-system-docker"
         />
 
         <ProjectCard
           title="TRELLUNA (API Kanban)"
           description="API REST modular para la gestión de tableros. Implementación de esquemas relacionales en SQL para workspaces y validación estricta de datos para reducir errores en tiempo de ejecución."
           tech={["Node.js", "Express", "SQL", "TypeScript"]}
-          github="https://github.com/Gmzyy/tu-repo-trelluna"
+          github="https://github.com/gmzyy/kanban-api"
         />
 
         <ProjectCard
           title="Barber Management Platform"
           description="Solución integral para gestión de citas en tiempo real. Implementación de panel administrativo y diseño responsivo enfocado en la experiencia de usuario final."
           tech={["Next.js", "MongoDB", "Tailwind CSS"]}
-          github="https://github.com/Gmzyy/tu-repo-barberia"
+          github="https://github.com/gmzyy/BarberAngeles"
         />
 
         
