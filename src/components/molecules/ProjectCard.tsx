@@ -7,6 +7,7 @@ type Props = {
   tech: string[]
   github: string
   demo?: string
+  link?: string
 }
 
 export default function ProjectCard({
