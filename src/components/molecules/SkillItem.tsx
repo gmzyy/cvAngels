@@ -1,39 +1,36 @@
 type Props = {
   name: string
-  // Opcional: si quieres agregar ícono por skill en el futuro
-  // icon?: React.ComponentType<{ className?: string }>
 }
 
 export default function SkillItem({ name }: Props) {
   return (
     <div
-      className="
-        group relative px-5 py-3 rounded-xl text-sm font-medium text-center
-        bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900
-        text-gray-800 dark:text-gray-200
-        border border-gray-200/50 dark:border-gray-700/50
-        shadow-sm hover:shadow-lg hover:shadow-indigo-500/20
-        hover:-translate-y-1 hover:scale-[1.03]
-        transition-all duration-300 ease-out
-        cursor-default select-none
-        focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
-      "
-      tabIndex={0} // Para que sea focusable con teclado
+      className="px-3 py-2 rounded-lg text-xs font-semibold text-center cursor-default select-none transition-all duration-200"
+      style={{
+        background: 'rgba(99,102,241,0.08)',
+        border: '1px solid rgba(99,102,241,0.18)',
+        color: 'var(--text-secondary)',
+      }}
+      onMouseEnter={e => {
+        const el = e.currentTarget as HTMLDivElement
+        el.style.background = 'rgba(124,58,237,0.15)'
+        el.style.borderColor = 'rgba(124,58,237,0.45)'
+        el.style.color = 'var(--text-primary)'
+        el.style.boxShadow = '0 0 10px rgba(124,58,237,0.2)'
+        el.style.transform = 'translateY(-1px)'
+      }}
+      onMouseLeave={e => {
+        const el = e.currentTarget as HTMLDivElement
+        el.style.background = 'rgba(99,102,241,0.08)'
+        el.style.borderColor = 'rgba(99,102,241,0.18)'
+        el.style.color = 'var(--text-secondary)'
+        el.style.boxShadow = 'none'
+        el.style.transform = 'translateY(0)'
+      }}
+      tabIndex={0}
       aria-label={`Habilidad: ${name}`}
     >
-      {/* Gradiente sutil en hover */}
-      <div className="
-        absolute inset-0 rounded-xl opacity-0 group-hover:opacity-20
-        bg-gradient-to-r from-indigo-500/10 to-purple-500/10
-        transition-opacity duration-300
-      " />
-
-      {/* Contenido principal */}
-      <span className="relative z-10 flex items-center justify-center gap-2">
-        {/* Si quieres ícono dinámico en el futuro, aquí iría */}
-        {/* {icon && <icon className="w-4 h-4 opacity-80 group-hover:opacity-100 transition-opacity" />} */}
-        {name}
-      </span>
+      {name}
     </div>
   )
 }

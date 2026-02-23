@@ -1,75 +1,125 @@
 import SectionHeader from "../molecules/SectionHeader"
-import { Globe, GraduationCap } from "lucide-react"
+import { GraduationCap, Globe } from "lucide-react"
+
+interface EduEntry {
+  degree: string
+  school: string
+  period: string
+  accent: string
+}
+
+const education: EduEntry[] = [
+  {
+    degree: "Ingeniería en Software",
+    school: "Universidad Tecnológica de Puebla (UTP)",
+    period: "2024 – 2026",
+    accent: "#7c3aed",
+  },
+  {
+    degree: "TSU en Software",
+    school: "Universidad Tecnológica de Puebla (UTP)",
+    period: "2022 – 2024",
+    accent: "#06b6d4",
+  },
+]
 
 export default function Education() {
   return (
-    <section className="mb-14" id="education">
-      
-      {/* ================= EDUCACIÓN ================= */}
-      <div className="flex items-center gap-2 mb-6">
-        <GraduationCap className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
-        <SectionHeader title="Educación" />
-      </div>
-      
-      <div className="space-y-8 mb-12">
-        {/* INGENIERÍA */}
-        <div className="relative border-l border-gray-200 dark:border-gray-700 ml-3 pl-6">
-          <span className="absolute -left-[5px] top-1 h-2.5 w-2.5 rounded-full bg-indigo-600 dark:bg-indigo-500"></span>
-          
-          <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-1">
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-              Ingeniería en Software
-            </h3>
-            <span className="text-sm font-medium text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-full mt-2 md:mt-0 w-fit">
-              2024 – 2026
-            </span>
-          </div>
-          <p className="text-gray-700 dark:text-gray-300 font-medium text-[1.05rem]">
-            Universidad Tecnológica de Puebla (UTP)
-          </p>
-        </div>
+    <section
+      id="education"
+      className="rounded-2xl p-6 md:p-8"
+      style={{
+        background: 'var(--bg-card)',
+        border: '1px solid rgba(99,102,241,0.1)',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+      }}
+    >
+      {/* ── Educación ──────────────────────────────────────── */}
+      <SectionHeader title="Educación" sectionNumber="05" icon={<GraduationCap className="w-5 h-5" />} />
 
-        {/* TSU */}
-        <div className="relative border-l border-gray-200 dark:border-gray-700 ml-3 pl-6">
-          <span className="absolute -left-[5px] top-1 h-2.5 w-2.5 rounded-full bg-gray-400 dark:bg-gray-600"></span>
-          
-          <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-1">
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-              Técnico Superior Universitario (TSU) en Software
-            </h3>
-            <span className="text-sm font-medium text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-full mt-2 md:mt-0 w-fit">
-              2022 – 2024
-            </span>
+      <div className="relative flex flex-col gap-8 mb-10">
+        {/* Timeline line */}
+        <div
+          className="absolute left-[7px] top-3 bottom-3 w-px"
+          style={{ background: 'linear-gradient(180deg, var(--accent-violet), var(--accent-cyan), transparent)' }}
+        />
+
+        {education.map((entry) => (
+          <div key={entry.degree} className="relative pl-8">
+            {/* Glow dot */}
+            <span
+              className="absolute left-0 top-1.5 h-3.5 w-3.5 rounded-full"
+              style={{
+                background: entry.accent,
+                boxShadow: `0 0 0 3px rgba(10,15,30,1), 0 0 12px ${entry.accent}80`,
+              }}
+            />
+
+            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+              <h3 className="font-bold text-base" style={{ color: 'var(--text-primary)' }}>
+                {entry.degree}
+              </h3>
+              <span
+                className="text-xs font-medium px-2.5 py-1 rounded-full w-fit flex-shrink-0"
+                style={{
+                  background: 'rgba(99,102,241,0.1)',
+                  color: 'var(--text-muted)',
+                  border: '1px solid rgba(99,102,241,0.15)',
+                }}
+              >
+                {entry.period}
+              </span>
+            </div>
+            <p className="text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>
+              {entry.school}
+            </p>
           </div>
-          <p className="text-gray-700 dark:text-gray-300 font-medium text-[1.05rem]">
-            Universidad Tecnológica de Puebla (UTP)
-          </p>
-        </div>
+        ))}
       </div>
 
-      {/* ================= IDIOMAS ================= */}
+      {/* ── Idiomas ────────────────────────────────────────── */}
       <SectionHeader title="Idiomas" />
-      
-      <div className="bg-white dark:bg-gray-800/40 p-5 rounded-2xl border border-gray-100 dark:border-gray-700/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 ease-out group">
-        <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 mb-3">
-          
-          <div className="flex items-center gap-2">
-            <Globe className="w-5 h-5 text-gray-600 dark:text-gray-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" />
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-              Inglés
-            </h3>
-          </div>
 
-          <span className="text-xs font-semibold px-2.5 py-1 rounded-md bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-500/20 w-fit">
-            Nivel A2 (Técnico)
+      <div
+        className="rounded-xl p-5 transition-all duration-200"
+        style={{
+          background: 'rgba(99,102,241,0.06)',
+          border: '1px solid rgba(99,102,241,0.15)',
+        }}
+        onMouseEnter={e => {
+          const el = e.currentTarget as HTMLDivElement
+          el.style.borderColor = 'rgba(124,58,237,0.35)'
+          el.style.boxShadow = '0 0 20px rgba(124,58,237,0.1)'
+        }}
+        onMouseLeave={e => {
+          const el = e.currentTarget as HTMLDivElement
+          el.style.borderColor = 'rgba(99,102,241,0.15)'
+          el.style.boxShadow = 'none'
+        }}
+      >
+        <div className="flex items-center gap-3 mb-2">
+          <Globe className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--accent-violet)' }} />
+          <h3 className="font-bold text-sm" style={{ color: 'var(--text-primary)' }}>
+            Inglés
+          </h3>
+          <span
+            className="text-[0.65rem] font-bold px-2 py-0.5 rounded-md"
+            style={{
+              background: 'rgba(124,58,237,0.15)',
+              color: '#a78bfa',
+              border: '1px solid rgba(124,58,237,0.25)',
+            }}
+          >
+            Nivel A2
           </span>
         </div>
-        
-        <p className="text-gray-600 dark:text-gray-300 text-[0.95rem] leading-relaxed">
-          Capacidad sólida para la <strong className="font-semibold text-gray-900 dark:text-white">lectura de documentación técnica</strong>, gestión y resolución de <i className="text-indigo-600 dark:text-indigo-400">issues</i> en repositorios (GitHub), y comunicación escrita efectiva en entornos de desarrollo de software.
+        <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+          Capacidad sólida para la{" "}
+          <strong style={{ color: 'var(--text-primary)' }}>lectura de documentación técnica</strong>, gestión y resolución de{" "}
+          <em style={{ color: 'var(--accent-violet)', fontStyle: 'normal' }}>issues</em>{" "}
+          en repositorios (GitHub), y comunicación escrita efectiva en entornos de desarrollo de software.
         </p>
       </div>
-
     </section>
   )
 }

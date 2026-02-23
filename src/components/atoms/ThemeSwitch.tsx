@@ -5,54 +5,63 @@ import { Sun, Moon } from "lucide-react"
 
 export default function ThemeSwitch() {
   const [mounted, setMounted] = useState(false)
-  const [dark, setDark] = useState(false)
+  const [dark, setDark] = useState(true)
 
   useEffect(() => {
-    setMounted(true) 
-    
-    const isDarkMode = 
-      localStorage.getItem("theme") === "dark" || 
-      (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)
-    
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark")
-      setDark(true)
-    } else {
-      document.documentElement.classList.remove("dark")
-      setDark(false)
-    }
+    setMounted(true)
+    const stored = localStorage.getItem("theme")
+    // Default to dark if no preference stored
+    const isDark = stored === "dark" || (!stored)
+    applyTheme(isDark)
+    setDark(isDark)
   }, [])
 
-  const toggle = () => {
-    if (dark) {
-      document.documentElement.classList.remove("dark")
-      localStorage.setItem("theme", "light") 
-      setDark(false)
+  const applyTheme = (isDark: boolean) => {
+    const root = document.documentElement
+    if (isDark) {
+      root.classList.add("dark")
+      root.classList.remove("light")
     } else {
-      document.documentElement.classList.add("dark")
-      localStorage.setItem("theme", "dark") 
-      setDark(true)
+      root.classList.remove("dark")
+      root.classList.add("light")
     }
   }
 
+  const toggle = () => {
+    const next = !dark
+    applyTheme(next)
+    localStorage.setItem("theme", next ? "dark" : "light")
+    setDark(next)
+  }
+
   if (!mounted) {
-    return <div className="w-[140px] h-[38px] opacity-0"></div> 
+    return <div className="w-9 h-9 rounded-full opacity-0" />
   }
 
   return (
     <button
       onClick={toggle}
-      className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors shadow-sm text-gray-700 dark:text-gray-200 flex items-center gap-2"
+      aria-label={dark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+      className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300"
+      style={{
+        background: 'rgba(99,102,241,0.12)',
+        border: '1px solid rgba(99,102,241,0.25)',
+        color: dark ? '#fbbf24' : '#7c3aed',
+        boxShadow: dark ? '0 0 12px rgba(251,191,36,0.15)' : '0 0 12px rgba(124,58,237,0.15)',
+      }}
+      onMouseEnter={e => {
+        (e.currentTarget as HTMLButtonElement).style.background = 'rgba(99,102,241,0.22)'
+          ; (e.currentTarget as HTMLButtonElement).style.transform = 'rotate(15deg) scale(1.1)'
+      }}
+      onMouseLeave={e => {
+        (e.currentTarget as HTMLButtonElement).style.background = 'rgba(99,102,241,0.12)'
+          ; (e.currentTarget as HTMLButtonElement).style.transform = 'rotate(0deg) scale(1)'
+      }}
     >
-      {dark ? (
-        <>
-          <Sun className="w-4 h-4 text-amber-500" /> Modo Claro
-        </>
-      ) : (
-        <>
-          <Moon className="w-4 h-4 text-indigo-500" /> Modo Oscuro
-        </>
-      )}
+      {dark
+        ? <Sun className="w-4 h-4" />
+        : <Moon className="w-4 h-4" />
+      }
     </button>
   )
 }

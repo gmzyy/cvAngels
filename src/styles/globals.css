@@ -1,21 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ── Design Tokens ───────────────────────────────────────── */
 :root {
-  --bg-main: #f3f4f6;       /* gray-100 */
-  --bg-card: #ffffff;
-  --text-main: #1f2937;     /* gray-800 */
+  /* Backgrounds */
+  --bg-root: #0a0f1e;
+  --bg-surface: #0d1424;
+  --bg-card: #111827;
+  --bg-card-alt: #0f1929;
+  --bg-border: rgba(99, 102, 241, 0.15);
+
+  /* Accent palette */
+  --accent-violet: #7c3aed;
+  --accent-violet2: #6d28d9;
+  --accent-indigo: #4f46e5;
+  --accent-cyan: #06b6d4;
+  --accent-teal: #0d9488;
+
+  /* Glow */
+  --glow-violet: 0 0 20px rgba(124, 58, 237, 0.3), 0 0 40px rgba(124, 58, 237, 0.1);
+  --glow-cyan: 0 0 20px rgba(6, 182, 212, 0.25), 0 0 40px rgba(6, 182, 212, 0.08);
+
+  /* Text */
+  --text-primary: #f0f4ff;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  /* Gradients */
+  --grad-name: linear-gradient(135deg, #a78bfa 0%, #60a5fa 50%, #34d399 100%);
+  --grad-card: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(6, 182, 212, 0.04) 100%);
+  --grad-button: linear-gradient(135deg, #7c3aed 0%, #4f46e5 50%, #06b6d4 100%);
 }
 
-.dark {
-  --bg-main: #0f172a;      
-  --bg-card: #1e293b;      
-  --text-main: #f8fafc;     
+/* Light mode overrides */
+.light {
+  --bg-root: #f1f5f9;
+  --bg-surface: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-alt: #f8fafc;
+  --bg-border: rgba(99, 102, 241, 0.2);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --grad-card: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(6, 182, 212, 0.03) 100%);
+}
+
+/* ── Base ────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background-color: var(--bg-main);
-  color: var(--text-main);
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--bg-root);
+  color: var(--text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-root);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--accent-violet), var(--accent-cyan));
+  border-radius: 3px;
+}
+
+/* ── Glass effect ────────────────────────────────────────── */
+.glass {
+  background: var(--grad-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--bg-border);
+}
+
+/* ── Noise texture overlay ───────────────────────────────── */
+.noise-bg::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* ── Gradient text ───────────────────────────────────────── */
+.gradient-text {
+  background: var(--grad-name);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Animated gradient name ──────────────────────────────── */
+@keyframes gradShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-name {
+  background: linear-gradient(270deg, #a78bfa, #60a5fa, #34d399, #f472b6, #a78bfa);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradShift 6s ease infinite;
+}
+
+/* ── Glow dot ────────────────────────────────────────────── */
+.glow-dot-violet {
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15), 0 0 12px rgba(124, 58, 237, 0.4);
+}
+
+.glow-dot-cyan {
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15), 0 0 12px rgba(6, 182, 212, 0.4);
+}
+
+/* ── Section number ──────────────────────────────────────── */
+.section-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+}
+
+/* ── Shimmer button ──────────────────────────────────────── */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+
+  100% {
+    transform: translateX(200%) skewX(-15deg);
+  }
+}
+
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  transform: translateX(-100%) skewX(-15deg);
+}
+
+.btn-shimmer:hover::after {
+  animation: shimmer 0.6s ease;
+}
+
+/* ── Timeline accent line ────────────────────────────────── */
+.timeline-line {
+  background: linear-gradient(180deg, var(--accent-violet), var(--accent-cyan), transparent);
+}
+
+/* ── Horizontal scroll snap for mobile skills ────────────── */
+.skills-scroll {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.skills-scroll>* {
+  scroll-snap-align: start;
 }
