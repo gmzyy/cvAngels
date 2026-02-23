@@ -1,101 +1,123 @@
+"use client"
+
+import { useRef } from "react"
+import { motion, useInView } from "framer-motion"
 import SectionHeader from "../molecules/SectionHeader"
 import { Briefcase } from "lucide-react"
+import { fadeUp, staggerContainer, drawLine, defaultTransition } from "@/lib/animations"
+import { useCounter } from "@/hooks/useAnimations"
 
-interface Job {
-  title: string
-  company: string
-  period: string
-  accent: string
-  bullets: (string | React.ReactNode)[]
+// Animated metric number that counts up
+function Metric({ value, suffix = "%", label }: { value: number; suffix?: string; label: string }) {
+  const ref = useRef<HTMLSpanElement>(null)
+  const inView = useInView(ref, { once: true, amount: 0.5 })
+  const count = useCounter(value, 1000, inView)
+
+  return (
+    <span ref={ref}>
+      <strong style={{ color: 'var(--text-primary)' }}>
+        {count}{suffix}
+      </strong>{" "}{label}
+    </span>
+  )
 }
 
-const jobs: Job[] = [
+const jobs = [
   {
     title: "Full Stack Developer",
     company: "Softech",
     period: "Julio 2024 – Febrero 2025",
-    accent: "#7c3aed",
     bullets: [
-      <>Optimicé el rendimiento del backend reduciendo la <strong style={{ color: '#f0f4ff' }}>latencia de consultas en MongoDB en un 35%</strong> mediante el rediseño de esquemas e índices.</>,
-      <>Implementé componentes con Next.js App Router logrando una mejora del <strong style={{ color: '#f0f4ff' }}>20% en las métricas de LCP</strong> (Largest Contentful Paint).</>,
-      <>Automaticé pipelines de CI/CD para despliegues en producción, incrementando la <strong style={{ color: '#f0f4ff' }}>velocidad de entrega de nuevas funcionalidades en un 15%</strong>.</>,
+      <><Metric value={35} label="de reducción de latencia en MongoDB" /> mediante rediseño de esquemas e índices.</>,
+      <>Mejora del <Metric value={20} label="en métricas de LCP" /> con Next.js App Router.</>,
+      <>Incrementé la velocidad de entrega de funcionalidades en un <Metric value={15} label="" />% automatizando pipelines CI/CD.</>,
     ],
   },
   {
     title: "Software Developer Jr",
     company: "Quavanti Innovación Digital",
     period: "Julio 2025 – Septiembre 2025",
-    accent: "#06b6d4",
     bullets: [
-      <>Desarrollé y mantuve módulos MVC utilizando <strong style={{ color: '#f0f4ff' }}>C# / .NET Core</strong>, garantizando la consistencia de datos en bases MySQL.</>,
-      <>Participé en revisiones de código y ceremonias <strong style={{ color: '#f0f4ff' }}>Scrum</strong> para asegurar la calidad del software y el cumplimiento de entregas.</>,
+      <>Desarrollé módulos MVC con <strong style={{ color: 'var(--text-primary)' }}>C# / .NET Core</strong>, garantizando consistencia de datos en MySQL.</>,
+      <>Participé en revisiones de código y ceremonias <strong style={{ color: 'var(--text-primary)' }}>Scrum</strong> para asegurar calidad y entregas.</>,
     ],
   },
 ]
 
 export default function Experience() {
-  return (
-    <section
-      id="experience"
-      className="rounded-2xl p-6 md:p-8"
-      style={{
-        background: 'var(--bg-card)',
-        border: '1px solid rgba(99,102,241,0.1)',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
-      }}
-    >
-      <SectionHeader title="Experiencia Laboral" sectionNumber="02" icon={<Briefcase className="w-5 h-5" />} />
+  const ref = useRef<HTMLElement>(null)
+  const inView = useInView(ref, { once: true, amount: 0.15 })
 
-      <div className="relative flex flex-col gap-10">
-        {/* Timeline line */}
-        <div
-          className="absolute left-[7px] top-3 bottom-3 w-px"
-          style={{ background: 'linear-gradient(180deg, var(--accent-violet), var(--accent-cyan), transparent)' }}
+  return (
+    <motion.section
+      ref={ref}
+      id="experience"
+      variants={staggerContainer}
+      initial="initial"
+      animate={inView ? "animate" : "initial"}
+      className="rounded-xl p-6"
+      style={{ background: 'var(--bg-card)', border: '1px solid var(--border)' }}
+    >
+      <motion.div variants={fadeUp} transition={defaultTransition}>
+        <SectionHeader title="Experiencia Laboral" sectionNumber="02" icon={<Briefcase className="w-4 h-4" />} />
+      </motion.div>
+
+      <div className="relative flex flex-col gap-8">
+        {/* Animated timeline line */}
+        <motion.div
+          variants={drawLine}
+          transition={{ duration: 0.8, ease: "easeInOut", delay: 0.3 }}
+          className="absolute left-[7px] top-2 bottom-2 w-px"
+          style={{ background: 'var(--border)', transformOrigin: 'top' }}
         />
 
-        {jobs.map((job) => (
-          <div key={job.company} className="relative pl-8">
-            {/* Glow dot */}
-            <span
-              className="absolute left-0 top-1.5 h-3.5 w-3.5 rounded-full flex-shrink-0"
-              style={{
-                background: job.accent,
-                boxShadow: `0 0 0 3px rgba(10,15,30,1), 0 0 12px ${job.accent}80`,
-              }}
+        {jobs.map((job, jobIdx) => (
+          <motion.div
+            key={job.company}
+            variants={fadeUp}
+            transition={{ ...defaultTransition, delay: jobIdx * 0.15 + 0.1 }}
+            className="relative pl-7"
+          >
+            {/* Animated dot */}
+            <motion.span
+              className="absolute left-0 top-[6px] h-3 w-3 rounded-full"
+              style={{ background: 'var(--accent)', border: '2px solid var(--bg-card)' }}
+              initial={{ scale: 0 }}
+              animate={inView ? { scale: 1 } : { scale: 0 }}
+              transition={{ ...defaultTransition, delay: jobIdx * 0.15 + 0.35, type: "spring", stiffness: 300 }}
             />
 
-            {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-3">
-              <h3 className="font-bold text-base" style={{ color: 'var(--text-primary)' }}>
+            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
+              <h3 className="font-semibold text-sm" style={{ color: 'var(--text-primary)' }}>
                 {job.title}{" "}
-                <span className="font-semibold text-sm" style={{ color: job.accent }}>
-                  @ {job.company}
-                </span>
+                <span className="font-normal" style={{ color: 'var(--accent)' }}>@ {job.company}</span>
               </h3>
               <span
-                className="text-xs font-medium px-2.5 py-1 rounded-full w-fit flex-shrink-0"
-                style={{
-                  background: 'rgba(99,102,241,0.1)',
-                  color: 'var(--text-muted)',
-                  border: '1px solid rgba(99,102,241,0.15)',
-                }}
+                className="text-xs px-2.5 py-0.5 rounded-full flex-shrink-0 w-fit"
+                style={{ background: 'var(--bg-surface)', color: 'var(--text-muted)', border: '1px solid var(--border)' }}
               >
                 {job.period}
               </span>
             </div>
 
-            {/* Bullets */}
-            <ul className="flex flex-col gap-2.5">
+            <ul className="flex flex-col gap-2">
               {job.bullets.map((bullet, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-sm" style={{ color: 'var(--text-secondary)' }}>
-                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full flex-shrink-0" style={{ background: job.accent }} />
+                <motion.li
+                  key={i}
+                  className="flex items-start gap-2 text-sm"
+                  style={{ color: 'var(--text-secondary)' }}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                  transition={{ ...defaultTransition, delay: jobIdx * 0.15 + i * 0.08 + 0.4 }}
+                >
+                  <span className="mt-1.5 h-1 w-1 rounded-full flex-shrink-0" style={{ background: 'var(--accent)' }} />
                   <span>{bullet}</span>
-                </li>
+                </motion.li>
               ))}
             </ul>
-          </div>
+          </motion.div>
         ))}
       </div>
-    </section>
+    </motion.section>
   )
 }

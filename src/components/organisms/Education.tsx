@@ -1,125 +1,98 @@
+"use client"
+
+import { useRef } from "react"
+import { motion, useInView } from "framer-motion"
 import SectionHeader from "../molecules/SectionHeader"
 import { GraduationCap, Globe } from "lucide-react"
+import { fadeUp, staggerContainer, drawLine, defaultTransition } from "@/lib/animations"
 
-interface EduEntry {
-  degree: string
-  school: string
-  period: string
-  accent: string
-}
-
-const education: EduEntry[] = [
-  {
-    degree: "Ingeniería en Software",
-    school: "Universidad Tecnológica de Puebla (UTP)",
-    period: "2024 – 2026",
-    accent: "#7c3aed",
-  },
-  {
-    degree: "TSU en Software",
-    school: "Universidad Tecnológica de Puebla (UTP)",
-    period: "2022 – 2024",
-    accent: "#06b6d4",
-  },
+const education = [
+  { degree: "Ingeniería en Software", school: "Universidad Tecnológica de Puebla (UTP)", period: "2024 – 2026" },
+  { degree: "TSU en Software", school: "Universidad Tecnológica de Puebla (UTP)", period: "2022 – 2024" },
 ]
 
 export default function Education() {
-  return (
-    <section
-      id="education"
-      className="rounded-2xl p-6 md:p-8"
-      style={{
-        background: 'var(--bg-card)',
-        border: '1px solid rgba(99,102,241,0.1)',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
-      }}
-    >
-      {/* ── Educación ──────────────────────────────────────── */}
-      <SectionHeader title="Educación" sectionNumber="05" icon={<GraduationCap className="w-5 h-5" />} />
+  const ref = useRef<HTMLElement>(null)
+  const inView = useInView(ref, { once: true, amount: 0.2 })
 
-      <div className="relative flex flex-col gap-8 mb-10">
-        {/* Timeline line */}
-        <div
-          className="absolute left-[7px] top-3 bottom-3 w-px"
-          style={{ background: 'linear-gradient(180deg, var(--accent-violet), var(--accent-cyan), transparent)' }}
+  return (
+    <motion.section
+      ref={ref}
+      id="education"
+      variants={staggerContainer}
+      initial="initial"
+      animate={inView ? "animate" : "initial"}
+      className="rounded-xl p-6"
+      style={{ background: 'var(--bg-card)', border: '1px solid var(--border)' }}
+    >
+      <motion.div variants={fadeUp} transition={defaultTransition}>
+        <SectionHeader title="Educación" sectionNumber="05" icon={<GraduationCap className="w-4 h-4" />} />
+      </motion.div>
+
+      <div className="relative flex flex-col gap-7 mb-8">
+        {/* Timeline draw-in */}
+        <motion.div
+          variants={drawLine}
+          transition={{ duration: 0.7, ease: "easeInOut", delay: 0.2 }}
+          className="absolute left-[7px] top-2 bottom-2 w-px"
+          style={{ background: 'var(--border)', transformOrigin: 'top' }}
         />
 
-        {education.map((entry) => (
-          <div key={entry.degree} className="relative pl-8">
-            {/* Glow dot */}
-            <span
-              className="absolute left-0 top-1.5 h-3.5 w-3.5 rounded-full"
-              style={{
-                background: entry.accent,
-                boxShadow: `0 0 0 3px rgba(10,15,30,1), 0 0 12px ${entry.accent}80`,
-              }}
+        {education.map((entry, i) => (
+          <motion.div
+            key={entry.degree}
+            className="relative pl-7"
+            variants={fadeUp}
+            transition={{ ...defaultTransition, delay: i * 0.12 + 0.1 }}
+          >
+            <motion.span
+              className="absolute left-0 top-[6px] h-3 w-3 rounded-full"
+              style={{ background: 'var(--accent)', border: '2px solid var(--bg-card)' }}
+              initial={{ scale: 0 }}
+              animate={inView ? { scale: 1 } : { scale: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 22, delay: i * 0.12 + 0.3 }}
             />
-
             <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
-              <h3 className="font-bold text-base" style={{ color: 'var(--text-primary)' }}>
-                {entry.degree}
-              </h3>
+              <h3 className="font-semibold text-sm" style={{ color: 'var(--text-primary)' }}>{entry.degree}</h3>
               <span
-                className="text-xs font-medium px-2.5 py-1 rounded-full w-fit flex-shrink-0"
-                style={{
-                  background: 'rgba(99,102,241,0.1)',
-                  color: 'var(--text-muted)',
-                  border: '1px solid rgba(99,102,241,0.15)',
-                }}
+                className="text-xs px-2.5 py-0.5 rounded-full flex-shrink-0 w-fit"
+                style={{ background: 'var(--bg-surface)', color: 'var(--text-muted)', border: '1px solid var(--border)' }}
               >
                 {entry.period}
               </span>
             </div>
-            <p className="text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>
-              {entry.school}
-            </p>
-          </div>
+            <p className="text-xs mt-0.5" style={{ color: 'var(--text-secondary)' }}>{entry.school}</p>
+          </motion.div>
         ))}
       </div>
 
-      {/* ── Idiomas ────────────────────────────────────────── */}
-      <SectionHeader title="Idiomas" />
+      <motion.div variants={fadeUp} transition={{ ...defaultTransition, delay: 0.35 }}>
+        <SectionHeader title="Idiomas" />
+      </motion.div>
 
-      <div
-        className="rounded-xl p-5 transition-all duration-200"
-        style={{
-          background: 'rgba(99,102,241,0.06)',
-          border: '1px solid rgba(99,102,241,0.15)',
-        }}
-        onMouseEnter={e => {
-          const el = e.currentTarget as HTMLDivElement
-          el.style.borderColor = 'rgba(124,58,237,0.35)'
-          el.style.boxShadow = '0 0 20px rgba(124,58,237,0.1)'
-        }}
-        onMouseLeave={e => {
-          const el = e.currentTarget as HTMLDivElement
-          el.style.borderColor = 'rgba(99,102,241,0.15)'
-          el.style.boxShadow = 'none'
-        }}
+      <motion.div
+        className="rounded-lg p-4"
+        style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)' }}
+        variants={fadeUp}
+        transition={{ ...defaultTransition, delay: 0.4 }}
+        whileHover={{ borderColor: 'var(--accent)', scale: 1.01 }}
       >
-        <div className="flex items-center gap-3 mb-2">
-          <Globe className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--accent-violet)' }} />
-          <h3 className="font-bold text-sm" style={{ color: 'var(--text-primary)' }}>
-            Inglés
-          </h3>
-          <span
-            className="text-[0.65rem] font-bold px-2 py-0.5 rounded-md"
-            style={{
-              background: 'rgba(124,58,237,0.15)',
-              color: '#a78bfa',
-              border: '1px solid rgba(124,58,237,0.25)',
-            }}
+        <div className="flex items-center gap-2.5 mb-2">
+          <Globe className="w-3.5 h-3.5" style={{ color: 'var(--accent)' }} />
+          <span className="font-semibold text-sm" style={{ color: 'var(--text-primary)' }}>Inglés</span>
+          <motion.span
+            className="text-[0.65rem] font-semibold px-2 py-0.5 rounded"
+            style={{ background: 'var(--accent-soft)', color: 'var(--accent)', border: '1px solid var(--accent-border)' }}
+            whileHover={{ scale: 1.05 }}
           >
-            Nivel A2
-          </span>
+            A2
+          </motion.span>
         </div>
         <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-          Capacidad sólida para la{" "}
-          <strong style={{ color: 'var(--text-primary)' }}>lectura de documentación técnica</strong>, gestión y resolución de{" "}
-          <em style={{ color: 'var(--accent-violet)', fontStyle: 'normal' }}>issues</em>{" "}
-          en repositorios (GitHub), y comunicación escrita efectiva en entornos de desarrollo de software.
+          Lectura de <strong style={{ color: 'var(--text-primary)' }}>documentación técnica</strong>, resolución de{" "}
+          <span style={{ color: 'var(--accent)' }}>issues</span> en GitHub y comunicación escrita en entornos de desarrollo.
         </p>
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   )
 }

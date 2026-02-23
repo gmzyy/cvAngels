@@ -1,72 +1,67 @@
+"use client"
+
+import { useRef } from "react"
+import { motion, useInView } from "framer-motion"
 import SectionHeader from "../molecules/SectionHeader"
 import { Rocket } from "lucide-react"
+import { fadeUp, staggerContainer, scaleIn, defaultTransition } from "@/lib/animations"
 
 export default function About() {
-  return (
-    <section
-      id="about"
-      className="rounded-2xl p-6 md:p-8"
-      style={{
-        background: 'var(--bg-card)',
-        border: '1px solid rgba(99,102,241,0.1)',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
-      }}
-    >
-      <SectionHeader title="Sobre mí" sectionNumber="01" />
+  const ref = useRef<HTMLElement>(null)
+  const inView = useInView(ref, { once: true, amount: 0.2 })
 
-      <div
-        className="flex flex-col gap-5 text-sm leading-relaxed"
-        style={{ color: 'var(--text-secondary)' }}
-      >
-        <p>
+  return (
+    <motion.section
+      ref={ref}
+      id="about"
+      variants={staggerContainer}
+      initial="initial"
+      animate={inView ? "animate" : "initial"}
+      className="rounded-xl p-6"
+      style={{ background: 'var(--bg-card)', border: '1px solid var(--border)' }}
+    >
+      <motion.div variants={fadeUp} transition={defaultTransition}>
+        <SectionHeader title="Sobre mí" sectionNumber="01" />
+      </motion.div>
+
+      <div className="flex flex-col gap-4 text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+        <motion.p variants={fadeUp} transition={{ ...defaultTransition, delay: 0.05 }}>
           Soy Angel,{" "}
           <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>
             Ingeniero de Software y Full Stack Developer
           </span>{" "}
-          de Puebla, México. No me conformo con que &ldquo;funcione&rdquo;: me obsesiona construir sistemas que escalen sin romperse y que realmente ayuden a negocios a crecer.
-        </p>
+          de Puebla, México. Me obsesiona construir sistemas que escalen sin romperse y que realmente ayuden a negocios a crecer.
+        </motion.p>
 
-        <p>
+        <motion.p variants={fadeUp} transition={{ ...defaultTransition, delay: 0.1 }}>
           Domino el ecosistema{" "}
-          <span className="font-semibold" style={{ color: 'var(--accent-cyan)' }}>TypeScript</span>{" "}
+          <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>TypeScript</span>{" "}
           de punta a punta:{" "}
-          <span className="font-semibold" style={{ color: 'var(--accent-violet)', opacity: 0.9 }}>
-            Next.js (App Router + Server Components)
-          </span>{" "}
+          <span className="font-semibold" style={{ color: 'var(--accent)' }}>Next.js (App Router + Server Components)</span>{" "}
           para frontends rápidos y{" "}
-          <span className="font-semibold" style={{ color: 'var(--accent-violet)', opacity: 0.9 }}>
-            NestJS + Prisma
-          </span>{" "}
-          para backends limpios y mantenibles. He reducido latencia en MongoDB un{" "}
-          <span className="font-bold" style={{ color: 'var(--text-primary)' }}>35%</span>, mejorado LCP un{" "}
-          <span className="font-bold" style={{ color: 'var(--text-primary)' }}>20%</span>{" "}
+          <span className="font-semibold" style={{ color: 'var(--accent)' }}>NestJS + Prisma</span>{" "}
+          para backends limpios. He reducido latencia en MongoDB un{" "}
+          <strong style={{ color: 'var(--text-primary)' }}>35%</strong>, mejorado LCP un{" "}
+          <strong style={{ color: 'var(--text-primary)' }}>20%</strong>{" "}
           y automatizado despliegues con Docker y CI/CD.
-        </p>
+        </motion.p>
 
-        {/* Highlight block */}
-        <div
-          className="rounded-xl p-5 flex items-start gap-4"
-          style={{
-            background: 'rgba(124,58,237,0.06)',
-            border: '1px solid rgba(124,58,237,0.2)',
-            borderLeft: '3px solid var(--accent-violet)',
-          }}
+        <motion.div
+          variants={scaleIn}
+          transition={{ ...defaultTransition, delay: 0.15 }}
+          className="rounded-lg p-4 flex items-start gap-3"
+          style={{ background: 'var(--accent-soft)', border: '1px solid var(--accent-border)' }}
+          whileHover={{ scale: 1.01 }}
         >
-          <Rocket className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: 'var(--accent-violet)' }} />
+          <Rocket className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: 'var(--accent)' }} />
           <div>
-            <p className="font-semibold text-sm mb-1" style={{ color: 'var(--text-primary)' }}>
-              Lo que más me motiva ahora:
-            </p>
+            <p className="font-semibold text-sm mb-1" style={{ color: 'var(--text-primary)' }}>Lo que más me motiva:</p>
             <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-              Crear productos production-ready con IA integrada (como en Staicka, mi estudio freelance), optimizar APIs para que respondan en milisegundos y ayudar a startups a lanzar sin dolores técnicos.
+              Crear productos production-ready con IA integrada, optimizar APIs y ayudar a startups a lanzar sin dolores técnicos.
             </p>
           </div>
-        </div>
-
-        <p className="text-xs italic" style={{ color: 'var(--text-muted)' }}>
-          Fuera del código, exploro videojuegos independientes y proyectos creativos que me mantienen pensando diferente.
-        </p>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   )
 }
