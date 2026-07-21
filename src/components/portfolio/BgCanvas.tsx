@@ -30,13 +30,16 @@ export default function BgCanvas() {
   useEffect(() => {
     const canvas = ref.current
     if (!canvas) return
-    const ctx = canvas.getContext("2d")!
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
     let animId: number
     let W = 0, H = 0
     let particles: Particle[] = []
     let streaks:   Streak[]   = []
 
     function resize() {
+      if (!canvas) return
       W = canvas.width  = window.innerWidth
       H = canvas.height = window.innerHeight
       particles = Array.from({ length: 160 }, () => makeParticle(W, H))
@@ -44,6 +47,7 @@ export default function BgCanvas() {
     }
 
     function draw(t: number) {
+      if (!ctx) return
       ctx.clearRect(0, 0, W, H)
       // Stars
       particles.forEach(p => {
