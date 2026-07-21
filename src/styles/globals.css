@@ -2,33 +2,29 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ══ DESIGN TOKENS ════════════════════════════════════════ */
+/* ══ HUMAN DESIGN SYSTEM — Sophisticated Crimson Obsidian ════ */
 :root {
-  --bg:          #0a0a12;
-  --bg2:         #0e0e1a;
-  --bg-card:     #111120;
-  --red:         #c9184a;
-  --red-glow:    rgba(201, 24, 74, 0.35);
-  --red-dim:     rgba(201, 24, 74, 0.12);
-  --white:       #ffffff;
-  --grey:        #8888a0;
-  --grey2:       #4a4a60;
-  --border-p:    rgba(255, 255, 255, 0.06);
+  /* Rich obsidian Charcoal base */
+  --bg:            #0B0B10;
+  --bg-subtle:     #12121A;
+  --bg-card:       #151520;
+  --bg-card-hover: #1A1A28;
 
-  --bg-root:     #0a0a12;
-  --bg-surface:  #0e0e1a;
-  --bg-card-cv:  #111120;
-  --accent:      #c9184a;
-  --accent-light:#e8225a;
-  --accent-hover:#a51039;
-  --accent-soft: rgba(201,24,74,0.10);
-  --accent-border:rgba(201,24,74,0.25);
-  --text-primary:   #f5f0f0;
-  --text-secondary: #8888a0;
-  --text-muted:     #4a4a60;
-  --border:      rgba(255,255,255,0.06);
-  --grad-button: linear-gradient(135deg, #8b1020 0%, #c9184a 60%, #a01e35 100%);
-  --grad-name:   linear-gradient(135deg, #f0c0c8 0%, #c9184a 45%, #8b1020 100%);
+  /* Sophisticated Crimson Wine palette (not stark red) */
+  --red:           #A31638;
+  --red-accent:    #D94663;
+  --red-glow:      rgba(217, 70, 99, 0.28);
+  --red-dim:       rgba(163, 22, 56, 0.12);
+
+  /* Warm champagne white typography */
+  --white:         #F3EFEF;
+  --white-muted:   #C8C4C8;
+  --grey:          #8D8D9E;
+  --grey2:         #3D3D4E;
+  --border-p:      rgba(243, 239, 239, 0.07);
+
+  --accent:        #A31638;
+  --accent-light:  #D94663;
 }
 
 /* ══ BASE ══════════════════════════════════════════════════ */
@@ -47,47 +43,33 @@ body {
 ::-webkit-scrollbar-track  { background: var(--bg); }
 ::-webkit-scrollbar-thumb  { background: var(--red); border-radius: 3px; }
 
-/* ══ RESPONSIVE UTILITIES & CONTAINER ══════════════════════ */
+/* ══ RESPONSIVE CONTAINER ═══════════════════════════════════ */
 .container-pad {
   padding: 5rem 4rem;
 }
-
 @media (max-width: 1024px) {
-  .container-pad {
-    padding: 4rem 2rem;
-  }
+  .container-pad { padding: 4rem 2rem; }
 }
-
 @media (max-width: 768px) {
-  .container-pad {
-    padding: 3rem 1.25rem;
-  }
+  .container-pad { padding: 3rem 1.25rem; }
 }
 
-/* ══ GLOBAL ANIMATIONS ═══════════════════════════════════════ */
+/* ══ ANIMATIONS ═════════════════════════════════════════════ */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(22px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes fadeDown {
   from { opacity: 0; transform: translateY(-12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-@keyframes shimmer {
-  0%   { transform: translateX(-100%) skewX(-15deg); }
-  100% { transform: translateX(200%)  skewX(-15deg); }
-}
 @keyframes scroll-drip {
-  0%, 100% { opacity: 0.3; transform: scaleY(0.6) translateY(-4px); }
-  50%       { opacity: 1;   transform: scaleY(1)   translateY(0); }
+  0%, 100% { opacity: 0.35; transform: scaleY(0.6) translateY(-4px); }
+  50%       { opacity: 1;    transform: scaleY(1)   translateY(0); }
 }
 @keyframes pulse-halo {
-  0%, 100% { transform: scale(1);   opacity: 1; }
-  50%       { transform: scale(1.12); opacity: 0.65; }
+  0%, 100% { transform: scale(1);   opacity: 0.9; }
+  50%       { transform: scale(1.1); opacity: 0.55; }
 }
 
 /* ══ 3D SCENE ════════════════════════════════════════════════ */
@@ -122,13 +104,13 @@ body {
 .geo-r1 .face-main {
   position: absolute; inset: 0;
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-  background: linear-gradient(145deg, #e8225a, #7a001e);
-  box-shadow: 0 0 32px 6px rgba(201,24,74,0.5), 0 0 70px 10px rgba(201,24,74,0.18);
+  background: linear-gradient(145deg, #D94663, #6B0C22);
+  box-shadow: 0 0 35px 6px rgba(217,70,99,0.45), 0 0 70px 10px rgba(163,22,56,0.2);
 }
 .geo-r1 .face-shine {
   position: absolute; inset: 0;
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-  background: linear-gradient(325deg, rgba(255,255,255,0.18), transparent 60%);
+  background: linear-gradient(325deg, rgba(243,239,239,0.22), transparent 60%);
 }
 
 .geo-r2 {
@@ -143,9 +125,9 @@ body {
 .geo-r2 .face-main {
   position: absolute; inset: 0;
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-  background: rgba(255,255,255,0.09);
-  border: 1px solid rgba(255,255,255,0.3);
-  box-shadow: 0 0 16px 3px rgba(255,255,255,0.08);
+  background: rgba(243,239,239,0.08);
+  border: 1px solid rgba(243,239,239,0.25);
+  box-shadow: 0 0 16px 3px rgba(243,239,239,0.06);
 }
 
 .geo-r3 {
@@ -161,8 +143,8 @@ body {
   position: absolute; inset: 0;
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
   background: transparent;
-  border: 1.5px solid var(--red);
-  box-shadow: 0 0 10px 2px var(--red-glow);
+  border: 1.5px solid var(--red-accent);
+  box-shadow: 0 0 12px 2px var(--red-glow);
 }
 
 .geo-t1 {
@@ -170,8 +152,8 @@ body {
   width: 0; height: 0;
   border-left:   22px solid transparent;
   border-right:  22px solid transparent;
-  border-bottom: 38px solid rgba(201,24,74,0.65);
-  filter: drop-shadow(0 0 8px rgba(201,24,74,0.6));
+  border-bottom: 38px solid rgba(217,70,99,0.6);
+  filter: drop-shadow(0 0 8px rgba(217,70,99,0.5));
   animation: float-t1 6s ease-in-out infinite;
 }
 @keyframes float-t1 {
@@ -184,8 +166,8 @@ body {
   width: 0; height: 0;
   border-left:   14px solid transparent;
   border-right:  14px solid transparent;
-  border-top:    24px solid rgba(255,255,255,0.16);
-  filter: drop-shadow(0 0 5px rgba(255,255,255,0.12));
+  border-top:    24px solid rgba(243,239,239,0.15);
+  filter: drop-shadow(0 0 5px rgba(243,239,239,0.1));
   animation: float-t2 5.5s ease-in-out 1s infinite;
 }
 @keyframes float-t2 {
@@ -207,8 +189,8 @@ body {
 .cube-face {
   position: absolute;
   width: 110px; height: 110px;
-  border: 1px solid rgba(201,24,74,0.28);
-  background: rgba(201,24,74,0.02);
+  border: 1px solid rgba(217,70,99,0.25);
+  background: rgba(163,22,56,0.02);
 }
 .cf-front  { transform: translateZ(55px); }
 .cf-back   { transform: translateZ(-55px) rotateY(180deg); }
@@ -231,38 +213,15 @@ body {
 .geo-ring {
   position: absolute; inset: 0;
   border-radius: 50%;
-  border: 1.5px solid rgba(201,24,74,0.4);
-  box-shadow: 0 0 14px rgba(201,24,74,0.15), inset 0 0 14px rgba(201,24,74,0.05);
+  border: 1.5px solid rgba(217,70,99,0.35);
+  box-shadow: 0 0 14px rgba(217,70,99,0.15), inset 0 0 14px rgba(163,22,56,0.05);
 }
 .geo-ring-dot {
   position: absolute;
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: var(--red);
+  background: var(--red-accent);
   top: -3px; left: 50%;
   transform: translateX(-50%);
   box-shadow: 0 0 10px 4px var(--red-glow);
 }
-
-.section-tag {
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
-  opacity: 0.9;
-}
-.gradient-name {
-  background: var(--grad-name);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.btn-shimmer::after {
-  content: '';
-  position: absolute; top: 0; left: 0;
-  width: 40%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.14), transparent);
-  transform: translateX(-100%) skewX(-15deg);
-}
-.btn-shimmer:hover::after { animation: shimmer 0.6s ease; }

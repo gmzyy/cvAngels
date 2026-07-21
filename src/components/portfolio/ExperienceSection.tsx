@@ -28,7 +28,7 @@ const JOBS: Job[] = [
           "Diseñé e implementé el flujo end-to-end de autenticación 2FA/TOTP (QR, OTP, códigos de respaldo), protegiendo operaciones críticas como transferencias SPEI y administración de cuentas.",
           "Resolví vulnerabilidades de replay attack y cifré la transmisión de tokens TOTP en peticiones HTTP, junto con un sistema de expiración automática de sesión por inactividad.",
           "Refactoricé el motor de consultas SPEI IN/OUT migrando a un modelo de filtrado híbrido (servidor + cliente), resolviendo errores 500/502 mediante procesamiento por bloques (chunked fetching).",
-          "Construí un motor de exportación masiva (ZIP/Excel) con sincronización del 100% entre los filtros aplicados y los datos descargados.",
+          "Construí un motor de exportación masiva (ZIP/Excel) con sincronización total entre los filtros aplicados y los datos descargados.",
           "Diseñé el custom hook central useServerList, estandarizando paginación y manejo de filtros en toda la plataforma.",
         ],
       },
@@ -50,7 +50,7 @@ const JOBS: Job[] = [
     link: "https://staicka.vercel.app",
     bullets: [
       "Diseño y desarrollo de aplicaciones web escalables con Next.js y NestJS, optimizando la arquitectura para diversos requerimientos comerciales.",
-      "Optimicé tiempos de entrega en un 40% mediante flujos de trabajo asistidos por IA para generación de boilerplate y validación lógica.",
+      "Optimicé flujos de desarrollo y velocidad de entregas mediante flujos asistidos por IA para generación de boilerplate y validación lógica.",
       "Construcción de interfaces responsivas con Tailwind CSS, garantizando estándares de SEO y conversión de usuario.",
     ],
   },
@@ -59,9 +59,9 @@ const JOBS: Job[] = [
     role: "Full Stack Developer",
     period: "Julio 2024 – Febrero 2025",
     bullets: [
-      "Reduje en un 35% la latencia de consultas en MongoDB mediante el rediseño estratégico de esquemas e índices.",
-      "Mejoré en un 20% las métricas de LCP (Largest Contentful Paint) mediante la implementación de componentes avanzados con Next.js App Router.",
-      "Configuré pipelines de CI/CD, incrementando la velocidad de entrega en producción en un 15%.",
+      "Optimicé la latencia y rendimiento de consultas en MongoDB mediante el rediseño estratégico de esquemas e índices.",
+      "Mejoré significativamente las métricas de LCP (Largest Contentful Paint) mediante la implementación de componentes avanzados con Next.js App Router.",
+      "Configuré pipelines de CI/CD, incrementando la agilidad y confiabilidad en entregas a producción.",
     ],
   },
 ]
