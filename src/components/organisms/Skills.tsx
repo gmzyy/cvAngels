@@ -9,20 +9,28 @@ import { fadeUp, staggerContainer, staggerContainerFast, defaultTransition } fro
 
 const skillCategories = [
   {
+    category: "Lenguajes",
+    skills: ["TypeScript", "JavaScript (ES6+)", "Python", "Dart", "C# / .NET Core", "PHP", "SQL"],
+  },
+  {
+    category: "Backend",
+    skills: ["Node.js", "NestJS", "Express", "FastAPI", "Prisma ORM", "REST APIs", "JWT & Auth"],
+  },
+  {
     category: "Frontend & UI",
-    skills: ["JavaScript (ES6+)", "React.js", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "React Query", "Zustand", "Shadcn/ui"],
+    skills: ["Next.js", "React.js", "Tailwind CSS", "Framer Motion", "React Query", "Zustand"],
   },
   {
-    category: "Arquitectura & Backend",
-    skills: ["Node.js", "Express", "NestJS", "Prisma ORM", "REST APIs", "JWT & Auth"],
+    category: "Bases de Datos",
+    skills: ["MongoDB", "PostgreSQL / MySQL"],
   },
   {
-    category: "Data & DevOps / Cloud",
-    skills: ["MongoDB", "PostgreSQL / MySQL", "Docker", "CI/CD (Vercel, GitHub Actions)", "AWS (ECS, RDS)", "Git / GitHub"],
+    category: "Cloud & DevOps",
+    skills: ["Docker", "AWS (ECS, RDS)", "CI/CD (Vercel, GitHub Actions)", "Git / GitHub"],
   },
   {
-    category: "Otras Tecnologías",
-    skills: ["C# / .NET Core", "PHP", "Scrum", "Postman"],
+    category: "Seguridad & IA",
+    skills: ["2FA/TOTP & MFA", "Postman", "Scrum"],
   },
 ]
 

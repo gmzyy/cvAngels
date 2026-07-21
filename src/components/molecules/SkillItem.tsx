@@ -18,37 +18,45 @@ import {
   SiDotnet,
   SiPhp,
   SiPostman,
+  SiPython,
+  SiFastapi,
+  SiDart,
 } from "react-icons/si"
-import type { IconType } from "react-icons"
+import { Shield, Database } from "lucide-react"
 
 type Props = { name: string }
 
-const ICON_MAP: Record<string, IconType> = {
-  "JavaScript (ES6+)": SiJavascript,
-  "React.js": SiReact,
-  "Next.js": SiNextdotjs,
-  "TypeScript": SiTypescript,
-  "Tailwind CSS": SiTailwindcss,
-  "Framer Motion": SiFramer,
-  "React Query": SiReact,
-  "Zustand": SiReact,
-  "Shadcn/ui": SiReact,
-  "Node.js": SiNodedotjs,
-  "Express": SiExpress,
-  "NestJS": SiNestjs,
-  "Prisma ORM": SiPrisma,
-  "REST APIs": SiNodedotjs,
-  "JWT & Auth": SiGithub,
-  "MongoDB": SiMongodb,
-  "PostgreSQL / MySQL": SiPostgresql,
-  "Docker": SiDocker,
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ICON_MAP: Record<string, any> = {
+  "TypeScript":                     SiTypescript,
+  "JavaScript (ES6+)":              SiJavascript,
+  "Python":                         SiPython,
+  "Dart":                           SiDart,
+  "C# / .NET Core":                 SiDotnet,
+  "PHP":                            SiPhp,
+  "SQL":                            Database,
+  "Node.js":                        SiNodedotjs,
+  "NestJS":                         SiNestjs,
+  "Express":                        SiExpress,
+  "FastAPI":                        SiFastapi,
+  "Prisma ORM":                     SiPrisma,
+  "REST APIs":                      SiNodedotjs,
+  "JWT & Auth":                     Shield,
+  "Next.js":                        SiNextdotjs,
+  "React.js":                       SiReact,
+  "Tailwind CSS":                   SiTailwindcss,
+  "Framer Motion":                  SiFramer,
+  "React Query":                    SiReact,
+  "Zustand":                        SiReact,
+  "MongoDB":                        SiMongodb,
+  "PostgreSQL / MySQL":             SiPostgresql,
+  "Docker":                         SiDocker,
+  "AWS (ECS, RDS)":                 SiAmazon,
   "CI/CD (Vercel, GitHub Actions)": SiGit,
-  "AWS (ECS, RDS)": SiAmazon,
-  "Git / GitHub": SiGit,
-  "C# / .NET Core": SiDotnet,
-  "PHP": SiPhp,
-  "Scrum": SiGithub,
-  "Postman": SiPostman,
+  "Git / GitHub":                   SiGithub,
+  "2FA/TOTP & MFA":                 Shield,
+  "Postman":                        SiPostman,
+  "Scrum":                          SiGithub,
 }
 
 export default function SkillItem({ name }: Props) {
@@ -64,7 +72,7 @@ export default function SkillItem({ name }: Props) {
       }}
       onMouseEnter={e => {
         const el = e.currentTarget as HTMLDivElement
-        el.style.borderColor = 'var(--accent)'
+        el.style.borderColor = 'var(--accent-border)'
         el.style.color = 'var(--text-primary)'
         el.style.background = 'var(--accent-soft)'
       }}

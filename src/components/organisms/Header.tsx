@@ -1,28 +1,28 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
+import { useEffect, useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import Button from "../atoms/Button"
 import ThemeSwitch from "../atoms/ThemeSwitch"
-import { Phone, Mail, Github, Linkedin, Download, ChevronRight } from "lucide-react"
+import { Phone, Mail, Github, Linkedin, Download, ChevronRight, MapPin } from "lucide-react"
 import { fadeUp, staggerContainer, slideInLeft, fastTransition, springTransition } from "@/lib/animations"
 
 const navLinks = [
-  { label: "Sobre mí", href: "#about" },
-  { label: "Experiencia", href: "#experience" },
-  { label: "Habilidades", href: "#skills" },
-  { label: "Proyectos", href: "#projects" },
-  { label: "Educación", href: "#education" },
+  { label: "Sobre mí",     href: "#about" },
+  { label: "Experiencia",  href: "#experience" },
+  { label: "Habilidades",  href: "#skills" },
+  { label: "Proyectos",    href: "#projects" },
+  { label: "Educación",    href: "#education" },
 ]
 
 const contactLinks = [
-  { icon: Phone, label: '221 822 6470', href: 'tel:2218226470' },
-  { icon: Mail, label: 'angelgom042@gmail.com', href: 'mailto:angelgom042@gmail.com' },
-  { icon: Github, label: 'github.com/Gmzyy', href: 'https://github.com/Gmzyy', external: true },
-  { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/angel-gomez-59b341350', external: true },
+  { icon: MapPin,   label: 'Puebla, México',          href: '#' },
+  { icon: Mail,     label: 'angelgom042@gmail.com',   href: 'mailto:angelgom042@gmail.com' },
+  { icon: Phone,    label: '+52 221 915 6631 (WA)',   href: 'https://wa.me/522219156631', external: true },
+  { icon: Github,   label: 'github.com/Gmzyy',        href: 'https://github.com/Gmzyy', external: true },
+  { icon: Linkedin, label: 'LinkedIn',                href: 'https://www.linkedin.com/in/angel-gomez-59b341350', external: true },
 ]
 
-// Typewriter component
 function Typewriter({ text, delay = 0 }: { text: string; delay?: number }) {
   const [displayed, setDisplayed] = useState("")
   const [started, setStarted] = useState(false)
@@ -35,7 +35,7 @@ function Typewriter({ text, delay = 0 }: { text: string; delay?: number }) {
   useEffect(() => {
     if (!started) return
     if (displayed.length >= text.length) return
-    const t = setTimeout(() => setDisplayed(text.slice(0, displayed.length + 1)), 60)
+    const t = setTimeout(() => setDisplayed(text.slice(0, displayed.length + 1)), 55)
     return () => clearTimeout(t)
   }, [started, displayed, text])
 
@@ -46,7 +46,7 @@ function Typewriter({ text, delay = 0 }: { text: string; delay?: number }) {
         {displayed.length < text.length && (
           <motion.span
             animate={{ opacity: [1, 0, 1] }}
-            transition={{ duration: 0.8, repeat: Infinity }}
+            transition={{ duration: 0.7, repeat: Infinity }}
             className="inline-block ml-0.5 w-0.5 h-3 rounded-sm align-middle"
             style={{ background: 'var(--accent)' }}
           />
@@ -76,12 +76,17 @@ export default function Header() {
       {/* Avatar + theme switch */}
       <motion.div variants={fadeUp} transition={fastTransition} className="flex items-start justify-between">
         <motion.div
-          className="w-14 h-14 rounded-xl flex items-center justify-center font-bold text-lg text-white select-none"
-          style={{ background: 'var(--accent)' }}
+          className="w-14 h-14 rounded-xl flex items-center justify-center font-black text-base text-white select-none relative overflow-hidden"
+          style={{ background: 'var(--grad-button)' }}
           whileHover={{ scale: 1.06, rotate: 3 }}
           whileTap={{ scale: 0.96 }}
           transition={springTransition}
         >
+          {/* shimmer on avatar */}
+          <span
+            className="absolute inset-0 opacity-20"
+            style={{ background: 'linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%)' }}
+          />
           AG
         </motion.div>
         <ThemeSwitch />
@@ -92,11 +97,17 @@ export default function Header() {
         <h1 className="gradient-name text-3xl xl:text-4xl font-black leading-tight tracking-tight">
           Angel Gomez
         </h1>
-        <p className="mt-1.5 text-xs font-semibold tracking-widest uppercase" style={{ color: 'var(--accent)', minHeight: '1em' }}>
-          <Typewriter text="Full Stack Developer" delay={400} />
+        <h2
+          className="gradient-name text-lg xl:text-xl font-black leading-tight tracking-tight"
+          style={{ fontSize: '1rem', marginTop: '2px' }}
+        >
+          Garcia
+        </h2>
+        <p className="mt-2 text-xs font-semibold tracking-widest uppercase" style={{ color: 'var(--accent)', minHeight: '1em' }}>
+          <Typewriter text="Fullstack Developer" delay={400} />
         </p>
         <p className="mt-3 text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-          Especializado en construir aplicaciones web escalables y APIs robustas con MERN, Next.js y NestJS.
+          Construyendo plataformas fintech, sistemas de IA y apps web escalables desde Puebla, México.
         </p>
       </motion.div>
 

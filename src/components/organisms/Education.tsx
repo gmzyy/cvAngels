@@ -7,8 +7,16 @@ import { GraduationCap, Globe } from "lucide-react"
 import { fadeUp, staggerContainer, drawLine, defaultTransition } from "@/lib/animations"
 
 const education = [
-  { degree: "Ingeniería en Software", school: "Universidad Tecnológica de Puebla (UTP)", period: "2024 – 2026" },
-  { degree: "TSU en Software", school: "Universidad Tecnológica de Puebla (UTP)", period: "2022 – 2024" },
+  {
+    degree: "Ingeniería en Desarrollo de Software Multiplataforma",
+    school: "Universidad Tecnológica de Puebla (UTP)",
+    period: "2024 – 2026",
+  },
+  {
+    degree: "TSU en Desarrollo de Software Multiplataforma",
+    school: "Universidad Tecnológica de Puebla (UTP)",
+    period: "2022 – 2024",
+  },
 ]
 
 export default function Education() {
@@ -30,12 +38,11 @@ export default function Education() {
       </motion.div>
 
       <div className="relative flex flex-col gap-7 mb-8">
-        {/* Timeline draw-in */}
         <motion.div
           variants={drawLine}
           transition={{ duration: 0.7, ease: "easeInOut", delay: 0.2 }}
           className="absolute left-[7px] top-2 bottom-2 w-px"
-          style={{ background: 'var(--border)', transformOrigin: 'top' }}
+          style={{ background: 'linear-gradient(to bottom, var(--accent), var(--border))', transformOrigin: 'top' }}
         />
 
         {education.map((entry, i) => (
@@ -47,7 +54,7 @@ export default function Education() {
           >
             <motion.span
               className="absolute left-0 top-[6px] h-3 w-3 rounded-full"
-              style={{ background: 'var(--accent)', border: '2px solid var(--bg-card)' }}
+              style={{ background: 'var(--accent)', border: '2px solid var(--bg-card)', boxShadow: '0 0 6px rgba(139,26,43,0.4)' }}
               initial={{ scale: 0 }}
               animate={inView ? { scale: 1 } : { scale: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 22, delay: i * 0.12 + 0.3 }}
@@ -75,22 +82,23 @@ export default function Education() {
         style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)' }}
         variants={fadeUp}
         transition={{ ...defaultTransition, delay: 0.4 }}
-        whileHover={{ borderColor: 'var(--accent)', scale: 1.01 }}
+        whileHover={{ borderColor: 'var(--accent-border)', scale: 1.01 }}
       >
         <div className="flex items-center gap-2.5 mb-2">
           <Globe className="w-3.5 h-3.5" style={{ color: 'var(--accent)' }} />
           <span className="font-semibold text-sm" style={{ color: 'var(--text-primary)' }}>Inglés</span>
           <motion.span
             className="text-[0.65rem] font-semibold px-2 py-0.5 rounded"
-            style={{ background: 'var(--accent-soft)', color: 'var(--accent)', border: '1px solid var(--accent-border)' }}
+            style={{ background: 'var(--accent-soft)', color: 'var(--accent-light)', border: '1px solid var(--accent-border)' }}
             whileHover={{ scale: 1.05 }}
           >
-            A2
+            A2+ → B2
           </motion.span>
         </div>
         <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-          Lectura de <strong style={{ color: 'var(--text-primary)' }}>documentación técnica</strong>, resolución de{" "}
-          <span style={{ color: 'var(--accent)' }}>issues</span> en GitHub y comunicación escrita en entornos de desarrollo.
+          Nivel técnico (A2+). Lectura de{" "}
+          <strong style={{ color: 'var(--text-primary)' }}>documentación técnica</strong>, resolución de issues en GitHub y comunicación escrita en entornos de desarrollo.{" "}
+          <span style={{ color: 'var(--accent)' }}>En preparación activa para certificación B2 (2026)</span>.
         </p>
       </motion.div>
     </motion.section>
