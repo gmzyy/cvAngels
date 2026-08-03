@@ -259,7 +259,7 @@ export default function TopNavBar() {
             {/* Header Stamp in Menu */}
             <div style={{
               display: "flex",
-              justify: "space-between",
+              justifyContent: "space-between",
               alignItems: "center",
               marginBottom: "1rem",
               borderBottom: "2px dashed var(--red)",
