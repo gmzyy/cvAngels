@@ -1,64 +1,86 @@
 "use client"
+import { Mail, MessageSquare } from "lucide-react"
 
 export default function SiteFooter() {
   const year = new Date().getFullYear()
 
-  const SocialLink = ({ href, label, children }: { href: string; label: string; children: React.ReactNode }) => (
-    <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-      style={{ width: 28, height: 28, borderRadius: "50%", border: "1px solid var(--grey2)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--grey)", textDecoration: "none", transition: "border-color 0.2s, color 0.2s" }}
-      onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.borderColor = "var(--red)"; el.style.color = "var(--red)" }}
-      onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.borderColor = "var(--grey2)"; el.style.color = "var(--grey)" }}
-    >
-      {children}
-    </a>
-  )
-
   return (
     <footer style={{
-      position: "relative", zIndex: 10,
-      display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap",
-      padding: "1.6rem 4rem", gap: "1rem",
-      borderTop: "1px solid rgba(255,255,255,0.06)",
-      background: "rgba(10,10,18,0.85)",
+      position: "relative",
+      zIndex: 10,
+      background: "#000000",
+      borderTop: "4px solid var(--red)",
+      padding: "4rem 1.5rem 3rem",
     }}>
-      {/* Left */}
-      <div style={{ display: "flex", alignItems: "center", gap: "1.2rem" }}>
-        <span style={{ fontSize: "0.62rem", color: "var(--grey2)", letterSpacing: "0.06em" }}>
-          © {year} Angel Gomez Garcia
-        </span>
-        <div style={{ display: "flex", gap: "0.5rem" }}>
-          <SocialLink href="https://www.linkedin.com/in/angel-gomez-59b341350" label="LinkedIn">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-              <rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" />
-            </svg>
-          </SocialLink>
-          <SocialLink href="#" label="X / Twitter">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-            </svg>
-          </SocialLink>
-          <SocialLink href="https://github.com/Gmzyy" label="GitHub">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-            </svg>
-          </SocialLink>
+      <div style={{
+        maxWidth: "1400px",
+        margin: "0 auto",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        flexWrap: "wrap",
+        gap: "2rem",
+      }}>
+        {/* Left */}
+        <div>
+          <div className="font-spray" style={{ fontSize: "2.8rem", color: "var(--red)", lineHeight: 1, WebkitTextStroke: "1px #FFFFFF" }}>
+            FEELMZ // GEELMZ
+          </div>
+          <div className="font-mono" style={{ fontSize: "0.75rem", color: "#AAAAAA", marginTop: "0.5rem", letterSpacing: "0.1em" }}>
+            © {year} ANGEL GOMEZ GARCIA • ALL RIGHTS RESERVED
+          </div>
         </div>
-      </div>
 
-      {/* Center */}
-      <div style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--red)" }}>
-        Let's Collaborate
-      </div>
+        {/* Center Tag */}
+        <div className="sticker-box font-mono" style={{ fontSize: "0.85rem", transform: "rotate(-2deg)", background: "#FFFFFF", color: "#000000", border: "2px solid var(--red)" }}>
+          STREET FULLSTACK &amp; IA // PUEBLA, MÉXICO
+        </div>
 
-      {/* Right */}
-      <div style={{ textAlign: "right" }}>
-        <p style={{ fontSize: "0.62rem", color: "var(--grey2)", letterSpacing: "0.06em" }}>
-          angelgom042@gmail.com
-        </p>
-        <p style={{ fontSize: "0.52rem", color: "var(--grey2)", marginTop: 2, letterSpacing: "0.08em" }}>
-          16:9 Desktop &nbsp;·&nbsp; 2560×1440
-        </p>
+        {/* Right Contact Stickers */}
+        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+          <a
+            href="mailto:angelgom042@gmail.com"
+            className="font-mono"
+            style={{
+              background: "#111111",
+              color: "#FFFFFF",
+              border: "2px solid #FFFFFF",
+              padding: "0.5rem 1rem",
+              fontSize: "0.8rem",
+              textDecoration: "none",
+              boxShadow: "3px 3px 0px var(--red)",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+            }}
+          >
+            <Mail size={14} style={{ color: "var(--red)" }} />
+            <span>angelgom042@gmail.com</span>
+          </a>
+
+          <a
+            href="https://wa.me/522218226470"
+            target="_blank"
+            rel="noreferrer"
+            className="font-mono"
+            style={{
+              background: "var(--red)",
+              color: "#FFFFFF",
+              border: "2px solid #FFFFFF",
+              padding: "0.5rem 1rem",
+              fontSize: "0.8rem",
+              textDecoration: "none",
+              boxShadow: "3px 3px 0px #000000",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              fontWeight: 700,
+            }}
+          >
+            <MessageSquare size={14} style={{ color: "#FFF" }} />
+            <span>WA / TEL: +52 221 822 6470</span>
+          </a>
+        </div>
       </div>
     </footer>
   )

@@ -6,13 +6,14 @@ export default function Document() {
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Street & Underground Font Stack */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=JetBrains+Mono:wght@400;500&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Gloria+Hallelujah&family=Kalam:wght@400;700&family=Permanent+Marker&family=Rock+Salt&family=Sedgwick+Ave&family=Sedgwick+Ave+Display&family=Rubik+Spray+Paint&family=East+Sea+Dokdo&family=Mr+Dafoe&family=Splash&family=Creepster&family=Bebas+Neue&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;600;800;900&family=Rubik+Glitch&display=swap"
           rel="stylesheet"
         />
-        <meta name="description" content="Angel Gomez Garcia – Desarrollador Fullstack & IA. Puebla, México." />
-        <meta name="author" content="Angel Gomez Garcia" />
-        <meta name="theme-color" content="#0A0A0A" />
+        <meta name="description" content="FEELMZ // GEELMZ — Fullstack Developer & IA. Puebla, México." />
+        <meta name="author" content="Angel Gomez Garcia (Geelmz)" />
+        <meta name="theme-color" content="#080808" />
       </Head>
       <body className="antialiased">
         <Main />

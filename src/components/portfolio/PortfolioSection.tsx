@@ -1,6 +1,8 @@
 "use client"
-import { useState, useRef } from "react"
+import { useState } from "react"
 import CardVisual from "./CardVisual"
+import { ExternalLink, Github, Sparkles } from "lucide-react"
+import { useLanguage } from "@/context/LanguageContext"
 
 type Theme = "nexus" | "lumina" | "orion"
 type Category = "all" | "frontend" | "fullstack_ai"
@@ -18,244 +20,165 @@ interface Project {
   demo?: string
   theme: Theme
   badge: "bell" | "star" | "sun"
+  featured?: boolean
 }
 
-const PROJECTS: Project[] = [
-  // Fullstack / AI / Backend
-  {
-    id: "rag-py",
-    num: "01",
-    title: "STAICKA RAG — Análisis de Documentos",
-    subtitle: "Motor RAG con LangChain, ChromaDB & Gemini",
-    category: "fullstack_ai",
-    theme: "nexus",
-    badge: "star",
-    desc: "Motor de búsqueda y análisis semántico para procesar PDFs (CVs o manuales corporativos) y extraer información inteligente mediante vectores matemáticos.",
-    details: [
-      "Ingesta inteligente con LangChain & ChromaDB",
-      "Modelos Google Gemini & Text-Embeddings",
-      "Búsqueda semántica contextual y ranking de perfiles",
-    ],
-    tags: ["Python 3.10", "LangChain", "ChromaDB", "Gemini", "FastAPI"],
-    github: "https://github.com/gmzyy/RAG-PY",
-  },
-  {
-    id: "talent-scout",
-    num: "02",
-    title: "STAICKA Talent Scout",
-    subtitle: "Motor de Reclutamiento con IA (100% On-Premise)",
-    category: "fullstack_ai",
-    theme: "lumina",
-    badge: "bell",
-    desc: "Sistema integral de reclutamiento inteligente que utiliza SpaCy NLP para extraer texto de PDFs, detectar ~60 patrones de habilidades y rankear candidatos.",
-    details: [
-      "Extracción PDF con PyMuPDF & SpaCy (es_core_news_md)",
-      "Dashboard interactivo Next.js 15, React 19 & Tailwind 4",
-      "Orquestación Docker Compose multi-servicio (FastAPI + MongoDB)",
-    ],
-    tags: ["FastAPI", "Next.js 15", "SpaCy NLP", "MongoDB", "Docker"],
-    github: "https://github.com/gatsbyy/talent-ia",
-  },
-  {
-    id: "auth-core",
-    num: "03",
-    title: "AUTH CORE — Identity System",
-    subtitle: "Sistema Fullstack Dockerizado",
-    category: "fullstack_ai",
-    theme: "orion",
-    badge: "star",
-    desc: "Sistema de autenticación fullstack con arquitectura desacoplada, JWT, Prisma ORM, MySQL y despliegue multi-contenedor con Docker Compose.",
-    details: [
-      "NestJS + Prisma ORM + MySQL relacional",
-      "Autenticación JWT & Gestión de roles/perfiles",
-      "Contenedores independientes para backend, frontend y MySQL",
-    ],
-    tags: ["NestJS", "Prisma ORM", "MySQL", "JWT", "Next.js", "Docker"],
-    github: "https://github.com/gatsbyy/auth-system-docker",
-  },
-  {
-    id: "arcika",
-    num: "04",
-    title: "STAICKA ARCIKA",
-    subtitle: "Generador de Arquitecturas con IA",
-    category: "fullstack_ai",
-    theme: "nexus",
-    badge: "sun",
-    desc: "Herramienta que transforma requerimientos técnicos en esquemas y diagramas de flujo mediante LLMs avanzados. Redujo un 60% el tiempo de setup inicial.",
-    tags: ["Next.js", "NestJS", "LLMs", "Prompt Engineering", "Docker"],
-    github: "https://github.com/Gmzyy",
-    demo: "https://staicka.vercel.app/",
-  },
-
-  // Frontend & Webs
-  {
-    id: "barber",
-    num: "05",
-    title: "Barber Management Platform",
-    subtitle: "Gestión de Citas & Barbería",
-    category: "frontend",
-    theme: "orion",
-    badge: "star",
-    desc: "Plataforma completa de reserva y gestión de citas en tiempo real. Panel administrativo, experiencia de usuario fluida y diseño responsivo.",
-    tags: ["Next.js", "MongoDB", "Tailwind CSS", "Express"],
-    github: "https://github.com/gatsbyy/BarberAngeles",
-    demo: "https://barber-angeles.vercel.app/home",
-  },
-  {
-    id: "sante",
-    num: "06",
-    title: "Santē Dental Clinic",
-    subtitle: "Plataforma Web Odontológica",
-    category: "frontend",
-    theme: "lumina",
-    badge: "sun",
-    desc: "Sitio web comercial para clínica dental con interfaz moderna, presentación de servicios médicos, integración de citas y diseño de alta conversión.",
-    tags: ["React", "Next.js", "Tailwind CSS", "UX/UI"],
-    demo: "https://sante-dental.vercel.app/",
-  },
-  {
-    id: "la-ververa",
-    num: "07",
-    title: "La Ververa",
-    subtitle: "E-Commerce / Branding Web",
-    category: "frontend",
-    theme: "nexus",
-    badge: "bell",
-    desc: "Aplicación web comercial y catálogo interactivo con enfoque en diseño minimalista, animaciones fluidas y optimización de rendimiento.",
-    tags: ["Next.js", "Tailwind CSS", "Framer Motion"],
-    demo: "https://la-ververa.vercel.app/",
-  },
-  {
-    id: "staicka-studio",
-    num: "08",
-    title: "Staicka Studio",
-    subtitle: "Estudio Freelance de Desarrollo & IA",
-    category: "frontend",
-    theme: "orion",
-    badge: "star",
-    desc: "Plataforma oficial de Staicka Studio para exhibición de servicios de desarrollo fullstack, integración de IA y soluciones cloud para negocios.",
-    tags: ["Next.js", "Tailwind CSS", "NestJS", "Vercel"],
-    demo: "https://staicka.vercel.app/",
-  },
-]
-
-const BadgeIcon = ({ type }: { type: string }) => {
-  if (type === "bell") return (
-    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0" />
-    </svg>
-  )
-  if (type === "sun") return (
-    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-      <circle cx="12" cy="12" r="3" />
-      <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
-    </svg>
-  )
-  return (
-    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-    </svg>
-  )
-}
-
-function ProjectCard({ p }: { p: Project }) {
-  const [hovered, setHovered] = useState(false)
+function FeaturedProjectCard({ p }: { p: Project }) {
   return (
     <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       style={{
+        background: "#0A0A0A",
+        border: "3px solid #FFFFFF",
+        boxShadow: "8px 8px 0px var(--red), 8px 8px 0px 3px #000000",
         position: "relative",
-        borderRadius: 12,
-        border: `1px solid ${hovered ? "rgba(201,24,74,0.45)" : "rgba(255,255,255,0.06)"}`,
-        background: "var(--bg-card)",
-        overflow: "hidden",
-        cursor: "pointer",
-        transform: hovered ? "translateY(-6px)" : "translateY(0)",
-        boxShadow: hovered ? "0 14px 44px rgba(201,24,74,0.14), 0 4px 14px rgba(0,0,0,0.5)" : "none",
-        transition: "transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
-        display: "flex", flexDirection: "column",
+        marginBottom: "2rem",
+        display: "grid",
+        gridTemplateColumns: "1fr",
       }}
+      className="md:!grid-cols-[260px_1fr]"
     >
-      {/* Badge */}
       <div style={{
-        position: "absolute", top: 12, right: 12, zIndex: 5,
-        width: 22, height: 22, borderRadius: 6,
+        position: "absolute",
+        top: "-12px",
+        left: "16px",
         background: "var(--red)",
-        display: "flex", alignItems: "center", justifyContent: "center",
-        color: "#fff",
+        color: "#FFFFFF",
+        padding: "2px 8px",
+        fontFamily: "var(--font-mono)",
+        fontSize: "0.65rem",
+        fontWeight: 700,
+        transform: "rotate(-2deg)",
+        zIndex: 20,
+        border: "1px solid #FFFFFF",
       }}>
-        <BadgeIcon type={p.badge} />
+        FLAGSHIP // RELEASE #{p.num}
       </div>
 
-      {/* Visual Canvas Art */}
-      <CardVisual theme={p.theme} height={160} />
+      <div style={{ borderRight: "3px solid #FFFFFF", background: "#000" }}>
+        <CardVisual theme={p.theme} height={180} />
+      </div>
 
-      {/* Body */}
-      <div style={{ padding: "1.2rem 1.25rem 1.3rem", flex: 1, display: "flex", flexDirection: "column" }}>
-        <div style={{ fontSize: "0.54rem", letterSpacing: "0.2em", color: "var(--red)", textTransform: "uppercase", marginBottom: 4, fontWeight: 600 }}>
-          {p.num} / Project
+      <div style={{ padding: "1.2rem 1.5rem", display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.2rem" }}>
+          <span className="sticker-box font-mono" style={{ fontSize: "0.65rem", padding: "1px 5px" }}>
+            [FLAGSHIP PROJECT]
+          </span>
+          <span className="font-wild" style={{ color: "var(--red)", fontSize: "1.1rem" }}>
+            #GEELMZ
+          </span>
         </div>
-        <h3 style={{ fontSize: "0.95rem", fontWeight: 800, letterSpacing: "0.03em", textTransform: "uppercase", color: "#fff", marginBottom: 2 }}>
+
+        <h3 className="font-display" style={{ fontSize: "1.8rem", color: "#FFFFFF", lineHeight: 1, marginTop: 2 }}>
           {p.title}
         </h3>
+
         {p.subtitle && (
-          <div style={{ fontSize: "0.68rem", color: "var(--red)", fontWeight: 500, marginBottom: 8 }}>
+          <div className="font-spray" style={{ fontSize: "1.2rem", color: "var(--red)", margin: "0.2rem 0 0.6rem" }}>
             {p.subtitle}
           </div>
         )}
-        <p style={{ fontSize: "0.75rem", color: "var(--grey)", lineHeight: 1.6, flex: 1, marginBottom: p.details ? 8 : 12 }}>
+
+        <p style={{ fontSize: "0.88rem", color: "#CCCCCC", lineHeight: 1.5, fontFamily: "var(--font-body)", marginBottom: "0.8rem" }}>
           {p.desc}
         </p>
 
-        {p.details && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem", marginBottom: 12 }}>
-            {p.details.map((d, i) => (
-              <div key={i} style={{ fontSize: "0.68rem", color: "rgba(255,255,255,0.75)", display: "flex", gap: "0.45rem", alignItems: "center" }}>
-                <span style={{ width: 4, height: 4, borderRadius: "50%", background: "var(--red)", flexShrink: 0 }} />
-                <span>{d}</span>
-              </div>
-            ))}
-          </div>
-        )}
-
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem", marginTop: "auto", paddingTop: "0.5rem" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "1rem" }}>
           {p.tags.map(t => (
-            <span key={t} style={{
-              fontSize: "0.56rem", fontWeight: 600, letterSpacing: "0.08em",
-              textTransform: "uppercase", padding: "0.2rem 0.5rem",
-              border: `1px solid ${hovered ? "rgba(201,24,74,0.35)" : "rgba(255,255,255,0.08)"}`,
-              borderRadius: 999, color: hovered ? "#fff" : "var(--grey)",
-              transition: "border-color 0.25s, color 0.25s",
-            }}>{t}</span>
+            <span key={t} className="font-mono" style={{ fontSize: "0.68rem", background: "#000000", color: "#FFFFFF", padding: "2px 6px", border: "1px solid #333333" }}>
+              {t}
+            </span>
           ))}
         </div>
 
-        {/* Links */}
-        <div style={{ display: "flex", gap: "1rem", marginTop: "0.9rem", borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: "0.7rem" }}>
+        <div style={{ display: "flex", gap: "0.8rem", borderTop: "2px dashed #333333", paddingTop: "0.8rem", marginTop: "auto", flexWrap: "wrap" }}>
           {p.github && (
-            <a href={p.github} target="_blank" rel="noopener noreferrer"
-              style={{ fontSize: "0.65rem", color: "var(--grey)", textDecoration: "none", display: "flex", alignItems: "center", gap: 5, transition: "color 0.2s" }}
-              onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = "var(--red)"}
-              onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = "var(--grey)"}
-            >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-              </svg>
-              Repositorio
+            <a href={p.github} target="_blank" rel="noreferrer" className="btn-street-secondary" style={{ fontSize: "1rem", padding: "0.4rem 0.8rem" }}>
+              REPOSITORIO <Github size={14} />
             </a>
           )}
           {p.demo && (
-            <a href={p.demo} target="_blank" rel="noopener noreferrer"
-              style={{ fontSize: "0.65rem", color: "var(--grey)", textDecoration: "none", display: "flex", alignItems: "center", gap: 5, transition: "color 0.2s" }}
-              onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = "var(--red)"}
-              onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = "var(--grey)"}
-            >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                <polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
-              </svg>
-              Demo Web ↗
+            <a href={p.demo} target="_blank" rel="noreferrer" className="btn-street-primary" style={{ fontSize: "1rem", padding: "0.4rem 0.8rem" }}>
+              DEMO LIVE <ExternalLink size={14} />
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function StandardProjectCard({ p, idx }: { p: Project; idx: number }) {
+  return (
+    <div
+      style={{
+        background: "#080808",
+        border: "3px solid #FFFFFF",
+        boxShadow: idx % 2 === 0 ? "6px 6px 0px var(--red)" : "6px 6px 0px #FFFFFF",
+        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        transition: "transform 0.2s ease",
+      }}
+    >
+      <div style={{
+        position: "absolute",
+        top: "-12px",
+        left: "12px",
+        background: "#000000",
+        color: "var(--red)",
+        padding: "1px 6px",
+        fontFamily: "var(--font-mono)",
+        fontSize: "0.6rem",
+        fontWeight: 700,
+        zIndex: 20,
+        border: "1px solid var(--red)",
+      }}>
+        #{p.num}
+      </div>
+
+      <CardVisual theme={p.theme} height={100} />
+
+      <div style={{ padding: "1.1rem", flex: 1, display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.2rem" }}>
+          <span className="font-mono" style={{ fontSize: "0.65rem", color: "var(--red)", fontWeight: 700 }}>
+            [SN: {p.id.toUpperCase()}]
+          </span>
+          <span className="font-wild" style={{ color: "var(--red)", fontSize: "1rem" }}>
+            #GEELMZ
+          </span>
+        </div>
+
+        <h3 className="font-display" style={{ fontSize: "1.5rem", color: "#FFFFFF", lineHeight: 1, marginTop: 2 }}>
+          {p.title}
+        </h3>
+
+        {p.subtitle && (
+          <div className="font-spray" style={{ fontSize: "1.1rem", color: "var(--red)", margin: "0.2rem 0 0.5rem" }}>
+            {p.subtitle}
+          </div>
+        )}
+
+        <p style={{ fontSize: "0.84rem", color: "#CCCCCC", lineHeight: 1.5, flex: 1, marginBottom: "0.8rem", fontFamily: "var(--font-body)" }}>
+          {p.desc}
+        </p>
+
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem", marginBottom: "0.9rem" }}>
+          {p.tags.map(t => (
+            <span key={t} className="font-mono" style={{ fontSize: "0.65rem", background: "#000000", color: "#FFFFFF", padding: "2px 5px", border: "1px solid #333333" }}>
+              {t}
+            </span>
+          ))}
+        </div>
+
+        <div style={{ display: "flex", gap: "0.6rem", borderTop: "1px dashed #333333", paddingTop: "0.7rem", marginTop: "auto", flexWrap: "wrap" }}>
+          {p.github && (
+            <a href={p.github} target="_blank" rel="noreferrer" className="btn-street-secondary" style={{ fontSize: "0.9rem", padding: "0.3rem 0.7rem" }}>
+              REPO <Github size={12} />
+            </a>
+          )}
+          {p.demo && (
+            <a href={p.demo} target="_blank" rel="noreferrer" className="btn-street-primary" style={{ fontSize: "0.9rem", padding: "0.3rem 0.7rem" }}>
+              DEMO <ExternalLink size={12} />
             </a>
           )}
         </div>
@@ -266,103 +189,220 @@ function ProjectCard({ p }: { p: Project }) {
 
 export default function PortfolioSection() {
   const [filter, setFilter] = useState<Category>("all")
+  const { t } = useLanguage()
+
+  const PROJECTS: Project[] = [
+    {
+      id: "rag-py",
+      num: "01",
+      featured: true,
+      title: t("STAICKA RAG — Análisis de Documentos", "STAICKA RAG — Document Analysis"),
+      subtitle: "LangChain, ChromaDB & Gemini",
+      category: "fullstack_ai",
+      theme: "nexus",
+      badge: "star",
+      desc: t(
+        "Motor de búsqueda y análisis semántico para procesar PDFs (CVs o manuales corporativos) y extraer información mediante vectores matemáticos.",
+        "Semantic search and analysis engine for processing PDFs (resumes or manuals) and extracting insights via mathematical vectors."
+      ),
+      tags: ["Python 3.10", "LangChain", "ChromaDB", "Gemini", "FastAPI"],
+      github: "https://github.com/gatsbyy/RAG-PY",
+    },
+    {
+      id: "talent-scout",
+      num: "02",
+      title: "STAICKA Talent Scout",
+      subtitle: t("Motor IA 100% On-Premise", "100% On-Premise AI Engine"),
+      category: "fullstack_ai",
+      theme: "lumina",
+      badge: "bell",
+      desc: t(
+        "Sistema integral de reclutamiento inteligente que utiliza SpaCy NLP para extraer texto de PDFs y rankear candidatos.",
+        "Intelligent recruitment system using SpaCy NLP to extract text from PDFs and score candidate profiles."
+      ),
+      tags: ["FastAPI", "Next.js 15", "SpaCy NLP", "MongoDB", "Docker"],
+      github: "https://github.com/gatsbyy/talent-ia",
+    },
+    {
+      id: "auth-core",
+      num: "03",
+      title: "AUTH CORE — Identity System",
+      subtitle: t("Fullstack Dockerizado", "Dockerized Fullstack"),
+      category: "fullstack_ai",
+      theme: "orion",
+      badge: "star",
+      desc: t(
+        "Sistema de autenticación fullstack con arquitectura desacoplada, JWT, Prisma ORM, MySQL y despliegue multi-contenedor.",
+        "Fullstack authentication system featuring decoupled architecture, JWT, Prisma ORM, MySQL, and multi-container deployment."
+      ),
+      tags: ["NestJS", "Prisma ORM", "MySQL", "JWT", "Docker"],
+      github: "https://github.com/gatsbyy/auth-system-docker",
+    },
+    {
+      id: "arcika",
+      num: "04",
+      title: "STAICKA ARCIKA",
+      subtitle: t("Generador de Arquitecturas IA", "AI Architecture Generator"),
+      category: "fullstack_ai",
+      theme: "nexus",
+      badge: "sun",
+      desc: t(
+        "Herramienta que transforma requerimientos técnicos en esquemas y diagramas mediante LLMs avanzados.",
+        "Tool that transforms technical requirements into architecture schemas and diagrams using advanced LLMs."
+      ),
+      tags: ["Next.js", "NestJS", "LLMs", "Prompt Engineering"],
+      github: "https://github.com/Gmzyy",
+      demo: "https://staicka.vercel.app/",
+    },
+    {
+      id: "barber",
+      num: "05",
+      title: "Barber Management Platform",
+      subtitle: t("Gestión de Citas Real-Time", "Real-Time Appointment System"),
+      category: "frontend",
+      theme: "orion",
+      badge: "star",
+      desc: t(
+        "Plataforma completa de reserva y gestión de citas en tiempo real con panel administrativo y UI intuitiva.",
+        "Complete real-time booking and appointment management platform with admin panel and intuitive UI."
+      ),
+      tags: ["Next.js", "MongoDB", "Tailwind CSS", "Express"],
+      github: "https://github.com/gatsbyy/BarberAngeles",
+      demo: "https://barber-angeles.vercel.app/home",
+    },
+    {
+      id: "sante",
+      num: "06",
+      title: "Santē Dental Clinic",
+      subtitle: t("Plataforma Web Odontológica", "Dental Clinic Web Platform"),
+      category: "frontend",
+      theme: "lumina",
+      badge: "sun",
+      desc: t(
+        "Sitio web comercial para clínica dental con interfaz moderna, servicios médicos e integración de citas.",
+        "Commercial website for a dental clinic featuring a modern UI, medical services overview, and booking integration."
+      ),
+      tags: ["React", "Next.js", "Tailwind CSS", "UX/UI"],
+      demo: "https://sante-dental.vercel.app/",
+    },
+    {
+      id: "la-ververa",
+      num: "07",
+      title: "La Ververa",
+      subtitle: "E-Commerce / Branding Web",
+      category: "frontend",
+      theme: "nexus",
+      badge: "bell",
+      desc: t(
+        "Aplicación web comercial y catálogo interactivo con diseño minimalista y animaciones fluidas.",
+        "Commercial web app and interactive product catalog with clean aesthetics and smooth animations."
+      ),
+      tags: ["Next.js", "Tailwind CSS", "Framer Motion"],
+      demo: "https://la-ververa.vercel.app/",
+    },
+    {
+      id: "staicka-studio",
+      num: "08",
+      title: "Staicka Studio",
+      subtitle: t("Estudio Freelance Dev & IA", "Freelance Dev & AI Studio"),
+      category: "frontend",
+      theme: "orion",
+      badge: "star",
+      desc: t(
+        "Plataforma oficial de Staicka Studio para exhibición de servicios fullstack e integración de soluciones cloud.",
+        "Official Staicka Studio platform showcasing fullstack engineering services and cloud integrations."
+      ),
+      tags: ["Next.js", "Tailwind CSS", "NestJS", "Vercel"],
+      demo: "https://staicka.vercel.app/",
+    },
+  ]
 
   const filteredProjects = PROJECTS.filter(p => filter === "all" || p.category === filter)
+  const featured = filteredProjects.find(p => p.featured) || (filteredProjects.length > 0 ? filteredProjects[0] : null)
+  const restProjects = filteredProjects.filter(p => p.id !== (featured ? featured.id : ""))
 
   return (
-    <section id="portfolio" className="container-pad" style={{ position: "relative", zIndex: 10 }}>
+    <section id="portfolio" style={{ padding: "4rem 1.5rem", maxWidth: "1400px", margin: "0 auto", position: "relative", zIndex: 10 }}>
 
-      {/* Header row */}
-      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: "2.5rem", flexWrap: "wrap", gap: "1.5rem" }}>
+      {/* Title Header */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1.5rem", marginBottom: "2.5rem" }}>
         <div>
-          <p style={{ fontSize: "0.6rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "var(--red)", fontWeight: 600, marginBottom: 8 }}>
-            Selected Work
-          </p>
-          <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.6rem)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em" }}>
-            Explore Portfolio
+          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap", marginBottom: "0.3rem" }}>
+            <span className="sticker-box font-mono" style={{ transform: "rotate(-1.5deg)", color: "var(--red)", fontSize: "0.7rem" }}>
+              // {t("GALERÍA DE TRABAJOS", "WORK GALLERY")}
+            </span>
+            <span className="font-mono" style={{ fontSize: "0.65rem", color: "var(--grey)", letterSpacing: "0.15em" }}>
+              [REPOS: 08]
+            </span>
+          </div>
+
+          <h2 className="font-display" style={{
+            fontSize: "clamp(3rem, 6vw, 5rem)",
+            lineHeight: 0.85,
+            color: "#FFFFFF",
+            textShadow: "4px 4px 0px var(--red)",
+            textTransform: "uppercase",
+            margin: 0,
+          }}>
+            {t("PROYECTOS", "PROJECTS")}
           </h2>
+          <div className="font-spray" style={{
+            fontSize: "clamp(2.5rem, 5.5vw, 4.2rem)",
+            color: "var(--red)",
+            lineHeight: 0.9,
+            transform: "rotate(-3deg) translateY(-10px)",
+            WebkitTextStroke: "1px #FFFFFF",
+            display: "inline-block",
+          }}>
+            {t("SELECCIONADOS", "SELECTED WORK")}
+          </div>
         </div>
 
-        {/* Category Filters */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+        {/* Filter Buttons */}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem" }}>
           {[
-            { id: "all", label: "Todos los Proyectos" },
-            { id: "fullstack_ai", label: "Sistemas Fullstack & IA" },
-            { id: "frontend", label: "Frontend & Páginas Web" },
-          ].map(btn => {
-            const active = filter === btn.id
-            return (
-              <button
-                key={btn.id}
-                onClick={() => setFilter(btn.id as Category)}
-                style={{
-                  padding: "0.45rem 1rem",
-                  borderRadius: 999,
-                  fontSize: "0.68rem",
-                  fontWeight: 600,
-                  letterSpacing: "0.06em",
-                  border: `1px solid ${active ? "var(--red)" : "rgba(255,255,255,0.08)"}`,
-                  background: active ? "rgba(201,24,74,0.15)" : "rgba(255,255,255,0.03)",
-                  color: active ? "#fff" : "var(--grey)",
-                  cursor: "pointer",
-                  transition: "all 0.25s ease",
-                }}
-              >
-                {btn.label}
-              </button>
-            )
-          })}
-        </div>
-      </div>
-
-      {/* Layout Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr" }} className="lg:!grid-cols-[200px_1fr] gap-10">
-
-        {/* Sidebar */}
-        <aside style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-          <div>
-            <h4 style={{ fontSize: "0.58rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--red)", marginBottom: "0.8rem", fontWeight: 600 }}>
-              Categorías
-            </h4>
-            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.45rem" }}>
-              <SidebarItem label="Sistemas RAG & NLP" />
-              <SidebarItem label="Arquitectura Docker" />
-              <SidebarItem label="APIs REST & OpenAPI" />
-              <SidebarItem label="Webs Comerciales UI/UX" />
-            </ul>
-          </div>
-
-          <div>
-            <h4 style={{ fontSize: "0.58rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--red)", marginBottom: "0.8rem", fontWeight: 600 }}>
-              Enfoque Tecnológico
-            </h4>
-            <p style={{ fontSize: "0.75rem", color: "var(--grey)", lineHeight: 1.6 }}>
-              Desarrollo de motores de búsqueda semántica on-premise, microservicios contenerizados y landing pages con máximo performance.
-            </p>
-          </div>
-        </aside>
-
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-          {filteredProjects.map(p => (
-            <ProjectCard key={p.id} p={p} />
+            { id: "all", label: t("TODOS", "ALL") },
+            { id: "fullstack_ai", label: "FULLSTACK & IA" },
+            { id: "frontend", label: "FRONTEND & WEBS" },
+          ].map(btn => (
+            <button
+              key={btn.id}
+              onClick={() => setFilter(btn.id as Category)}
+              className="font-display"
+              style={{
+                fontSize: "1.2rem",
+                letterSpacing: "0.03em",
+                padding: "0.4rem 1rem",
+                background: filter === btn.id ? "var(--red)" : "#000000",
+                color: "#FFFFFF",
+                border: "2px solid #FFFFFF",
+                boxShadow: filter === btn.id ? "4px 4px 0px #FFFFFF" : "2px 2px 0px var(--red)",
+                cursor: "pointer",
+                transform: filter === btn.id ? "rotate(-2deg)" : "none",
+                transition: "all 0.2s ease",
+              }}
+            >
+              {btn.label}
+            </button>
           ))}
         </div>
+      </div>
 
+      {/* Featured Compact Hero */}
+      {featured && filter === "all" && (
+        <FeaturedProjectCard p={featured} />
+      )}
+
+      {/* 3-Column Compact Grid */}
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))",
+        gap: "1.5rem"
+      }}>
+        {(filter === "all" ? restProjects : filteredProjects).map((p, idx) => (
+          <StandardProjectCard key={p.id} p={p} idx={idx} />
+        ))}
       </div>
     </section>
-  )
-}
-
-function SidebarItem({ label }: { label: string }) {
-  const ref = useRef<HTMLLIElement>(null)
-  return (
-    <li ref={ref} style={{ fontSize: "0.78rem", color: "var(--grey)", display: "flex", alignItems: "center", gap: "0.5rem", cursor: "pointer", transition: "color 0.2s" }}
-      onMouseEnter={() => { if (ref.current) ref.current.style.color = "#fff" }}
-      onMouseLeave={() => { if (ref.current) ref.current.style.color = "var(--grey)" }}
-    >
-      <span style={{ width: 12, height: 1, background: "var(--grey2)", display: "inline-block", flexShrink: 0 }} />
-      {label}
-    </li>
   )
 }
