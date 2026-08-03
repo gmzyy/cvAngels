@@ -180,15 +180,19 @@ body {
 
 .street-ticker-inner {
   display: flex !important;
+  flex-direction: row !important;
+  flex-shrink: 0 !important;
   white-space: nowrap !important;
-  animation: ticker-scroll 16s linear infinite;
-  align-items: center;
+  animation: ticker-scroll 22s linear infinite !important;
+  align-items: center !important;
+  width: max-content !important;
 }
 
 .street-ticker-inner span {
   white-space: nowrap !important;
   word-break: keep-all !important;
   overflow-wrap: normal !important;
+  flex-shrink: 0 !important;
 }
 
 /* Responsive & Word Break Protections */

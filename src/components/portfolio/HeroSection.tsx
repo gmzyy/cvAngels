@@ -1,30 +1,32 @@
 "use client"
+import { useRef } from "react"
 import Link from "next/link"
 import { useLanguage } from "@/context/LanguageContext"
 
 export default function HeroSection() {
   const { t } = useLanguage()
+  const ref = useRef<HTMLElement>(null)
 
   return (
     <section
+      ref={ref}
       id="hero"
       style={{
         position: "relative",
-        zIndex: 10,
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        background: "#060606",
+        background: "var(--bg)",
         overflow: "hidden",
-        paddingTop: "5.5rem",
+        paddingTop: "clamp(5.5rem, 12vw, 7rem)",
       }}
     >
-      {/* ══ TOP MARQUEE TICKER ══ */}
+      {/* ══ TOP STREET BADGE BAR (ROCK-SOLID & LEGIBLE) ══ */}
       <div style={{
         width: "100%",
-        overflow: "hidden",
-        marginTop: "0.5rem",
+        marginTop: "0.2rem",
+        marginBottom: "1.2rem",
         zIndex: 20,
       }}>
         <div style={{
@@ -32,20 +34,28 @@ export default function HeroSection() {
           color: "#FFFFFF",
           borderTop: "2px solid #FFFFFF",
           borderBottom: "2px solid #FFFFFF",
-          padding: "0.4rem 0",
-          overflow: "hidden",
+          padding: "0.5rem 1rem",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: "0.8rem",
           transform: "rotate(-0.8deg)",
+          boxShadow: "0 4px 10px rgba(0,0,0,0.5)",
         }}>
-          <div className="street-ticker-inner font-display" style={{ fontSize: "1.25rem", letterSpacing: "0.1em", whiteSpace: "nowrap" }}>
-            {Array.from({ length: 4 }).map((_, i) => (
-              <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: "1.5rem", paddingRight: "1.5rem", whiteSpace: "nowrap" }}>
-                <span style={{ whiteSpace: "nowrap" }}>FEELMZ // CORE</span>
-                <span className="font-marker" style={{ color: "#000", fontSize: "1.4rem", whiteSpace: "nowrap" }}>GEELMZ</span>
-                <span style={{ whiteSpace: "nowrap" }}>STREET FULLSTACK</span>
-                <span style={{ whiteSpace: "nowrap" }}>PUEBLA, MÉXICO</span>
-                <span className="font-tag" style={{ color: "#FFF", textShadow: "1px 1px 0 #000", whiteSpace: "nowrap" }}>NO CORPORATE MONOTONY</span>
-              </span>
-            ))}
+          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap" }}>
+            <span className="font-mono" style={{ background: "#000000", color: "#FFFFFF", padding: "2px 8px", fontSize: "0.75rem", fontWeight: 700, border: "1px solid #FFFFFF" }}>
+              [ FULLSTACK DEVELOPER &amp; IA ]
+            </span>
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
+            <span className="font-marker" style={{ color: "#000000", fontSize: "1.4rem", lineHeight: 1 }}>
+              GEELMZ
+            </span>
+            <span className="font-mono" style={{ fontSize: "0.65rem", background: "#FFFFFF", color: "#000000", padding: "1px 6px", fontWeight: 900 }}>
+              ONLINE ●
+            </span>
           </div>
         </div>
       </div>
@@ -60,12 +70,12 @@ export default function HeroSection() {
           maxWidth: "1400px",
           margin: "0 auto",
           width: "100%",
-          padding: "2rem 1.5rem 3rem",
+          padding: "1rem 1.5rem 3rem",
         }}
         className="lg:!grid-cols-[1.1fr_0.9fr]"
       >
 
-        {/* LEFT COLUMN — STREET TYPOGRAPHY IN RED & WHITE */}
+        {/* LEFT COLUMN — TYPOGRAPHY IN RED & WHITE */}
         <div style={{ zIndex: 10, display: "flex", flexDirection: "column", gap: "1.2rem" }}>
 
           {/* Metadata Stamp */}
@@ -126,12 +136,12 @@ export default function HeroSection() {
           }}>
             <div className="font-mono" style={{ fontSize: "0.75rem", color: "var(--red)", marginBottom: "0.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
               <span style={{ width: 8, height: 8, background: "var(--red)", display: "inline-block" }}></span>
-              SOFTWARE_ARCHITECTURE // INTELLECTUAL STREET
+              SOFTWARE_ARCHITECTURE // HIGH_PERFORMANCE
             </div>
             <p style={{ color: "#DDDDDD", fontSize: "0.98rem", lineHeight: 1.6, fontFamily: "var(--font-body)" }}>
               {t(
-                "Construyendo infraestructura digital robusta y escalable. Enfoque en backends de alto rendimiento, frontends reactivos y estética brutalista street que desafía la monotonía corporativa.",
-                "Building robust, scalable digital infrastructure. Focusing on high-performance backends, reactive frontends, and brutalist street aesthetics that challenge corporate monotony."
+                "Construyendo infraestructura digital robusta y escalable. Enfoque en backends de alto rendimiento, frontends reactivos y arquitectura moderna que desafía la monotonía corporativa.",
+                "Building robust, scalable digital infrastructure. Focusing on high-performance backends, reactive frontends, and modern architecture that challenges corporate monotony."
               )}
             </p>
 
