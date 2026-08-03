@@ -22,26 +22,31 @@ export default function HeroSection() {
     >
       {/* ══ TOP MARQUEE TICKER ══ */}
       <div style={{
-        background: "var(--red)",
-        color: "#FFFFFF",
-        borderTop: "2px solid #FFFFFF",
-        borderBottom: "2px solid #FFFFFF",
-        padding: "0.4rem 0",
+        width: "100%",
         overflow: "hidden",
-        transform: "rotate(-0.8deg) scaleX(1.02)",
         marginTop: "0.5rem",
         zIndex: 20,
       }}>
-        <div className="street-ticker-inner font-display" style={{ fontSize: "1.25rem", letterSpacing: "0.1em" }}>
-          {Array.from({ length: 4 }).map((_, i) => (
-            <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: "1.5rem", paddingRight: "1.5rem" }}>
-              <span>FEELMZ // CORE</span>
-              <span className="font-marker" style={{ color: "#000", fontSize: "1.6rem" }}>GEELMZ</span>
-              <span>STREET FULLSTACK</span>
-              <span>PUEBLA, MÉXICO</span>
-              <span className="font-tag" style={{ color: "#FFF", textShadow: "1px 1px 0 #000" }}>NO CORPORATE MONOTONY</span>
-            </span>
-          ))}
+        <div style={{
+          background: "var(--red)",
+          color: "#FFFFFF",
+          borderTop: "2px solid #FFFFFF",
+          borderBottom: "2px solid #FFFFFF",
+          padding: "0.4rem 0",
+          overflow: "hidden",
+          transform: "rotate(-0.8deg)",
+        }}>
+          <div className="street-ticker-inner font-display" style={{ fontSize: "1.25rem", letterSpacing: "0.1em" }}>
+            {Array.from({ length: 4 }).map((_, i) => (
+              <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: "1.5rem", paddingRight: "1.5rem" }}>
+                <span>FEELMZ // CORE</span>
+                <span className="font-marker" style={{ color: "#000", fontSize: "1.6rem" }}>GEELMZ</span>
+                <span>STREET FULLSTACK</span>
+                <span>PUEBLA, MÉXICO</span>
+                <span className="font-tag" style={{ color: "#FFF", textShadow: "1px 1px 0 #000" }}>NO CORPORATE MONOTONY</span>
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -79,8 +84,8 @@ export default function HeroSection() {
           {/* SOFTWARE IN BIG DISPLAY + GEELMZ IN RED GRAFFITI SPRAY */}
           <div style={{ position: "relative" }}>
             <h1 className="font-display" style={{
-              fontSize: "clamp(3.8rem, 10vw, 8rem)",
-              lineHeight: 0.82,
+              fontSize: "clamp(2.6rem, 10vw, 8rem)",
+              lineHeight: 0.85,
               letterSpacing: "0.02em",
               color: "#FFFFFF",
               textTransform: "uppercase",
@@ -91,12 +96,12 @@ export default function HeroSection() {
 
             {/* GEELMZ Overlay Tag in Real Spray Paint */}
             <div className="font-spray" style={{
-              fontSize: "clamp(4rem, 10vw, 7.8rem)",
+              fontSize: "clamp(2.5rem, 9.5vw, 7.8rem)",
               color: "var(--red)",
               lineHeight: 0.9,
-              transform: "rotate(-6deg) translateY(-30px) translateX(10px)",
-              WebkitTextStroke: "1.5px #FFFFFF",
-              textShadow: "6px 6px 0px #000000",
+              transform: "rotate(-6deg) translateY(-18px)",
+              WebkitTextStroke: "1px #FFFFFF",
+              textShadow: "4px 4px 0px #000000",
               display: "inline-block",
             }}>
               GEELMZ
@@ -208,16 +213,16 @@ export default function HeroSection() {
             {/* Tag Overlay 2 */}
             <div className="font-marker font-bold" style={{
               position: "absolute",
-              bottom: "20px",
-              right: "-10px",
+              bottom: "15px",
+              right: "10px",
               background: "#000000",
               color: "#FFFFFF",
               border: "2px solid var(--red)",
-              padding: "0.3rem 0.9rem",
-              fontSize: "1.6rem",
+              padding: "0.2rem 0.6rem",
+              fontSize: "1.2rem",
               zIndex: 20,
-              transform: "rotate(6deg)",
-              boxShadow: "4px 4px 0px var(--red)",
+              transform: "rotate(4deg)",
+              boxShadow: "3px 3px 0px var(--red)",
             }}>
               // ONLY ONE //
             </div>
@@ -229,7 +234,7 @@ export default function HeroSection() {
               aspectRatio: "1/1",
               background: "#FFFFFF",
               border: "4px solid #000000",
-              boxShadow: "12px 12px 0px var(--red), 12px 12px 0px 4px #000000",
+              boxShadow: "6px 6px 0px var(--red)",
               overflow: "hidden",
               transform: "rotate(-2deg)",
               transition: "transform 0.3s ease",
@@ -273,12 +278,14 @@ export default function HeroSection() {
               marginTop: "1.2rem",
               background: "#111111",
               border: "1px solid #333333",
-              padding: "0.4rem 1rem",
-              fontSize: "0.75rem",
+              padding: "0.4rem 0.8rem",
+              fontSize: "0.72rem",
               color: "#FFFFFF",
               display: "flex",
               alignItems: "center",
-              gap: "0.5rem",
+              flexWrap: "wrap",
+              gap: "0.4rem",
+              maxWidth: "100%",
             }}>
               <span style={{ color: "var(--red)" }}>[FIG_01]</span> ANGEL GOMEZ GARCIA (GEELMZ)
             </div>
@@ -291,32 +298,31 @@ export default function HeroSection() {
       <div style={{
         background: "#0F0F0F",
         borderTop: "2px solid #FFFFFF",
-        padding: "2rem 1.5rem",
+        padding: "1.5rem 1rem",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
         flexWrap: "wrap",
-        gap: "1.5rem",
+        gap: "1rem",
         zIndex: 15,
+        width: "100%",
+        overflow: "hidden",
       }}>
         <div>
-          <h2 className="font-marker" style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "var(--red)", lineHeight: 0.9 }}>
+          <h2 className="font-marker" style={{ fontSize: "clamp(1.6rem, 4.5vw, 3rem)", color: "var(--red)", lineHeight: 0.9 }}>
             {t("LET'S COLLABORATE", "LET'S COLLABORATE")}
           </h2>
-          <p className="font-mono" style={{ fontSize: "0.75rem", color: "var(--grey)", marginTop: "0.3rem" }}>
+          <p className="font-mono" style={{ fontSize: "0.7rem", color: "var(--grey)", marginTop: "0.3rem" }}>
             // DISRUPTING THE DIGITAL LANDSCAPE SINCE 20XX
           </p>
         </div>
 
-        <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
-          <a href="https://github.com/Gmzyy" target="_blank" rel="noreferrer" className="font-marker" style={{ fontSize: "1.8rem", color: "#FFFFFF", textDecoration: "none" }}>
+        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+          <a href="https://github.com/Gmzyy" target="_blank" rel="noreferrer" className="font-marker" style={{ fontSize: "1.3rem", color: "#FFFFFF", textDecoration: "none" }}>
             <u>GITHUB_REPOS</u> ↗
           </a>
-          <a href="mailto:angelgom042@gmail.com" className="font-marker" style={{ fontSize: "1.8rem", color: "var(--red)", textDecoration: "none" }}>
+          <a href="mailto:angelgom042@gmail.com" className="font-marker" style={{ fontSize: "1.3rem", color: "var(--red)", textDecoration: "none" }}>
             <u>EMAIL_ME</u> ↗
-          </a>
-          <a href="https://www.linkedin.com/in/angel-gomez-59b341350" target="_blank" rel="noreferrer" className="font-marker" style={{ fontSize: "1.8rem", color: "#FFFFFF", textDecoration: "none" }}>
-            <u>SOCIALS</u> ↗
           </a>
         </div>
       </div>

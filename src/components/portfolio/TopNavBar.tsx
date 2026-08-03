@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { useLanguage } from "@/context/LanguageContext"
-import { Mail, MessageSquare, ExternalLink, Globe } from "lucide-react"
+import { Mail, MessageSquare, ArrowRight, CornerDownRight } from "lucide-react"
 
 export default function TopNavBar() {
   const [scrolled, setScrolled] = useState(false)
@@ -12,14 +12,26 @@ export default function TopNavBar() {
   const { lang, setLang, t } = useLanguage()
 
   const NAV = [
-    { label: t("INICIO", "HOME"), href: "/#hero" },
-    { label: t("PERFIL", "PROFILE"), href: "/#about" },
-    { label: t("EXPERIENCIA", "EXPERIENCE"), href: "/#experience" },
-    { label: t("SKILLS", "SKILLS"), href: "/#skills" },
-    { label: t("PROYECTOS", "PROJECTS"), href: "/#portfolio" },
-    { label: t("FORMACIÓN", "EDUCATION"), href: "/#education" },
-    { label: t("CONOCE DE MÍ", "ABOUT ME"), href: "/conoce-de-mi", page: true },
+    { num: "01", label: t("INICIO", "HOME"), href: "/#hero" },
+    { num: "02", label: t("PERFIL", "PROFILE"), href: "/#about" },
+    { num: "03", label: t("EXPERIENCIA", "EXPERIENCE"), href: "/#experience" },
+    { num: "04", label: t("SKILLS", "SKILLS"), href: "/#skills" },
+    { num: "05", label: t("PROYECTOS", "PROJECTS"), href: "/#portfolio" },
+    { num: "06", label: t("FORMACIÓN", "EDUCATION"), href: "/#education" },
+    { num: "07", label: t("CONOCE DE MÍ", "ABOUT ME"), href: "/conoce-de-mi", page: true },
   ]
+
+  // Prevent scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [mobileOpen])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,7 +52,7 @@ export default function TopNavBar() {
     <header style={{
       position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
       display: "flex", alignItems: "center", justifyContent: "space-between",
-      padding: "0.8rem clamp(1.25rem, 5vw, 4rem)",
+      padding: "0.75rem clamp(1rem, 4vw, 4rem)",
       borderBottom: scrolled || mobileOpen ? "4px solid var(--red)" : "4px solid transparent",
       backdropFilter: scrolled || mobileOpen ? "blur(16px)" : "none",
       WebkitBackdropFilter: scrolled || mobileOpen ? "blur(16px)" : "none",
@@ -49,9 +61,9 @@ export default function TopNavBar() {
     }}>
 
       {/* ── LOGO / BRAND ── */}
-      <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+      <Link href="/" onClick={() => setMobileOpen(false)} style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.75rem" }}>
         <div style={{
-          width: 40, height: 40,
+          width: 38, height: 38,
           background: "#FFFFFF",
           border: "2px solid #000000",
           boxShadow: "3px 3px 0px var(--red)",
@@ -171,7 +183,7 @@ export default function TopNavBar() {
       </nav>
 
       {/* ── MOBILE ACTIONS (LANG + MENU TOGGLE) ── */}
-      <div className="lg:!hidden" style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+      <div className="lg:!hidden" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
         {/* Language Switcher Mobile */}
         <button
           onClick={() => setLang(lang === "es" ? "en" : "es")}
@@ -180,133 +192,151 @@ export default function TopNavBar() {
             background: "var(--red)",
             border: "2px solid #FFFFFF",
             color: "#FFFFFF",
-            padding: "0.2rem 0.7rem",
-            fontSize: "1.2rem",
+            padding: "0.2rem 0.6rem",
+            fontSize: "1.1rem",
             cursor: "pointer",
             boxShadow: "3px 3px 0px #000000",
             transform: "rotate(-2deg)",
+            flexShrink: 0,
           }}
         >
           {lang === "es" ? "EN ↗" : "ES ↗"}
         </button>
 
-        {/* Mobile Toggle Button */}
-        <motion.button
+        {/* Mobile Toggle Button (STRICT FIXED DIMENSIONS) */}
+        <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          whileTap={{ scale: 0.9 }}
           style={{
             background: mobileOpen ? "var(--red)" : "#000000",
             border: "2px solid #FFFFFF",
-            padding: "0.5rem 0.8rem",
+            width: "100px",
+            height: "36px",
             color: "#FFFFFF",
             cursor: "pointer",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            boxShadow: "4px 4px 0px var(--red)",
+            boxShadow: "3px 3px 0px var(--red)",
             fontFamily: "var(--font-display)",
-            fontSize: "1.2rem",
+            fontSize: "1.15rem",
             letterSpacing: "0.05em",
+            boxSizing: "border-box",
+            flexShrink: 0,
           }}
           aria-label="Toggle menu"
         >
-          <AnimatePresence mode="wait" initial={false}>
-            {mobileOpen ? (
-              <motion.span
-                key="close"
-                initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }}
-                style={{ color: "#FFF", fontWeight: 900 }}
-              >
-                ✕ CERRAR
-              </motion.span>
-            ) : (
-              <motion.span
-                key="menu"
-                initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }}
-                style={{ color: "#FFF", fontWeight: 900, display: "flex", alignItems: "center", gap: 6 }}
-              >
-                MENU <span style={{ color: "var(--red)" }}>//</span>
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </motion.button>
+          {mobileOpen ? "✕ CERRAR" : "MENU //"}
+        </button>
       </div>
 
-      {/* ══ ULTRA STREET MOBILE ZINE DROPDOWN MENU ══ */}
+      {/* ══ ULTRA CREATIVE STREET MOBILE NAVIGATION OVERLAY ══ */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             className="lg:!hidden"
-            initial={{ opacity: 0, y: -20, scaleY: 0.95 }}
-            animate={{ opacity: 1, y: 0, scaleY: 1 }}
-            exit={{ opacity: 0, y: -16, scaleY: 0.95 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
+            initial={{ opacity: 0, y: -15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
             style={{
-              position: "absolute", top: "100%", left: 0, right: 0,
-              background: "#080808",
-              borderBottom: "6px solid var(--red)",
-              borderTop: "2px solid #333333",
-              padding: "1.8rem 1.5rem 2.5rem",
-              display: "flex", flexDirection: "column", gap: "0.8rem",
+              position: "fixed",
+              top: "60px",
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: "calc(100vh - 60px)",
+              background: "rgba(6, 6, 6, 0.98)",
+              borderTop: "3px solid var(--red)",
+              padding: "1.2rem 1rem 2rem",
+              display: "flex",
+              flexDirection: "column",
               backdropFilter: "blur(24px)",
-              boxShadow: "0 25px 50px rgba(0,0,0,0.95), 0 10px 20px rgba(255, 34, 34, 0.3)",
-              maxHeight: "85vh",
+              WebkitBackdropFilter: "blur(24px)",
+              zIndex: 99,
               overflowY: "auto",
             }}
           >
-            {/* Street Header Stamp inside Mobile Menu */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem", borderBottom: "2px dashed var(--red)", paddingBottom: "0.6rem" }}>
+            {/* Header Stamp in Menu */}
+            <div style={{
+              display: "flex",
+              justify: "space-between",
+              alignItems: "center",
+              marginBottom: "1rem",
+              borderBottom: "2px dashed var(--red)",
+              paddingBottom: "0.6rem",
+            }}>
               <span className="sticker-box font-mono" style={{ fontSize: "0.65rem", background: "var(--red)", color: "#FFF" }}>
-                // NAVIGATION ZINE SHEET
+                // NAVEGACIÓN URBANA
               </span>
-              <span className="font-spray" style={{ color: "var(--red)", fontSize: "1.2rem" }}>
-                #GEELMZ_MOBILE
+              <span className="font-mono" style={{ fontSize: "0.65rem", color: "var(--red)", fontWeight: 700 }}>
+                ● SELECT DESTINATION
               </span>
             </div>
 
-            {/* Mobile Nav Links */}
-            {NAV.map((item, idx) => {
-              const sectionKey = item.href.replace("/#", "").replace("#", "")
-              const isActive = !item.page && activeSection === sectionKey
+            {/* Nav Cards List */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem", flex: 1 }}>
+              {NAV.map((item, idx) => {
+                const sectionKey = item.href.replace("/#", "").replace("#", "")
+                const isActive = !item.page && activeSection === sectionKey
 
-              return (
-                <motion.div
-                  key={item.label}
-                  initial={{ opacity: 0, x: -25 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.03 }}
-                >
-                  <Link
-                    href={item.href}
-                    onClick={() => setMobileOpen(false)}
-                    style={{ textDecoration: "none" }}
+                return (
+                  <motion.div
+                    key={item.label}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.03, duration: 0.2 }}
                   >
-                    <div style={{
-                      background: item.page ? "var(--red)" : isActive ? "#FFFFFF" : "#111111",
-                      color: item.page ? "#FFFFFF" : isActive ? "#000000" : "#FFFFFF",
-                      border: "2px solid #FFFFFF",
-                      boxShadow: isActive ? "4px 4px 0px var(--red)" : "3px 3px 0px #000000",
-                      padding: "0.75rem 1.2rem",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      transform: idx % 2 === 0 ? "rotate(-1deg)" : "rotate(1deg)",
-                      transition: "transform 0.2s ease",
-                    }}>
-                      <span className="font-display" style={{ fontSize: "1.8rem", letterSpacing: "0.04em", lineHeight: 1 }}>
-                        {item.label}
-                      </span>
-                      <span className="font-mono" style={{ fontSize: "1rem", fontWeight: 700 }}>
-                        {item.page ? "EXPLORAR ↗" : isActive ? "● VERIFIED" : "➔"}
-                      </span>
-                    </div>
-                  </Link>
-                </motion.div>
-              )
-            })}
+                    <Link
+                      href={item.href}
+                      onClick={() => setMobileOpen(false)}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <div style={{
+                        background: item.page ? "var(--red)" : isActive ? "#FFFFFF" : "#121212",
+                        color: item.page ? "#FFFFFF" : isActive ? "#000000" : "#FFFFFF",
+                        border: "2px solid #FFFFFF",
+                        boxShadow: isActive ? "4px 4px 0px var(--red)" : "3px 3px 0px #000000",
+                        padding: "0.65rem 1rem",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        transform: idx % 2 === 0 ? "rotate(-0.8deg)" : "rotate(0.8deg)",
+                        transition: "all 0.15s ease",
+                      }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                          <span className="font-mono" style={{
+                            fontSize: "0.7rem",
+                            background: item.page ? "#000" : isActive ? "var(--red)" : "#222",
+                            color: "#FFF",
+                            padding: "2px 6px",
+                            fontWeight: 700,
+                          }}>
+                            {item.num}
+                          </span>
+                          <span className="font-display" style={{ fontSize: "1.6rem", letterSpacing: "0.04em", lineHeight: 1 }}>
+                            {item.label}
+                          </span>
+                        </div>
 
-            {/* Mobile Footer Direct Contact Actions */}
-            <div style={{ borderTop: "2px dashed #333333", paddingTop: "1.2rem", marginTop: "1rem", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.8rem" }}>
+                        <span className="font-mono" style={{ fontSize: "0.85rem", fontWeight: 700 }}>
+                          {item.page ? "EXPLORAR ↗" : isActive ? "● ACTIVE" : "➔"}
+                        </span>
+                      </div>
+                    </Link>
+                  </motion.div>
+                )
+              })}
+            </div>
+
+            {/* Quick Action Contact Row at Bottom of Menu */}
+            <div style={{
+              borderTop: "2px dashed #333333",
+              paddingTop: "1rem",
+              marginTop: "1.2rem",
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "0.75rem",
+            }}>
               <a
                 href="https://wa.me/522218226470"
                 target="_blank"

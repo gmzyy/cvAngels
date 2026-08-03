@@ -137,22 +137,22 @@ export default function ExperienceSection() {
         </div>
 
         <h2 className="font-display" style={{
-          fontSize: "clamp(3.8rem, 8vw, 6.5rem)",
+          fontSize: "clamp(2.4rem, 7.5vw, 6.5rem)",
           lineHeight: 0.85,
           color: "#FFFFFF",
-          textShadow: "6px 6px 0px var(--red)",
+          textShadow: "4px 4px 0px var(--red)",
           textTransform: "uppercase",
           margin: 0,
         }}>
           {t("EXPERIENCIA", "WORK")}
         </h2>
         <div className="font-spray" style={{
-          fontSize: "clamp(3.2rem, 7vw, 5.5rem)",
+          fontSize: "clamp(2.2rem, 6.5vw, 5.5rem)",
           color: "var(--red)",
           lineHeight: 0.9,
-          transform: "rotate(-3deg) translateY(-15px)",
-          WebkitTextStroke: "1.5px #FFFFFF",
-          textShadow: "6px 6px 0px #000000",
+          transform: "rotate(-3deg) translateY(-10px)",
+          WebkitTextStroke: "1px #FFFFFF",
+          textShadow: "4px 4px 0px #000000",
           display: "inline-block",
         }}>
           {t("PROFESIONAL", "EXPERIENCE")}

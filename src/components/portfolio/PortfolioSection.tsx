@@ -337,7 +337,7 @@ export default function PortfolioSection() {
           </div>
 
           <h2 className="font-display" style={{
-            fontSize: "clamp(3rem, 6vw, 5rem)",
+            fontSize: "clamp(2.4rem, 7vw, 5rem)",
             lineHeight: 0.85,
             color: "#FFFFFF",
             textShadow: "4px 4px 0px var(--red)",
@@ -347,10 +347,10 @@ export default function PortfolioSection() {
             {t("PROYECTOS", "PROJECTS")}
           </h2>
           <div className="font-spray" style={{
-            fontSize: "clamp(2.5rem, 5.5vw, 4.2rem)",
+            fontSize: "clamp(2.1rem, 5.5vw, 4.2rem)",
             color: "var(--red)",
             lineHeight: 0.9,
-            transform: "rotate(-3deg) translateY(-10px)",
+            transform: "rotate(-3deg) translateY(-8px)",
             WebkitTextStroke: "1px #FFFFFF",
             display: "inline-block",
           }}>
@@ -359,7 +359,7 @@ export default function PortfolioSection() {
         </div>
 
         {/* Filter Buttons */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
           {[
             { id: "all", label: t("TODOS", "ALL") },
             { id: "fullstack_ai", label: "FULLSTACK & IA" },
@@ -396,7 +396,7 @@ export default function PortfolioSection() {
       {/* 3-Column Compact Grid */}
       <div style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))",
+        gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))",
         gap: "1.5rem"
       }}>
         {(filter === "all" ? restProjects : filteredProjects).map((p, idx) => (

@@ -4,6 +4,7 @@ export default function Document() {
   return (
     <Html lang="es">
       <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* Street & Underground Font Stack */}
@@ -15,7 +16,7 @@ export default function Document() {
         <meta name="author" content="Angel Gomez Garcia (Geelmz)" />
         <meta name="theme-color" content="#080808" />
       </Head>
-      <body className="antialiased">
+      <body className="antialiased" style={{ background: "#060606", margin: 0, padding: 0, overflowX: "hidden" }}>
         <Main />
         <NextScript />
       </body>
