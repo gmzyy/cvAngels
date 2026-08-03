@@ -36,14 +36,14 @@ export default function HeroSection() {
           overflow: "hidden",
           transform: "rotate(-0.8deg)",
         }}>
-          <div className="street-ticker-inner font-display" style={{ fontSize: "1.25rem", letterSpacing: "0.1em" }}>
+          <div className="street-ticker-inner font-display" style={{ fontSize: "1.25rem", letterSpacing: "0.1em", whiteSpace: "nowrap" }}>
             {Array.from({ length: 4 }).map((_, i) => (
-              <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: "1.5rem", paddingRight: "1.5rem" }}>
-                <span>FEELMZ // CORE</span>
-                <span className="font-marker" style={{ color: "#000", fontSize: "1.6rem" }}>GEELMZ</span>
-                <span>STREET FULLSTACK</span>
-                <span>PUEBLA, MÉXICO</span>
-                <span className="font-tag" style={{ color: "#FFF", textShadow: "1px 1px 0 #000" }}>NO CORPORATE MONOTONY</span>
+              <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: "1.5rem", paddingRight: "1.5rem", whiteSpace: "nowrap" }}>
+                <span style={{ whiteSpace: "nowrap" }}>FEELMZ // CORE</span>
+                <span className="font-marker" style={{ color: "#000", fontSize: "1.4rem", whiteSpace: "nowrap" }}>GEELMZ</span>
+                <span style={{ whiteSpace: "nowrap" }}>STREET FULLSTACK</span>
+                <span style={{ whiteSpace: "nowrap" }}>PUEBLA, MÉXICO</span>
+                <span className="font-tag" style={{ color: "#FFF", textShadow: "1px 1px 0 #000", whiteSpace: "nowrap" }}>NO CORPORATE MONOTONY</span>
               </span>
             ))}
           </div>

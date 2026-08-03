@@ -179,9 +179,16 @@ body {
 }
 
 .street-ticker-inner {
-  display: flex;
-  white-space: nowrap;
+  display: flex !important;
+  white-space: nowrap !important;
   animation: ticker-scroll 16s linear infinite;
+  align-items: center;
+}
+
+.street-ticker-inner span {
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
 }
 
 /* Responsive & Word Break Protections */
@@ -200,7 +207,6 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, code, pre {
   max-width: 100%;
   word-break: break-word;
   overflow-wrap: break-word;
-  white-space: normal;
 }
 
 pre code {
