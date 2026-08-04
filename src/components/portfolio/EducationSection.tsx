@@ -33,8 +33,6 @@ export default function EducationSection() {
     >
       {/* Title Header */}
       <div style={{ marginBottom: "3.5rem", position: "relative" }}>
-        {/* Halftone Backdrop */}
-        <div className="halftone-red-bg" style={{ position: "absolute", top: "-20px", right: "20px", width: "200px", height: "100px", pointerEvents: "none" }} />
 
         <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
           <span className="font-tag" style={{

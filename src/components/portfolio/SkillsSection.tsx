@@ -184,8 +184,6 @@ export default function SkillsSection() {
     >
       {/* Title Header */}
       <div style={{ marginBottom: "3rem", position: "relative" }}>
-        {/* Halftone Comic Dots Backdrop */}
-        <div className="halftone-bg" style={{ position: "absolute", top: "-20px", left: "-20px", width: "250px", height: "120px", pointerEvents: "none" }} />
 
         <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
           <span className="font-tag" style={{

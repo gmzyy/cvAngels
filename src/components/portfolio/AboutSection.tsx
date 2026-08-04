@@ -26,8 +26,6 @@ export default function AboutSection() {
     >
       {/* ══ HEADER TITLE BANNER — PUNK ZINE SPRAY DRIP ══ */}
       <div style={{ marginBottom: "4rem", position: "relative" }}>
-        {/* Halftone Comic Dots Backdrop */}
-        <div className="halftone-bg" style={{ position: "absolute", top: "-30px", left: "-20px", width: "300px", height: "150px", pointerEvents: "none" }} />
 
         <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
           <span className="font-tag" style={{

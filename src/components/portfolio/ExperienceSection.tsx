@@ -123,8 +123,6 @@ export default function ExperienceSection() {
     >
       {/* ══ HEADER TITLE BANNER ══ */}
       <div style={{ marginBottom: "4rem", position: "relative" }}>
-        {/* Halftone Dot Accent */}
-        <div className="halftone-red-bg" style={{ position: "absolute", top: "-20px", right: "40px", width: "220px", height: "100px", pointerEvents: "none" }} />
 
         <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
           <span className="font-tag" style={{

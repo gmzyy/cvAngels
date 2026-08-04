@@ -51,9 +51,6 @@ export default function ConoceDeMiPage() {
             position: "relative",
           }} className="md:!grid-cols-[1fr_320px]">
 
-            {/* Halftone Dot Accent */}
-            <div className="halftone-bg" style={{ position: "absolute", top: "-20px", left: "-20px", width: "260px", height: "130px", pointerEvents: "none" }} />
-
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.8rem" }}>
                 <span className="font-tag" style={{

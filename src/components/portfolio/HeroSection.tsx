@@ -75,9 +75,6 @@ export default function HeroSection() {
         }}
         className="lg:!grid-cols-[1.1fr_0.9fr]"
       >
-        {/* Halftone Comic Dots Backdrop behind Title */}
-        <div className="halftone-bg" style={{ position: "absolute", top: "0", left: "0", width: "350px", height: "180px", pointerEvents: "none" }} />
-
         {/* LEFT COLUMN — BONE, NAVY & BURNT RED TYPOGRAPHY */}
         <div style={{ zIndex: 10, display: "flex", flexDirection: "column", gap: "1.2rem" }}>
 
@@ -166,15 +163,13 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* RIGHT COLUMN — PROTAGONIST AVATAR WITH GRAFFITI DETAILS & HALFTONE */}
+        {/* RIGHT COLUMN — PROTAGONIST AVATAR WITH GRAFFITI DETAILS */}
         <div style={{
           position: "relative",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}>
-          {/* Halftone Dot Backdrop behind Avatar */}
-          <div className="halftone-red-bg" style={{ position: "absolute", top: "-20px", right: "0px", width: "380px", height: "380px", pointerEvents: "none" }} />
 
           {/* Avatar Frame */}
           <div style={{
