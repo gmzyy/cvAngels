@@ -53,7 +53,7 @@ export default function SiteFooter() {
           </p>
 
           <div className="font-mono" style={{ fontSize: "0.75rem", color: "var(--red)", fontWeight: 700 }}>
-            ● STATUS: OPEN FOR FULLSTACK &amp; AI OPPORTUNITIES
+            STATUS: OPEN FOR FULLSTACK &amp; AI OPPORTUNITIES
           </div>
         </div>
 

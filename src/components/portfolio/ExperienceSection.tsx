@@ -121,8 +121,11 @@ export default function ExperienceSection() {
         transition: "opacity 0.6s ease, transform 0.6s ease",
       }}
     >
-      {/* ══ HEADER TITLE BANNER — HIP HOP TRACKLIST ══ */}
+      {/* ══ HEADER TITLE BANNER ══ */}
       <div style={{ marginBottom: "4rem", position: "relative" }}>
+        {/* Halftone Dot Accent */}
+        <div className="halftone-red-bg" style={{ position: "absolute", top: "-20px", right: "40px", width: "220px", height: "100px", pointerEvents: "none" }} />
+
         <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
           <span className="font-tag" style={{
             background: "var(--navy)",
@@ -131,30 +134,33 @@ export default function ExperienceSection() {
             fontSize: "1.3rem",
             transform: "rotate(2deg)",
             boxShadow: "4px 4px 0px var(--red)",
+            border: "2px solid var(--red)",
           }}>
-            📀 // {t("TRAYECTORIA & TRACKLIST", "TRACKLIST & CAREER")}
+            // {t("TRAYECTORIA & TRACKLIST", "TRACKLIST & CAREER")}
           </span>
-          <span className="font-mono" style={{ fontSize: "0.7rem", color: "var(--navy)", letterSpacing: "0.2em", fontWeight: 900 }}>
-            [RECORDS: 2024 - 2026]
+          <span className="stamp-badge">
+            CONFIDENTIAL
+          </span>
+          <span className="handwritten-note font-marker">
+            Verified Track Records ➔
           </span>
         </div>
 
-        <h2 className="font-display" style={{
-          fontSize: "clamp(2.8rem, 8vw, 7rem)",
-          lineHeight: 0.85,
+        <h2 className="spray-drippy-title" style={{
+          fontSize: "clamp(3rem, 8.5vw, 7.5rem)",
           color: "var(--navy)",
+          WebkitTextStroke: "2px var(--red)",
           textShadow: "5px 5px 0px var(--red)",
-          textTransform: "uppercase",
           margin: 0,
         }}>
           {t("EXPERIENCIA", "WORK")}
         </h2>
         <div className="font-spray" style={{
-          fontSize: "clamp(2.4rem, 7vw, 6rem)",
+          fontSize: "clamp(2.5rem, 7.5vw, 6.5rem)",
           color: "var(--red)",
           lineHeight: 0.9,
           transform: "rotate(-4deg) translateY(-12px) translateX(15px)",
-          WebkitTextStroke: "1.5px var(--navy)",
+          WebkitTextStroke: "2px var(--navy)",
           textShadow: "5px 5px 0px var(--navy)",
           display: "inline-block",
         }}>
@@ -162,36 +168,42 @@ export default function ExperienceSection() {
         </div>
       </div>
 
-      {/* ══ TRACKLIST CARDS IN HIP HOP STREET ZINE STYLE ══ */}
+      {/* ══ TRACKLIST CARDS ══ */}
       <div style={{ display: "flex", flexDirection: "column", gap: "3.5rem" }}>
         {EXPERIENCES.map((exp, idx) => (
           <div
             key={exp.id}
             style={{
-              background: "#FAF4EC",
+              background: "#FAF5EB",
               border: "4px solid var(--navy)",
               boxShadow: idx % 2 === 0 ? "14px 14px 0px var(--red)" : "14px 14px 0px var(--navy)",
               padding: "2.5rem 2rem",
               position: "relative",
               color: "var(--navy)",
               transform: idx % 2 === 0 ? "rotate(-1.2deg)" : "rotate(1.2deg)",
-              clipPath: "polygon(0.5% 0%, 99.5% 0.5%, 99% 99.5%, 0% 99%)",
             }}
           >
+            {/* Washi Tape */}
+            <div className="washi-tape-top" />
+
+            {/* Stamp Badge */}
+            <div className="stamp-badge" style={{ position: "absolute", top: "20px", right: "20px" }}>
+              {exp.isCurrent ? "ACTIVE PROJECT" : "APPROVED"}
+            </div>
+
             {/* Track Stamp */}
             <div style={{
-              position: "absolute",
-              top: "-15px",
-              left: "20px",
+              display: "inline-block",
               background: "var(--red)",
               color: "#FFFFFF",
               fontFamily: "var(--font-mono)",
-              fontSize: "0.75rem",
+              fontSize: "0.78rem",
               fontWeight: 900,
-              padding: "0.2rem 1rem",
+              padding: "0.25rem 1rem",
               transform: "rotate(-3deg)",
               border: "2px solid var(--navy)",
               boxShadow: "3px 3px 0px var(--navy)",
+              marginBottom: "1rem",
             }}>
               {exp.trackNum}
             </div>

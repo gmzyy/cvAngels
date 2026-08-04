@@ -24,8 +24,11 @@ export default function AboutSection() {
         transition: "opacity 0.6s ease, transform 0.6s ease",
       }}
     >
-      {/* ══ HEADER TITLE BANNER — RAW HIP HOP GRAFFITI STYLE ══ */}
+      {/* ══ HEADER TITLE BANNER — PUNK ZINE SPRAY DRIP ══ */}
       <div style={{ marginBottom: "4rem", position: "relative" }}>
+        {/* Halftone Comic Dots Backdrop */}
+        <div className="halftone-bg" style={{ position: "absolute", top: "-30px", left: "-20px", width: "300px", height: "150px", pointerEvents: "none" }} />
+
         <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
           <span className="font-tag" style={{
             background: "var(--red)",
@@ -34,76 +37,67 @@ export default function AboutSection() {
             fontSize: "1.3rem",
             transform: "rotate(-3deg)",
             boxShadow: "4px 4px 0px var(--navy)",
-            clipPath: "polygon(2% 0%, 100% 3%, 98% 97%, 0% 100%)",
+            border: "2px solid var(--navy)",
           }}>
-            🎤 // {t("MANIFIESTO & PROFILE", "MANIFESTO & PROFILE")}
+            // {t("MANIFIESTO & PROFILE", "MANIFESTO & PROFILE")}
           </span>
-          <span className="font-mono" style={{ fontSize: "0.7rem", color: "var(--navy)", letterSpacing: "0.2em", fontWeight: 900 }}>
-            [UNDERGROUND_VISION // 2026]
+          <span className="stamp-badge">
+            DRAFT
+          </span>
+          <span className="handwritten-note font-marker">
+            Real Talk Only ➔
           </span>
         </div>
 
-        <h2 className="font-display" style={{
-          fontSize: "clamp(2.8rem, 8vw, 7rem)",
-          lineHeight: 0.85,
-          color: "var(--navy)",
-          textShadow: "5px 5px 0px var(--red)",
-          textTransform: "uppercase",
+        <h2 className="spray-drippy-title" style={{
+          fontSize: "clamp(3rem, 8.5vw, 7.5rem)",
+          color: "var(--red)",
           margin: 0,
         }}>
           {t("INGENIERÍA", "SOFTWARE")}
         </h2>
 
         <div className="font-spray" style={{
-          fontSize: "clamp(2.4rem, 7vw, 6rem)",
-          color: "var(--red)",
+          fontSize: "clamp(2.5rem, 7.5vw, 6.5rem)",
+          color: "var(--navy)",
           lineHeight: 0.9,
-          transform: "rotate(-5deg) translateY(-12px) translateX(15px)",
-          WebkitTextStroke: "1.5px var(--navy)",
-          textShadow: "5px 5px 0px var(--navy)",
+          transform: "rotate(-4deg) translateY(-12px) translateX(15px)",
+          WebkitTextStroke: "2px var(--red)",
+          textShadow: "5px 5px 0px var(--red)",
           display: "inline-block",
         }}>
           &amp; {t("DESARROLLO FULLSTACK", "FULLSTACK DEV")}
         </div>
       </div>
 
-      {/* ══ DYNAMIC HIP HOP TORN PAPER & MIXTAPE TAPE CASSETTE LAYOUT ══ */}
+      {/* ══ DYNAMIC PUNK ZINE COLLAGE ══ */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr" }} className="lg:!grid-cols-[1.2fr_0.8fr] gap-12">
 
-        {/* ── LEFT: TORN STREET ZINE MANIFESTO ── */}
+        {/* ── LEFT: MANIFESTO ── */}
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
           
           <div style={{
-            background: "#FAF4EC",
-            border: "3px solid var(--navy)",
+            background: "#FAF5EB",
+            border: "4px solid var(--navy)",
             boxShadow: "12px 12px 0px var(--red)",
             padding: "2.5rem 2rem",
             color: "var(--navy)",
             position: "relative",
             transform: "rotate(-1.5deg)",
-            clipPath: "polygon(0.5% 0.5%, 99% 0%, 100% 98.5%, 1% 99.5%)",
           }}>
-            {/* Duct Tape Sticker Corner */}
-            <div style={{
-              position: "absolute",
-              top: "-14px",
-              left: "25px",
-              background: "var(--navy)",
-              color: "#FFFFFF",
-              padding: "0.2rem 1rem",
-              fontFamily: "var(--font-marker)",
-              fontSize: "0.85rem",
-              transform: "rotate(-4deg)",
-              boxShadow: "3px 3px 0px var(--red)",
-            }}>
-              TRACK 00 // REAL TALK
+            {/* Washi Tape */}
+            <div className="washi-tape-top" />
+
+            {/* Rubber Stamp */}
+            <div className="stamp-badge" style={{ position: "absolute", bottom: "15px", right: "20px" }}>
+              APPROVED
             </div>
 
             <p className="font-body" style={{
               fontSize: "1.15rem",
               color: "var(--navy)",
               lineHeight: 1.8,
-              fontWeight: 700,
+              fontWeight: 800,
               marginBottom: "1.5rem",
             }}>
               {t(
@@ -119,8 +113,8 @@ export default function AboutSection() {
               borderLeft: "5px solid var(--red)",
               background: "#EAE0D0",
               padding: "1.2rem 1.4rem",
-              borderRadius: "2px",
-              boxShadow: "inset 0 0 10px rgba(0,0,0,0.05)",
+              border: "1px solid var(--navy)",
+              fontWeight: 700,
             }}>
               {t(
                 "Manejo fluido entre backend (NestJS, FastAPI), frontend (Next.js 15, React 19), seguridad (2FA/TOTP, anti-replay) y modelos NLP (SpaCy, LangChain, ChromaDB).",
@@ -129,7 +123,7 @@ export default function AboutSection() {
             </p>
           </div>
 
-          {/* HIP HOP BADGE STICKERS (ANGLED & EMBOSSED) */}
+          {/* BADGE STICKERS */}
           <div style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
@@ -138,7 +132,7 @@ export default function AboutSection() {
           }}>
             {[
               { num: "2+", label: t("AÑOS EXP", "YEARS EXP"), bg: "var(--red)", color: "#FFF", rot: "-4deg" },
-              { num: "3", label: t("EMPRESAS", "COMPANIES"), bg: "#FAF4EC", color: "var(--navy)", rot: "3deg" },
+              { num: "3", label: t("EMPRESAS", "COMPANIES"), bg: "#FAF5EB", color: "var(--navy)", rot: "3deg" },
               { num: "100%", label: t("CÓDIGO PROPIO", "CUSTOM CODE"), bg: "var(--navy)", color: "#FFF", rot: "-2deg" },
             ].map(({ num, label, bg, color, rot }) => (
               <div key={label} style={{
@@ -148,13 +142,13 @@ export default function AboutSection() {
                 color: color,
                 boxShadow: "6px 6px 0px var(--red)",
                 transform: `rotate(${rot})`,
-                clipPath: "polygon(2% 0%, 98% 2%, 100% 98%, 0% 100%)",
+                position: "relative",
               }}>
                 <div className="font-display" style={{
                   fontSize: "3rem",
                   lineHeight: 0.85,
                   color: color,
-                  textShadow: bg === "#FAF4EC" ? "3px 3px 0px var(--red)" : "none",
+                  textShadow: bg === "#FAF5EB" ? "3px 3px 0px var(--red)" : "none",
                 }}>
                   {num}
                 </div>
@@ -171,34 +165,21 @@ export default function AboutSection() {
           </div>
         </div>
 
-        {/* ── RIGHT: CASSETTE TAPE / MIXTAPE CARD STYLED IN HIP HOP GRAFFITI ── */}
-        <div style={{
-          border: "4px solid var(--navy)",
-          background: "#FAF4EC",
-          boxShadow: "14px 14px 0px var(--red)",
-          padding: "2.2rem 1.8rem",
-          position: "relative",
-          color: "var(--navy)",
+        {/* ── RIGHT: POLAROID STYLE CONTACT CARD ── */}
+        <div className="polaroid-frame" style={{
           transform: "rotate(2deg)",
-          clipPath: "polygon(0% 1%, 100% 0%, 99% 99%, 1% 100%)",
+          background: "#FAF5EB",
+          color: "var(--navy)",
         }}>
-          {/* Cassette Wheel Cutouts */}
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-              <Disc size={28} className="animate-spin" style={{ color: "var(--red)" }} />
-              <span className="font-mono" style={{ fontSize: "0.75rem", background: "var(--navy)", color: "#FFF", padding: "2px 8px", fontWeight: 900 }}>
-                SIDE A // MIXTAPE
-              </span>
-            </div>
-            <Radio size={24} style={{ color: "var(--navy)" }} />
-          </div>
+          {/* Washi Tape Corner */}
+          <div className="washi-tape-corner" />
 
           {/* Header Tag */}
           <div style={{ marginBottom: "1.5rem", borderBottom: "3px dashed var(--red)", paddingBottom: "1.2rem" }}>
-            <span className="font-wild" style={{ fontSize: "2rem", color: "var(--red)", display: "block", transform: "rotate(-4deg)" }}>
-              #GEELMZ!!
+            <span className="font-wild" style={{ fontSize: "2.2rem", color: "var(--red)", display: "block", transform: "rotate(-4deg)" }}>
+              #GEELMZ ➔
             </span>
-            <h3 className="font-display" style={{ fontSize: "2.8rem", color: "var(--navy)", lineHeight: 0.9, marginTop: 4 }}>
+            <h3 className="font-display" style={{ fontSize: "3rem", color: "var(--navy)", lineHeight: 0.9, marginTop: 4 }}>
               ANGEL GOMEZ
             </h3>
             <div className="font-spray" style={{ fontSize: "1.8rem", color: "var(--red)", marginTop: 2 }}>
@@ -227,12 +208,12 @@ export default function AboutSection() {
             ].map(({ Icon, text }) => (
               <div key={text} className="font-mono" style={{
                 display: "flex", alignItems: "center", gap: "0.8rem",
-                fontSize: "0.85rem",
+                fontSize: "0.88rem",
                 color: "var(--navy)",
                 background: "#EAE0D0",
-                padding: "0.6rem 0.8rem",
+                padding: "0.65rem 0.8rem",
                 border: "2px solid var(--navy)",
-                fontWeight: 800,
+                fontWeight: 900,
                 transform: "rotate(-0.8deg)",
               }}>
                 <Icon size={16} style={{ color: "var(--red)", flexShrink: 0 }} />
@@ -244,7 +225,7 @@ export default function AboutSection() {
           {/* Languages Section */}
           <div style={{ borderTop: "2px dashed var(--red)", paddingTop: "1.2rem", marginTop: "1.5rem" }}>
             <div className="font-mono" style={{
-              fontSize: "0.7rem", letterSpacing: "0.18em",
+              fontSize: "0.72rem", letterSpacing: "0.18em",
               textTransform: "uppercase", color: "var(--red)",
               marginBottom: "0.6rem", fontWeight: 900,
             }}>
@@ -270,7 +251,7 @@ export default function AboutSection() {
               className="btn-street-primary"
               style={{ width: "100%", justifyContent: "center" }}
             >
-              {t("DESCARGAR CV", "DOWNLOAD CV")} ↗
+              {t("DESCARGAR CV", "DOWNLOAD CV")} ➔
             </a>
           </div>
         </div>

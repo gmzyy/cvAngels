@@ -22,7 +22,7 @@ export default function HeroSection() {
         paddingTop: "clamp(5.5rem, 12vw, 7rem)",
       }}
     >
-      {/* ══ TOP STREET BADGE BAR (BURNT RED & NAVY) ══ */}
+      {/* ══ TOP STREET BADGE BAR ══ */}
       <div style={{
         width: "100%",
         marginTop: "0.2rem",
@@ -41,20 +41,20 @@ export default function HeroSection() {
           flexWrap: "wrap",
           gap: "0.8rem",
           transform: "rotate(-0.8deg)",
-          boxShadow: "0 6px 12px rgba(11,27,61,0.15)",
+          boxShadow: "0 6px 12px rgba(11,27,61,0.2)",
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap" }}>
-            <span className="font-mono" style={{ background: "var(--navy)", color: "#FFFFFF", padding: "2px 10px", fontSize: "0.75rem", fontWeight: 700, border: "1px solid #FFFFFF" }}>
+            <span className="font-mono" style={{ background: "var(--navy)", color: "#FFFFFF", padding: "2px 10px", fontSize: "0.75rem", fontWeight: 900, border: "1px solid #FFFFFF" }}>
               [ FULLSTACK DEVELOPER &amp; IA ]
             </span>
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
-            <span className="font-marker" style={{ color: "var(--navy)", fontSize: "1.4rem", lineHeight: 1 }}>
-              GEELMZ
+            <span className="font-marker" style={{ color: "#FFFFFF", fontSize: "1.4rem", lineHeight: 1 }}>
+              ANGEL GOMEZ
             </span>
             <span className="font-mono" style={{ fontSize: "0.65rem", background: "#FFFFFF", color: "var(--navy)", padding: "2px 8px", fontWeight: 900, border: "1px solid var(--navy)" }}>
-              ONLINE ●
+              ONLINE
             </span>
           </div>
         </div>
@@ -71,24 +71,27 @@ export default function HeroSection() {
           margin: "0 auto",
           width: "100%",
           padding: "1rem 1.5rem 3rem",
+          position: "relative",
         }}
         className="lg:!grid-cols-[1.1fr_0.9fr]"
       >
+        {/* Halftone Comic Dots Backdrop behind Title */}
+        <div className="halftone-bg" style={{ position: "absolute", top: "0", left: "0", width: "350px", height: "180px", pointerEvents: "none" }} />
 
         {/* LEFT COLUMN — BONE, NAVY & BURNT RED TYPOGRAPHY */}
         <div style={{ zIndex: 10, display: "flex", flexDirection: "column", gap: "1.2rem" }}>
 
-          {/* Metadata Stamp */}
+          {/* Metadata Stamp & Hand-Drawn Markers */}
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
             <span className="sticker-box font-mono">
               V 2.4.0 // STABLE
             </span>
-            <span className="font-marker" style={{ color: "var(--red)", fontSize: "1.8rem", transform: "rotate(-3deg)" }}>
-              Geelmz = True
+            <span className="font-marker" style={{ color: "var(--red)", fontSize: "1.6rem", transform: "rotate(-3deg)" }}>
+              FULLSTACK ARCHITECT
             </span>
           </div>
 
-          {/* SOFTWARE IN DEEP NAVY + GEELMZ IN BURNT RED SPRAY OVERLAY */}
+          {/* SOFTWARE TITLE + GEELMZ SPRAY OVERLAY */}
           <div style={{ position: "relative" }}>
             <h1 className="font-display" style={{
               fontSize: "clamp(2.6rem, 10vw, 8rem)",
@@ -96,7 +99,7 @@ export default function HeroSection() {
               letterSpacing: "0.02em",
               color: "var(--navy)",
               textTransform: "uppercase",
-              textShadow: "4px 4px 0px rgba(184, 29, 29, 0.3)",
+              textShadow: "4px 4px 0px rgba(196, 30, 58, 0.3)",
             }}>
               SOFTWARE
             </h1>
@@ -136,7 +139,7 @@ export default function HeroSection() {
               <span style={{ width: 8, height: 8, background: "var(--red)", display: "inline-block" }}></span>
               SOFTWARE_ARCHITECTURE // HIGH_PERFORMANCE
             </div>
-            <p style={{ color: "#F4EFE6", fontSize: "0.98rem", lineHeight: 1.65, fontFamily: "var(--font-body)" }}>
+            <p style={{ color: "#F4EFE6", fontSize: "0.98rem", lineHeight: 1.65, fontFamily: "var(--font-body)", fontWeight: 600 }}>
               {t(
                 "Construyendo infraestructura digital robusta y escalable. Enfoque en backends de alto rendimiento, frontends reactivos y arquitectura moderna que desafía la monotonía corporativa.",
                 "Building robust, scalable digital infrastructure. Focusing on high-performance backends, reactive frontends, and modern architecture that challenges corporate monotony."
@@ -155,26 +158,29 @@ export default function HeroSection() {
           {/* CTA Buttons */}
           <div style={{ display: "flex", gap: "1.2rem", flexWrap: "wrap", marginTop: "1rem" }}>
             <a href="#portfolio" className="btn-street-primary">
-              {t("EXPLORAR PROYECTOS", "EXPLORE PROJECTS")} <span style={{ fontSize: "1.8rem" }}>→</span>
+              {t("EXPLORAR PROYECTOS", "EXPLORE PROJECTS")} <span style={{ fontSize: "1.8rem" }}>➔</span>
             </a>
             <Link href="/conoce-de-mi" className="btn-street-secondary">
-              {t("CONOCE DE MÍ", "KNOW MORE")} <span className="font-marker" style={{ color: "var(--red)", fontSize: "1.6rem" }}>GEELMZ</span>
+              {t("CONOCE DE MÍ", "KNOW MORE")} ➔
             </Link>
           </div>
         </div>
 
-        {/* RIGHT COLUMN — PROTAGONIST AVATAR */}
+        {/* RIGHT COLUMN — PROTAGONIST AVATAR WITH GRAFFITI DETAILS & HALFTONE */}
         <div style={{
           position: "relative",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}>
-          {/* Avatar Navy & Red Frame */}
+          {/* Halftone Dot Backdrop behind Avatar */}
+          <div className="halftone-red-bg" style={{ position: "absolute", top: "-20px", right: "0px", width: "380px", height: "380px", pointerEvents: "none" }} />
+
+          {/* Avatar Frame */}
           <div style={{
             position: "relative",
             zIndex: 10,
-            maxWidth: "420px",
+            maxWidth: "520px",
             width: "100%",
             display: "flex",
             flexDirection: "column",
@@ -182,41 +188,41 @@ export default function HeroSection() {
           }}>
             <div className="font-wild" style={{
               position: "absolute",
-              top: "-15px",
+              top: "-22px",
               left: "10px",
               color: "var(--red)",
-              fontSize: "1.8rem",
+              fontSize: "2.6rem",
               zIndex: 20,
               transform: "rotate(-12deg)",
               textShadow: "2px 2px 0px var(--navy)",
             }}>
-              #GEELMZ!!
+              #FULLSTACK
             </div>
 
             <div className="font-marker font-bold" style={{
               position: "absolute",
-              bottom: "15px",
+              bottom: "20px",
               right: "10px",
               background: "var(--navy)",
               color: "#FFFFFF",
               border: "2px solid var(--red)",
               padding: "0.2rem 0.6rem",
-              fontSize: "1.2rem",
+              fontSize: "1.3rem",
               zIndex: 20,
               transform: "rotate(4deg)",
-              boxShadow: "3px 3px 0px var(--red)",
+              boxShadow: "4px 4px 0px var(--red)",
             }}>
               // ONLY ONE //
             </div>
 
-            {/* Avatar Frame */}
+            {/* Main Avatar Frame */}
             <div style={{
               position: "relative",
               width: "100%",
               aspectRatio: "1/1",
               background: "#FFFFFF",
               border: "4px solid var(--navy)",
-              boxShadow: "8px 8px 0px var(--red)",
+              boxShadow: "12px 12px 0px var(--red)",
               overflow: "hidden",
               transform: "rotate(-2deg)",
             }}>
@@ -228,7 +234,7 @@ export default function HeroSection() {
                   width: "100%",
                   height: "100%",
                   objectFit: "contain",
-                  padding: "1rem",
+                  padding: "0.3rem",
                   filter: "contrast(1.15)",
                 }}
               />
@@ -238,17 +244,18 @@ export default function HeroSection() {
             <div className="font-mono" style={{
               marginTop: "1.2rem",
               background: "var(--navy)",
-              border: "1px solid var(--red)",
-              padding: "0.4rem 0.8rem",
-              fontSize: "0.72rem",
+              border: "2px solid var(--red)",
+              padding: "0.4rem 0.9rem",
+              fontSize: "0.75rem",
               color: "#FFFFFF",
               display: "flex",
               alignItems: "center",
               flexWrap: "wrap",
               gap: "0.4rem",
               maxWidth: "100%",
+              fontWeight: 700,
             }}>
-              <span style={{ color: "var(--red)" }}>[FIG_01]</span> ANGEL GOMEZ GARCIA (GEELMZ)
+              <span style={{ color: "var(--red)" }}>[FIG_01]</span> ANGEL GOMEZ GARCIA ➔
             </div>
           </div>
         </div>
@@ -258,7 +265,7 @@ export default function HeroSection() {
       {/* ══ BOTTOM COLLABORATE BANNER ══ */}
       <div style={{
         background: "var(--navy)",
-        borderTop: "3px solid var(--red)",
+        borderTop: "4px solid var(--red)",
         padding: "1.5rem 1rem",
         display: "flex",
         justifyContent: "space-between",
@@ -274,17 +281,17 @@ export default function HeroSection() {
           <h2 className="font-marker" style={{ fontSize: "clamp(1.6rem, 4.5vw, 3rem)", color: "var(--red)", lineHeight: 0.9 }}>
             {t("LET'S COLLABORATE", "LET'S COLLABORATE")}
           </h2>
-          <p className="font-mono" style={{ fontSize: "0.7rem", color: "#AAAAAA", marginTop: "0.3rem" }}>
-            // DISRUPTING THE DIGITAL LANDSCAPE SINCE 20XX
+          <p className="font-mono" style={{ fontSize: "0.7rem", color: "#EAE0D0", marginTop: "0.3rem", fontWeight: 700 }}>
+            // DISRUPTING THE DIGITAL LANDSCAPE SINCE 2024
           </p>
         </div>
 
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
           <a href="https://github.com/Gmzyy" target="_blank" rel="noreferrer" className="font-marker" style={{ fontSize: "1.3rem", color: "#FFFFFF", textDecoration: "none" }}>
-            <u>GITHUB_REPOS</u> ↗
+            <u>GITHUB_REPOS</u> ➔
           </a>
           <a href="mailto:angelgom042@gmail.com" className="font-marker" style={{ fontSize: "1.3rem", color: "var(--red)", textDecoration: "none" }}>
-            <u>EMAIL_ME</u> ↗
+            <u>EMAIL_ME</u> ➔
           </a>
         </div>
       </div>

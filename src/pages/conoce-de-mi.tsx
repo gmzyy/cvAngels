@@ -5,7 +5,6 @@ import Link from "next/link"
 import { useLanguage } from "@/context/LanguageContext"
 import TopNavBar from "@/components/portfolio/TopNavBar"
 import SiteFooter from "@/components/portfolio/SiteFooter"
-import { Sparkles, Terminal, Flame, ShieldAlert, HeartHandshake, Send, Disc, Radio } from "lucide-react"
 
 export default function ConoceDeMiPage() {
   const { t } = useLanguage()
@@ -40,7 +39,7 @@ export default function ConoceDeMiPage() {
         {/* Main Content */}
         <main style={{ maxWidth: 1100, margin: "0 auto", padding: "8rem 1.5rem 6rem" }}>
 
-          {/* ══ HEADER HERO BANNER — RAW HIP HOP GRAFFITI ZINE ══ */}
+          {/* ══ HEADER HERO BANNER — RAW PUNK ZINE ══ */}
           <div style={{
             display: "grid",
             gridTemplateColumns: "1fr",
@@ -49,7 +48,11 @@ export default function ConoceDeMiPage() {
             marginBottom: "5rem",
             borderBottom: "4px dashed var(--red)",
             paddingBottom: "4rem",
+            position: "relative",
           }} className="md:!grid-cols-[1fr_320px]">
+
+            {/* Halftone Dot Accent */}
+            <div className="halftone-bg" style={{ position: "absolute", top: "-20px", left: "-20px", width: "260px", height: "130px", pointerEvents: "none" }} />
 
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.8rem" }}>
@@ -60,30 +63,33 @@ export default function ConoceDeMiPage() {
                   fontSize: "1.3rem",
                   transform: "rotate(-2deg)",
                   boxShadow: "4px 4px 0px var(--navy)",
+                  border: "2px solid var(--navy)",
                 }}>
-                  🎤 // {t("AUTOBIOGRAFÍA & MANIFIESTO", "AUTOBIOGRAPHY & MANIFESTO")}
+                  // {t("AUTOBIOGRAFÍA & MANIFIESTO", "AUTOBIOGRAPHY & MANIFESTO")}
                 </span>
-                <span className="font-mono" style={{ fontSize: "0.7rem", color: "var(--navy)", letterSpacing: "0.2em", fontWeight: 900 }}>
-                  [FEELMZ_CORE_VISION]
+                <span className="stamp-badge">
+                  ONLY ONE
+                </span>
+                <span className="handwritten-note font-marker">
+                  Uncensored Journal ➔
                 </span>
               </div>
 
-              <h1 className="font-display" style={{
-                fontSize: "clamp(4.2rem, 9.5vw, 8rem)",
-                lineHeight: 0.82,
+              <h1 className="spray-drippy-title" style={{
+                fontSize: "clamp(3.8rem, 9.5vw, 8rem)",
                 color: "var(--navy)",
+                WebkitTextStroke: "2px var(--red)",
                 textShadow: "6px 6px 0px var(--red)",
-                textTransform: "uppercase",
                 margin: 0,
               }}>
                 {t("MÁS ALLÁ DEL", "BEYOND THE")}
               </h1>
               <div className="font-spray" style={{
-                fontSize: "clamp(3.8rem, 8.5vw, 7rem)",
+                fontSize: "clamp(3.5rem, 8.5vw, 7rem)",
                 color: "var(--red)",
                 lineHeight: 0.9,
                 transform: "rotate(-4deg) translateY(-15px) translateX(10px)",
-                WebkitTextStroke: "1.5px var(--navy)",
+                WebkitTextStroke: "2px var(--navy)",
                 textShadow: "6px 6px 0px var(--navy)",
                 display: "inline-block",
               }}>
@@ -101,50 +107,35 @@ export default function ConoceDeMiPage() {
                 color: "#FFFFFF",
                 padding: "0.3rem 1.2rem",
               }}>
-                ANGEL GOMEZ GARCIA // AKA GEELMZ
+                ANGEL GOMEZ GARCIA
               </div>
             </div>
 
-            {/* AVATAR HIP-HOP MIXTAPE BOX */}
-            <div style={{
-              background: "#FAF4EC",
-              border: "4px solid var(--navy)",
-              boxShadow: "14px 14px 0px var(--red)",
+            {/* AVATAR POLAROID FRAME WITH WASHI TAPE */}
+            <div className="polaroid-frame" style={{
               transform: "rotate(3deg)",
               maxWidth: "290px",
               margin: "0 auto",
-              position: "relative",
-              clipPath: "polygon(0% 1%, 100% 0%, 99% 99%, 1% 100%)",
             }}>
-              <div style={{
-                position: "absolute",
-                top: "-14px",
-                right: "-10px",
-                background: "var(--red)",
-                color: "#FFF",
-                padding: "3px 10px",
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.7rem",
-                fontWeight: 900,
-                transform: "rotate(6deg)",
-                border: "2px solid var(--navy)",
-              }}>
-                // ORIGINAL //
+              <div className="washi-tape-corner" />
+              <div className="stamp-badge" style={{ position: "absolute", top: "15px", right: "15px" }}>
+                ORIGINAL
               </div>
+
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/image.png"
                 alt="Geelmz Avatar"
-                style={{ width: "100%", height: "auto", display: "block", padding: "1rem", filter: "contrast(1.2)" }}
+                style={{ width: "100%", height: "auto", display: "block", padding: "0.5rem", filter: "contrast(1.2)" }}
               />
-              <div className="font-mono" style={{ background: "var(--navy)", color: "#FFFFFF", fontSize: "0.75rem", padding: "0.5rem 0.8rem", textAlign: "center", borderTop: "3px solid var(--navy)", fontWeight: 900 }}>
-                [GEELMZ // PUEBLA_MX]
+              <div className="polaroid-caption">
+                [PUEBLA_MX] ➔
               </div>
             </div>
 
           </div>
 
-          {/* ══ ESSAY HIP HOP CARDS SECTION ══ */}
+          {/* ══ ESSAY PUNK ZINE CARDS WITH WASHI TAPE ══ */}
           <section style={{ marginBottom: "5rem", display: "flex", flexDirection: "column", gap: "2.5rem" }}>
             {[
               {
@@ -187,16 +178,18 @@ export default function ConoceDeMiPage() {
               <div
                 key={idx}
                 style={{
-                  background: "#FAF4EC",
+                  background: "#FAF5EB",
                   border: "4px solid var(--navy)",
                   boxShadow: idx % 2 === 0 ? "12px 12px 0px var(--red)" : "12px 12px 0px var(--navy)",
                   padding: "2.5rem 2rem",
                   position: "relative",
                   color: "var(--navy)",
                   transform: idx % 2 === 0 ? "rotate(-1.2deg)" : "rotate(1.2deg)",
-                  clipPath: "polygon(0.5% 0%, 99.5% 0.5%, 99% 99.5%, 0% 99%)",
                 }}
               >
+                {/* Washi Tape */}
+                <div className="washi-tape-top" />
+
                 <div style={{
                   display: "flex",
                   alignItems: "center",
@@ -260,7 +253,7 @@ export default function ConoceDeMiPage() {
                 <div
                   key={idx}
                   style={{
-                    background: "#FAF4EC",
+                    background: "#FAF5EB",
                     border: "3px solid var(--navy)",
                     boxShadow: "8px 8px 0px var(--red)",
                     padding: "1.5rem",
@@ -268,8 +261,8 @@ export default function ConoceDeMiPage() {
                     alignItems: "flex-start",
                     gap: "1rem",
                     color: "var(--navy)",
+                    position: "relative",
                     transform: idx % 2 === 0 ? "rotate(-1deg)" : "rotate(1deg)",
-                    clipPath: "polygon(1% 0%, 99% 1%, 100% 99%, 0% 98%)",
                   }}
                 >
                   <span style={{
@@ -297,17 +290,22 @@ export default function ConoceDeMiPage() {
             </div>
           </section>
 
-          {/* ══ CONTACT FOOTER CTA CARD ══ */}
+          {/* ══ CONTACT FOOTER CTA CARD WITH WASHI TAPE & STAMP ══ */}
           <section style={{
-            background: "#FAF4EC",
+            background: "#FAF5EB",
             border: "4px solid var(--navy)",
             boxShadow: "14px 14px 0px var(--red)",
             padding: "3.5rem 2rem",
             textAlign: "center",
             color: "var(--navy)",
+            position: "relative",
             transform: "rotate(-1deg)",
-            clipPath: "polygon(0% 1%, 100% 0%, 99% 99%, 1% 100%)",
           }}>
+            <div className="washi-tape-top" />
+            <div className="stamp-badge" style={{ position: "absolute", top: "20px", right: "20px" }}>
+              LET'S GO
+            </div>
+
             <div className="font-spray" style={{ fontSize: "3rem", color: "var(--red)", marginBottom: "0.5rem" }}>
               {t("¿TIENES UN PROYECTO O UNA IDEA?", "HAVE A PROJECT OR IDEA?")}
             </div>
@@ -322,7 +320,7 @@ export default function ConoceDeMiPage() {
                 rel="noreferrer"
                 className="btn-street-primary"
               >
-                WHATSAPP ↗
+                WHATSAPP ➔
               </a>
               <Link href="/#hero" className="btn-street-secondary">
                 ← {t("VOLVER AL INICIO", "BACK TO HOME")}

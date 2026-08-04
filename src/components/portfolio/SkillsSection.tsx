@@ -183,7 +183,10 @@ export default function SkillsSection() {
       }}
     >
       {/* Title Header */}
-      <div style={{ marginBottom: "3rem" }}>
+      <div style={{ marginBottom: "3rem", position: "relative" }}>
+        {/* Halftone Comic Dots Backdrop */}
+        <div className="halftone-bg" style={{ position: "absolute", top: "-20px", left: "-20px", width: "250px", height: "120px", pointerEvents: "none" }} />
+
         <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
           <span className="font-tag" style={{
             background: "var(--red)",
@@ -192,30 +195,33 @@ export default function SkillsSection() {
             fontSize: "1.3rem",
             transform: "rotate(-2deg)",
             boxShadow: "4px 4px 0px var(--navy)",
+            border: "2px solid var(--navy)",
           }}>
-            🎛️ // {t("MPC SOUNDBOARD & STACK", "MPC SOUNDBOARD & STACK")}
+            // {t("MPC SOUNDBOARD & STACK", "MPC SOUNDBOARD & STACK")}
           </span>
-          <span className="font-mono" style={{ fontSize: "0.7rem", color: "var(--navy)", letterSpacing: "0.2em", fontWeight: 900 }}>
-            [EQ_LEVELS // V3]
+          <span className="stamp-badge">
+            PROTOTYPE
+          </span>
+          <span className="handwritten-note font-marker">
+            Peak Equalizer Levels ➔
           </span>
         </div>
 
-        <h2 className="font-display" style={{
-          fontSize: "clamp(2.8rem, 8vw, 7rem)",
-          lineHeight: 0.85,
+        <h2 className="spray-drippy-title" style={{
+          fontSize: "clamp(3rem, 8.5vw, 7.5rem)",
           color: "var(--navy)",
+          WebkitTextStroke: "2px var(--red)",
           textShadow: "5px 5px 0px var(--red)",
-          textTransform: "uppercase",
           margin: 0,
         }}>
           ARSENAL
         </h2>
         <div className="font-spray" style={{
-          fontSize: "clamp(2.4rem, 7vw, 6rem)",
+          fontSize: "clamp(2.5rem, 7.5vw, 6.5rem)",
           color: "var(--red)",
           lineHeight: 0.9,
           transform: "rotate(-4deg) translateY(-12px) translateX(15px)",
-          WebkitTextStroke: "1.5px var(--navy)",
+          WebkitTextStroke: "2px var(--navy)",
           textShadow: "5px 5px 0px var(--navy)",
           display: "inline-block",
         }}>
@@ -248,7 +254,6 @@ export default function SkillsSection() {
                 textAlign: "left",
                 transform: isActive ? "rotate(-3deg) scale(1.02)" : "none",
                 transition: "all 0.15s ease",
-                clipPath: "polygon(2% 0%, 98% 2%, 100% 98%, 0% 100%)",
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
@@ -274,7 +279,7 @@ export default function SkillsSection() {
         })}
       </div>
 
-      {/* Main Grid: VU Equalizer Meters + BOOMBOX CONSOLE */}
+      {/* Main Grid */}
       <div style={{
         display: "grid",
         gridTemplateColumns: "1fr",
@@ -282,16 +287,19 @@ export default function SkillsSection() {
         alignItems: "start",
       }} className="lg:!grid-cols-[1.3fr_380px]">
 
-        {/* LEFT: SKILL METERS ON BONE PAPER */}
+        {/* LEFT: SKILL METERS */}
         <div style={{
-          background: "#FAF4EC",
+          background: "#FAF5EB",
           border: "4px solid var(--navy)",
           boxShadow: "12px 12px 0px var(--red)",
           padding: "2.2rem 2rem",
           color: "var(--navy)",
+          position: "relative",
           transform: "rotate(-0.8deg)",
-          clipPath: "polygon(0% 0.5%, 100% 0%, 99.5% 99.5%, 0.5% 99%)",
         }}>
+          {/* Washi Tape */}
+          <div className="washi-tape-top" />
+
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem", marginBottom: "0.5rem" }}>
             <h3 className="font-display" style={{ fontSize: "2.8rem", color: "var(--navy)", margin: 0 }}>
               {currentTab.title}
@@ -319,7 +327,7 @@ export default function SkillsSection() {
                 </div>
 
                 {/* VU Meter Audio Equalizer Gauge */}
-                <div style={{ width: "100%", height: "10px", background: "#FAF4EC", border: "2px solid var(--navy)", padding: "1px" }}>
+                <div style={{ width: "100%", height: "10px", background: "#FAF5EB", border: "2px solid var(--navy)", padding: "1px" }}>
                   <div style={{
                     width: `${skill.level}%`,
                     height: "100%",
@@ -344,7 +352,7 @@ export default function SkillsSection() {
 
         {/* RIGHT: BOOMBOX CODE CONSOLE */}
         <div style={{
-          background: "#FAF4EC",
+          background: "#FAF5EB",
           border: "4px solid var(--navy)",
           boxShadow: "12px 12px 0px var(--navy)",
           padding: "1.8rem",
@@ -352,9 +360,17 @@ export default function SkillsSection() {
           flexDirection: "column",
           fontFamily: "var(--font-mono)",
           color: "var(--navy)",
+          position: "relative",
           transform: "rotate(1.5deg)",
-          clipPath: "polygon(1% 0%, 99% 1%, 100% 99%, 0% 98%)",
         }}>
+          {/* Washi Tape Corner */}
+          <div className="washi-tape-corner" />
+
+          {/* Stamp Badge */}
+          <div className="stamp-badge" style={{ position: "absolute", top: "15px", right: "15px" }}>
+            APPROVED
+          </div>
+
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem", borderBottom: "3px dashed var(--red)", paddingBottom: "0.6rem" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
               <Volume2 size={18} style={{ color: "var(--red)" }} />
@@ -362,7 +378,6 @@ export default function SkillsSection() {
                 CONSOLE // AUDIO_MONITOR
               </span>
             </div>
-            <Sliders size={18} style={{ color: "var(--navy)" }} />
           </div>
 
           <div style={{ background: "var(--navy)", padding: "0.5rem 0.8rem", border: "2px solid var(--navy)", color: "#FFFFFF", fontSize: "0.78rem", marginBottom: "0.8rem", fontWeight: 900 }}>

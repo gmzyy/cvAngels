@@ -128,7 +128,10 @@ export default function PortfolioSection() {
       }}
     >
       {/* Title Header */}
-      <div style={{ marginBottom: "3rem" }}>
+      <div style={{ marginBottom: "3rem", position: "relative" }}>
+        {/* Halftone Dot Backdrop */}
+        <div className="halftone-bg" style={{ position: "absolute", top: "-20px", left: "-20px", width: "250px", height: "120px", pointerEvents: "none" }} />
+
         <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
           <span className="font-tag" style={{
             background: "var(--red)",
@@ -137,30 +140,33 @@ export default function PortfolioSection() {
             fontSize: "1.3rem",
             transform: "rotate(2deg)",
             boxShadow: "4px 4px 0px var(--navy)",
+            border: "2px solid var(--navy)",
           }}>
-            🎨 // {t("PROYECTOS & GRAFFITI WALL", "PROJECTS & STREET WALL")}
+            // {t("PROYECTOS & GRAFFITI WALL", "PROJECTS & STREET WALL")}
           </span>
-          <span className="font-mono" style={{ fontSize: "0.7rem", color: "var(--navy)", letterSpacing: "0.2em", fontWeight: 900 }}>
-            [SHOWCASE // 2026]
+          <span className="stamp-badge">
+            ONLY ONE
+          </span>
+          <span className="handwritten-note font-marker">
+            Handcrafted Systems ➔
           </span>
         </div>
 
-        <h2 className="font-display" style={{
-          fontSize: "clamp(2.8rem, 8vw, 7rem)",
-          lineHeight: 0.85,
+        <h2 className="spray-drippy-title" style={{
+          fontSize: "clamp(3rem, 8.5vw, 7.5rem)",
           color: "var(--navy)",
+          WebkitTextStroke: "2px var(--red)",
           textShadow: "5px 5px 0px var(--red)",
-          textTransform: "uppercase",
           margin: 0,
         }}>
           {t("PROYECTOS", "SELECTED")}
         </h2>
         <div className="font-spray" style={{
-          fontSize: "clamp(2.4rem, 7vw, 6rem)",
+          fontSize: "clamp(2.5rem, 7.5vw, 6.5rem)",
           color: "var(--red)",
           lineHeight: 0.9,
           transform: "rotate(-4deg) translateY(-12px) translateX(15px)",
-          WebkitTextStroke: "1.5px var(--navy)",
+          WebkitTextStroke: "2px var(--navy)",
           textShadow: "5px 5px 0px var(--navy)",
           display: "inline-block",
         }}>
@@ -168,7 +174,7 @@ export default function PortfolioSection() {
         </div>
       </div>
 
-      {/* Filter Tabs in Hip Hop Badge Style */}
+      {/* Filter Tabs */}
       <div style={{ display: "flex", gap: "0.8rem", flexWrap: "wrap", marginBottom: "3rem" }}>
         {[
           { id: "all", label: t("TODOS (4)", "ALL (4)") },
@@ -193,7 +199,6 @@ export default function PortfolioSection() {
                 cursor: "pointer",
                 transform: isActive ? "rotate(-2deg) scale(1.03)" : "none",
                 transition: "all 0.15s ease",
-                clipPath: "polygon(2% 0%, 98% 2%, 100% 98%, 0% 100%)",
               }}
             >
               {f.label}
@@ -202,7 +207,7 @@ export default function PortfolioSection() {
         })}
       </div>
 
-      {/* Projects Grid in Hip-Hop Album Poster Style */}
+      {/* Projects Grid */}
       <div style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
@@ -212,7 +217,7 @@ export default function PortfolioSection() {
           <div
             key={p.id}
             style={{
-              background: "#FAF4EC",
+              background: "#FAF5EB",
               border: "4px solid var(--navy)",
               boxShadow: p.highlighted ? "12px 12px 0px var(--red)" : "10px 10px 0px var(--navy)",
               padding: "2rem 1.8rem",
@@ -222,9 +227,16 @@ export default function PortfolioSection() {
               position: "relative",
               color: "var(--navy)",
               transform: idx % 2 === 0 ? "rotate(-1.5deg)" : "rotate(1.5deg)",
-              clipPath: "polygon(0.5% 0%, 99.5% 0.5%, 99% 99.5%, 0% 99%)",
             }}
           >
+            {/* Washi Tape */}
+            <div className="washi-tape-top" />
+
+            {/* Stamp Badge */}
+            <div className="stamp-badge" style={{ position: "absolute", bottom: "15px", right: "15px", fontSize: "0.95rem" }}>
+              {p.status}
+            </div>
+
             <div>
               {/* Header Badge */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
@@ -232,7 +244,7 @@ export default function PortfolioSection() {
                   [{p.tag}]
                 </span>
                 <span className="font-mono" style={{ fontSize: "0.7rem", background: "var(--navy)", color: "#FFF", padding: "3px 10px", fontWeight: 900 }}>
-                  ● {p.status}
+                  {p.status}
                 </span>
               </div>
 
@@ -276,7 +288,7 @@ export default function PortfolioSection() {
                   className="btn-street-secondary"
                   style={{ width: "100%", justifyContent: "center", fontSize: "1.2rem", padding: "0.6rem" }}
                 >
-                  <Github size={16} /> REPO GITHUB ↗
+                  <Github size={16} /> REPO GITHUB ➔
                 </a>
               )}
             </div>

@@ -269,7 +269,7 @@ export default function TopNavBar() {
                 // NAVEGACIÓN URBANA
               </span>
               <span className="font-mono" style={{ fontSize: "0.65rem", color: "var(--navy)", fontWeight: 700 }}>
-                ● SELECT DESTINATION
+                SELECT DESTINATION
               </span>
             </div>
 
@@ -320,7 +320,7 @@ export default function TopNavBar() {
                         </div>
 
                         <span className="font-mono" style={{ fontSize: "0.85rem", fontWeight: 700 }}>
-                          {item.page ? "EXPLORAR ↗" : isActive ? "● ACTIVE" : "➔"}
+                          {item.page ? "EXPLORAR ↗" : isActive ? "ACTIVE" : "➔"}
                         </span>
                       </div>
                     </Link>
