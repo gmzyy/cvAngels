@@ -14,9 +14,9 @@ export default function Document() {
         />
         <meta name="description" content="FEELMZ // GEELMZ — Fullstack Developer & IA. Puebla, México." />
         <meta name="author" content="Angel Gomez Garcia (Geelmz)" />
-        <meta name="theme-color" content="#080808" />
+        <meta name="theme-color" content="#F4EFE6" />
       </Head>
-      <body className="antialiased" style={{ background: "#060606", margin: 0, padding: 0, overflowX: "hidden" }}>
+      <body className="antialiased" style={{ background: "#F4EFE6", color: "#0B1B3D", margin: 0, padding: 0, overflowX: "hidden" }}>
         <Main />
         <NextScript />
       </body>

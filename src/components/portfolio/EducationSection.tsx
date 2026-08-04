@@ -1,7 +1,7 @@
 "use client"
 import { useRef } from "react"
 import { useInView } from "framer-motion"
-import { GraduationCap, Zap, Award, CheckCircle2, ShieldCheck, FileCheck2 } from "lucide-react"
+import { GraduationCap, Award, BookOpen, CheckCircle2, ShieldAlert, Disc } from "lucide-react"
 import { useLanguage } from "@/context/LanguageContext"
 
 export default function EducationSection() {
@@ -9,21 +9,11 @@ export default function EducationSection() {
   const inView = useInView(ref, { once: true, amount: 0.15 })
   const { t } = useLanguage()
 
-  const edu = [
-    {
-      code: "DEG_01",
-      degree: t("Ingeniería en Desarrollo de Software Multiplataforma", "B.S. in Multiplatform Software Engineering"),
-      institution: "Universidad Tecnológica de Puebla (UTP)",
-      period: "2024 – 2026",
-      status: t("VERIFICADO // TITULACIÓN", "VERIFIED // DEGREE"),
-    },
-    {
-      code: "DEG_02",
-      degree: t("TSU en Desarrollo de Software Multiplataforma", "Associate Degree in Multiplatform Software Development"),
-      institution: "Universidad Tecnológica de Puebla (UTP)",
-      period: "2022 – 2024",
-      status: t("COMPLETADO // TITULADO", "COMPLETED // GRADUATED"),
-    },
+  const CERTIFICATIONS = [
+    { name: "Scrum Fundamentals Certified (SFC)", org: "SCRUMstudy", year: "2026", code: "CERT-SFC-2026" },
+    { name: "NestJS Microservices & Architecture", org: "Udemy / Enterprise", year: "2025", code: "CERT-NEST-01" },
+    { name: "FastAPI & Python Advanced Async", org: "Udemy / Core", year: "2025", code: "CERT-FAST-02" },
+    { name: "LangChain & Vector DBs (ChromaDB)", org: "AI Academy", year: "2025", code: "CERT-RAG-03" },
   ]
 
   return (
@@ -33,7 +23,7 @@ export default function EducationSection() {
       style={{
         position: "relative",
         zIndex: 10,
-        padding: "6rem 1.5rem",
+        padding: "6rem 1.5rem 8rem",
         maxWidth: "1400px",
         margin: "0 auto",
         opacity: inView ? 1 : 0,
@@ -41,173 +31,161 @@ export default function EducationSection() {
         transition: "opacity 0.6s ease, transform 0.6s ease",
       }}
     >
-      {/* ══ HEADER TITLE BANNER ══ */}
-      <div style={{ marginBottom: "4rem", position: "relative" }}>
+      {/* Title Header */}
+      <div style={{ marginBottom: "3.5rem" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
-          <span className="sticker-box font-mono" style={{ transform: "rotate(1.5deg)", color: "var(--red)" }}>
-            // {t("CREDANCIALES & DOSSIER ACADÉMICO", "CREDENTIALS & ACADEMIC DOSSIER")}
+          <span className="font-tag" style={{
+            background: "var(--red)",
+            color: "#FFFFFF",
+            padding: "0.3rem 1.2rem",
+            fontSize: "1.3rem",
+            transform: "rotate(-2deg)",
+            boxShadow: "4px 4px 0px var(--navy)",
+          }}>
+            🎓 // {t("FORMACIÓN & DIPLOMAS", "ACADEMIC DIPLOMAS")}
           </span>
-          <span className="font-mono" style={{ fontSize: "0.7rem", color: "var(--grey)", letterSpacing: "0.2em" }}>
-            [ACADEMIC_SEAL: UTP_PUEBLA]
+          <span className="font-mono" style={{ fontSize: "0.7rem", color: "var(--navy)", letterSpacing: "0.2em", fontWeight: 900 }}>
+            [DEGREES &amp; CERTS]
           </span>
         </div>
 
         <h2 className="font-display" style={{
-          fontSize: "clamp(3.8rem, 8vw, 6.5rem)",
+          fontSize: "clamp(2.8rem, 8vw, 7rem)",
           lineHeight: 0.85,
-          color: "#FFFFFF",
-          textShadow: "6px 6px 0px var(--red)",
+          color: "var(--navy)",
+          textShadow: "5px 5px 0px var(--red)",
           textTransform: "uppercase",
           margin: 0,
         }}>
           {t("FORMACIÓN", "EDUCATION")}
         </h2>
         <div className="font-spray" style={{
-          fontSize: "clamp(3.2rem, 7vw, 5.5rem)",
+          fontSize: "clamp(2.4rem, 7vw, 6rem)",
           color: "var(--red)",
           lineHeight: 0.9,
-          transform: "rotate(-3deg) translateY(-15px)",
-          WebkitTextStroke: "1.5px #FFFFFF",
-          textShadow: "6px 6px 0px #000000",
+          transform: "rotate(-4deg) translateY(-12px) translateX(15px)",
+          WebkitTextStroke: "1.5px var(--navy)",
+          textShadow: "5px 5px 0px var(--navy)",
           display: "inline-block",
         }}>
-          {t("ACADÉMICA & CERTIFICADOS", "DOSSIER & CERTS")}
+          &amp; {t("CERTIFICACIONES", "CERTIFICATIONS")}
         </div>
       </div>
 
-      {/* ══ PASSPORT DOSSIER GRID ══ */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr" }} className="lg:!grid-cols-[1.1fr_0.9fr] gap-12">
-        
-        {/* Left — Academic Degree Passport Cards */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "2.2rem" }}>
-          {edu.map((item, idx) => (
-            <div
-              key={item.degree}
-              style={{
-                background: "#0A0A0A",
-                border: "4px solid #FFFFFF",
-                boxShadow: idx === 0 ? "12px 12px 0px var(--red), 12px 12px 0px 4px #000000" : "12px 12px 0px #FFFFFF, 12px 12px 0px 4px var(--red)",
-                padding: "2.2rem",
-                position: "relative",
-              }}
-            >
-              {/* Tape Accent Corner */}
-              <div style={{
-                position: "absolute",
-                top: "-15px",
-                right: "20px",
-                background: "var(--red)",
-                color: "#FFFFFF",
-                padding: "2px 10px",
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.65rem",
-                fontWeight: 700,
-                transform: "rotate(3deg)",
-                border: "1px solid #FFF",
-              }}>
-                {item.code} // OFFICIAL
-              </div>
+      {/* Grid: Left University Degree + Right Certifications Stack */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr" }} className="lg:!grid-cols-[1.1fr_0.9fr] gap-10">
 
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.2rem" }}>
-                <span className="sticker-box font-mono" style={{ background: "#FFFFFF", color: "#000000", fontWeight: 700 }}>
-                  {item.period}
-                </span>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "var(--red)" }}>
-                  <ShieldCheck size={22} />
-                  <span className="font-mono" style={{ fontSize: "0.7rem", fontWeight: 700 }}>
-                    {item.status}
-                  </span>
-                </div>
-              </div>
-
-              <h3 className="font-display" style={{ fontSize: "2.4rem", color: "#FFFFFF", lineHeight: 1.05, marginBottom: "0.8rem", textShadow: "2px 2px 0px #000" }}>
-                {item.degree}
-              </h3>
-              <p className="font-spray" style={{ fontSize: "1.7rem", color: "var(--red)", margin: 0 }}>
-                {item.institution}
-              </p>
-
-              {/* Barcode Graphic Strip */}
-              <div style={{ marginTop: "1.5rem", borderTop: "2px dashed #333333", paddingTop: "0.8rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span className="font-mono" style={{ fontSize: "0.65rem", color: "#666666" }}>
-                  BARCODE: ||||| | |||| ||| |||||| | {item.code}
-                </span>
-                <FileCheck2 size={18} style={{ color: "var(--red)" }} />
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Right — Language & Certification Radar Dossier */}
-        <div
-          style={{
-            background: "#000000",
-            border: "4px solid #FFFFFF",
-            boxShadow: "14px 14px 0px #FFFFFF, 14px 14px 0px 4px var(--red)",
-            padding: "2.5rem",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "between",
-            position: "relative",
-          }}
-        >
-          {/* Top Status Lights */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.5rem", borderBottom: "3px dashed #333333", paddingBottom: "1rem" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
-              <Award size={30} style={{ color: "var(--red)" }} />
-              <span className="sticker-box font-mono" style={{ background: "var(--red)", color: "#FFF" }}>
-                [ LANG_CERT // RADAR ]
-              </span>
-            </div>
-            <span className="font-mono" style={{ fontSize: "0.7rem", color: "var(--red)", fontWeight: 700 }}>
-              ● ACTIVE TARGET
-            </span>
+        {/* LEFT: STREET DIPLOMA CARD ON BONE PAPER */}
+        <div style={{
+          background: "#FAF4EC",
+          border: "4px solid var(--navy)",
+          boxShadow: "12px 12px 0px var(--red)",
+          padding: "2.5rem 2rem",
+          position: "relative",
+          color: "var(--navy)",
+          transform: "rotate(-1.2deg)",
+          clipPath: "polygon(0.5% 0%, 99.5% 0.5%, 99% 99.5%, 0% 99%)",
+        }}>
+          {/* Street Stamp Seal */}
+          <div style={{
+            position: "absolute",
+            top: "-15px",
+            right: "20px",
+            background: "var(--navy)",
+            color: "#FFFFFF",
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.75rem",
+            fontWeight: 900,
+            padding: "0.2rem 1rem",
+            transform: "rotate(3deg)",
+            border: "2px solid var(--red)",
+            boxShadow: "3px 3px 0px var(--red)",
+          }}>
+            [ GRADUATED // 2026 ]
           </div>
 
-          <h3 className="font-display" style={{ fontSize: "3.5rem", color: "#FFFFFF", marginBottom: "0.8rem", lineHeight: 0.9 }}>
-            {t("INGLÉS: TÉCNICO (A2+)", "ENGLISH: TECHNICAL (A2+)")}
-          </h3>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", marginBottom: "1.2rem" }}>
+            <GraduationCap size={36} style={{ color: "var(--red)" }} />
+            <div>
+              <span className="font-mono" style={{ fontSize: "0.7rem", background: "var(--red)", color: "#FFF", padding: "2px 8px", fontWeight: 900 }}>
+                DEGREE CERTIFIED
+              </span>
+              <h3 className="font-display" style={{ fontSize: "2.6rem", color: "var(--navy)", lineHeight: 0.95, marginTop: 4 }}>
+                {t("INGENIERÍA EN DESARROLLO Y GESTIÓN DE SOFTWARE", "SOFTWARE DEVELOPMENT & MANAGEMENT DEGREE")}
+              </h3>
+            </div>
+          </div>
 
-          <p style={{ color: "#DDDDDD", fontSize: "1.1rem", lineHeight: 1.75, marginBottom: "2.2rem", fontFamily: "var(--font-body)" }}>
+          <div className="font-spray" style={{ fontSize: "1.6rem", color: "var(--red)", marginBottom: "1.2rem" }}>
+            Universidad Tecnológica de Puebla (UTP)
+          </div>
+
+          <p className="font-body" style={{ color: "#112233", fontSize: "1rem", lineHeight: 1.65, fontWeight: 700, marginBottom: "1.5rem" }}>
             {t(
-              "Dominio técnico para lectura fluida de documentación avanzada, spec papers, arquitecturas de software y contribuciones open-source internacionales.",
-              "Technical proficiency for fluent reading of advanced documentation, software architecture spec papers, and international open-source contributions."
+              "Especialización en arquitectura de software, metodologías ágiles (Scrum), bases de datos relacionales/NoSQL y desarrollo web/móvil.",
+              "Specialization in software architecture, agile methodologies (Scrum), relational/NoSQL databases, and web/mobile development."
             )}
           </p>
 
-          {/* Proficiency Meter */}
-          <div style={{ background: "#111111", border: "2px solid #FFFFFF", padding: "1.2rem", marginBottom: "2.2rem", boxShadow: "4px 4px 0px #000" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.6rem" }}>
-              <span className="font-mono" style={{ fontSize: "0.8rem", color: "#FFF", fontWeight: 700 }}>
-                READING &amp; TECH SPECS PROFICIENCY
-              </span>
-              <span className="font-mono" style={{ fontSize: "0.85rem", color: "var(--red)", fontWeight: 700 }}>
-                85% [ADVANCED]
-              </span>
+          <div style={{ borderTop: "3px dashed var(--red)", paddingTop: "1.2rem" }}>
+            <div className="font-mono" style={{ fontSize: "0.8rem", color: "var(--red)", marginBottom: "0.8rem", fontWeight: 900 }}>
+              [ {t("COMPETENCIAS CLAVE", "KEY COMPETENCIES")} ]
             </div>
-            <div style={{ width: "100%", height: "12px", background: "#000", border: "1px solid #333" }}>
-              <div style={{ width: "85%", height: "100%", background: "var(--red)", boxShadow: "0 0 10px var(--red)" }} />
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.8rem" }}>
+              {[
+                t("Arquitectura de Software", "Software Architecture"),
+                t("Metodología Scrum/Agile", "Scrum/Agile Methodology"),
+                t("Bases de Datos & SQL", "Databases & SQL"),
+                t("Integración de APIs", "API Integrations"),
+              ].map((c) => (
+                <div key={c} className="font-mono" style={{ fontSize: "0.82rem", color: "var(--navy)", display: "flex", alignItems: "center", gap: "0.5rem", fontWeight: 800 }}>
+                  <CheckCircle2 size={16} style={{ color: "var(--red)" }} />
+                  <span>{c}</span>
+                </div>
+              ))}
             </div>
           </div>
+        </div>
 
-          {/* Certification Target Sticker */}
-          <div style={{
-            background: "var(--red)",
-            color: "#FFFFFF",
-            border: "3px solid #FFFFFF",
-            padding: "1rem 1.4rem",
-            fontFamily: "var(--font-spray)",
-            fontSize: "1.6rem",
-            transform: "rotate(-2deg)",
-            boxShadow: "6px 6px 0px #000000",
-            display: "flex",
-            alignItems: "center",
-            gap: "0.8rem",
-            marginTop: "auto",
-          }}>
-            <Zap size={26} style={{ color: "#FFF", flexShrink: 0 }} />
-            <span>{t("En preparación activa para certificación B2 (2026)", "Active preparation for B2 certification (2026)")}</span>
-          </div>
+        {/* RIGHT: CERTIFICATIONS LIST ON BONE PAPER */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "1.2rem" }}>
+          {CERTIFICATIONS.map((cert, idx) => (
+            <div
+              key={cert.name}
+              style={{
+                background: "#FAF4EC",
+                border: "3px solid var(--navy)",
+                boxShadow: "8px 8px 0px var(--red)",
+                padding: "1.4rem 1.6rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: "1rem",
+                color: "var(--navy)",
+                transform: idx % 2 === 0 ? "rotate(-1deg)" : "rotate(1deg)",
+                clipPath: "polygon(1% 0%, 99% 1%, 100% 99%, 0% 98%)",
+              }}
+            >
+              <div>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.2rem" }}>
+                  <Award size={18} style={{ color: "var(--red)" }} />
+                  <span className="font-mono" style={{ fontSize: "0.7rem", color: "var(--red)", fontWeight: 900 }}>
+                    [{cert.code}]
+                  </span>
+                </div>
+                <div className="font-display" style={{ fontSize: "1.6rem", color: "var(--navy)", lineHeight: 1 }}>
+                  {cert.name}
+                </div>
+                <div className="font-mono" style={{ fontSize: "0.75rem", color: "#334455", marginTop: 4, fontWeight: 700 }}>
+                  {cert.org}
+                </div>
+              </div>
+
+              <span className="font-mono" style={{ fontSize: "0.85rem", background: "var(--navy)", color: "#FFF", padding: "0.4rem 0.8rem", border: "2px solid var(--navy)", fontWeight: 900 }}>
+                {cert.year}
+              </span>
+            </div>
+          ))}
         </div>
 
       </div>

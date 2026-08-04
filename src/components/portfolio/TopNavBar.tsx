@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { useLanguage } from "@/context/LanguageContext"
-import { Mail, MessageSquare, ArrowRight, CornerDownRight } from "lucide-react"
+import { Mail, MessageSquare } from "lucide-react"
 
 export default function TopNavBar() {
   const [scrolled, setScrolled] = useState(false)
@@ -56,16 +56,16 @@ export default function TopNavBar() {
       borderBottom: scrolled || mobileOpen ? "4px solid var(--red)" : "4px solid transparent",
       backdropFilter: scrolled || mobileOpen ? "blur(16px)" : "none",
       WebkitBackdropFilter: scrolled || mobileOpen ? "blur(16px)" : "none",
-      background: scrolled || mobileOpen ? "rgba(6,6,6,0.98)" : "transparent",
+      background: scrolled || mobileOpen ? "rgba(244, 239, 230, 0.96)" : "transparent",
       transition: "all 0.3s ease",
     }}>
 
       {/* ── LOGO / BRAND ── */}
       <Link href="/" onClick={() => setMobileOpen(false)} style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.75rem" }}>
         <div style={{
-          width: 38, height: 38,
-          background: "#FFFFFF",
-          border: "2px solid #000000",
+          width: 40, height: 40,
+          background: "var(--navy)",
+          border: "2px solid var(--red)",
           boxShadow: "3px 3px 0px var(--red)",
           overflow: "hidden",
           flexShrink: 0,
@@ -82,7 +82,7 @@ export default function TopNavBar() {
         <div style={{ lineHeight: 1 }}>
           <div className="font-tag" style={{
             fontSize: "clamp(1.1rem, 2.2vw, 1.4rem)",
-            color: "#FFFFFF",
+            color: "var(--navy)",
             letterSpacing: "0.02em",
           }}>
             FEELMZ // GEELMZ
@@ -122,8 +122,8 @@ export default function TopNavBar() {
                   background: "var(--red)",
                   marginLeft: "0.8rem",
                   textTransform: "uppercase",
-                  boxShadow: "3px 3px 0px #000000",
-                  border: "2px solid #FFFFFF",
+                  boxShadow: "3px 3px 0px var(--navy)",
+                  border: "2px solid var(--navy)",
                   transform: "rotate(1deg)",
                   transition: "transform 0.2s ease",
                 }}
@@ -142,9 +142,9 @@ export default function TopNavBar() {
                 fontSize: "1.2rem",
                 letterSpacing: "0.05em",
                 textDecoration: "none",
-                color: isActive ? "var(--red)" : "#FFFFFF",
+                color: isActive ? "#FFFFFF" : "var(--navy)",
                 padding: "0.3rem 0.8rem",
-                background: isActive ? "#000000" : "transparent",
+                background: isActive ? "var(--navy)" : "transparent",
                 border: isActive ? "2px solid var(--red)" : "2px solid transparent",
                 transform: isActive ? "rotate(-2deg)" : "none",
                 boxShadow: isActive ? "3px 3px 0px var(--red)" : "none",
@@ -163,12 +163,12 @@ export default function TopNavBar() {
           style={{
             marginLeft: "1.5rem",
             background: "var(--red)",
-            border: "2px solid #FFFFFF",
+            border: "2px solid var(--navy)",
             color: "#FFFFFF",
             padding: "0.1rem 0.8rem",
             fontSize: "1.2rem",
             cursor: "pointer",
-            boxShadow: "4px 4px 0px #000000",
+            boxShadow: "4px 4px 0px var(--navy)",
             transform: "rotate(-3deg)",
             display: "flex",
             alignItems: "center",
@@ -176,9 +176,9 @@ export default function TopNavBar() {
           }}
           title={lang === "es" ? "Switch to English" : "Cambiar a Español"}
         >
-          <span style={{ opacity: lang === "es" ? 1 : 0.5, textDecoration: lang === "es" ? "underline" : "none" }}>ES</span>
-          <span style={{ opacity: 0.5 }}>/</span>
-          <span style={{ opacity: lang === "en" ? 1 : 0.5, textDecoration: lang === "en" ? "underline" : "none" }}>EN</span>
+          <span style={{ opacity: lang === "es" ? 1 : 0.6, textDecoration: lang === "es" ? "underline" : "none" }}>ES</span>
+          <span style={{ opacity: 0.6 }}>/</span>
+          <span style={{ opacity: lang === "en" ? 1 : 0.6, textDecoration: lang === "en" ? "underline" : "none" }}>EN</span>
         </button>
       </nav>
 
@@ -190,12 +190,12 @@ export default function TopNavBar() {
           className="font-marker"
           style={{
             background: "var(--red)",
-            border: "2px solid #FFFFFF",
+            border: "2px solid var(--navy)",
             color: "#FFFFFF",
             padding: "0.2rem 0.6rem",
             fontSize: "1.1rem",
             cursor: "pointer",
-            boxShadow: "3px 3px 0px #000000",
+            boxShadow: "3px 3px 0px var(--navy)",
             transform: "rotate(-2deg)",
             flexShrink: 0,
           }}
@@ -203,12 +203,12 @@ export default function TopNavBar() {
           {lang === "es" ? "EN ↗" : "ES ↗"}
         </button>
 
-        {/* Mobile Toggle Button (STRICT FIXED DIMENSIONS) */}
+        {/* Mobile Toggle Button */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           style={{
-            background: mobileOpen ? "var(--red)" : "#000000",
-            border: "2px solid #FFFFFF",
+            background: mobileOpen ? "var(--red)" : "var(--navy)",
+            border: "2px solid var(--navy)",
             width: "100px",
             height: "36px",
             color: "#FFFFFF",
@@ -245,7 +245,7 @@ export default function TopNavBar() {
               right: 0,
               bottom: 0,
               height: "calc(100vh - 60px)",
-              background: "rgba(6, 6, 6, 0.98)",
+              background: "rgba(244, 239, 230, 0.98)",
               borderTop: "3px solid var(--red)",
               padding: "1.2rem 1rem 2rem",
               display: "flex",
@@ -268,7 +268,7 @@ export default function TopNavBar() {
               <span className="sticker-box font-mono" style={{ fontSize: "0.65rem", background: "var(--red)", color: "#FFF" }}>
                 // NAVEGACIÓN URBANA
               </span>
-              <span className="font-mono" style={{ fontSize: "0.65rem", color: "var(--red)", fontWeight: 700 }}>
+              <span className="font-mono" style={{ fontSize: "0.65rem", color: "var(--navy)", fontWeight: 700 }}>
                 ● SELECT DESTINATION
               </span>
             </div>
@@ -292,10 +292,10 @@ export default function TopNavBar() {
                       style={{ textDecoration: "none" }}
                     >
                       <div style={{
-                        background: item.page ? "var(--red)" : isActive ? "#FFFFFF" : "#121212",
-                        color: item.page ? "#FFFFFF" : isActive ? "#000000" : "#FFFFFF",
-                        border: "2px solid #FFFFFF",
-                        boxShadow: isActive ? "4px 4px 0px var(--red)" : "3px 3px 0px #000000",
+                        background: item.page ? "var(--red)" : isActive ? "var(--navy)" : "#FFFFFF",
+                        color: item.page ? "#FFFFFF" : isActive ? "#FFFFFF" : "var(--navy)",
+                        border: "2px solid var(--navy)",
+                        boxShadow: isActive ? "4px 4px 0px var(--red)" : "3px 3px 0px var(--navy)",
                         padding: "0.65rem 1rem",
                         display: "flex",
                         alignItems: "center",
@@ -306,10 +306,11 @@ export default function TopNavBar() {
                         <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                           <span className="font-mono" style={{
                             fontSize: "0.7rem",
-                            background: item.page ? "#000" : isActive ? "var(--red)" : "#222",
-                            color: "#FFF",
+                            background: item.page ? "var(--navy)" : isActive ? "var(--red)" : "var(--bg-paper)",
+                            color: item.page || isActive ? "#FFF" : "var(--navy)",
                             padding: "2px 6px",
                             fontWeight: 700,
+                            border: "1px solid var(--navy)",
                           }}>
                             {item.num}
                           </span>
@@ -330,7 +331,7 @@ export default function TopNavBar() {
 
             {/* Quick Action Contact Row at Bottom of Menu */}
             <div style={{
-              borderTop: "2px dashed #333333",
+              borderTop: "2px dashed var(--navy)",
               paddingTop: "1rem",
               marginTop: "1.2rem",
               display: "grid",
@@ -345,13 +346,13 @@ export default function TopNavBar() {
                 style={{
                   background: "var(--red)",
                   color: "#FFFFFF",
-                  border: "2px solid #FFFFFF",
+                  border: "2px solid var(--navy)",
                   padding: "0.6rem 0.4rem",
                   fontSize: "0.75rem",
                   textAlign: "center",
                   textDecoration: "none",
                   fontWeight: 700,
-                  boxShadow: "3px 3px 0px #000000",
+                  boxShadow: "3px 3px 0px var(--navy)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -365,9 +366,9 @@ export default function TopNavBar() {
                 href="mailto:angelgom042@gmail.com"
                 className="font-mono"
                 style={{
-                  background: "#000000",
+                  background: "var(--navy)",
                   color: "#FFFFFF",
-                  border: "2px solid #FFFFFF",
+                  border: "2px solid var(--navy)",
                   padding: "0.6rem 0.4rem",
                   fontSize: "0.75rem",
                   textAlign: "center",

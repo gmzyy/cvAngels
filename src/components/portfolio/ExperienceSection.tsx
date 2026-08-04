@@ -1,21 +1,26 @@
 "use client"
 import { useRef } from "react"
 import { useInView } from "framer-motion"
+import { Calendar, Disc, Flame, Mic, ShieldCheck, Zap } from "lucide-react"
 import { useLanguage } from "@/context/LanguageContext"
-import { ExternalLink, Terminal, ChevronRight } from "lucide-react"
 
-interface ProjectDetail {
+interface ProjectSub {
   name: string
-  bullets: string[]
+  tag: string
+  desc: string
+  highlights: string[]
+  stack: string[]
 }
 
-interface Job {
+interface ExperienceItem {
+  id: string
+  trackNum: string
   company: string
+  companyTag: string
   role: string
   period: string
-  link?: string
-  projects?: ProjectDetail[]
-  bullets?: string[]
+  isCurrent?: boolean
+  projects: ProjectSub[]
 }
 
 export default function ExperienceSection() {
@@ -23,89 +28,80 @@ export default function ExperienceSection() {
   const inView = useInView(ref, { once: true, amount: 0.1 })
   const { t } = useLanguage()
 
-  const JOBS: Job[] = [
+  const EXPERIENCES: ExperienceItem[] = [
     {
+      id: "pharos",
+      trackNum: "TRACK 01",
       company: "PHAROS PAYMENTS",
-      role: "Fullstack Developer (Fintech)",
+      companyTag: "FINTECH & SPEI PLATFORM",
+      role: t("Fullstack Developer (Fintech)", "Fullstack Developer (Fintech)"),
       period: "01/2026 – 07/2026",
+      isCurrent: true,
       projects: [
         {
           name: "Sendro Financial Platform (SPEI / 2FA)",
-          bullets: [
-            t(
-              "Diseñé e implementé el flujo end-to-end de autenticación 2FA/TOTP (QR, OTP, códigos de respaldo), protegiendo operaciones críticas como transferencias SPEI y administración de cuentas.",
-              "Designed and implemented end-to-end 2FA/TOTP authentication flow (QR, OTP, backup codes), securing critical operations like SPEI transfers."
-            ),
-            t(
-              "Resolví vulnerabilidades de replay attack y cifré la transmisión de tokens TOTP en peticiones HTTP, junto con un sistema de expiración automática de sesión.",
-              "Mitigated replay attack vulnerabilities and encrypted TOTP transmission over HTTP with automatic inactivity timeout."
-            ),
-            t(
-              "Refactoricé el motor de consultas SPEI IN/OUT migrando a un modelo de filtrado híbrido (servidor + cliente), resolviendo errores 500/502 mediante procesamiento por bloques.",
-              "Refactored SPEI IN/OUT query engine with hybrid server/client filtering, eliminating 500/502 errors via chunked fetching."
-            ),
-            t(
-              "Construí un motor de exportación masiva (ZIP/Excel) con sincronización total entre los filtros aplicados y los datos descargados.",
-              "Built a mass export engine (ZIP/Excel) ensuring total sync between applied filters and downloaded datasets."
-            ),
+          tag: "FINTECH_CORE",
+          desc: t(
+            "Diseñé e implementé el flujo end-to-end de autenticación 2FA/TOTP (QR, OTP, códigos de respaldo), protegiendo operaciones críticas como transferencias SPEI y administración de cuenta.",
+            "Designed and implemented end-to-end 2FA/TOTP authentication (QR, OTP, backup codes), securing critical operations like SPEI transfers and account admin."
+          ),
+          highlights: [
+            t("Mecanismos anti-replay (tokens de un solo uso y firmas de solicitud) en NestJS", "Anti-replay mechanisms (one-time tokens & signatures) in NestJS"),
+            t("Panel administrativo para soporte y gestión de comercios", "Admin portal for support and merchant management"),
+            t("Estructuración de base de datos relacional y migraciones con Prisma ORM", "Relational database structuring and migrations via Prisma ORM"),
+            t("Documentación técnica con OpenAPI 3.1.0 (Swagger)", "Technical documentation with OpenAPI 3.1.0 (Swagger)"),
           ],
+          stack: ["NestJS", "Next.js 15", "Prisma ORM", "2FA/TOTP", "OpenAPI 3.1", "MySQL"],
         },
+      ],
+    },
+    {
+      id: "staicka-ai",
+      trackNum: "TRACK 02",
+      company: "STAICKA STUDIO",
+      companyTag: "AI & RAG MOTORS",
+      role: t("Lead AI & Fullstack Developer", "Lead AI & Fullstack Developer"),
+      period: "08/2025 – 12/2025",
+      projects: [
         {
-          name: "Onboarding & KYC Module",
-          bullets: [
-            t(
-              "Lideré la estandarización de APIs bajo OpenAPI 3.1.0 y documenté modelos relacionales con Prisma ORM.",
-              "Led API standardization under OpenAPI 3.1.0 and documented relational models using Prisma ORM."
-            ),
-            t(
-              "Migré la capa de red del frontend a Dio con interceptores personalizados, eliminando tokens dummy y conectando endpoints de producción.",
-              "Migrated frontend network layer to Dio with custom interceptors, replacing dummy tokens with production endpoints."
-            ),
-            t(
-              "Rediseñé la carga de archivos KYC migrando a URLs pre-firmadas de AWS S3 (multipart), resolviendo bugs críticos de compatibilidad.",
-              "Redesigned KYC file uploads migrating to pre-signed AWS S3 multipart URLs, fixing cross-browser compatibility issues."
-            ),
+          name: "Staicka Talent Scout & RAG Engine",
+          tag: "AI_RECRUITMENT",
+          desc: t(
+            "Sistema inteligente de reclutamiento con lectura masiva de CVs (PDF) usando SpaCy NLP y motor RAG con LangChain + ChromaDB para búsqueda semántica.",
+            "Intelligent recruitment system reading PDF resumes with SpaCy NLP and a RAG engine with LangChain + ChromaDB for semantic search."
+          ),
+          highlights: [
+            t("Extracción de texto PDF en backend Python con FastAPI", "PDF text extraction on Python backend with FastAPI"),
+            t("Indexación vectorial con ChromaDB y embeddings con Google Gemini", "Vector indexing with ChromaDB and Google Gemini embeddings"),
+            t("Ranking de candidatos por ajuste semántico con la descripción del puesto", "Candidate scoring based on semantic fit with job specs"),
+            t("Despliegue multi-contenedor con Docker Compose", "Multi-container deployment via Docker Compose"),
           ],
+          stack: ["FastAPI", "Python 3.10", "SpaCy NLP", "LangChain", "ChromaDB", "Docker"],
         },
       ],
     },
     {
-      company: "STAICKA",
-      role: "Fullstack Developer (Freelance)",
-      period: t("11/2025 – PRESENTE", "11/2025 – PRESENT"),
-      link: "https://staicka.vercel.app",
-      bullets: [
-        t(
-          "Diseño y desarrollo de aplicaciones web escalables con Next.js y NestJS, optimizando la arquitectura para diversos requerimientos comerciales.",
-          "Design and development of scalable web applications using Next.js and NestJS, optimizing architecture for business needs."
-        ),
-        t(
-          "Optimicé flujos de desarrollo mediante herramientas asistidas por IA para generación de boilerplate y validación lógica.",
-          "Optimized development workflows using AI-assisted tooling for rapid boilerplate generation and logic validation."
-        ),
-        t(
-          "Construcción de interfaces responsivas con Tailwind CSS, garantizando estándares de SEO y conversión de usuario.",
-          "Built responsive interfaces with Tailwind CSS, ensuring SEO compliance and user conversion."
-        ),
-      ],
-    },
-    {
-      company: "SOFTECH",
-      role: "Full Stack Developer",
-      period: "07/2024 – 02/2025",
-      bullets: [
-        t(
-          "Optimicé la latencia y rendimiento de consultas en MongoDB mediante el rediseño estratégico de esquemas e índices.",
-          "Optimized query latency and performance in MongoDB through strategic schema and index redesign."
-        ),
-        t(
-          "Mejoré significativamente las métricas de LCP (Largest Contentful Paint) mediante la implementación de componentes avanzados con Next.js App Router.",
-          "Significantly improved LCP metrics by engineering advanced Next.js App Router components."
-        ),
-        t(
-          "Configuré pipelines de CI/CD, incrementando la agilidad y confiabilidad en entregas a producción.",
-          "Configured CI/CD pipelines, boosting deployment agility and reliability in production environments."
-        ),
+      id: "freelance",
+      trackNum: "TRACK 03",
+      company: "DESARROLLO INDEPENDIENTE",
+      companyTag: "WEB & CLOUD SERVICES",
+      role: t("Fullstack Developer Freelance", "Freelance Fullstack Developer"),
+      period: "2024 – 2025",
+      projects: [
+        {
+          name: "Barber Angeles & Santē Dental",
+          tag: "WEB_PLATFORMS",
+          desc: t(
+            "Desarrollo de aplicaciones web para gestión de citas en tiempo real, catálogo interactivo de servicios y paneles administrativos.",
+            "Development of web apps for real-time appointment booking, interactive service catalogs, and admin dashboards."
+          ),
+          highlights: [
+            t("Interfaces ultra reactivas construidas con Next.js y Tailwind CSS", "Ultra reactive UIs built with Next.js and Tailwind CSS"),
+            t("Integración de almacenamiento cloud en AWS S3", "Cloud storage integration on AWS S3"),
+            t("Optimizaciones de SEO y rendimiento de carga (Lighthouse 95+)", "SEO optimizations and performance tuning (Lighthouse 95+)"),
+          ],
+          stack: ["Next.js", "React", "MongoDB", "AWS S3", "Tailwind CSS"],
+        },
       ],
     },
   ]
@@ -125,146 +121,161 @@ export default function ExperienceSection() {
         transition: "opacity 0.6s ease, transform 0.6s ease",
       }}
     >
-      {/* Section Header */}
-      <div style={{ marginBottom: "4rem" }}>
+      {/* ══ HEADER TITLE BANNER — HIP HOP TRACKLIST ══ */}
+      <div style={{ marginBottom: "4rem", position: "relative" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
-          <span className="sticker-box font-mono" style={{ transform: "rotate(1.5deg)", color: "var(--red)" }}>
-            // {t("TRAYECTORIA PROFESIONAL", "CAREER PATH")}
+          <span className="font-tag" style={{
+            background: "var(--navy)",
+            color: "#FFFFFF",
+            padding: "0.3rem 1.2rem",
+            fontSize: "1.3rem",
+            transform: "rotate(2deg)",
+            boxShadow: "4px 4px 0px var(--red)",
+          }}>
+            📀 // {t("TRAYECTORIA & TRACKLIST", "TRACKLIST & CAREER")}
           </span>
-          <span className="font-mono" style={{ fontSize: "0.7rem", color: "var(--grey)", letterSpacing: "0.2em" }}>
-            [TRACK_RECORD: 2024-2026]
+          <span className="font-mono" style={{ fontSize: "0.7rem", color: "var(--navy)", letterSpacing: "0.2em", fontWeight: 900 }}>
+            [RECORDS: 2024 - 2026]
           </span>
         </div>
 
         <h2 className="font-display" style={{
-          fontSize: "clamp(2.4rem, 7.5vw, 6.5rem)",
+          fontSize: "clamp(2.8rem, 8vw, 7rem)",
           lineHeight: 0.85,
-          color: "#FFFFFF",
-          textShadow: "4px 4px 0px var(--red)",
+          color: "var(--navy)",
+          textShadow: "5px 5px 0px var(--red)",
           textTransform: "uppercase",
           margin: 0,
         }}>
           {t("EXPERIENCIA", "WORK")}
         </h2>
         <div className="font-spray" style={{
-          fontSize: "clamp(2.2rem, 6.5vw, 5.5rem)",
+          fontSize: "clamp(2.4rem, 7vw, 6rem)",
           color: "var(--red)",
           lineHeight: 0.9,
-          transform: "rotate(-3deg) translateY(-10px)",
-          WebkitTextStroke: "1px #FFFFFF",
-          textShadow: "4px 4px 0px #000000",
+          transform: "rotate(-4deg) translateY(-12px) translateX(15px)",
+          WebkitTextStroke: "1.5px var(--navy)",
+          textShadow: "5px 5px 0px var(--navy)",
           display: "inline-block",
         }}>
           {t("PROFESIONAL", "EXPERIENCE")}
         </div>
       </div>
 
-      {/* Timeline List Cards */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
-        {JOBS.map((job, idx) => (
+      {/* ══ TRACKLIST CARDS IN HIP HOP STREET ZINE STYLE ══ */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "3.5rem" }}>
+        {EXPERIENCES.map((exp, idx) => (
           <div
-            key={job.company + idx}
+            key={exp.id}
             style={{
-              background: "#0A0A0A",
-              border: "4px solid #FFFFFF",
-              boxShadow: idx % 2 === 0 ? "12px 12px 0px var(--red), 12px 12px 0px 4px #000000" : "12px 12px 0px #FFFFFF, 12px 12px 0px 4px var(--red)",
-              padding: "2.2rem",
+              background: "#FAF4EC",
+              border: "4px solid var(--navy)",
+              boxShadow: idx % 2 === 0 ? "14px 14px 0px var(--red)" : "14px 14px 0px var(--navy)",
+              padding: "2.5rem 2rem",
               position: "relative",
+              color: "var(--navy)",
+              transform: idx % 2 === 0 ? "rotate(-1.2deg)" : "rotate(1.2deg)",
+              clipPath: "polygon(0.5% 0%, 99.5% 0.5%, 99% 99.5%, 0% 99%)",
             }}
           >
-            {/* Corner Badge */}
+            {/* Track Stamp */}
             <div style={{
               position: "absolute",
-              top: "-16px",
+              top: "-15px",
               left: "20px",
-              background: "#000000",
-              border: "2px solid var(--red)",
+              background: "var(--red)",
               color: "#FFFFFF",
-              padding: "0.2rem 0.8rem",
               fontFamily: "var(--font-mono)",
-              fontSize: "0.7rem",
-              fontWeight: 700,
-              boxShadow: "3px 3px 0px var(--red)",
+              fontSize: "0.75rem",
+              fontWeight: 900,
+              padding: "0.2rem 1rem",
+              transform: "rotate(-3deg)",
+              border: "2px solid var(--navy)",
+              boxShadow: "3px 3px 0px var(--navy)",
             }}>
-              JOB_STATION #{idx + 1}
+              {exp.trackNum}
             </div>
 
-            {/* Header row */}
+            {/* Header Tag */}
             <div style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "flex-start",
               flexWrap: "wrap",
-              gap: "1.2rem",
+              gap: "1.5rem",
+              borderBottom: "3px dashed var(--red)",
+              paddingBottom: "1.5rem",
               marginBottom: "1.8rem",
-              borderBottom: "3px dashed #333333",
-              paddingBottom: "1.2rem",
             }}>
               <div>
-                <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
-                  <h3 className="font-display" style={{ fontSize: "clamp(2.4rem, 5vw, 3.5rem)", color: "#FFFFFF", letterSpacing: "0.03em", lineHeight: 1 }}>
-                    {job.company}
-                  </h3>
-                  {job.link && (
-                    <a href={job.link} target="_blank" rel="noreferrer" className="btn-street-secondary" style={{ fontSize: "1.1rem", padding: "0.3rem 0.8rem" }}>
-                      VISITAR SITE <ExternalLink size={14} />
-                    </a>
-                  )}
+                <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap" }}>
+                  <span className="font-display" style={{ fontSize: "2.8rem", color: "var(--navy)", lineHeight: 1 }}>
+                    {exp.company}
+                  </span>
+                  <span className="font-tag" style={{ background: "var(--navy)", color: "#FFFFFF", padding: "0.2rem 0.8rem", fontSize: "1.1rem", transform: "rotate(-2deg)" }}>
+                    {exp.companyTag}
+                  </span>
                 </div>
-                <div className="font-spray" style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.2rem)", color: "var(--red)", marginTop: 4 }}>
-                  {job.role}
+                <div className="font-spray" style={{ fontSize: "1.8rem", color: "var(--red)", marginTop: 4 }}>
+                  {exp.role}
                 </div>
               </div>
 
-              <div className="sticker-box font-mono" style={{ transform: "rotate(-2deg)", background: "var(--red)", color: "#FFF" }}>
-                {job.period}
+              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                <Calendar size={18} style={{ color: "var(--red)" }} />
+                <span className="font-mono" style={{ fontSize: "0.9rem", background: "var(--navy)", color: "#FFF", padding: "0.4rem 0.9rem", border: "2px solid var(--navy)", fontWeight: 900 }}>
+                  {exp.period}
+                </span>
               </div>
             </div>
 
-            {/* General Bullets */}
-            {job.bullets && (
-              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "1rem" }}>
-                {job.bullets.map((b, i) => (
-                  <li key={i} style={{ display: "flex", gap: "0.9rem", color: "#DDDDDD", fontSize: "1rem", lineHeight: 1.7, fontFamily: "var(--font-body)" }}>
-                    <span className="font-mono" style={{ color: "var(--red)", fontWeight: "bold", fontSize: "1.1rem" }}>[+]</span>
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-
-            {/* Sub Projects Zine Cards */}
-            {job.projects && (
-              <div style={{ display: "flex", flexDirection: "column", gap: "1.8rem", marginTop: "1.5rem" }}>
-                {job.projects.map((proj, pIdx) => (
-                  <div key={pIdx} style={{
-                    background: "#111111",
-                    border: "3px solid #FFFFFF",
-                    boxShadow: "6px 6px 0px var(--red)",
-                    padding: "1.5rem",
-                    borderLeft: "6px solid var(--red)",
-                  }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", marginBottom: "1rem", flexWrap: "wrap" }}>
-                      <span className="tag-red font-marker" style={{ fontSize: "1.2rem", padding: "0.2rem 0.8rem" }}>
-                        {t("PROYECTO", "PROJECT")}
-                      </span>
-                      <h4 className="font-display" style={{ fontSize: "1.8rem", color: "#FFFFFF", letterSpacing: "0.05em", margin: 0 }}>
-                        {proj.name}
-                      </h4>
-                    </div>
-
-                    <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                      {proj.bullets.map((b, i) => (
-                        <li key={i} style={{ display: "flex", gap: "0.8rem", color: "#CCCCCC", fontSize: "0.95rem", lineHeight: 1.6, fontFamily: "var(--font-body)" }}>
-                          <ChevronRight size={16} style={{ color: "var(--red)", flexShrink: 0, marginTop: 3 }} />
-                          <span>{b}</span>
-                        </li>
-                      ))}
-                    </ul>
+            {/* Sub Projects Breakdown */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "1.8rem" }}>
+              {exp.projects.map((proj) => (
+                <div
+                  key={proj.name}
+                  style={{
+                    background: "#EAE0D0",
+                    border: "3px solid var(--navy)",
+                    padding: "1.8rem",
+                    boxShadow: "4px 4px 0px var(--navy)",
+                    transform: "rotate(-0.5deg)",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.8rem", marginBottom: "0.8rem" }}>
+                    <h4 className="font-display" style={{ fontSize: "2rem", color: "var(--navy)", margin: 0 }}>
+                      ▸ {proj.name}
+                    </h4>
+                    <span className="font-mono" style={{ fontSize: "0.7rem", background: "var(--red)", color: "#FFF", padding: "3px 8px", fontWeight: 900 }}>
+                      [{proj.tag}]
+                    </span>
                   </div>
-                ))}
-              </div>
-            )}
+
+                  <p className="font-body" style={{ color: "#112233", fontSize: "1rem", lineHeight: 1.65, fontWeight: 700, marginBottom: "1.2rem" }}>
+                    {proj.desc}
+                  </p>
+
+                  {/* Highlights Bullet List */}
+                  <div style={{ marginBottom: "1.2rem", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+                    {proj.highlights.map((h, i) => (
+                      <div key={i} className="font-mono" style={{ fontSize: "0.82rem", color: "var(--navy)", display: "flex", alignItems: "flex-start", gap: "0.6rem", fontWeight: 800 }}>
+                        <span style={{ color: "var(--red)", fontWeight: 900 }}>▸</span>
+                        <span>{h}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Stack Badges */}
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", borderTop: "2px dashed var(--red)", paddingTop: "1rem" }}>
+                    {proj.stack.map(st => (
+                      <span key={st} className="font-mono" style={{ fontSize: "0.72rem", background: "var(--navy)", color: "#FFFFFF", padding: "4px 10px", border: "1px solid var(--navy)", fontWeight: 900, transform: "rotate(-1deg)" }}>
+                        {st}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </div>

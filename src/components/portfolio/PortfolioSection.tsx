@@ -1,406 +1,286 @@
 "use client"
-import { useState } from "react"
-import CardVisual from "./CardVisual"
-import { ExternalLink, Github, Sparkles } from "lucide-react"
+import { useState, useRef } from "react"
+import { useInView } from "framer-motion"
+import { ExternalLink, Github, Sparkles, Shield, Cpu, Code2, Flame, Disc } from "lucide-react"
 import { useLanguage } from "@/context/LanguageContext"
 
-type Theme = "nexus" | "lumina" | "orion"
-type Category = "all" | "frontend" | "fullstack_ai"
-
-interface Project {
+interface ProjectItem {
   id: string
-  num: string
   title: string
-  subtitle?: string
-  category: Category
-  desc: string
-  details?: string[]
-  tags: string[]
-  github?: string
-  demo?: string
-  theme: Theme
-  badge: "bell" | "star" | "sun"
-  featured?: boolean
-}
-
-function FeaturedProjectCard({ p }: { p: Project }) {
-  return (
-    <div
-      style={{
-        background: "#0A0A0A",
-        border: "3px solid #FFFFFF",
-        boxShadow: "8px 8px 0px var(--red), 8px 8px 0px 3px #000000",
-        position: "relative",
-        marginBottom: "2rem",
-        display: "grid",
-        gridTemplateColumns: "1fr",
-      }}
-      className="md:!grid-cols-[260px_1fr]"
-    >
-      <div style={{
-        position: "absolute",
-        top: "-12px",
-        left: "16px",
-        background: "var(--red)",
-        color: "#FFFFFF",
-        padding: "2px 8px",
-        fontFamily: "var(--font-mono)",
-        fontSize: "0.65rem",
-        fontWeight: 700,
-        transform: "rotate(-2deg)",
-        zIndex: 20,
-        border: "1px solid #FFFFFF",
-      }}>
-        FLAGSHIP // RELEASE #{p.num}
-      </div>
-
-      <div style={{ borderRight: "3px solid #FFFFFF", background: "#000" }}>
-        <CardVisual theme={p.theme} height={180} />
-      </div>
-
-      <div style={{ padding: "1.2rem 1.5rem", display: "flex", flexDirection: "column" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.2rem" }}>
-          <span className="sticker-box font-mono" style={{ fontSize: "0.65rem", padding: "1px 5px" }}>
-            [FLAGSHIP PROJECT]
-          </span>
-          <span className="font-wild" style={{ color: "var(--red)", fontSize: "1.1rem" }}>
-            #GEELMZ
-          </span>
-        </div>
-
-        <h3 className="font-display" style={{ fontSize: "1.8rem", color: "#FFFFFF", lineHeight: 1, marginTop: 2 }}>
-          {p.title}
-        </h3>
-
-        {p.subtitle && (
-          <div className="font-spray" style={{ fontSize: "1.2rem", color: "var(--red)", margin: "0.2rem 0 0.6rem" }}>
-            {p.subtitle}
-          </div>
-        )}
-
-        <p style={{ fontSize: "0.88rem", color: "#CCCCCC", lineHeight: 1.5, fontFamily: "var(--font-body)", marginBottom: "0.8rem" }}>
-          {p.desc}
-        </p>
-
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "1rem" }}>
-          {p.tags.map(t => (
-            <span key={t} className="font-mono" style={{ fontSize: "0.68rem", background: "#000000", color: "#FFFFFF", padding: "2px 6px", border: "1px solid #333333" }}>
-              {t}
-            </span>
-          ))}
-        </div>
-
-        <div style={{ display: "flex", gap: "0.8rem", borderTop: "2px dashed #333333", paddingTop: "0.8rem", marginTop: "auto", flexWrap: "wrap" }}>
-          {p.github && (
-            <a href={p.github} target="_blank" rel="noreferrer" className="btn-street-secondary" style={{ fontSize: "1rem", padding: "0.4rem 0.8rem" }}>
-              REPOSITORIO <Github size={14} />
-            </a>
-          )}
-          {p.demo && (
-            <a href={p.demo} target="_blank" rel="noreferrer" className="btn-street-primary" style={{ fontSize: "1rem", padding: "0.4rem 0.8rem" }}>
-              DEMO LIVE <ExternalLink size={14} />
-            </a>
-          )}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function StandardProjectCard({ p, idx }: { p: Project; idx: number }) {
-  return (
-    <div
-      style={{
-        background: "#080808",
-        border: "3px solid #FFFFFF",
-        boxShadow: idx % 2 === 0 ? "6px 6px 0px var(--red)" : "6px 6px 0px #FFFFFF",
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        transition: "transform 0.2s ease",
-      }}
-    >
-      <div style={{
-        position: "absolute",
-        top: "-12px",
-        left: "12px",
-        background: "#000000",
-        color: "var(--red)",
-        padding: "1px 6px",
-        fontFamily: "var(--font-mono)",
-        fontSize: "0.6rem",
-        fontWeight: 700,
-        zIndex: 20,
-        border: "1px solid var(--red)",
-      }}>
-        #{p.num}
-      </div>
-
-      <CardVisual theme={p.theme} height={100} />
-
-      <div style={{ padding: "1.1rem", flex: 1, display: "flex", flexDirection: "column" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.2rem" }}>
-          <span className="font-mono" style={{ fontSize: "0.65rem", color: "var(--red)", fontWeight: 700 }}>
-            [SN: {p.id.toUpperCase()}]
-          </span>
-          <span className="font-wild" style={{ color: "var(--red)", fontSize: "1rem" }}>
-            #GEELMZ
-          </span>
-        </div>
-
-        <h3 className="font-display" style={{ fontSize: "1.5rem", color: "#FFFFFF", lineHeight: 1, marginTop: 2 }}>
-          {p.title}
-        </h3>
-
-        {p.subtitle && (
-          <div className="font-spray" style={{ fontSize: "1.1rem", color: "var(--red)", margin: "0.2rem 0 0.5rem" }}>
-            {p.subtitle}
-          </div>
-        )}
-
-        <p style={{ fontSize: "0.84rem", color: "#CCCCCC", lineHeight: 1.5, flex: 1, marginBottom: "0.8rem", fontFamily: "var(--font-body)" }}>
-          {p.desc}
-        </p>
-
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem", marginBottom: "0.9rem" }}>
-          {p.tags.map(t => (
-            <span key={t} className="font-mono" style={{ fontSize: "0.65rem", background: "#000000", color: "#FFFFFF", padding: "2px 5px", border: "1px solid #333333" }}>
-              {t}
-            </span>
-          ))}
-        </div>
-
-        <div style={{ display: "flex", gap: "0.6rem", borderTop: "1px dashed #333333", paddingTop: "0.7rem", marginTop: "auto", flexWrap: "wrap" }}>
-          {p.github && (
-            <a href={p.github} target="_blank" rel="noreferrer" className="btn-street-secondary" style={{ fontSize: "0.9rem", padding: "0.3rem 0.7rem" }}>
-              REPO <Github size={12} />
-            </a>
-          )}
-          {p.demo && (
-            <a href={p.demo} target="_blank" rel="noreferrer" className="btn-street-primary" style={{ fontSize: "0.9rem", padding: "0.3rem 0.7rem" }}>
-              DEMO <ExternalLink size={12} />
-            </a>
-          )}
-        </div>
-      </div>
-    </div>
-  )
+  subtitle: string
+  category: string
+  tag: string
+  description: string
+  features: string[]
+  techStack: string[]
+  githubUrl?: string
+  demoUrl?: string
+  status: string
+  highlighted?: boolean
+  imagePlaceholder?: string
 }
 
 export default function PortfolioSection() {
-  const [filter, setFilter] = useState<Category>("all")
+  const ref = useRef<HTMLElement>(null)
+  const inView = useInView(ref, { once: true, amount: 0.1 })
+  const [filter, setFilter] = useState("all")
   const { t } = useLanguage()
 
-  const PROJECTS: Project[] = [
+  const PROJECTS: ProjectItem[] = [
     {
-      id: "rag-py",
-      num: "01",
-      featured: true,
-      title: t("STAICKA RAG — Análisis de Documentos", "STAICKA RAG — Document Analysis"),
-      subtitle: "LangChain, ChromaDB & Gemini",
-      category: "fullstack_ai",
-      theme: "nexus",
-      badge: "star",
-      desc: t(
-        "Motor de búsqueda y análisis semántico para procesar PDFs (CVs o manuales corporativos) y extraer información mediante vectores matemáticos.",
-        "Semantic search and analysis engine for processing PDFs (resumes or manuals) and extracting insights via mathematical vectors."
+      id: "sendro",
+      title: "SENDRO PAYMENTS",
+      subtitle: "Fintech Core & 2FA / SPEI Platform",
+      category: "fintech",
+      tag: "FINTECH_SECURITY",
+      description: t(
+        "Plataforma fintech de alta concurrencia con integración SPEI y autenticación 2FA/TOTP end-to-end con firmas anti-replay.",
+        "High-concurrency fintech platform with SPEI integration and end-to-end 2FA/TOTP auth featuring anti-replay signatures."
       ),
-      tags: ["Python 3.10", "LangChain", "ChromaDB", "Gemini", "FastAPI"],
-      github: "https://github.com/gatsbyy/RAG-PY",
+      features: [
+        t("Flujo 2FA/TOTP con QR, OTP y códigos de respaldo", "2FA/TOTP flow with QR, OTP & backup codes"),
+        t("Token de un solo uso y firmas de solicitud en NestJS", "One-time tokens & request signatures in NestJS"),
+        t("Panel de control administrativo con Prisma ORM", "Admin dashboard backed by Prisma ORM"),
+        t("Especificación OpenAPI 3.1.0 (Swagger)", "OpenAPI 3.1.0 specification (Swagger)"),
+      ],
+      techStack: ["NestJS", "Next.js 15", "Prisma ORM", "2FA / TOTP", "MySQL", "Swagger"],
+      status: "PRODUCTION",
+      highlighted: true,
     },
     {
-      id: "talent-scout",
-      num: "02",
-      title: "STAICKA Talent Scout",
-      subtitle: t("Motor IA 100% On-Premise", "100% On-Premise AI Engine"),
-      category: "fullstack_ai",
-      theme: "lumina",
-      badge: "bell",
-      desc: t(
-        "Sistema integral de reclutamiento inteligente que utiliza SpaCy NLP para extraer texto de PDFs y rankear candidatos.",
-        "Intelligent recruitment system using SpaCy NLP to extract text from PDFs and score candidate profiles."
+      id: "staicka",
+      title: "STAICKA TALENT SCOUT",
+      subtitle: "AI Resume Parsing & RAG Engine",
+      category: "ai",
+      tag: "AI_RAG_ENGINE",
+      description: t(
+        "Motor inteligente de reclutamiento que procesa CVs masivos en PDF usando SpaCy NLP y búsquedas semánticas con RAG (LangChain + ChromaDB).",
+        "Intelligent recruitment engine processing PDF resumes via SpaCy NLP and semantic search with RAG (LangChain + ChromaDB)."
       ),
-      tags: ["FastAPI", "Next.js 15", "SpaCy NLP", "MongoDB", "Docker"],
-      github: "https://github.com/gatsbyy/talent-ia",
+      features: [
+        t("Extracción de texto PDF en backend Python / FastAPI", "PDF text extraction in Python / FastAPI backend"),
+        t("Embeddings vectoriales con Google Gemini 1.5 Pro", "Vector embeddings via Google Gemini 1.5 Pro"),
+        t("RAG Pipeline estructurado con LangChain y ChromaDB", "Structured RAG pipeline with LangChain & ChromaDB"),
+        t("Despliegue automatizado en Docker Compose", "Automated deployment in Docker Compose"),
+      ],
+      techStack: ["FastAPI", "Python 3.10", "SpaCy NLP", "LangChain", "ChromaDB", "Docker"],
+      githubUrl: "https://github.com/Gmzyy",
+      status: "STABLE",
+      highlighted: true,
     },
     {
-      id: "auth-core",
-      num: "03",
-      title: "AUTH CORE — Identity System",
-      subtitle: t("Fullstack Dockerizado", "Dockerized Fullstack"),
-      category: "fullstack_ai",
-      theme: "orion",
-      badge: "star",
-      desc: t(
-        "Sistema de autenticación fullstack con arquitectura desacoplada, JWT, Prisma ORM, MySQL y despliegue multi-contenedor.",
-        "Fullstack authentication system featuring decoupled architecture, JWT, Prisma ORM, MySQL, and multi-container deployment."
+      id: "barber-angeles",
+      title: "BARBER ANGELES",
+      subtitle: "Realtime Booking & Admin System",
+      category: "web",
+      tag: "WEB_PLATFORM",
+      description: t(
+        "Sistema integral de reservas en tiempo real y catálogo digital interactivo para barberías con panel de control para estilistas.",
+        "Comprehensive real-time booking system and interactive digital catalog for barbershops with stylist dashboards."
       ),
-      tags: ["NestJS", "Prisma ORM", "MySQL", "JWT", "Docker"],
-      github: "https://github.com/gatsbyy/auth-system-docker",
+      features: [
+        t("Reserva de turnos interactiva con confirmación instantánea", "Interactive slot booking with instant confirmation"),
+        t("Panel administrativo para control de horarios y cajas", "Admin panel for schedule and cash flow control"),
+        t("Almacenamiento de activos e imágenes en AWS S3", "Asset & image storage on AWS S3"),
+      ],
+      techStack: ["Next.js", "React", "MongoDB", "AWS S3", "Tailwind CSS"],
+      githubUrl: "https://github.com/Gmzyy",
+      status: "LIVE",
     },
     {
-      id: "arcika",
-      num: "04",
-      title: "STAICKA ARCIKA",
-      subtitle: t("Generador de Arquitecturas IA", "AI Architecture Generator"),
-      category: "fullstack_ai",
-      theme: "nexus",
-      badge: "sun",
-      desc: t(
-        "Herramienta que transforma requerimientos técnicos en esquemas y diagramas mediante LLMs avanzados.",
-        "Tool that transforms technical requirements into architecture schemas and diagrams using advanced LLMs."
+      id: "sante-dental",
+      title: "SANTĒ DENTAL CLINIC",
+      subtitle: "Medical Appointments & Clinical Portal",
+      category: "web",
+      tag: "CLINICAL_WEB",
+      description: t(
+        "Portal clínico interactivo para citas odontológicas, expedientes digitales y agenda médica en tiempo real.",
+        "Interactive clinical portal for dental appointments, digital records, and real-time medical scheduling."
       ),
-      tags: ["Next.js", "NestJS", "LLMs", "Prompt Engineering"],
-      github: "https://github.com/Gmzyy",
-      demo: "https://staicka.vercel.app/",
-    },
-    {
-      id: "barber",
-      num: "05",
-      title: "Barber Management Platform",
-      subtitle: t("Gestión de Citas Real-Time", "Real-Time Appointment System"),
-      category: "frontend",
-      theme: "orion",
-      badge: "star",
-      desc: t(
-        "Plataforma completa de reserva y gestión de citas en tiempo real con panel administrativo y UI intuitiva.",
-        "Complete real-time booking and appointment management platform with admin panel and intuitive UI."
-      ),
-      tags: ["Next.js", "MongoDB", "Tailwind CSS", "Express"],
-      github: "https://github.com/gatsbyy/BarberAngeles",
-      demo: "https://barber-angeles.vercel.app/home",
-    },
-    {
-      id: "sante",
-      num: "06",
-      title: "Santē Dental Clinic",
-      subtitle: t("Plataforma Web Odontológica", "Dental Clinic Web Platform"),
-      category: "frontend",
-      theme: "lumina",
-      badge: "sun",
-      desc: t(
-        "Sitio web comercial para clínica dental con interfaz moderna, servicios médicos e integración de citas.",
-        "Commercial website for a dental clinic featuring a modern UI, medical services overview, and booking integration."
-      ),
-      tags: ["React", "Next.js", "Tailwind CSS", "UX/UI"],
-      demo: "https://sante-dental.vercel.app/",
-    },
-    {
-      id: "la-ververa",
-      num: "07",
-      title: "La Ververa",
-      subtitle: "E-Commerce / Branding Web",
-      category: "frontend",
-      theme: "nexus",
-      badge: "bell",
-      desc: t(
-        "Aplicación web comercial y catálogo interactivo con diseño minimalista y animaciones fluidas.",
-        "Commercial web app and interactive product catalog with clean aesthetics and smooth animations."
-      ),
-      tags: ["Next.js", "Tailwind CSS", "Framer Motion"],
-      demo: "https://la-ververa.vercel.app/",
-    },
-    {
-      id: "staicka-studio",
-      num: "08",
-      title: "Staicka Studio",
-      subtitle: t("Estudio Freelance Dev & IA", "Freelance Dev & AI Studio"),
-      category: "frontend",
-      theme: "orion",
-      badge: "star",
-      desc: t(
-        "Plataforma oficial de Staicka Studio para exhibición de servicios fullstack e integración de soluciones cloud.",
-        "Official Staicka Studio platform showcasing fullstack engineering services and cloud integrations."
-      ),
-      tags: ["Next.js", "Tailwind CSS", "NestJS", "Vercel"],
-      demo: "https://staicka.vercel.app/",
+      features: [
+        t("Gestión de citas médicas y catálogo de tratamientos", "Medical appointment management & treatment catalog"),
+        t("Interfaces optimizadas para dispositivos móviles", "Mobile-optimized responsive interfaces"),
+        t("Rendimiento de carga ultrarrápido (Lighthouse 98)", "Ultra-fast load performance (Lighthouse 98)"),
+      ],
+      techStack: ["Next.js", "TypeScript", "Node.js", "CSS Modules"],
+      githubUrl: "https://github.com/Gmzyy",
+      status: "LIVE",
     },
   ]
 
-  const filteredProjects = PROJECTS.filter(p => filter === "all" || p.category === filter)
-  const featured = filteredProjects.find(p => p.featured) || (filteredProjects.length > 0 ? filteredProjects[0] : null)
-  const restProjects = filteredProjects.filter(p => p.id !== (featured ? featured.id : ""))
+  const filteredProjects = filter === "all"
+    ? PROJECTS
+    : PROJECTS.filter(p => p.category === filter)
 
   return (
-    <section id="portfolio" style={{ padding: "4rem 1.5rem", maxWidth: "1400px", margin: "0 auto", position: "relative", zIndex: 10 }}>
-
+    <section
+      ref={ref}
+      id="portfolio"
+      style={{
+        position: "relative",
+        zIndex: 10,
+        padding: "6rem 1.5rem",
+        maxWidth: "1400px",
+        margin: "0 auto",
+        opacity: inView ? 1 : 0,
+        transform: inView ? "none" : "translateY(30px)",
+        transition: "opacity 0.6s ease, transform 0.6s ease",
+      }}
+    >
       {/* Title Header */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1.5rem", marginBottom: "2.5rem" }}>
-        <div>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap", marginBottom: "0.3rem" }}>
-            <span className="sticker-box font-mono" style={{ transform: "rotate(-1.5deg)", color: "var(--red)", fontSize: "0.7rem" }}>
-              // {t("GALERÍA DE TRABAJOS", "WORK GALLERY")}
-            </span>
-            <span className="font-mono" style={{ fontSize: "0.65rem", color: "var(--grey)", letterSpacing: "0.15em" }}>
-              [REPOS: 08]
-            </span>
-          </div>
-
-          <h2 className="font-display" style={{
-            fontSize: "clamp(2.4rem, 7vw, 5rem)",
-            lineHeight: 0.85,
+      <div style={{ marginBottom: "3rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
+          <span className="font-tag" style={{
+            background: "var(--red)",
             color: "#FFFFFF",
-            textShadow: "4px 4px 0px var(--red)",
-            textTransform: "uppercase",
-            margin: 0,
+            padding: "0.3rem 1.2rem",
+            fontSize: "1.3rem",
+            transform: "rotate(2deg)",
+            boxShadow: "4px 4px 0px var(--navy)",
           }}>
-            {t("PROYECTOS", "PROJECTS")}
-          </h2>
-          <div className="font-spray" style={{
-            fontSize: "clamp(2.1rem, 5.5vw, 4.2rem)",
-            color: "var(--red)",
-            lineHeight: 0.9,
-            transform: "rotate(-3deg) translateY(-8px)",
-            WebkitTextStroke: "1px #FFFFFF",
-            display: "inline-block",
-          }}>
-            {t("SELECCIONADOS", "SELECTED WORK")}
-          </div>
+            🎨 // {t("PROYECTOS & GRAFFITI WALL", "PROJECTS & STREET WALL")}
+          </span>
+          <span className="font-mono" style={{ fontSize: "0.7rem", color: "var(--navy)", letterSpacing: "0.2em", fontWeight: 900 }}>
+            [SHOWCASE // 2026]
+          </span>
         </div>
 
-        {/* Filter Buttons */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-          {[
-            { id: "all", label: t("TODOS", "ALL") },
-            { id: "fullstack_ai", label: "FULLSTACK & IA" },
-            { id: "frontend", label: "FRONTEND & WEBS" },
-          ].map(btn => (
-            <button
-              key={btn.id}
-              onClick={() => setFilter(btn.id as Category)}
-              className="font-display"
-              style={{
-                fontSize: "1.2rem",
-                letterSpacing: "0.03em",
-                padding: "0.4rem 1rem",
-                background: filter === btn.id ? "var(--red)" : "#000000",
-                color: "#FFFFFF",
-                border: "2px solid #FFFFFF",
-                boxShadow: filter === btn.id ? "4px 4px 0px #FFFFFF" : "2px 2px 0px var(--red)",
-                cursor: "pointer",
-                transform: filter === btn.id ? "rotate(-2deg)" : "none",
-                transition: "all 0.2s ease",
-              }}
-            >
-              {btn.label}
-            </button>
-          ))}
+        <h2 className="font-display" style={{
+          fontSize: "clamp(2.8rem, 8vw, 7rem)",
+          lineHeight: 0.85,
+          color: "var(--navy)",
+          textShadow: "5px 5px 0px var(--red)",
+          textTransform: "uppercase",
+          margin: 0,
+        }}>
+          {t("PROYECTOS", "SELECTED")}
+        </h2>
+        <div className="font-spray" style={{
+          fontSize: "clamp(2.4rem, 7vw, 6rem)",
+          color: "var(--red)",
+          lineHeight: 0.9,
+          transform: "rotate(-4deg) translateY(-12px) translateX(15px)",
+          WebkitTextStroke: "1.5px var(--navy)",
+          textShadow: "5px 5px 0px var(--navy)",
+          display: "inline-block",
+        }}>
+          {t("SELECCIONADOS", "WORKS")}
         </div>
       </div>
 
-      {/* Featured Compact Hero */}
-      {featured && filter === "all" && (
-        <FeaturedProjectCard p={featured} />
-      )}
+      {/* Filter Tabs in Hip Hop Badge Style */}
+      <div style={{ display: "flex", gap: "0.8rem", flexWrap: "wrap", marginBottom: "3rem" }}>
+        {[
+          { id: "all", label: t("TODOS (4)", "ALL (4)") },
+          { id: "fintech", label: "FINTECH & 2FA" },
+          { id: "ai", label: "IA & RAG" },
+          { id: "web", label: "WEB PLATFORMS" },
+        ].map((f) => {
+          const isActive = filter === f.id
+          return (
+            <button
+              key={f.id}
+              onClick={() => setFilter(f.id)}
+              className="font-mono"
+              style={{
+                background: isActive ? "var(--red)" : "var(--navy)",
+                color: "#FFFFFF",
+                border: "3px solid var(--navy)",
+                boxShadow: isActive ? "5px 5px 0px var(--navy)" : "3px 3px 0px var(--red)",
+                padding: "0.6rem 1.4rem",
+                fontSize: "0.85rem",
+                fontWeight: 900,
+                cursor: "pointer",
+                transform: isActive ? "rotate(-2deg) scale(1.03)" : "none",
+                transition: "all 0.15s ease",
+                clipPath: "polygon(2% 0%, 98% 2%, 100% 98%, 0% 100%)",
+              }}
+            >
+              {f.label}
+            </button>
+          )
+        })}
+      </div>
 
-      {/* 3-Column Compact Grid */}
+      {/* Projects Grid in Hip-Hop Album Poster Style */}
       <div style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))",
-        gap: "1.5rem"
+        gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+        gap: "2.5rem",
       }}>
-        {(filter === "all" ? restProjects : filteredProjects).map((p, idx) => (
-          <StandardProjectCard key={p.id} p={p} idx={idx} />
+        {filteredProjects.map((p, idx) => (
+          <div
+            key={p.id}
+            style={{
+              background: "#FAF4EC",
+              border: "4px solid var(--navy)",
+              boxShadow: p.highlighted ? "12px 12px 0px var(--red)" : "10px 10px 0px var(--navy)",
+              padding: "2rem 1.8rem",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              position: "relative",
+              color: "var(--navy)",
+              transform: idx % 2 === 0 ? "rotate(-1.5deg)" : "rotate(1.5deg)",
+              clipPath: "polygon(0.5% 0%, 99.5% 0.5%, 99% 99.5%, 0% 99%)",
+            }}
+          >
+            <div>
+              {/* Header Badge */}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+                <span className="font-mono" style={{ fontSize: "0.7rem", background: "var(--red)", color: "#FFF", padding: "3px 10px", fontWeight: 900, transform: "rotate(-2deg)" }}>
+                  [{p.tag}]
+                </span>
+                <span className="font-mono" style={{ fontSize: "0.7rem", background: "var(--navy)", color: "#FFF", padding: "3px 10px", fontWeight: 900 }}>
+                  ● {p.status}
+                </span>
+              </div>
+
+              <h3 className="font-display" style={{ fontSize: "2.4rem", color: "var(--navy)", lineHeight: 0.95, marginBottom: "0.2rem" }}>
+                {p.title}
+              </h3>
+              <div className="font-spray" style={{ fontSize: "1.4rem", color: "var(--red)", marginBottom: "1rem" }}>
+                {p.subtitle}
+              </div>
+
+              <p className="font-body" style={{ color: "#112233", fontSize: "0.98rem", lineHeight: 1.6, fontWeight: 700, marginBottom: "1.4rem" }}>
+                {p.description}
+              </p>
+
+              {/* Bullet Features */}
+              <div style={{ marginBottom: "1.5rem", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+                {p.features.map((feat, i) => (
+                  <div key={i} className="font-mono" style={{ fontSize: "0.82rem", color: "var(--navy)", display: "flex", alignItems: "flex-start", gap: "0.6rem", fontWeight: 800 }}>
+                    <span style={{ color: "var(--red)", fontWeight: 900 }}>▸</span>
+                    <span>{feat}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom Stack & Links */}
+            <div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1.5rem", borderTop: "2px dashed var(--red)", paddingTop: "1rem" }}>
+                {p.techStack.map((tech) => (
+                  <span key={tech} className="font-mono" style={{ fontSize: "0.72rem", background: "var(--navy)", color: "#FFF", padding: "3px 8px", border: "1px solid var(--navy)", fontWeight: 900 }}>
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              {p.githubUrl && (
+                <a
+                  href={p.githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-street-secondary"
+                  style={{ width: "100%", justifyContent: "center", fontSize: "1.2rem", padding: "0.6rem" }}
+                >
+                  <Github size={16} /> REPO GITHUB ↗
+                </a>
+              )}
+            </div>
+          </div>
         ))}
       </div>
     </section>

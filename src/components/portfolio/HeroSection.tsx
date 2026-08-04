@@ -22,7 +22,7 @@ export default function HeroSection() {
         paddingTop: "clamp(5.5rem, 12vw, 7rem)",
       }}
     >
-      {/* ══ TOP STREET BADGE BAR (ROCK-SOLID & LEGIBLE) ══ */}
+      {/* ══ TOP STREET BADGE BAR (BURNT RED & NAVY) ══ */}
       <div style={{
         width: "100%",
         marginTop: "0.2rem",
@@ -32,8 +32,8 @@ export default function HeroSection() {
         <div style={{
           background: "var(--red)",
           color: "#FFFFFF",
-          borderTop: "2px solid #FFFFFF",
-          borderBottom: "2px solid #FFFFFF",
+          borderTop: "3px solid var(--navy)",
+          borderBottom: "3px solid var(--navy)",
           padding: "0.5rem 1rem",
           display: "flex",
           alignItems: "center",
@@ -41,19 +41,19 @@ export default function HeroSection() {
           flexWrap: "wrap",
           gap: "0.8rem",
           transform: "rotate(-0.8deg)",
-          boxShadow: "0 4px 10px rgba(0,0,0,0.5)",
+          boxShadow: "0 6px 12px rgba(11,27,61,0.15)",
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap" }}>
-            <span className="font-mono" style={{ background: "#000000", color: "#FFFFFF", padding: "2px 8px", fontSize: "0.75rem", fontWeight: 700, border: "1px solid #FFFFFF" }}>
+            <span className="font-mono" style={{ background: "var(--navy)", color: "#FFFFFF", padding: "2px 10px", fontSize: "0.75rem", fontWeight: 700, border: "1px solid #FFFFFF" }}>
               [ FULLSTACK DEVELOPER &amp; IA ]
             </span>
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
-            <span className="font-marker" style={{ color: "#000000", fontSize: "1.4rem", lineHeight: 1 }}>
+            <span className="font-marker" style={{ color: "var(--navy)", fontSize: "1.4rem", lineHeight: 1 }}>
               GEELMZ
             </span>
-            <span className="font-mono" style={{ fontSize: "0.65rem", background: "#FFFFFF", color: "#000000", padding: "1px 6px", fontWeight: 900 }}>
+            <span className="font-mono" style={{ fontSize: "0.65rem", background: "#FFFFFF", color: "var(--navy)", padding: "2px 8px", fontWeight: 900, border: "1px solid var(--navy)" }}>
               ONLINE ●
             </span>
           </div>
@@ -75,7 +75,7 @@ export default function HeroSection() {
         className="lg:!grid-cols-[1.1fr_0.9fr]"
       >
 
-        {/* LEFT COLUMN — TYPOGRAPHY IN RED & WHITE */}
+        {/* LEFT COLUMN — BONE, NAVY & BURNT RED TYPOGRAPHY */}
         <div style={{ zIndex: 10, display: "flex", flexDirection: "column", gap: "1.2rem" }}>
 
           {/* Metadata Stamp */}
@@ -86,32 +86,29 @@ export default function HeroSection() {
             <span className="font-marker" style={{ color: "var(--red)", fontSize: "1.8rem", transform: "rotate(-3deg)" }}>
               Geelmz = True
             </span>
-            <span className="font-mono" style={{ fontSize: "0.7rem", color: "var(--grey)", letterSpacing: "0.15em" }}>
-              LOCATION: PUEBLA_MX
-            </span>
           </div>
 
-          {/* SOFTWARE IN BIG DISPLAY + GEELMZ IN RED GRAFFITI SPRAY */}
+          {/* SOFTWARE IN DEEP NAVY + GEELMZ IN BURNT RED SPRAY OVERLAY */}
           <div style={{ position: "relative" }}>
             <h1 className="font-display" style={{
               fontSize: "clamp(2.6rem, 10vw, 8rem)",
               lineHeight: 0.85,
               letterSpacing: "0.02em",
-              color: "#FFFFFF",
+              color: "var(--navy)",
               textTransform: "uppercase",
-              textShadow: "4px 4px 0px #000000",
+              textShadow: "4px 4px 0px rgba(184, 29, 29, 0.3)",
             }}>
               SOFTWARE
             </h1>
 
-            {/* GEELMZ Overlay Tag in Real Spray Paint */}
+            {/* GEELMZ Overlay Tag in Burnt Red Spray */}
             <div className="font-spray" style={{
               fontSize: "clamp(2.5rem, 9.5vw, 7.8rem)",
               color: "var(--red)",
               lineHeight: 0.9,
               transform: "rotate(-6deg) translateY(-18px)",
-              WebkitTextStroke: "1px #FFFFFF",
-              textShadow: "4px 4px 0px #000000",
+              WebkitTextStroke: "1.5px var(--navy)",
+              textShadow: "4px 4px 0px var(--navy)",
               display: "inline-block",
             }}>
               GEELMZ
@@ -125,20 +122,21 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Description Card */}
+          {/* Description Card in Navy Blue */}
           <div style={{
-            background: "#0F0F0F",
-            border: "2px solid #FFFFFF",
+            background: "var(--navy)",
+            border: "3px solid var(--red)",
             boxShadow: "8px 8px 0px var(--red)",
             padding: "1.5rem",
             position: "relative",
             maxWidth: "620px",
+            color: "#FFFFFF",
           }}>
             <div className="font-mono" style={{ fontSize: "0.75rem", color: "var(--red)", marginBottom: "0.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
               <span style={{ width: 8, height: 8, background: "var(--red)", display: "inline-block" }}></span>
               SOFTWARE_ARCHITECTURE // HIGH_PERFORMANCE
             </div>
-            <p style={{ color: "#DDDDDD", fontSize: "0.98rem", lineHeight: 1.6, fontFamily: "var(--font-body)" }}>
+            <p style={{ color: "#F4EFE6", fontSize: "0.98rem", lineHeight: 1.65, fontFamily: "var(--font-body)" }}>
               {t(
                 "Construyendo infraestructura digital robusta y escalable. Enfoque en backends de alto rendimiento, frontends reactivos y arquitectura moderna que desafía la monotonía corporativa.",
                 "Building robust, scalable digital infrastructure. Focusing on high-performance backends, reactive frontends, and modern architecture that challenges corporate monotony."
@@ -147,7 +145,7 @@ export default function HeroSection() {
 
             <div style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
               {["[ NODE.JS ]", "[ NESTJS ]", "[ NEXT.JS ]", "[ PYTHON/IA ]", "[ DOCKER ]"].map((tech) => (
-                <span key={tech} className="font-mono" style={{ fontSize: "0.7rem", color: "#FFFFFF", background: "#000", padding: "2px 6px", border: "1px solid #333" }}>
+                <span key={tech} className="font-mono" style={{ fontSize: "0.7rem", color: "#FFFFFF", background: "#061024", padding: "2px 8px", border: "1px solid var(--red)", fontWeight: 700 }}>
                   {tech}
                 </span>
               ))}
@@ -165,38 +163,14 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* RIGHT COLUMN — PROTAGONIST AVATAR (Grillz Illustration /image.png) */}
+        {/* RIGHT COLUMN — PROTAGONIST AVATAR */}
         <div style={{
           position: "relative",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          padding: "1rem",
         }}>
-          {/* Background Glow */}
-          <div style={{
-            position: "absolute",
-            width: "320px",
-            height: "320px",
-            borderRadius: "50%",
-            background: "var(--red-glow)",
-            filter: "blur(60px)",
-            zIndex: 1,
-          }} />
-
-          {/* Dashed Border */}
-          <div style={{
-            position: "absolute",
-            width: "280px",
-            height: "280px",
-            border: "3px dashed var(--red)",
-            borderRadius: "50%",
-            transform: "rotate(15deg)",
-            zIndex: 2,
-            opacity: 0.6,
-          }} />
-
-          {/* Main Portrait Frame */}
+          {/* Avatar Navy & Red Frame */}
           <div style={{
             position: "relative",
             zIndex: 10,
@@ -206,7 +180,6 @@ export default function HeroSection() {
             flexDirection: "column",
             alignItems: "center",
           }}>
-            {/* Tag Overlay 1 */}
             <div className="font-wild" style={{
               position: "absolute",
               top: "-15px",
@@ -215,17 +188,16 @@ export default function HeroSection() {
               fontSize: "1.8rem",
               zIndex: 20,
               transform: "rotate(-12deg)",
-              textShadow: "2px 2px 0px #000",
+              textShadow: "2px 2px 0px var(--navy)",
             }}>
               #GEELMZ!!
             </div>
 
-            {/* Tag Overlay 2 */}
             <div className="font-marker font-bold" style={{
               position: "absolute",
               bottom: "15px",
               right: "10px",
-              background: "#000000",
+              background: "var(--navy)",
               color: "#FFFFFF",
               border: "2px solid var(--red)",
               padding: "0.2rem 0.6rem",
@@ -237,17 +209,16 @@ export default function HeroSection() {
               // ONLY ONE //
             </div>
 
-            {/* THE USER'S AVATAR IMAGE */}
+            {/* Avatar Frame */}
             <div style={{
               position: "relative",
               width: "100%",
               aspectRatio: "1/1",
               background: "#FFFFFF",
-              border: "4px solid #000000",
-              boxShadow: "6px 6px 0px var(--red)",
+              border: "4px solid var(--navy)",
+              boxShadow: "8px 8px 0px var(--red)",
               overflow: "hidden",
               transform: "rotate(-2deg)",
-              transition: "transform 0.3s ease",
             }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -261,33 +232,13 @@ export default function HeroSection() {
                   filter: "contrast(1.15)",
                 }}
               />
-
-              {/* Red Rayado Lines */}
-              <div style={{
-                position: "absolute",
-                top: "10px",
-                right: "10px",
-                width: "40px",
-                height: "4px",
-                background: "var(--red)",
-                transform: "rotate(45deg)",
-              }} />
-              <div style={{
-                position: "absolute",
-                top: "18px",
-                right: "6px",
-                width: "40px",
-                height: "4px",
-                background: "var(--red)",
-                transform: "rotate(45deg)",
-              }} />
             </div>
 
             {/* Zine Caption */}
             <div className="font-mono" style={{
               marginTop: "1.2rem",
-              background: "#111111",
-              border: "1px solid #333333",
+              background: "var(--navy)",
+              border: "1px solid var(--red)",
               padding: "0.4rem 0.8rem",
               fontSize: "0.72rem",
               color: "#FFFFFF",
@@ -306,8 +257,8 @@ export default function HeroSection() {
 
       {/* ══ BOTTOM COLLABORATE BANNER ══ */}
       <div style={{
-        background: "#0F0F0F",
-        borderTop: "2px solid #FFFFFF",
+        background: "var(--navy)",
+        borderTop: "3px solid var(--red)",
         padding: "1.5rem 1rem",
         display: "flex",
         justifyContent: "space-between",
@@ -317,12 +268,13 @@ export default function HeroSection() {
         zIndex: 15,
         width: "100%",
         overflow: "hidden",
+        color: "#FFFFFF",
       }}>
         <div>
           <h2 className="font-marker" style={{ fontSize: "clamp(1.6rem, 4.5vw, 3rem)", color: "var(--red)", lineHeight: 0.9 }}>
             {t("LET'S COLLABORATE", "LET'S COLLABORATE")}
           </h2>
-          <p className="font-mono" style={{ fontSize: "0.7rem", color: "var(--grey)", marginTop: "0.3rem" }}>
+          <p className="font-mono" style={{ fontSize: "0.7rem", color: "#AAAAAA", marginTop: "0.3rem" }}>
             // DISRUPTING THE DIGITAL LANDSCAPE SINCE 20XX
           </p>
         </div>

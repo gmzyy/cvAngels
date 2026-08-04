@@ -1,7 +1,7 @@
 "use client"
 import { useRef, useState } from "react"
 import { useInView } from "framer-motion"
-import { Server, Layout, Cpu, Terminal, Cloud, ShieldCheck, Code2, Zap, Activity, CheckCircle2 } from "lucide-react"
+import { Server, Layout, Cpu, Terminal, Cloud, ShieldCheck, Activity, Sliders, Volume2 } from "lucide-react"
 import { useLanguage } from "@/context/LanguageContext"
 
 interface SkillItem {
@@ -33,7 +33,7 @@ export default function SkillsSection() {
       id: "backend",
       title: t("Backend & Arquitectura", "Backend & Architecture"),
       Icon: Server,
-      channelNum: "CH_01",
+      channelNum: "PAD_01",
       tagline: t("APIs de producción, microservicios y motores asíncronos.", "Production APIs, microservices, and async engines."),
       cmdPrompt: "$ feelmz --inspect --stack=backend",
       codeSnippet: `const backend = {
@@ -56,13 +56,13 @@ export default function SkillsSection() {
       id: "frontend",
       title: t("Frontend & Interfaces Web", "Frontend & Web Interfaces"),
       Icon: Layout,
-      channelNum: "CH_02",
-      tagline: t("Interfaces interactivas, ultra rápidas y con estética street.", "Interactive, ultra-fast interfaces with street aesthetics."),
+      channelNum: "PAD_02",
+      tagline: t("Interfaces interactivas, ultra rápidas y modernas.", "Interactive, ultra-fast, and modern interfaces."),
       cmdPrompt: "$ feelmz --render --stack=frontend",
       codeSnippet: `export const ui = {
   framework: "Next.js 15 (App Router)",
   library: "React 19 / TypeScript",
-  styling: "Tailwind CSS + Street CSS",
+  styling: "Tailwind CSS + Custom CSS",
   mobile: "Flutter Web / Dio HTTP"
 }`,
       skills: [
@@ -72,14 +72,14 @@ export default function SkillsSection() {
         { name: "Tailwind CSS", tag: "Styling", level: 92 },
         { name: "Flutter Web", tag: "Multiplatform", level: 85 },
         { name: "Dio HTTP", tag: "Network Layer", level: 88 },
-        { name: "Framer Motion", tag: "Street FX", level: 90, isCore: true },
+        { name: "Framer Motion", tag: "Animations", level: 90, isCore: true },
       ],
     },
     {
       id: "ai",
       title: t("Inteligencia Artificial & NLP", "Artificial Intelligence & NLP"),
       Icon: Cpu,
-      channelNum: "CH_03",
+      channelNum: "PAD_03",
       tagline: t("Extracción semántica local On-Premise y motores RAG.", "Local On-Premise semantic extraction and RAG engines."),
       cmdPrompt: "$ feelmz --run --module=rag_ai",
       codeSnippet: `const aiPipeline = {
@@ -101,7 +101,7 @@ export default function SkillsSection() {
       id: "languages",
       title: t("Lenguajes de Programación", "Programming Languages"),
       Icon: Terminal,
-      channelNum: "CH_04",
+      channelNum: "PAD_04",
       tagline: t("Sintaxis fuertemente tipada y desarrollo multiparadigma.", "Strongly typed syntax and multi-paradigm development."),
       cmdPrompt: "$ feelmz --compile --target=langs",
       codeSnippet: `const languages = [
@@ -124,7 +124,7 @@ export default function SkillsSection() {
       id: "devops",
       title: t("Infraestructura & DevOps", "Infrastructure & DevOps"),
       Icon: Cloud,
-      channelNum: "CH_05",
+      channelNum: "PAD_05",
       tagline: t("Contenedores Docker, almacenamiento S3 y pipelines CI/CD.", "Docker containers, S3 storage, and CI/CD pipelines."),
       cmdPrompt: "$ feelmz --deploy --docker",
       codeSnippet: `const infra = {
@@ -145,7 +145,7 @@ export default function SkillsSection() {
       id: "security",
       title: t("Seguridad & DBs", "Security & DBs"),
       Icon: ShieldCheck,
-      channelNum: "CH_06",
+      channelNum: "PAD_06",
       tagline: t("Protección 2FA/TOTP, defensa anti-replay attacks y bases de datos.", "2FA/TOTP protection, anti-replay attacks, and databases."),
       cmdPrompt: "$ feelmz --audit --2fa --totp",
       codeSnippet: `const security = {
@@ -182,45 +182,52 @@ export default function SkillsSection() {
         transition: "opacity 0.6s ease, transform 0.6s ease",
       }}
     >
-      {/* Title */}
+      {/* Title Header */}
       <div style={{ marginBottom: "3rem" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
-          <span className="sticker-box font-mono" style={{ transform: "rotate(-1.5deg)", color: "var(--red)" }}>
-            // {t("ECOSISTEMA TECNOLÓGICO", "TECH ECOSYSTEM")}
+          <span className="font-tag" style={{
+            background: "var(--red)",
+            color: "#FFFFFF",
+            padding: "0.3rem 1.2rem",
+            fontSize: "1.3rem",
+            transform: "rotate(-2deg)",
+            boxShadow: "4px 4px 0px var(--navy)",
+          }}>
+            🎛️ // {t("MPC SOUNDBOARD & STACK", "MPC SOUNDBOARD & STACK")}
           </span>
-          <span className="font-mono" style={{ fontSize: "0.7rem", color: "var(--grey)", letterSpacing: "0.2em" }}>
-            [STACK_MATRIX // V3]
+          <span className="font-mono" style={{ fontSize: "0.7rem", color: "var(--navy)", letterSpacing: "0.2em", fontWeight: 900 }}>
+            [EQ_LEVELS // V3]
           </span>
         </div>
 
         <h2 className="font-display" style={{
-          fontSize: "clamp(2.4rem, 7.5vw, 6.5rem)",
+          fontSize: "clamp(2.8rem, 8vw, 7rem)",
           lineHeight: 0.85,
-          color: "#FFFFFF",
-          textShadow: "4px 4px 0px var(--red)",
+          color: "var(--navy)",
+          textShadow: "5px 5px 0px var(--red)",
           textTransform: "uppercase",
           margin: 0,
         }}>
           ARSENAL
         </h2>
         <div className="font-spray" style={{
-          fontSize: "clamp(2.2rem, 6.5vw, 5.5rem)",
+          fontSize: "clamp(2.4rem, 7vw, 6rem)",
           color: "var(--red)",
           lineHeight: 0.9,
-          transform: "rotate(-3deg) translateY(-10px)",
-          WebkitTextStroke: "1px #FFFFFF",
-          textShadow: "4px 4px 0px #000000",
+          transform: "rotate(-4deg) translateY(-12px) translateX(15px)",
+          WebkitTextStroke: "1.5px var(--navy)",
+          textShadow: "5px 5px 0px var(--navy)",
           display: "inline-block",
         }}>
           SKILLS &amp; TECH SOUNDBOARD
         </div>
       </div>
 
-      {/* Street Channel Selector Buttons */}
+      {/* MPC Drum Machine Pads Selector */}
       <div style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
-        gap: "0.8rem",
+        gap: "0.9rem",
         marginBottom: "2.5rem",
       }}>
         {TABS.map((tab) => {
@@ -232,30 +239,32 @@ export default function SkillsSection() {
               key={tab.id}
               onClick={() => setActiveTabId(tab.id)}
               style={{
-                background: isActive ? "var(--red)" : "#0A0A0A",
+                background: isActive ? "var(--red)" : "var(--navy)",
                 color: "#FFFFFF",
-                border: "3px solid #FFFFFF",
-                boxShadow: isActive ? "6px 6px 0px #FFFFFF" : "4px 4px 0px var(--red)",
+                border: "3px solid var(--navy)",
+                boxShadow: isActive ? "6px 6px 0px var(--navy)" : "4px 4px 0px var(--red)",
                 padding: "1rem 0.9rem",
                 cursor: "pointer",
                 textAlign: "left",
-                transform: isActive ? "rotate(-2deg)" : "none",
-                transition: "all 0.2s ease",
+                transform: isActive ? "rotate(-3deg) scale(1.02)" : "none",
+                transition: "all 0.15s ease",
+                clipPath: "polygon(2% 0%, 98% 2%, 100% 98%, 0% 100%)",
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
-                <span className="font-mono" style={{ fontSize: "0.7rem", background: "#000", color: "#FFF", padding: "1px 5px" }}>
+                <span className="font-mono" style={{ fontSize: "0.7rem", background: "#061024", color: "#FFF", padding: "2px 6px", fontWeight: 900 }}>
                   {tab.channelNum}
                 </span>
                 <span style={{
-                  width: 8, height: 8, borderRadius: "50%",
+                  width: 10, height: 10, borderRadius: "50%",
                   background: isActive ? "#FFFFFF" : "var(--red)",
+                  boxShadow: isActive ? "0 0 8px #FFF" : "none",
                   display: "inline-block",
                 }} />
               </div>
 
               <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <Icon size={18} style={{ color: isActive ? "#000000" : "var(--red)", flexShrink: 0 }} />
+                <Icon size={18} style={{ color: "#FFFFFF", flexShrink: 0 }} />
                 <span className="font-display" style={{ fontSize: "1.3rem", lineHeight: 1 }}>
                   {tab.title}
                 </span>
@@ -265,7 +274,7 @@ export default function SkillsSection() {
         })}
       </div>
 
-      {/* Main Grid: Skills Grid on Left + Compact Terminal on Right */}
+      {/* Main Grid: VU Equalizer Meters + BOOMBOX CONSOLE */}
       <div style={{
         display: "grid",
         gridTemplateColumns: "1fr",
@@ -273,54 +282,57 @@ export default function SkillsSection() {
         alignItems: "start",
       }} className="lg:!grid-cols-[1.3fr_380px]">
 
-        {/* LEFT: TIGHT GRID OF SKILL STICKERS WITH METERS */}
+        {/* LEFT: SKILL METERS ON BONE PAPER */}
         <div style={{
-          background: "#080808",
-          border: "4px solid #FFFFFF",
-          boxShadow: "10px 10px 0px var(--red), 10px 10px 0px 4px #000000",
-          padding: "2rem",
+          background: "#FAF4EC",
+          border: "4px solid var(--navy)",
+          boxShadow: "12px 12px 0px var(--red)",
+          padding: "2.2rem 2rem",
+          color: "var(--navy)",
+          transform: "rotate(-0.8deg)",
+          clipPath: "polygon(0% 0.5%, 100% 0%, 99.5% 99.5%, 0.5% 99%)",
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem", marginBottom: "0.5rem" }}>
-            <h3 className="font-display" style={{ fontSize: "2.6rem", color: "#FFFFFF", margin: 0 }}>
+            <h3 className="font-display" style={{ fontSize: "2.8rem", color: "var(--navy)", margin: 0 }}>
               {currentTab.title}
             </h3>
-            <span className="sticker-box font-mono" style={{ background: "var(--red)", color: "#FFF" }}>
-              {currentTab.channelNum} // ACTIVE
+            <span className="font-tag" style={{ background: "var(--red)", color: "#FFF", padding: "0.2rem 0.8rem", fontSize: "1.2rem", transform: "rotate(2deg)" }}>
+              {currentTab.channelNum} // ON AIR
             </span>
           </div>
 
-          <p className="font-spray" style={{ fontSize: "1.4rem", color: "var(--red)", marginBottom: "1.8rem" }}>
+          <p className="font-spray" style={{ fontSize: "1.5rem", color: "var(--red)", marginBottom: "1.8rem" }}>
             {currentTab.tagline}
           </p>
 
-          {/* 2-Column Skill Cards Grid */}
+          {/* 2-Column Audio Equalizer Skill Meters */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1rem" }}>
             {currentTab.skills.map((skill) => (
-              <div key={skill.name} style={{ background: "#111111", padding: "0.9rem 1rem", border: "2px solid #FFFFFF", boxShadow: "3px 3px 0px #000000" }}>
+              <div key={skill.name} style={{ background: "#EAE0D0", padding: "1rem", border: "2px solid var(--navy)", boxShadow: "4px 4px 0px var(--navy)", transform: "rotate(-0.5deg)" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.4rem" }}>
-                  <span className="font-mono" style={{ fontSize: "0.9rem", color: "#FFFFFF", fontWeight: 700 }}>
+                  <span className="font-mono" style={{ fontSize: "0.95rem", color: "var(--navy)", fontWeight: 900 }}>
                     {skill.name}
                   </span>
-                  <span className="font-mono" style={{ fontSize: "0.8rem", color: "var(--red)", fontWeight: 700 }}>
+                  <span className="font-mono" style={{ fontSize: "0.85rem", color: "var(--red)", fontWeight: 900 }}>
                     {skill.level}%
                   </span>
                 </div>
 
-                {/* Progress Bar Gauge */}
-                <div style={{ width: "100%", height: "8px", background: "#000000", border: "1px solid #333333" }}>
+                {/* VU Meter Audio Equalizer Gauge */}
+                <div style={{ width: "100%", height: "10px", background: "#FAF4EC", border: "2px solid var(--navy)", padding: "1px" }}>
                   <div style={{
                     width: `${skill.level}%`,
                     height: "100%",
-                    background: skill.isCore ? "var(--red)" : "#FFFFFF",
+                    background: skill.isCore ? "var(--red)" : "var(--navy)",
                   }} />
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "0.4rem" }}>
-                  <span className="font-mono" style={{ fontSize: "0.6rem", color: "#888888" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "0.5rem" }}>
+                  <span className="font-mono" style={{ fontSize: "0.68rem", color: "#334455", fontWeight: 700 }}>
                     {skill.tag}
                   </span>
                   {skill.isCore && (
-                    <span className="font-mono" style={{ fontSize: "0.55rem", background: "var(--red)", color: "#FFF", padding: "1px 4px", fontWeight: 700 }}>
+                    <span className="font-mono" style={{ fontSize: "0.6rem", background: "var(--red)", color: "#FFF", padding: "1px 6px", fontWeight: 900 }}>
                       CORE
                     </span>
                   )}
@@ -330,46 +342,50 @@ export default function SkillsSection() {
           </div>
         </div>
 
-        {/* RIGHT: SLEEK COMPACT TERMINAL BOX */}
+        {/* RIGHT: BOOMBOX CODE CONSOLE */}
         <div style={{
-          background: "#000000",
-          border: "4px solid #FFFFFF",
-          boxShadow: "10px 10px 0px #FFFFFF, 10px 10px 0px 4px var(--red)",
-          padding: "1.5rem",
+          background: "#FAF4EC",
+          border: "4px solid var(--navy)",
+          boxShadow: "12px 12px 0px var(--navy)",
+          padding: "1.8rem",
           display: "flex",
           flexDirection: "column",
           fontFamily: "var(--font-mono)",
+          color: "var(--navy)",
+          transform: "rotate(1.5deg)",
+          clipPath: "polygon(1% 0%, 99% 1%, 100% 99%, 0% 98%)",
         }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem", borderBottom: "2px dashed #333333", paddingBottom: "0.6rem" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-              <span style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--red)" }} />
-              <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#FFF" }} />
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem", borderBottom: "3px dashed var(--red)", paddingBottom: "0.6rem" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <Volume2 size={18} style={{ color: "var(--red)" }} />
+              <span className="font-mono" style={{ fontSize: "0.8rem", color: "var(--navy)", fontWeight: 900 }}>
+                CONSOLE // AUDIO_MONITOR
+              </span>
             </div>
-            <span style={{ fontSize: "0.75rem", color: "var(--red)", fontWeight: 700 }}>
-              TERMINAL // STACK_OUTPUT
-            </span>
+            <Sliders size={18} style={{ color: "var(--navy)" }} />
           </div>
 
-          <div style={{ background: "#111111", padding: "0.5rem 0.8rem", border: "1px solid #333", color: "var(--red)", fontSize: "0.75rem", marginBottom: "0.8rem" }}>
+          <div style={{ background: "var(--navy)", padding: "0.5rem 0.8rem", border: "2px solid var(--navy)", color: "#FFFFFF", fontSize: "0.78rem", marginBottom: "0.8rem", fontWeight: 900 }}>
             {currentTab.cmdPrompt}
           </div>
 
           <pre style={{
-            fontSize: "0.82rem",
-            color: "#FFFFFF",
+            fontSize: "0.85rem",
+            color: "var(--navy)",
             lineHeight: 1.7,
             whiteSpace: "pre-wrap",
             wordBreak: "break-word",
             margin: 0,
-            background: "#080808",
-            padding: "1rem",
-            border: "1px solid #222222",
+            background: "#EAE0D0",
+            padding: "1.2rem",
+            border: "2px solid var(--navy)",
+            fontWeight: 800,
           }}>
             <code>{currentTab.codeSnippet}</code>
           </pre>
 
-          <div style={{ marginTop: "1rem", display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.68rem", color: "#888888" }}>
-            <Activity size={12} style={{ color: "var(--red)" }} />
+          <div style={{ marginTop: "1.2rem", display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.75rem", color: "var(--navy)", fontWeight: 900 }}>
+            <Activity size={14} style={{ color: "var(--red)" }} />
             <span>EXECUTION_TIME: 0.1ms // 100% OK</span>
           </div>
         </div>

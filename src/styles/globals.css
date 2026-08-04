@@ -19,20 +19,26 @@
   --font-mono:     'Courier Prime', monospace;
   --font-body:     'Inter', sans-serif;
 
-  /* Colors */
-  --bg:            #060606;
-  --bg-card:       #0F0F0F;
-  --bg-paper:      #161616;
+  /* Palette: Fondo Hueso (Bone), Rojo Quemado & Azul Navy */
+  --bg:            #F4EFE6; /* Fondo Hueso / Vintage Bone Paper */
+  --bg-card:       #0B1B3D; /* Azul Navy / Deep Navy Card */
+  --bg-paper:      #EAE2D0; /* Warm Bone Paper */
 
-  /* Spray Red */
-  --red:           #FF2222;
-  --red-accent:    #FF3333;
-  --red-glow:      rgba(255, 34, 34, 0.45);
+  /* Burnt Red / Rojo Quemado */
+  --red:           #B81D1D; /* Rich Burnt Red / Crimson */
+  --red-accent:    #981515;
+  --red-glow:      rgba(184, 29, 29, 0.35);
 
-  /* Contrast Ink */
+  /* Azul Navy */
+  --navy:          #0B1B3D; /* Deep Navy Blue */
+  --navy-light:    #102A43; /* Medium Navy Accent */
+  --navy-dark:     #061024; /* Darkest Navy */
+
+  /* Contrast Ink & Text */
   --white:         #FFFFFF;
-  --grey:          #777777;
-  --border:        #222222;
+  --ink:           #0B1B3D;
+  --grey:          #556677;
+  --border:        #0B1B3D;
 }
 
 *, *::before, *::after {
@@ -49,11 +55,23 @@ html {
 body {
   font-family: var(--font-body);
   background: var(--bg);
-  color: var(--white);
+  color: var(--navy);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
-  background-size: 20px 20px;
+  background-image: 
+    repeating-linear-gradient(-35deg, rgba(184, 29, 29, 0.06) 0px, rgba(184, 29, 29, 0.06) 3px, transparent 3px, transparent 160px),
+    repeating-linear-gradient(55deg, rgba(11, 27, 61, 0.05) 0px, rgba(11, 27, 61, 0.05) 2px, transparent 2px, transparent 200px),
+    radial-gradient(rgba(11, 27, 61, 0.09) 1.5px, transparent 0),
+    linear-gradient(to right, rgba(184, 29, 29, 0.03) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 24px 24px, 48px 48px;
+}
+
+.crayon-scribble {
+  font-family: var(--font-marker);
+  color: var(--red);
+  opacity: 0.85;
+  user-select: none;
+  pointer-events: none;
 }
 
 ::-webkit-scrollbar { width: 4px; }
@@ -95,12 +113,12 @@ body {
   font-size: 1.5rem;
   display: inline-block;
   transform: rotate(-2deg);
-  box-shadow: 4px 4px 0px #000000;
+  box-shadow: 4px 4px 0px var(--navy);
 }
 
 .tag-white {
-  background: #FFFFFF;
-  color: #000000;
+  background: var(--navy);
+  color: #FFFFFF;
   padding: 0.2rem 0.8rem;
   font-family: var(--font-display);
   font-size: 1.4rem;
@@ -111,8 +129,8 @@ body {
 }
 
 .sticker-box {
-  background: #000000;
-  border: 2px solid #FFFFFF;
+  background: var(--navy);
+  border: 2px solid var(--red);
   color: #FFFFFF;
   padding: 0.4rem 0.9rem;
   font-family: var(--font-mono);
@@ -134,17 +152,17 @@ body {
   font-size: 1.7rem;
   text-decoration: none;
   text-transform: uppercase;
-  border: 2px solid #FFFFFF;
-  box-shadow: 6px 6px 0px #000000;
+  border: 3px solid var(--navy);
+  box-shadow: 6px 6px 0px var(--navy);
   transform: rotate(-1deg);
   transition: all 0.2s ease;
   cursor: pointer;
 }
 .btn-street-primary:hover {
-  background: #000000;
-  color: var(--red);
+  background: var(--navy);
+  color: #FFFFFF;
   border-color: var(--red);
-  box-shadow: 6px 6px 0px #FFFFFF;
+  box-shadow: 6px 6px 0px var(--red);
   transform: translate(-3px, -3px) rotate(1deg);
 }
 
@@ -153,22 +171,22 @@ body {
   align-items: center;
   gap: 0.75rem;
   padding: 0.9rem 2.2rem;
-  background: #000000;
+  background: var(--navy);
   color: #FFFFFF;
   font-family: var(--font-marker);
   font-size: 1.7rem;
   text-decoration: none;
   text-transform: uppercase;
-  border: 2px solid #FFFFFF;
+  border: 3px solid var(--red);
   box-shadow: 6px 6px 0px var(--red);
   transform: rotate(1deg);
   transition: all 0.2s ease;
   cursor: pointer;
 }
 .btn-street-secondary:hover {
-  background: #FFFFFF;
-  color: #000000;
-  box-shadow: 6px 6px 0px #000000;
+  background: var(--red);
+  color: #FFFFFF;
+  box-shadow: 6px 6px 0px var(--navy);
   transform: translate(-3px, -3px) rotate(-1deg);
 }
 

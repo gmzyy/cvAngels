@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useLanguage } from "@/context/LanguageContext"
 import TopNavBar from "@/components/portfolio/TopNavBar"
 import SiteFooter from "@/components/portfolio/SiteFooter"
-import { Sparkles, Terminal, Flame, ShieldAlert, HeartHandshake, Send } from "lucide-react"
+import { Sparkles, Terminal, Flame, ShieldAlert, HeartHandshake, Send, Disc, Radio } from "lucide-react"
 
 export default function ConoceDeMiPage() {
   const { t } = useLanguage()
@@ -33,14 +33,14 @@ export default function ConoceDeMiPage() {
         />
       </Head>
 
-      <div style={{ background: "#060606", color: "#FFFFFF", minHeight: "100vh", position: "relative" }}>
+      <div style={{ background: "var(--bg)", color: "var(--navy)", minHeight: "100vh", position: "relative" }}>
 
         <TopNavBar />
 
         {/* Main Content */}
         <main style={{ maxWidth: 1100, margin: "0 auto", padding: "8rem 1.5rem 6rem" }}>
 
-          {/* ══ HEADER HERO BANNER — MAXIMUM STREET VIBE ══ */}
+          {/* ══ HEADER HERO BANNER — RAW HIP HOP GRAFFITI ZINE ══ */}
           <div style={{
             display: "grid",
             gridTemplateColumns: "1fr",
@@ -53,10 +53,17 @@ export default function ConoceDeMiPage() {
 
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.8rem" }}>
-                <span className="sticker-box font-mono" style={{ background: "var(--red)", color: "#FFFFFF", transform: "rotate(-2deg)" }}>
-                  // {t("AUTOBIOGRAFÍA & MANIFIESTO", "AUTOBIOGRAPHY & MANIFESTO")}
+                <span className="font-tag" style={{
+                  background: "var(--red)",
+                  color: "#FFFFFF",
+                  padding: "0.3rem 1.2rem",
+                  fontSize: "1.3rem",
+                  transform: "rotate(-2deg)",
+                  boxShadow: "4px 4px 0px var(--navy)",
+                }}>
+                  🎤 // {t("AUTOBIOGRAFÍA & MANIFIESTO", "AUTOBIOGRAPHY & MANIFESTO")}
                 </span>
-                <span className="font-mono" style={{ fontSize: "0.7rem", color: "var(--grey)", letterSpacing: "0.2em" }}>
+                <span className="font-mono" style={{ fontSize: "0.7rem", color: "var(--navy)", letterSpacing: "0.2em", fontWeight: 900 }}>
                   [FEELMZ_CORE_VISION]
                 </span>
               </div>
@@ -64,7 +71,7 @@ export default function ConoceDeMiPage() {
               <h1 className="font-display" style={{
                 fontSize: "clamp(4.2rem, 9.5vw, 8rem)",
                 lineHeight: 0.82,
-                color: "#FFFFFF",
+                color: "var(--navy)",
                 textShadow: "6px 6px 0px var(--red)",
                 textTransform: "uppercase",
                 margin: 0,
@@ -76,46 +83,51 @@ export default function ConoceDeMiPage() {
                 color: "var(--red)",
                 lineHeight: 0.9,
                 transform: "rotate(-4deg) translateY(-15px) translateX(10px)",
-                WebkitTextStroke: "1.5px #FFFFFF",
-                textShadow: "6px 6px 0px #000000",
+                WebkitTextStroke: "1.5px var(--navy)",
+                textShadow: "6px 6px 0px var(--navy)",
                 display: "inline-block",
               }}>
                 {t("CÓDIGO CRUDO", "RAW CODE")}
               </div>
 
-              <div className="tag-white font-marker" style={{
+              <div className="font-tag" style={{
                 marginTop: "2.2rem",
-                fontSize: "2rem",
-                transform: "rotate(-1deg)",
-                boxShadow: "6px 6px 0px #000000",
+                fontSize: "1.8rem",
+                transform: "rotate(-2deg)",
+                boxShadow: "6px 6px 0px var(--red)",
                 display: "inline-block",
-                border: "2px solid #000",
+                border: "3px solid var(--navy)",
+                background: "var(--navy)",
+                color: "#FFFFFF",
+                padding: "0.3rem 1.2rem",
               }}>
                 ANGEL GOMEZ GARCIA // AKA GEELMZ
               </div>
             </div>
 
-            {/* AVATAR ZINE BOX */}
+            {/* AVATAR HIP-HOP MIXTAPE BOX */}
             <div style={{
-              background: "#FFFFFF",
-              border: "4px solid #000000",
-              boxShadow: "12px 12px 0px var(--red), 12px 12px 0px 4px #000000",
+              background: "#FAF4EC",
+              border: "4px solid var(--navy)",
+              boxShadow: "14px 14px 0px var(--red)",
               transform: "rotate(3deg)",
-              maxWidth: "280px",
+              maxWidth: "290px",
               margin: "0 auto",
               position: "relative",
+              clipPath: "polygon(0% 1%, 100% 0%, 99% 99%, 1% 100%)",
             }}>
               <div style={{
                 position: "absolute",
-                top: "-12px",
+                top: "-14px",
                 right: "-10px",
                 background: "var(--red)",
                 color: "#FFF",
-                padding: "2px 8px",
+                padding: "3px 10px",
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.65rem",
-                fontWeight: 700,
+                fontSize: "0.7rem",
+                fontWeight: 900,
                 transform: "rotate(6deg)",
+                border: "2px solid var(--navy)",
               }}>
                 // ORIGINAL //
               </div>
@@ -125,14 +137,14 @@ export default function ConoceDeMiPage() {
                 alt="Geelmz Avatar"
                 style={{ width: "100%", height: "auto", display: "block", padding: "1rem", filter: "contrast(1.2)" }}
               />
-              <div className="font-mono" style={{ background: "#000000", color: "#FFFFFF", fontSize: "0.7rem", padding: "0.4rem 0.8rem", textAlign: "center", borderTop: "2px solid #000" }}>
+              <div className="font-mono" style={{ background: "var(--navy)", color: "#FFFFFF", fontSize: "0.75rem", padding: "0.5rem 0.8rem", textAlign: "center", borderTop: "3px solid var(--navy)", fontWeight: 900 }}>
                 [GEELMZ // PUEBLA_MX]
               </div>
             </div>
 
           </div>
 
-          {/* ══ ESSAY ZINE CARDS SECTION ══ */}
+          {/* ══ ESSAY HIP HOP CARDS SECTION ══ */}
           <section style={{ marginBottom: "5rem", display: "flex", flexDirection: "column", gap: "2.5rem" }}>
             {[
               {
@@ -175,136 +187,152 @@ export default function ConoceDeMiPage() {
               <div
                 key={idx}
                 style={{
-                  background: "#0C0C0C",
-                  border: "4px solid #FFFFFF",
-                  boxShadow: idx % 2 === 0 ? "10px 10px 0px var(--red), 10px 10px 0px 4px #000000" : "10px 10px 0px #FFFFFF, 10px 10px 0px 4px var(--red)",
-                  padding: "2.2rem",
+                  background: "#FAF4EC",
+                  border: "4px solid var(--navy)",
+                  boxShadow: idx % 2 === 0 ? "12px 12px 0px var(--red)" : "12px 12px 0px var(--navy)",
+                  padding: "2.5rem 2rem",
                   position: "relative",
+                  color: "var(--navy)",
+                  transform: idx % 2 === 0 ? "rotate(-1.2deg)" : "rotate(1.2deg)",
+                  clipPath: "polygon(0.5% 0%, 99.5% 0.5%, 99% 99.5%, 0% 99%)",
                 }}
               >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-                  <span className="sticker-box font-mono" style={{ background: "var(--red)", color: "#FFF" }}>
-                    [{card.num}] // {card.tag}
-                  </span>
-                  <span className="font-spray" style={{ color: "var(--red)", fontSize: "1.4rem" }}>
-                    #FEELMZ
+                <div style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginBottom: "1.2rem",
+                  borderBottom: "3px dashed var(--red)",
+                  paddingBottom: "1rem",
+                }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
+                    <span className="font-mono" style={{ background: "var(--red)", color: "#FFFFFF", padding: "3px 10px", fontSize: "0.8rem", fontWeight: 900 }}>
+                      SECTION_{card.num}
+                    </span>
+                    <span className="font-mono" style={{ fontSize: "0.85rem", color: "var(--red)", letterSpacing: "0.15em", fontWeight: 900 }}>
+                      // {card.tag}
+                    </span>
+                  </div>
+                  <span className="font-display" style={{ fontSize: "2.5rem", color: "var(--red)" }}>
+                    #{card.num}
                   </span>
                 </div>
 
-                <h3 className="font-display" style={{ fontSize: "2.4rem", color: "#FFFFFF", lineHeight: 1.05, marginBottom: "1rem" }}>
+                <h2 className="font-display" style={{
+                  fontSize: "clamp(1.8rem, 4vw, 3rem)",
+                  color: "var(--navy)",
+                  marginBottom: "1rem",
+                  lineHeight: 1.05,
+                }}>
                   {card.title}
-                </h3>
+                </h2>
 
-                <p style={{ fontSize: "1.08rem", color: "#DDDDDD", lineHeight: 1.8, fontFamily: "var(--font-body)", margin: 0 }}>
+                <p className="font-body" style={{
+                  fontSize: "1.1rem",
+                  lineHeight: 1.8,
+                  color: "#112233",
+                  fontWeight: 700,
+                  margin: 0,
+                }}>
                   {card.text}
                 </p>
               </div>
             ))}
           </section>
 
-          {/* ══ INTERESTS LIST ══ */}
+          {/* ══ PASSIONS & INTERESTS GRID ══ */}
           <section style={{ marginBottom: "5rem" }}>
             <div style={{ marginBottom: "2rem" }}>
-              <span className="sticker-box font-mono" style={{ transform: "rotate(-1deg)" }}>
-                // {t("PASIONES & ESTILO DE VIDA", "PASSIONS & LIFESTYLE")}
+              <span className="font-tag" style={{ background: "var(--navy)", color: "#FFF", padding: "0.3rem 1.2rem", fontSize: "1.3rem", transform: "rotate(-1deg)" }}>
+                // {t("INTERESES & INTERECCIONES", "PASSIONS & DRIVES")}
               </span>
-              <h2 className="font-display" style={{ fontSize: "clamp(3.5rem, 7vw, 5.5rem)", color: "#FFFFFF", marginTop: "0.5rem" }}>
-                {t("MIS", "MY")} <span className="font-spray" style={{ color: "var(--red)" }}>{t("INTERESES", "PASSIONS")}</span>
+              <h2 className="font-display" style={{ fontSize: "3.8rem", color: "var(--navy)", marginTop: "0.5rem", margin: 0, lineHeight: 0.9 }}>
+                {t("LO QUE ME MUEVE", "WHAT DRIVES ME")}
               </h2>
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "1.2rem" }}>
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: "1.4rem",
+            }}>
               {intereses.map((item, idx) => (
                 <div
                   key={idx}
                   style={{
-                    background: "#0F0F0F",
-                    border: "3px solid #FFFFFF",
-                    boxShadow: "6px 6px 0px var(--red)",
-                    padding: "1.4rem 1.6rem",
+                    background: "#FAF4EC",
+                    border: "3px solid var(--navy)",
+                    boxShadow: "8px 8px 0px var(--red)",
+                    padding: "1.5rem",
                     display: "flex",
-                    alignItems: "center",
-                    gap: "1.2rem",
+                    alignItems: "flex-start",
+                    gap: "1rem",
+                    color: "var(--navy)",
+                    transform: idx % 2 === 0 ? "rotate(-1deg)" : "rotate(1deg)",
+                    clipPath: "polygon(1% 0%, 99% 1%, 100% 99%, 0% 98%)",
                   }}
                 >
-                  <span className="font-mono" style={{ color: "var(--red)", fontSize: "1.3rem", fontWeight: "bold", background: "#000", padding: "0.2rem 0.6rem", border: "1px solid #333" }}>
-                    [0{idx + 1}]
+                  <span style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.85rem",
+                    background: "var(--red)",
+                    color: "#FFF",
+                    padding: "3px 8px",
+                    fontWeight: 900,
+                    flexShrink: 0,
+                  }}>
+                    #{idx + 1}
                   </span>
-                  <span style={{ fontSize: "1.05rem", color: "#FFFFFF", fontFamily: "var(--font-body)", fontWeight: 500 }}>
+                  <p className="font-body" style={{
+                    fontSize: "0.98rem",
+                    lineHeight: 1.6,
+                    color: "#112233",
+                    fontWeight: 700,
+                    margin: 0,
+                  }}>
                     {item.label}
-                  </span>
+                  </p>
                 </div>
               ))}
             </div>
           </section>
 
-          {/* ══ PHILOSOPHY QUOTE BANNER ══ */}
-          <section
-            style={{
-              background: "#000000",
-              border: "4px solid var(--red)",
-              boxShadow: "12px 12px 0px #FFFFFF, 12px 12px 0px 4px #000000",
-              padding: "3rem",
-              marginBottom: "5rem",
-              transform: "rotate(-1.5deg)",
-              position: "relative",
-            }}
-          >
-            <span className="sticker-box font-mono" style={{ marginBottom: "1rem", display: "inline-block" }}>
-              // {t("MI FILOSOFÍA DE TRABAJO", "MY WORK PHILOSOPHY")}
-            </span>
-            <blockquote className="font-spray" style={{ fontSize: "clamp(1.8rem, 4vw, 2.6rem)", color: "#FFFFFF", lineHeight: 1.3, margin: 0 }}>
-              {t(
-                "“Quiero que mi trabajo hable por mí. Cada proyecto, cada error y cada aprendizaje son un paso firme hacia la excelencia técnica y personal.”",
-                "“I let my work speak for itself. Every project, every challenge, and every iteration is a concrete step toward technical excellence.”"
-              )}
-            </blockquote>
-          </section>
-
-          {/* ══ CONTACT CALLOUT BANNER ══ */}
-          <section
-            style={{
-              background: "#0A0A0A",
-              border: "4px solid #FFFFFF",
-              boxShadow: "12px 12px 0px var(--red), 12px 12px 0px 4px #000000",
-              padding: "4rem 2rem",
-              textAlign: "center",
-            }}
-          >
-            <h2 className="font-display" style={{ fontSize: "clamp(2.4rem, 6vw, 4.2rem)", color: "#FFFFFF", lineHeight: 1, marginBottom: "1.2rem", textTransform: "uppercase" }}>
-              {t("¿BUSCAS UN DEVELOPER CON CARÁCTER Y COMPROMISO?", "LOOKING FOR A DEV WITH GRIT AND DRIVE?")}
+          {/* ══ CONTACT FOOTER CTA CARD ══ */}
+          <section style={{
+            background: "#FAF4EC",
+            border: "4px solid var(--navy)",
+            boxShadow: "14px 14px 0px var(--red)",
+            padding: "3.5rem 2rem",
+            textAlign: "center",
+            color: "var(--navy)",
+            transform: "rotate(-1deg)",
+            clipPath: "polygon(0% 1%, 100% 0%, 99% 99%, 1% 100%)",
+          }}>
+            <div className="font-spray" style={{ fontSize: "3rem", color: "var(--red)", marginBottom: "0.5rem" }}>
+              {t("¿TIENES UN PROYECTO O UNA IDEA?", "HAVE A PROJECT OR IDEA?")}
+            </div>
+            <h2 className="font-display" style={{ fontSize: "clamp(2.6rem, 6vw, 4.8rem)", color: "var(--navy)", lineHeight: 0.95, marginBottom: "1.8rem" }}>
+              {t("CONSTRUYAMOS ALGO BRUTAL", "LET'S BUILD SOMETHING BRUTAL")}
             </h2>
-            <p style={{ color: "#CCCCCC", fontSize: "1.1rem", maxWidth: 700, margin: "0 auto 2.5rem", lineHeight: 1.7, fontFamily: "var(--font-body)" }}>
-              {t(
-                "Si necesitas a alguien que resuelva problemas reales sin dar excusas y entregue trabajo de máxima calidad, contáctame directo.",
-                "If you need someone who solves real problems without excuses and delivers high-performance code, message me directly."
-              )}
-            </p>
 
-            <div style={{ display: "flex", gap: "1.5rem", justifyContent: "center", flexWrap: "wrap" }}>
+            <div style={{ display: "flex", justifyContent: "center", gap: "1.4rem", flexWrap: "wrap" }}>
               <a
                 href="https://wa.me/522218226470"
                 target="_blank"
                 rel="noreferrer"
                 className="btn-street-primary"
-                style={{ fontSize: "1.6rem" }}
               >
-                {t("WHATSAPP DIRECTO", "DIRECT WHATSAPP")} →
+                WHATSAPP ↗
               </a>
-              <a
-                href="mailto:angelgom042@gmail.com"
-                className="btn-street-secondary"
-                style={{ fontSize: "1.6rem" }}
-              >
-                {t("ENVIAR CORREO", "SEND EMAIL")} ↗
-              </a>
+              <Link href="/#hero" className="btn-street-secondary">
+                ← {t("VOLVER AL INICIO", "BACK TO HOME")}
+              </Link>
             </div>
           </section>
 
         </main>
 
         <SiteFooter />
-
       </div>
     </>
   )
