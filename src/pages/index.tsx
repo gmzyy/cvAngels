@@ -16,6 +16,8 @@ const BgCanvas   = dynamic(() => import("@/components/portfolio/BgCanvas"),   { 
 const CursorGlow = dynamic(() => import("@/components/portfolio/CursorGlow"), { ssr: false })
 const CaraOjos   = dynamic(() => import("@/components/portfolio/CaraOjos"),   { ssr: false })
 
+import SprayDivider from "@/components/portfolio/SprayDivider"
+
 export default function Home() {
   return (
     <>
@@ -45,10 +47,15 @@ export default function Home() {
       {/* Main Page Sections */}
       <main>
         <HeroSection />
+        <SprayDivider color="var(--red)" />
         <AboutSection />
+        <SprayDivider color="var(--navy)" flip />
         <ExperienceSection />
+        <SprayDivider color="var(--red)" />
         <SkillsSection />
+        <SprayDivider color="var(--navy)" flip />
         <PortfolioSection />
+        <SprayDivider color="var(--red)" />
         <EducationSection />
       </main>
 

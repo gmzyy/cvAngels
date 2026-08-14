@@ -1,8 +1,9 @@
 "use client"
 import { useRef } from "react"
 import { useInView } from "framer-motion"
-import { Calendar, Disc, Flame, Mic, ShieldCheck, Zap } from "lucide-react"
+import { Calendar } from "lucide-react"
 import { useLanguage } from "@/context/LanguageContext"
+import { TornCard, GraffitiCircle, GraffitiShape, SprayBlob, CircularSealBadge, VinylRecordBadge } from "./TornCard"
 
 interface ProjectSub {
   name: string
@@ -137,25 +138,29 @@ export default function ExperienceSection() {
       style={{
         position: "relative",
         zIndex: 10,
-        padding: "6rem 1.5rem",
+        padding: "7rem 1.5rem",
         maxWidth: "1400px",
         margin: "0 auto",
         opacity: inView ? 1 : 0,
-        transform: inView ? "none" : "translateY(30px)",
-        transition: "opacity 0.6s ease, transform 0.6s ease",
+        transform: inView ? "translate3d(0, 0, 0)" : "translate3d(0, 30px, 0)",
+        transition: "opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)",
+        willChange: "opacity, transform",
       }}
     >
-      {/* ══ HEADER TITLE BANNER ══ */}
-      <div style={{ marginBottom: "4rem", position: "relative" }}>
+      {/* Background Graffiti Accents */}
+      <GraffitiCircle size={380} color="#A31621" opacity={0.06} style={{ top: "10%", right: "-80px", zIndex: 0 }} />
+      <GraffitiCircle size={300} color="#0F1B33" opacity={0.07} style={{ top: "60%", left: "-60px", zIndex: 0 }} />
 
+      {/* ══ HEADER TITLE BANNER ══ */}
+      <div style={{ marginBottom: "5rem", position: "relative", zIndex: 5 }}>
         <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
           <span className="font-tag" style={{
             background: "var(--navy)",
             color: "#FFFFFF",
-            padding: "0.3rem 1.2rem",
+            padding: "0.35rem 1.4rem",
             fontSize: "1.3rem",
             transform: "rotate(2deg)",
-            boxShadow: "4px 4px 0px var(--red)",
+            boxShadow: "5px 5px 0px var(--red)",
             border: "2px solid var(--red)",
           }}>
             // {t("TRAYECTORIA & TRACKLIST", "TRACKLIST & CAREER")}
@@ -169,7 +174,7 @@ export default function ExperienceSection() {
         </div>
 
         <h2 className="spray-drippy-title" style={{
-          fontSize: "clamp(3rem, 8.5vw, 7.5rem)",
+          fontSize: "clamp(3.2rem, 9vw, 8rem)",
           color: "var(--navy)",
           WebkitTextStroke: "2px var(--red)",
           textShadow: "5px 5px 0px var(--red)",
@@ -178,10 +183,10 @@ export default function ExperienceSection() {
           {t("EXPERIENCIA", "WORK")}
         </h2>
         <div className="font-spray" style={{
-          fontSize: "clamp(2.5rem, 7.5vw, 6.5rem)",
+          fontSize: "clamp(2.6rem, 8vw, 7rem)",
           color: "var(--red)",
           lineHeight: 0.9,
-          transform: "rotate(-4deg) translateY(-12px) translateX(15px)",
+          transform: "rotate(-4.5deg) translateY(-14px) translateX(20px)",
           WebkitTextStroke: "2px var(--navy)",
           textShadow: "5px 5px 0px var(--navy)",
           display: "inline-block",
@@ -190,128 +195,115 @@ export default function ExperienceSection() {
         </div>
       </div>
 
-      {/* ══ TRACKLIST CARDS ══ */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "3.5rem" }}>
-        {EXPERIENCES.map((exp, idx) => (
-          <div
-            key={exp.id}
-            style={{
-              background: "#FAF5EB",
-              border: "4px solid var(--navy)",
-              boxShadow: idx % 2 === 0 ? "14px 14px 0px var(--red)" : "14px 14px 0px var(--navy)",
-              padding: "2.5rem 2rem",
-              position: "relative",
-              color: "var(--navy)",
-              transform: idx % 2 === 0 ? "rotate(-1.2deg)" : "rotate(1.2deg)",
-            }}
-          >
-            {/* Washi Tape */}
-            <div className="washi-tape-top" />
+      {/* ══ ASYMMETRICAL TRACKLIST WALL ══ */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "5.5rem", position: "relative", zIndex: 10 }}>
 
-            {/* Stamp Badge */}
-            <div className="stamp-badge" style={{ position: "absolute", top: "20px", right: "20px" }}>
-              {exp.isCurrent ? "ACTIVE PROJECT" : "APPROVED"}
-            </div>
+        {EXPERIENCES.map((exp, idx) => {
+          const shapes: GraffitiShape[] = ["torn1", "tagLeft", "torn3", "slashRight"]
+          const shape = shapes[idx % shapes.length]
+          const shadow = idx % 2 === 0 ? "red" as const : "navy" as const
+          const rotate = idx % 2 === 0 ? -2.5 : 2.5
+          const marginLeft = idx % 2 === 1 ? "clamp(0px, 3vw, 40px)" : "0px"
 
-            {/* Track Stamp */}
-            <div style={{
-              display: "inline-block",
-              background: "var(--red)",
-              color: "#FFFFFF",
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.78rem",
-              fontWeight: 900,
-              padding: "0.25rem 1rem",
-              transform: "rotate(-3deg)",
-              border: "2px solid var(--navy)",
-              boxShadow: "3px 3px 0px var(--navy)",
-              marginBottom: "1rem",
-            }}>
-              {exp.trackNum}
-            </div>
+          return (
+            <div key={exp.id} style={{ marginLeft, position: "relative" }}>
+              <TornCard
+                shape={shape}
+                shadow={shadow}
+                rotate={rotate}
+                style={{ zIndex: 1 }}
+                floatingElements={
+                  <>
+                    <div className="washi-tape-top" style={{ top: "-18px", left: idx % 2 === 0 ? "10%" : "70%" }} />
+                    <VinylRecordBadge
+                      size={64}
+                      rotate={idx % 2 === 0 ? 15 : -15}
+                      style={{ position: "absolute", top: "-22px", right: idx % 2 === 0 ? "24px" : "auto", left: idx % 2 === 1 ? "24px" : "auto" }}
+                    />
+                  </>
+                }
+              >
+                {/* Track stamp header badge */}
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.2rem", flexWrap: "wrap" }}>
+                  <div style={{
+                    display: "inline-block",
+                    background: "var(--red)",
+                    color: "#FFF",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.82rem",
+                    fontWeight: 900,
+                    padding: "0.3rem 1.2rem",
+                    transform: "rotate(-3deg)",
+                    border: "2px solid var(--navy)",
+                    boxShadow: "3px 3px 0px var(--navy)",
+                  }}>
+                    {exp.trackNum}
+                  </div>
 
-            {/* Header Tag */}
-            <div style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
-              flexWrap: "wrap",
-              gap: "1.5rem",
-              borderBottom: "3px dashed var(--red)",
-              paddingBottom: "1.5rem",
-              marginBottom: "1.8rem",
-            }}>
-              <div>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap" }}>
-                  <span className="font-display" style={{ fontSize: "2.8rem", color: "var(--navy)", lineHeight: 1 }}>
-                    {exp.company}
-                  </span>
-                  <span className="font-tag" style={{ background: "var(--navy)", color: "#FFFFFF", padding: "0.2rem 0.8rem", fontSize: "1.1rem", transform: "rotate(-2deg)" }}>
-                    {exp.companyTag}
-                  </span>
-                </div>
-                <div className="font-spray" style={{ fontSize: "1.8rem", color: "var(--red)", marginTop: 4 }}>
-                  {exp.role}
-                </div>
-              </div>
-
-              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                <Calendar size={18} style={{ color: "var(--red)" }} />
-                <span className="font-mono" style={{ fontSize: "0.9rem", background: "var(--navy)", color: "#FFF", padding: "0.4rem 0.9rem", border: "2px solid var(--navy)", fontWeight: 900 }}>
-                  {exp.period}
-                </span>
-              </div>
-            </div>
-
-            {/* Sub Projects Breakdown */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "1.8rem" }}>
-              {exp.projects.map((proj) => (
-                <div
-                  key={proj.name}
-                  style={{
-                    background: "#EAE0D0",
-                    border: "3px solid var(--navy)",
-                    padding: "1.8rem",
-                    boxShadow: "4px 4px 0px var(--navy)",
-                    transform: "rotate(-0.5deg)",
-                  }}
-                >
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.8rem", marginBottom: "0.8rem" }}>
-                    <h4 className="font-display" style={{ fontSize: "2rem", color: "var(--navy)", margin: 0 }}>
-                      ▸ {proj.name}
-                    </h4>
-                    <span className="font-mono" style={{ fontSize: "0.7rem", background: "var(--red)", color: "#FFF", padding: "3px 8px", fontWeight: 900 }}>
-                      [{proj.tag}]
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                    <Calendar size={18} style={{ color: "var(--red)" }} />
+                    <span className="font-mono" style={{ fontSize: "0.9rem", background: "var(--navy)", color: "#FFF", padding: "0.4rem 1rem", border: "2px solid var(--navy)", fontWeight: 900 }}>
+                      {exp.period}
                     </span>
                   </div>
-
-                  <p className="font-body" style={{ color: "#112233", fontSize: "1rem", lineHeight: 1.65, fontWeight: 700, marginBottom: "1.2rem" }}>
-                    {proj.desc}
-                  </p>
-
-                  {/* Highlights Bullet List */}
-                  <div style={{ marginBottom: "1.2rem", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
-                    {proj.highlights.map((h, i) => (
-                      <div key={i} className="font-mono" style={{ fontSize: "0.82rem", color: "var(--navy)", display: "flex", alignItems: "flex-start", gap: "0.6rem", fontWeight: 800 }}>
-                        <span style={{ color: "var(--red)", fontWeight: 900 }}>▸</span>
-                        <span>{h}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Stack Badges */}
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", borderTop: "2px dashed var(--red)", paddingTop: "1rem" }}>
-                    {proj.stack.map(st => (
-                      <span key={st} className="font-mono" style={{ fontSize: "0.72rem", background: "var(--navy)", color: "#FFFFFF", padding: "4px 10px", border: "1px solid var(--navy)", fontWeight: 900, transform: "rotate(-1deg)" }}>
-                        {st}
-                      </span>
-                    ))}
-                  </div>
                 </div>
-              ))}
+
+                {/* Company title and role */}
+                <div style={{ borderBottom: "3px dashed var(--red)", paddingBottom: "1.5rem", marginBottom: "1.8rem" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap" }}>
+                    <span className="font-display" style={{ fontSize: "3rem", color: "var(--navy)", lineHeight: 1 }}>{exp.company}</span>
+                    <span className="font-tag" style={{ background: "var(--navy)", color: "#FFF", padding: "0.25rem 0.9rem", fontSize: "1.15rem", transform: "rotate(-2deg)" }}>{exp.companyTag}</span>
+                  </div>
+                  <div className="font-spray" style={{ fontSize: "1.9rem", color: "var(--red)", marginTop: 6 }}>{exp.role}</div>
+                </div>
+
+                {/* Sub Projects breakdown */}
+                <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+                  {exp.projects.map((proj, pIdx) => (
+                    <div
+                      key={proj.name}
+                      style={{
+                        background: "#EAE0D0",
+                        border: "3px solid var(--navy)",
+                        padding: "1.8rem 1.6rem",
+                        boxShadow: "5px 5px 0px var(--navy)",
+                        transform: `rotate(${pIdx % 2 === 0 ? -0.8 : 0.8}deg)`,
+                      }}
+                    >
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.8rem", marginBottom: "1rem" }}>
+                        <h4 className="font-display" style={{ fontSize: "2.2rem", color: "var(--navy)", margin: 0 }}>▸ {proj.name}</h4>
+                        <span className="font-mono" style={{ fontSize: "0.75rem", background: "var(--red)", color: "#FFF", padding: "4px 10px", fontWeight: 900, clipPath: "polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%)" }}>
+                          [{proj.tag}]
+                        </span>
+                      </div>
+
+                      <p className="font-body" style={{ color: "#112233", fontSize: "1.02rem", lineHeight: 1.7, fontWeight: 700, marginBottom: "1.4rem" }}>
+                        {proj.desc}
+                      </p>
+
+                      <div style={{ marginBottom: "1.4rem", display: "flex", flexDirection: "column", gap: "0.7rem" }}>
+                        {proj.highlights.map((h, i) => (
+                          <div key={i} className="font-mono" style={{ fontSize: "0.85rem", color: "var(--navy)", display: "flex", alignItems: "flex-start", gap: "0.6rem", fontWeight: 800 }}>
+                            <span style={{ color: "var(--red)", fontWeight: 900 }}>▸</span>
+                            <span>{h}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem", borderTop: "2px dashed var(--red)", paddingTop: "1.2rem" }}>
+                        {proj.stack.map((st, i) => (
+                          <span key={st} className="font-mono" style={{ fontSize: "0.75rem", background: "var(--navy)", color: "#FFF", padding: "5px 12px", border: "1px solid var(--navy)", fontWeight: 900, transform: `rotate(${i % 2 === 0 ? -1.5 : 1.5}deg)` }}>
+                            {st}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </TornCard>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </section>
   )

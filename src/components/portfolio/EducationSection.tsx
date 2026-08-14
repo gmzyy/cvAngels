@@ -1,8 +1,9 @@
 "use client"
 import { useRef } from "react"
 import { useInView } from "framer-motion"
-import { GraduationCap, Award, BookOpen, CheckCircle2, ShieldAlert, Disc } from "lucide-react"
+import { GraduationCap, CheckCircle2 } from "lucide-react"
 import { useLanguage } from "@/context/LanguageContext"
+import { TornCard, GraffitiCircle, SprayBlob, CircularSealBadge } from "./TornCard"
 
 export default function EducationSection() {
   const ref = useRef<HTMLElement>(null)
@@ -16,25 +17,29 @@ export default function EducationSection() {
       style={{
         position: "relative",
         zIndex: 10,
-        padding: "6rem 1.5rem 8rem",
+        padding: "7rem 1.5rem 9rem",
         maxWidth: "1400px",
         margin: "0 auto",
         opacity: inView ? 1 : 0,
-        transform: inView ? "none" : "translateY(30px)",
-        transition: "opacity 0.6s ease, transform 0.6s ease",
+        transform: inView ? "translate3d(0, 0, 0)" : "translate3d(0, 30px, 0)",
+        transition: "opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)",
+        willChange: "opacity, transform",
       }}
     >
-      {/* Title Header */}
-      <div style={{ marginBottom: "3.5rem", position: "relative" }}>
+      {/* Background Accents */}
+      <GraffitiCircle size={360} color="#A31621" opacity={0.06} style={{ top: "0px", left: "10%", zIndex: 0 }} />
+      <GraffitiCircle size={280} color="#0F1B33" opacity={0.07} style={{ bottom: "20px", right: "10%", zIndex: 0 }} />
 
+      {/* ══ HEADER TITLE BANNER ══ */}
+      <div style={{ marginBottom: "4.5rem", position: "relative", zIndex: 5 }}>
         <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
           <span className="font-tag" style={{
             background: "var(--red)",
             color: "#FFFFFF",
-            padding: "0.3rem 1.2rem",
+            padding: "0.35rem 1.4rem",
             fontSize: "1.3rem",
             transform: "rotate(-2deg)",
-            boxShadow: "4px 4px 0px var(--navy)",
+            boxShadow: "5px 5px 0px var(--navy)",
             border: "2px solid var(--navy)",
           }}>
             // {t("FORMACIÓN ACADÉMICA", "ACADEMIC EDUCATION")}
@@ -48,7 +53,7 @@ export default function EducationSection() {
         </div>
 
         <h2 className="spray-drippy-title" style={{
-          fontSize: "clamp(3rem, 8.5vw, 7.5rem)",
+          fontSize: "clamp(3.2rem, 9vw, 8rem)",
           color: "var(--navy)",
           WebkitTextStroke: "2px var(--red)",
           textShadow: "5px 5px 0px var(--red)",
@@ -57,10 +62,10 @@ export default function EducationSection() {
           {t("FORMACIÓN", "EDUCATION")}
         </h2>
         <div className="font-spray" style={{
-          fontSize: "clamp(2.5rem, 7.5vw, 6.5rem)",
+          fontSize: "clamp(2.6rem, 8vw, 7rem)",
           color: "var(--red)",
           lineHeight: 0.9,
-          transform: "rotate(-4deg) translateY(-12px) translateX(15px)",
+          transform: "rotate(-4.5deg) translateY(-14px) translateX(20px)",
           WebkitTextStroke: "2px var(--navy)",
           textShadow: "5px 5px 0px var(--navy)",
           display: "inline-block",
@@ -69,70 +74,84 @@ export default function EducationSection() {
         </div>
       </div>
 
-      {/* University Degree Card */}
-      <div style={{ maxWidth: "980px", margin: "0 auto" }}>
-
-        {/* DIPLOMA CARD */}
-        <div style={{
-          background: "#FAF5EB",
-          border: "4px solid var(--navy)",
-          boxShadow: "12px 12px 0px var(--red)",
-          padding: "2.5rem 2rem",
-          position: "relative",
-          color: "var(--navy)",
-          transform: "rotate(-1.2deg)",
-        }}>
-          {/* Washi Tape */}
-          <div className="washi-tape-top" />
-
-          {/* Stamp Seal */}
-          <div className="stamp-badge" style={{ position: "absolute", top: "20px", right: "20px" }}>
-            GRADUATED
-          </div>
-
-          <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", marginBottom: "1.2rem" }}>
-            <GraduationCap size={36} style={{ color: "var(--red)" }} />
+      {/* ══ STREET DIPLOMA DOCK ══ */}
+      <div style={{ maxWidth: "1000px", margin: "0 auto", position: "relative", zIndex: 10 }}>
+        <TornCard
+          shape="torn2"
+          shadow="red"
+          rotate={-2.5}
+          floatingElements={
+            <>
+              <div className="washi-tape-top" style={{ top: "-18px", left: "20%" }} />
+              <CircularSealBadge
+                label="UTP DEGREE"
+                sublabel="GRADUATED"
+                bg="#A31621"
+                size={82}
+                rotate={12}
+                style={{ position: "absolute", top: "-28px", right: "20px" }}
+              />
+            </>
+          }
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "1.2rem", marginBottom: "1.5rem", flexWrap: "wrap" }}>
+            <GraduationCap size={44} style={{ color: "var(--red)", flexShrink: 0 }} />
             <div>
-              <span className="font-mono" style={{ fontSize: "0.7rem", background: "var(--red)", color: "#FFF", padding: "2px 8px", fontWeight: 900 }}>
+              <span className="font-mono" style={{ fontSize: "0.75rem", background: "var(--red)", color: "#FFF", padding: "3px 10px", fontWeight: 900, clipPath: "polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%)" }}>
                 DEGREE CERTIFIED
               </span>
-              <h3 className="font-display" style={{ fontSize: "2.6rem", color: "var(--navy)", lineHeight: 0.95, marginTop: 4 }}>
+              <h3 className="font-display" style={{ fontSize: "2.8rem", color: "var(--navy)", lineHeight: 0.95, marginTop: 6 }}>
                 {t("INGENIERÍA EN DESARROLLO Y GESTIÓN DE SOFTWARE", "SOFTWARE DEVELOPMENT & MANAGEMENT DEGREE")}
               </h3>
             </div>
           </div>
 
-          <div className="font-spray" style={{ fontSize: "1.6rem", color: "var(--red)", marginBottom: "1.2rem" }}>
+          <div className="font-spray" style={{ fontSize: "1.8rem", color: "var(--red)", marginBottom: "1.5rem" }}>
             Universidad Tecnológica de Puebla (UTP)
           </div>
 
-          <p className="font-body" style={{ color: "#112233", fontSize: "1rem", lineHeight: 1.65, fontWeight: 700, marginBottom: "1.5rem" }}>
+          <p className="font-body" style={{ color: "#112233", fontSize: "1.05rem", lineHeight: 1.7, fontWeight: 700, marginBottom: "2rem" }}>
             {t(
               "Especialización en arquitectura de software, metodologías ágiles (Scrum), bases de datos relacionales/NoSQL y desarrollo web/móvil.",
               "Specialization in software architecture, agile methodologies (Scrum), relational/NoSQL databases, and web/mobile development."
             )}
           </p>
 
-          <div style={{ borderTop: "3px dashed var(--red)", paddingTop: "1.2rem" }}>
-            <div className="font-mono" style={{ fontSize: "0.8rem", color: "var(--red)", marginBottom: "0.8rem", fontWeight: 900 }}>
+          <div style={{ borderTop: "3px dashed var(--red)", paddingTop: "1.5rem" }}>
+            <div className="font-mono" style={{ fontSize: "0.85rem", color: "var(--red)", marginBottom: "1rem", fontWeight: 900 }}>
               [ {t("COMPETENCIAS CLAVE", "KEY COMPETENCIES")} ]
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.8rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1rem" }}>
               {[
                 t("Arquitectura de Software", "Software Architecture"),
                 t("Metodología Scrum/Agile", "Scrum/Agile Methodology"),
                 t("Bases de Datos & SQL", "Databases & SQL"),
                 t("Integración de APIs", "API Integrations"),
-              ].map((c) => (
-                <div key={c} className="font-mono" style={{ fontSize: "0.82rem", color: "var(--navy)", display: "flex", alignItems: "center", gap: "0.5rem", fontWeight: 800 }}>
-                  <CheckCircle2 size={16} style={{ color: "var(--red)" }} />
+              ].map((c, i) => (
+                <div
+                  key={c}
+                  className="font-mono"
+                  style={{
+                    fontSize: "0.88rem",
+                    color: "var(--navy)",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.6rem",
+                    fontWeight: 800,
+                    background: "#EAE0D0",
+                    padding: "0.6rem 0.9rem",
+                    border: "2px solid var(--navy)",
+                    boxShadow: "3px 3px 0px var(--navy)",
+                    transform: `rotate(${i % 2 === 0 ? -1 : 1}deg)`,
+                  }}
+                >
+                  <CheckCircle2 size={18} style={{ color: "var(--red)" }} />
                   <span>{c}</span>
                 </div>
               ))}
             </div>
           </div>
-        </div>
-
+        </TornCard>
       </div>
     </section>
   )

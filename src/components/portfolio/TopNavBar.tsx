@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { useLanguage } from "@/context/LanguageContext"
-import { Mail, MessageSquare } from "lucide-react"
+import { Mail, MessageSquare, Menu, X, ArrowUpRight } from "lucide-react"
 
 export default function TopNavBar() {
   const [scrolled, setScrolled] = useState(false)
@@ -12,24 +12,27 @@ export default function TopNavBar() {
   const { lang, setLang, t } = useLanguage()
 
   const NAV = [
-    { num: "01", label: t("INICIO", "HOME"), href: "/#hero" },
-    { num: "02", label: t("PERFIL", "PROFILE"), href: "/#about" },
-    { num: "03", label: t("EXPERIENCIA", "EXPERIENCE"), href: "/#experience" },
-    { num: "04", label: t("SKILLS", "SKILLS"), href: "/#skills" },
-    { num: "05", label: t("PROYECTOS", "PROJECTS"), href: "/#portfolio" },
-    { num: "06", label: t("FORMACIÓN", "EDUCATION"), href: "/#education" },
-    { num: "07", label: t("CONOCE DE MÍ", "ABOUT ME"), href: "/conoce-de-mi", page: true },
+    { num: "01", label: t("INICIO", "HOME"), href: "/#hero", rot: "-1.5deg", shape: "polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%)" },
+    { num: "02", label: t("PERFIL", "PROFILE"), href: "/#about", rot: "1.5deg", shape: "polygon(0% 0%, 96% 0%, 100% 100%, 4% 100%)" },
+    { num: "03", label: t("EXPERIENCIA", "EXPERIENCE"), href: "/#experience", rot: "-1deg", shape: "polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%)" },
+    { num: "04", label: t("SKILLS", "SKILLS"), href: "/#skills", rot: "1.2deg", shape: "polygon(0% 0%, 95% 0%, 100% 100%, 5% 100%)" },
+    { num: "05", label: t("PROYECTOS", "PROJECTS"), href: "/#portfolio", rot: "-1.5deg", shape: "polygon(6% 0%, 94% 0%, 100% 100%, 0% 100%)" },
+    { num: "06", label: t("FORMACIÓN", "EDUCATION"), href: "/#education", rot: "1.5deg", shape: "polygon(0% 0%, 94% 0%, 100% 100%, 6% 100%)" },
+    { num: "07", label: t("CONOCE DE MÍ", "ABOUT ME"), href: "/conoce-de-mi", page: true, rot: "-2deg", shape: "polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%)" },
   ]
 
-  // Prevent scroll when mobile menu is open
+  // Hide floating eyes widget & prevent body scroll when mobile menu is open
   useEffect(() => {
     if (mobileOpen) {
       document.body.style.overflow = "hidden"
+      document.body.classList.add("mobile-menu-active")
     } else {
       document.body.style.overflow = ""
+      document.body.classList.remove("mobile-menu-active")
     }
     return () => {
       document.body.style.overflow = ""
+      document.body.classList.remove("mobile-menu-active")
     }
   }, [mobileOpen])
 
@@ -40,7 +43,8 @@ export default function TopNavBar() {
       for (const s of sections.reverse()) {
         const el = document.getElementById(s)
         if (el && el.getBoundingClientRect().top <= 220) {
-          setActiveSection(s); break
+          setActiveSection(s)
+          break
         }
       }
     }
@@ -49,292 +53,314 @@ export default function TopNavBar() {
   }, [lang])
 
   return (
-    <header style={{
-      position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-      display: "flex", alignItems: "center", justifyContent: "space-between",
-      padding: "0.75rem clamp(1rem, 4vw, 4rem)",
-      borderBottom: scrolled || mobileOpen ? "4px solid var(--navy)" : "4px solid transparent",
-      backdropFilter: scrolled || mobileOpen ? "blur(16px)" : "none",
-      WebkitBackdropFilter: scrolled || mobileOpen ? "blur(16px)" : "none",
-      background: scrolled || mobileOpen ? "rgba(244, 239, 230, 0.96)" : "transparent",
-      transition: "all 0.3s ease",
-    }}>
-
-      {/* ── BRAND LOGO & TITLE ── */}
-      <Link href="/" onClick={() => setMobileOpen(false)} style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.75rem" }}>
-        <div style={{
-          width: 42, height: 42,
-          background: "var(--navy)",
-          border: "2px solid var(--red)",
-          boxShadow: "3px 3px 0px var(--red)",
-          overflow: "hidden",
-          flexShrink: 0,
-          transform: "rotate(-2deg)",
-        }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/image.png"
-            alt="FEELMZ Avatar"
-            style={{ width: "100%", height: "100%", objectFit: "contain", padding: "2px" }}
-          />
-        </div>
-
-        <div style={{ lineHeight: 1 }}>
-          <div className="font-display" style={{
-            fontSize: "clamp(1.4rem, 2.5vw, 1.8rem)",
-            color: "var(--navy)",
-            letterSpacing: "0.02em",
-          }}>
-            FEELMZ // 2026
+    <>
+      {/* ══ FLOATING STREET STENCIL TAPE DOCK (NAVBAR PERMANECE VISIBLE ARRIBA) ══ */}
+      <header
+        style={{
+          position: "fixed",
+          top: "14px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "min(95%, 1360px)",
+          zIndex: 100,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "0.65rem 1.4rem",
+          background: "#FAF5EB",
+          border: "3px solid var(--navy)",
+          boxShadow: scrolled || mobileOpen ? "6px 6px 0px var(--red)" : "5px 5px 0px var(--navy)",
+          clipPath: "polygon(0% 0%, 99% 0%, 100% 100%, 1% 96%)",
+          transition: "background 0.3s ease, box-shadow 0.3s ease",
+        }}
+      >
+        {/* ── BRAND LOGO & AVATAR ── */}
+        <Link href="/" onClick={() => setMobileOpen(false)} style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.8rem" }}>
+          <div
+            style={{
+              position: "relative",
+              width: 44,
+              height: 44,
+              background: "#0F1B33",
+              border: "2px solid var(--red)",
+              boxShadow: "3px 3px 0px var(--red)",
+              overflow: "hidden",
+              flexShrink: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              transform: "rotate(-3deg)",
+              clipPath: "polygon(8% 0%, 100% 0%, 92% 100%, 0% 100%)",
+            }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/image.png"
+              alt="FEELMZ Avatar"
+              style={{ width: "100%", height: "100%", objectFit: "contain", padding: "2px" }}
+            />
           </div>
-          <div className="font-mono" style={{
-            fontSize: "0.58rem",
-            letterSpacing: "0.18em",
-            color: "var(--red)",
-            textTransform: "uppercase",
-            marginTop: 2,
-            fontWeight: 900,
-          }}>
-            [ FULLSTACK ARCHITECT ]
+
+          <div style={{ lineHeight: 1 }}>
+            <div className="font-display" style={{ fontSize: "1.5rem", color: "var(--navy)", letterSpacing: "0.03em" }}>
+              FEELMZ // 2026
+            </div>
+            <div className="font-mono" style={{ fontSize: "0.58rem", letterSpacing: "0.15em", color: "var(--red)", fontWeight: 900, marginTop: 2 }}>
+              [ FULLSTACK ARCHITECT ]
+            </div>
           </div>
-        </div>
-      </Link>
+        </Link>
 
-      {/* ── DESKTOP NAV TABS ── */}
-      <nav style={{ display: "none" }} className="lg:!flex items-center gap-1.5">
-        {NAV.map((item) => {
-          const sectionKey = item.href.replace("/#", "").replace("#", "")
-          const isActive = !item.page && activeSection === sectionKey
+        {/* ── DESKTOP TABS (DIRECTLY VISIBLE ON PC) ── */}
+        <nav style={{ display: "none" }} className="lg:!flex items-center gap-1.5">
+          {NAV.map((item) => {
+            const sectionKey = item.href.replace("/#", "").replace("#", "")
+            const isActive = !item.page && activeSection === sectionKey
 
-          if (item.page) {
+            if (item.page) {
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="font-mono street-card-hover"
+                  style={{
+                    fontSize: "0.74rem",
+                    fontWeight: 900,
+                    letterSpacing: "0.08em",
+                    textDecoration: "none",
+                    color: "#FFFFFF",
+                    padding: "0.45rem 1.1rem",
+                    background: "var(--navy)",
+                    border: "2px solid var(--red)",
+                    boxShadow: "3px 3px 0px var(--red)",
+                    marginLeft: "0.6rem",
+                    transform: "rotate(-2.5deg)",
+                    clipPath: item.shape,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.3rem",
+                  }}
+                >
+                  {item.label} <ArrowUpRight size={14} />
+                </Link>
+              )
+            }
+
             return (
               <Link
                 key={item.label}
                 href={item.href}
-                className="font-mono street-card-hover"
+                className="font-display street-card-hover"
                 style={{
-                  fontSize: "0.72rem",
-                  fontWeight: 900,
-                  letterSpacing: "0.1em",
+                  fontSize: "1.15rem",
+                  letterSpacing: "0.04em",
                   textDecoration: "none",
-                  color: "#FFFFFF",
-                  padding: "0.45rem 1rem",
-                  background: "var(--red)",
-                  marginLeft: "0.8rem",
-                  textTransform: "uppercase",
-                  boxShadow: "3px 3px 0px var(--navy)",
-                  border: "2px solid var(--navy)",
-                  transform: "rotate(1deg)",
+                  color: isActive ? "#FFFFFF" : "var(--navy)",
+                  padding: "0.35rem 0.9rem",
+                  background: isActive ? "#A31621" : "transparent",
+                  border: isActive ? "2px solid var(--navy)" : "2px solid transparent",
+                  transform: isActive ? item.rot : "none",
+                  boxShadow: isActive ? "3px 3px 0px var(--navy)" : "none",
+                  clipPath: isActive ? item.shape : "none",
+                  transition: "all 0.2s ease",
                 }}
               >
-                {item.label} ➔
+                {item.label}
               </Link>
             )
-          }
+          })}
 
-          return (
-            <Link
-              key={item.label}
-              href={item.href}
-              className="font-display street-card-hover"
-              style={{
-                fontSize: "1.25rem",
-                letterSpacing: "0.05em",
-                textDecoration: "none",
-                color: isActive ? "#FFFFFF" : "var(--navy)",
-                padding: "0.35rem 0.9rem",
-                background: isActive ? "var(--navy)" : "transparent",
-                border: isActive ? "2px solid var(--red)" : "2px solid transparent",
-                transform: isActive ? "rotate(-2deg)" : "none",
-                boxShadow: isActive ? "4px 4px 0px var(--red)" : "none",
-              }}
-            >
-              {item.label}
-            </Link>
-          )
-        })}
+          {/* Language Switcher Badge PC */}
+          <button
+            onClick={() => setLang(lang === "es" ? "en" : "es")}
+            className="font-marker"
+            style={{
+              marginLeft: "0.8rem",
+              background: "var(--navy)",
+              border: "2px solid var(--red)",
+              color: "#FFFFFF",
+              padding: "0.25rem 0.9rem",
+              fontSize: "1.15rem",
+              cursor: "pointer",
+              boxShadow: "3px 3px 0px var(--red)",
+              transform: "rotate(-3deg)",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.3rem",
+              clipPath: "polygon(6% 0%, 94% 0%, 100% 100%, 0% 100%)",
+            }}
+            title={lang === "es" ? "Switch to English" : "Cambiar a Español"}
+          >
+            <span>{lang === "es" ? "ES" : "EN"}</span>
+          </button>
+        </nav>
 
-        {/* ── LANGUAGE SWITCHER (ES / EN) ── */}
-        <button
-          onClick={() => setLang(lang === "es" ? "en" : "es")}
-          className="font-marker"
-          style={{
-            marginLeft: "1.2rem",
-            background: "var(--red)",
-            border: "2px solid var(--navy)",
-            color: "#FFFFFF",
-            padding: "0.2rem 0.9rem",
-            fontSize: "1.2rem",
-            cursor: "pointer",
-            boxShadow: "4px 4px 0px var(--navy)",
-            transform: "rotate(-3deg)",
-            display: "flex",
-            alignItems: "center",
-            gap: "0.4rem",
-          }}
-          title={lang === "es" ? "Switch to English" : "Cambiar a Español"}
-        >
-          <span style={{ opacity: lang === "es" ? 1 : 0.6, textDecoration: lang === "es" ? "underline" : "none" }}>ES</span>
-          <span style={{ opacity: 0.6 }}>/</span>
-          <span style={{ opacity: lang === "en" ? 1 : 0.6, textDecoration: lang === "en" ? "underline" : "none" }}>EN</span>
-        </button>
-      </nav>
+        {/* ── MOBILE CONTROLS (BOTÓN CONMUTADOR 3 RAYITAS <-> X EN EL NAVBAR) ── */}
+        <div className="lg:!hidden" style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+          {/* Language Switcher Mobile */}
+          <button
+            onClick={() => setLang(lang === "es" ? "en" : "es")}
+            className="font-marker"
+            style={{
+              background: "var(--navy)",
+              border: "2px solid var(--red)",
+              color: "#FFFFFF",
+              padding: "0.25rem 0.7rem",
+              fontSize: "1.1rem",
+              cursor: "pointer",
+              boxShadow: "2px 2px 0px var(--red)",
+              transform: "rotate(-2deg)",
+              clipPath: "polygon(6% 0%, 94% 0%, 100% 100%, 0% 100%)",
+            }}
+          >
+            {lang === "es" ? "EN" : "ES"}
+          </button>
 
-      {/* ── MOBILE ACTIONS (LANG + MENU TOGGLE) ── */}
-      <div className="lg:!hidden" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-        {/* Language Switcher Mobile */}
-        <button
-          onClick={() => setLang(lang === "es" ? "en" : "es")}
-          className="font-marker"
-          style={{
-            background: "var(--red)",
-            border: "2px solid var(--navy)",
-            color: "#FFFFFF",
-            padding: "0.2rem 0.6rem",
-            fontSize: "1.1rem",
-            cursor: "pointer",
-            boxShadow: "3px 3px 0px var(--navy)",
-            transform: "rotate(-2deg)",
-            flexShrink: 0,
-          }}
-        >
-          {lang === "es" ? "EN ➔" : "ES ➔"}
-        </button>
+          {/* Hamburger 3-Lines Button transforms to X when menu is open */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="street-card-hover"
+            style={{
+              background: mobileOpen ? "var(--red)" : "var(--navy)",
+              border: "2px solid var(--navy)",
+              color: "#FFFFFF",
+              width: "42px",
+              height: "42px",
+              borderRadius: "8px",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              boxShadow: mobileOpen ? "3px 3px 0px var(--navy)" : "3px 3px 0px var(--red)",
+              transform: "rotate(1deg)",
+              flexShrink: 0,
+              transition: "background 0.2s ease, box-shadow 0.2s ease",
+            }}
+            aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
+          >
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
+      </header>
 
-        {/* Mobile Toggle Button */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          style={{
-            background: mobileOpen ? "var(--red)" : "var(--navy)",
-            border: "2px solid var(--navy)",
-            width: "110px",
-            height: "38px",
-            color: "#FFFFFF",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            boxShadow: "3px 3px 0px var(--red)",
-            fontFamily: "var(--font-display)",
-            fontSize: "1.2rem",
-            letterSpacing: "0.05em",
-            boxSizing: "border-box",
-            flexShrink: 0,
-          }}
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? "✕ CERRAR" : "MENU //"}
-        </button>
-      </div>
-
-      {/* ══ MIXTAPE TRACKLIST MOBILE OVERLAY ══ */}
+      {/* ══ MOBILE MENU OVERLAY (DESPLIEGA ABAJO DEL NAVBAR OCUPANDO EL RESTO DE LA PANTALLA) ══ */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             className="lg:!hidden"
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
             style={{
               position: "fixed",
-              top: "60px",
+              top: "72px",
               left: 0,
               right: 0,
               bottom: 0,
-              height: "calc(100vh - 60px)",
-              background: "rgba(244, 239, 230, 0.98)",
-              borderTop: "4px solid var(--navy)",
-              padding: "1.5rem 1.2rem 2.5rem",
+              height: "calc(100vh - 72px)",
+              background: "#FAF5EB",
+              borderTop: "3px solid var(--navy)",
+              padding: "1.4rem 1.4rem 2.5rem",
               display: "flex",
               flexDirection: "column",
               backdropFilter: "blur(24px)",
               WebkitBackdropFilter: "blur(24px)",
-              zIndex: 99,
+              zIndex: 95,
               overflowY: "auto",
             }}
           >
-            {/* Header Directory Stamp */}
-            <div style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: "1.2rem",
-              borderBottom: "3px dashed var(--red)",
-              paddingBottom: "0.8rem",
-            }}>
-              <span className="font-mono" style={{ fontSize: "0.75rem", background: "var(--navy)", color: "#FFF", padding: "4px 10px", fontWeight: 900 }}>
-                DIRECTORY // TRACKLIST
-              </span>
-              <span className="stamp-badge" style={{ fontSize: "0.85rem", border: "2px solid var(--red)", padding: "1px 6px" }}>
-                LIVE EDITION
+            {/* Header Directory Banner */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: "1.5rem",
+                borderBottom: "3px dashed var(--red)",
+                paddingBottom: "1rem",
+              }}
+            >
+              <div>
+                <span className="font-mono" style={{ background: "var(--navy)", color: "#FFF", padding: "4px 12px", fontWeight: 900, fontSize: "0.8rem", transform: "rotate(-2deg)", display: "inline-block" }}>
+                  MENÚ DE NAVEGACIÓN // 2026
+                </span>
+                <div className="font-spray" style={{ fontSize: "2rem", color: "var(--red)", marginTop: 4 }}>
+                  ANGEL GOMEZ GARCIA
+                </div>
+              </div>
+              <span className="stamp-badge" style={{ fontSize: "0.85rem", border: "2px solid var(--navy)", color: "var(--navy)", padding: "3px 8px" }}>
+                FULLSTACK
               </span>
             </div>
 
-            {/* Nav Cards Track List */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem", flex: 1 }}>
-              {NAV.map((item, idx) => {
+            {/* Mobile Nav Cards */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem", flex: 1 }}>
+              {NAV.map((item) => {
                 const sectionKey = item.href.replace("/#", "").replace("#", "")
                 const isActive = !item.page && activeSection === sectionKey
 
                 return (
-                  <motion.div
+                  <Link
                     key={item.label}
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.04, duration: 0.22 }}
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    style={{ textDecoration: "none" }}
                   >
-                    <Link
-                      href={item.href}
-                      onClick={() => setMobileOpen(false)}
-                      style={{ textDecoration: "none" }}
-                    >
-                      <div className="street-card-hover" style={{
-                        background: item.page ? "var(--red)" : isActive ? "var(--navy)" : "#FAF5EB",
+                    <div
+                      className="street-card-hover"
+                      style={{
+                        background: item.page ? "var(--red)" : isActive ? "var(--navy)" : "#EAE0D0",
                         color: item.page ? "#FFFFFF" : isActive ? "#FFFFFF" : "var(--navy)",
-                        border: "3px solid var(--navy)",
-                        boxShadow: isActive ? "6px 6px 0px var(--red)" : "4px 4px 0px var(--navy)",
-                        padding: "0.8rem 1.2rem",
+                        border: "2px solid var(--navy)",
+                        boxShadow: isActive ? "5px 5px 0px var(--red)" : "4px 4px 0px var(--navy)",
+                        padding: "0.95rem 1.4rem",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "space-between",
-                        transform: idx % 2 === 0 ? "rotate(-1deg)" : "rotate(1deg)",
-                      }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
-                          <span className="font-mono" style={{
-                            fontSize: "0.75rem",
-                            background: item.page ? "var(--navy)" : isActive ? "var(--red)" : "var(--bg-paper)",
+                        transform: item.rot,
+                        clipPath: item.shape,
+                      }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                        <span
+                          className="font-mono"
+                          style={{
+                            fontSize: "0.78rem",
+                            background: item.page ? "var(--navy)" : isActive ? "var(--red)" : "#FAF5EB",
                             color: item.page || isActive ? "#FFF" : "var(--navy)",
-                            padding: "3px 8px",
+                            padding: "4px 10px",
                             fontWeight: 900,
                             border: "1px solid var(--navy)",
-                          }}>
-                            {item.num}
-                          </span>
-                          <span className="font-display" style={{ fontSize: "1.8rem", letterSpacing: "0.04em", lineHeight: 1 }}>
-                            {item.label}
-                          </span>
-                        </div>
-
-                        <span className="font-mono" style={{ fontSize: "0.9rem", fontWeight: 900 }}>
-                          {item.page ? "VER PÁGINA ➔" : isActive ? "ACTIVE" : "➔"}
+                          }}
+                        >
+                          {item.num}
+                        </span>
+                        <span className="font-display" style={{ fontSize: "1.9rem", letterSpacing: "0.04em", lineHeight: 1 }}>
+                          {item.label}
                         </span>
                       </div>
-                    </Link>
-                  </motion.div>
+
+                      <span className="font-mono" style={{ fontSize: "0.9rem", fontWeight: 900 }}>
+                        {item.page ? "PÁGINA ➔" : isActive ? "ACTIVE" : "➔"}
+                      </span>
+                    </div>
+                  </Link>
                 )
               })}
             </div>
 
             {/* Quick Contact Buttons at Bottom */}
-            <div style={{
-              borderTop: "3px dashed var(--navy)",
-              paddingTop: "1.2rem",
-              marginTop: "1.5rem",
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "0.9rem",
-            }}>
+            <div
+              style={{
+                borderTop: "3px dashed var(--navy)",
+                paddingTop: "1.4rem",
+                marginTop: "1.8rem",
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "1rem",
+              }}
+            >
               <a
                 href="https://wa.me/522218226470"
                 target="_blank"
@@ -344,8 +370,8 @@ export default function TopNavBar() {
                   background: "var(--red)",
                   color: "#FFFFFF",
                   border: "2px solid var(--navy)",
-                  padding: "0.75rem 0.5rem",
-                  fontSize: "0.8rem",
+                  padding: "0.85rem",
+                  fontSize: "0.85rem",
                   textAlign: "center",
                   textDecoration: "none",
                   fontWeight: 900,
@@ -354,6 +380,7 @@ export default function TopNavBar() {
                   alignItems: "center",
                   justifyContent: "center",
                   gap: "0.5rem",
+                  clipPath: "polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%)",
                 }}
               >
                 <MessageSquare size={16} /> WHATSAPP
@@ -366,8 +393,8 @@ export default function TopNavBar() {
                   background: "var(--navy)",
                   color: "#FFFFFF",
                   border: "2px solid var(--navy)",
-                  padding: "0.75rem 0.5rem",
-                  fontSize: "0.8rem",
+                  padding: "0.85rem",
+                  fontSize: "0.85rem",
                   textAlign: "center",
                   textDecoration: "none",
                   fontWeight: 900,
@@ -376,6 +403,7 @@ export default function TopNavBar() {
                   alignItems: "center",
                   justifyContent: "center",
                   gap: "0.5rem",
+                  clipPath: "polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%)",
                 }}
               >
                 <Mail size={16} style={{ color: "var(--red)" }} /> CORREO
@@ -384,6 +412,6 @@ export default function TopNavBar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   )
 }

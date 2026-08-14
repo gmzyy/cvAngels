@@ -1,8 +1,9 @@
 "use client"
 import { useRef, useState } from "react"
 import { useInView } from "framer-motion"
-import { Server, Layout, Cpu, Terminal, Cloud, ShieldCheck, Activity, Sliders, Volume2 } from "lucide-react"
+import { Server, Layout, Cpu, Cloud, Activity, Volume2 } from "lucide-react"
 import { useLanguage } from "@/context/LanguageContext"
+import { TornCard, SprayBlob, GraffitiCircle } from "./TornCard"
 
 interface SkillItem {
   name: string
@@ -11,12 +12,12 @@ interface SkillItem {
   isCore?: boolean
 }
 
-interface SkillTab {
+interface SkillCategory {
   id: string
-  title: string
-  Icon: any
   channelNum: string
+  title: string
   tagline: string
+  icon: any
   cmdPrompt: string
   codeSnippet: string
   skills: SkillItem[]
@@ -25,147 +26,81 @@ interface SkillTab {
 export default function SkillsSection() {
   const ref = useRef<HTMLElement>(null)
   const inView = useInView(ref, { once: true, amount: 0.1 })
-  const [activeTabId, setActiveTabId] = useState<string>("backend")
   const { t } = useLanguage()
+  const [activeCategory, setActiveCategory] = useState<string>("backend")
 
-  const TABS: SkillTab[] = [
+  const CATEGORIES: SkillCategory[] = [
     {
       id: "backend",
-      title: t("Backend & Arquitectura", "Backend & Architecture"),
-      Icon: Server,
-      channelNum: "PAD_01",
-      tagline: t("APIs de producción, microservicios y motores asíncronos.", "Production APIs, microservices, and async engines."),
-      cmdPrompt: "$ feelmz --inspect --stack=backend",
-      codeSnippet: `const backend = {
-  runtime: "Node.js 20+ / Python 3.10",
-  frameworks: ["NestJS", "FastAPI", "Express"],
-  orm: "Prisma ORM",
-  architecture: "REST / Microservices"
-}`,
+      channelNum: "CANAL 01",
+      title: "BACKEND & ARQUITECTURA",
+      tagline: t("APIs seguras, microservicios y sistemas fintech SPEI", "Secure APIs, microservices & SPEI fintech systems"),
+      icon: Server,
+      cmdPrompt: "nest start --watch --config nest-cli.json",
+      codeSnippet: `@Injectable()\nexport class SpeiSecurityGuard implements CanActivate {\n  constructor(private readonly totp: TotpService) {}\n  async canActivate(context: ExecutionContext): Promise<boolean> {\n    const req = context.switchToHttp().getRequest();\n    return this.totp.verifyOneTimeToken(req.headers['x-2fa-token']);\n  }\n}`,
       skills: [
-        { name: "Node.js", tag: "Runtime Core", level: 95, isCore: true },
-        { name: "NestJS", tag: "Enterprise", level: 92, isCore: true },
-        { name: "FastAPI", tag: "Async Python", level: 90, isCore: true },
-        { name: "Express", tag: "REST API", level: 88 },
-        { name: ".NET Core", tag: "C# Services", level: 82 },
-        { name: "Prisma ORM", tag: "DB Layer", level: 94, isCore: true },
-        { name: "OpenAPI 3.1", tag: "API Docs", level: 90 },
+        { name: "Node.js / Express", tag: "RUNTIME_CORE", level: 92, isCore: true },
+        { name: "NestJS (SPEI / 2FA)", tag: "ENTERPRISE_FRAMEWORK", level: 90, isCore: true },
+        { name: "FastAPI / Python", tag: "AI_ASYNC_BACKEND", level: 85, isCore: true },
+        { name: "Prisma ORM", tag: "DATABASE_MAPPING", level: 88, isCore: true },
+        { name: "MongoDB & Mongoose", tag: "NOSQL_DATASTORE", level: 86 },
+        { name: "MySQL & PostgreSQL", tag: "RELATIONAL_DB", level: 84 },
+        { name: "REST APIs & OpenAPI 3.1", tag: "API_SPECIFICATION", level: 95, isCore: true },
+        { name: "2FA / TOTP & Anti-Replay", tag: "SECURITY_PROTOCOLS", level: 90, isCore: true },
       ],
     },
     {
       id: "frontend",
-      title: t("Frontend & Interfaces Web", "Frontend & Web Interfaces"),
-      Icon: Layout,
-      channelNum: "PAD_02",
-      tagline: t("Interfaces interactivas, ultra rápidas y modernas.", "Interactive, ultra-fast, and modern interfaces."),
-      cmdPrompt: "$ feelmz --render --stack=frontend",
-      codeSnippet: `export const ui = {
-  framework: "Next.js 15 (App Router)",
-  library: "React 19 / TypeScript",
-  styling: "Tailwind CSS + Custom CSS",
-  mobile: "Flutter Web / Dio HTTP"
-}`,
+      channelNum: "CANAL 02",
+      title: "FRONTEND & UI REACTIVA",
+      tagline: t("Interfaces veloces, accesibles y con estética propia", "Fast, accessible UIs with distinct street aesthetics"),
+      icon: Layout,
+      cmdPrompt: "npx next dev --turbo --port 3000",
+      codeSnippet: `export default function Dashboard() {\n  const { data, isLoading } = useQuery(['metrics'], fetchMetrics);\n  return (\n    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>\n      <MetricGrid metrics={data} loading={isLoading} />\n    </motion.div>\n  );\n}`,
       skills: [
-        { name: "Next.js 15 (App Router)", tag: "SSR & Perf", level: 96, isCore: true },
-        { name: "React 19", tag: "UI Library", level: 95, isCore: true },
-        { name: "TypeScript", tag: "Type Safety", level: 94, isCore: true },
-        { name: "Tailwind CSS", tag: "Styling", level: 92 },
-        { name: "Flutter Web", tag: "Multiplatform", level: 85 },
-        { name: "Dio HTTP", tag: "Network Layer", level: 88 },
-        { name: "Framer Motion", tag: "Animations", level: 90, isCore: true },
+        { name: "Next.js 15 (App Router)", tag: "REACT_FRAMEWORK", level: 90, isCore: true },
+        { name: "React 19 & Hooks", tag: "UI_LIBRARY", level: 92, isCore: true },
+        { name: "TypeScript", tag: "TYPE_SAFETY", level: 88, isCore: true },
+        { name: "Tailwind CSS", tag: "UTILITY_STYLING", level: 92 },
+        { name: "Framer Motion", tag: "ANIMATION_ENGINE", level: 85 },
+        { name: "HTML5 & CSS3 Vanilla", tag: "WEB_STANDARDS", level: 95 },
+        { name: "SEO Técnico & LCP 95+", tag: "PERFORMANCE_TUNING", level: 88, isCore: true },
       ],
     },
     {
       id: "ai",
-      title: t("Inteligencia Artificial & NLP", "Artificial Intelligence & NLP"),
-      Icon: Cpu,
-      channelNum: "PAD_03",
-      tagline: t("Extracción semántica local On-Premise y motores RAG.", "Local On-Premise semantic extraction and RAG engines."),
-      cmdPrompt: "$ feelmz --run --module=rag_ai",
-      codeSnippet: `const aiPipeline = {
-  nlpModel: "SpaCy (es/en)",
-  vectorDB: "ChromaDB",
-  orchestration: "LangChain",
-  llms: "Google Gemini 1.5 Pro"
-}`,
+      channelNum: "CANAL 03",
+      title: "IA & MOTOR RAG",
+      tagline: t("NLP, procesamiento de lenguaje y búsqueda vectorial", "NLP, language processing & vector retrieval"),
+      icon: Cpu,
+      cmdPrompt: "python -m spacy download es_core_news_lg",
+      codeSnippet: `from langchain.vectorstores import Chroma\nfrom langchain.embeddings import OpenAIEmbeddings\n\nvectorstore = Chroma.from_documents(\n    documents=pdf_chunks,\n    embedding=OpenAIEmbeddings(),\n    collection_name="candidates_rag"\n)`,
       skills: [
-        { name: "SpaCy NLP", tag: "Local NLP", level: 92, isCore: true },
-        { name: "LangChain", tag: "RAG Engine", level: 90, isCore: true },
-        { name: "ChromaDB", tag: "Vector Index", level: 88, isCore: true },
-        { name: "Google Gemini API", tag: "LLMs", level: 94 },
-        { name: "Prompt Engineering", tag: "Tuning", level: 91 },
-        { name: t("Scoring Semántico", "Semantic Scoring"), tag: "Ranking", level: 93, isCore: true },
+        { name: "SpaCy NLP (Lectura CVs)", tag: "TEXT_EXTRACTION", level: 85, isCore: true },
+        { name: "LangChain RAG Engine", tag: "LLM_ORCHESTRATION", level: 82, isCore: true },
+        { name: "ChromaDB (Vector Store)", tag: "VECTOR_DATABASE", level: 84, isCore: true },
+        { name: "Integración LLMs / OpenAI", tag: "AI_MODELS", level: 86 },
+        { name: "Python 3.11+", tag: "AI_PRIMARY_LANG", level: 85, isCore: true },
       ],
     },
     {
-      id: "languages",
-      title: t("Lenguajes de Programación", "Programming Languages"),
-      Icon: Terminal,
-      channelNum: "PAD_04",
-      tagline: t("Sintaxis fuertemente tipada y desarrollo multiparadigma.", "Strongly typed syntax and multi-paradigm development."),
-      cmdPrompt: "$ feelmz --compile --target=langs",
-      codeSnippet: `const languages = [
-  "TypeScript", // Core Web
-  "Python 3.10",// AI & FastAPI
-  "JavaScript", // Standard
-  "Dart", "C#", "SQL"
-]`,
+      id: "cloud",
+      channelNum: "CANAL 04",
+      title: "CLOUD & HERRAMIENTAS",
+      tagline: t("Contenedores, almacenamiento cloud y DevOps", "Containers, cloud storage & DevOps tooling"),
+      icon: Cloud,
+      cmdPrompt: "docker compose -f docker-compose.prod.yml up -d --build",
+      codeSnippet: `version: '3.8'\nservices:\n  api:\n    build: .\n    ports:\n      - "4000:4000"\n    environment:\n      - NODE_ENV=production\n      - DATABASE_URL=\${DATABASE_URL}`,
       skills: [
-        { name: "TypeScript", tag: "Principal", level: 96, isCore: true },
-        { name: "JavaScript (ES6+)", tag: "Standard", level: 95, isCore: true },
-        { name: "Python 3.10+", tag: "IA & FastAPI", level: 92, isCore: true },
-        { name: "Dart", tag: "Flutter Engine", level: 85 },
-        { name: "C#", tag: ".NET", level: 82 },
-        { name: "PHP", tag: "Backend", level: 80 },
-        { name: "SQL", tag: "Queries", level: 90, isCore: true },
-      ],
-    },
-    {
-      id: "devops",
-      title: t("Infraestructura & DevOps", "Infrastructure & DevOps"),
-      Icon: Cloud,
-      channelNum: "PAD_05",
-      tagline: t("Contenedores Docker, almacenamiento S3 y pipelines CI/CD.", "Docker containers, S3 storage, and CI/CD pipelines."),
-      cmdPrompt: "$ feelmz --deploy --docker",
-      codeSnippet: `const infra = {
-  containers: "Docker & Compose",
-  storage: "AWS S3 Pre-Signed",
-  ci_cd: "GitHub Actions",
-  deploy: "Vercel / Cloud Edge"
-}`,
-      skills: [
-        { name: "Docker & Compose", tag: "Containers", level: 92, isCore: true },
-        { name: "AWS S3 Multipart", tag: "Storage", level: 90, isCore: true },
-        { name: "GitHub Actions", tag: "CI/CD Pipelines", level: 88, isCore: true },
-        { name: "Git / GitHub", tag: "Version Control", level: 96 },
-        { name: "Vercel", tag: "Cloud Edge", level: 94 },
-      ],
-    },
-    {
-      id: "security",
-      title: t("Seguridad & DBs", "Security & DBs"),
-      Icon: ShieldCheck,
-      channelNum: "PAD_06",
-      tagline: t("Protección 2FA/TOTP, defensa anti-replay attacks y bases de datos.", "2FA/TOTP protection, anti-replay attacks, and databases."),
-      cmdPrompt: "$ feelmz --audit --2fa --totp",
-      codeSnippet: `const security = {
-  auth: "2FA / TOTP (QR Code)",
-  tokens: "Encrypted JWT",
-  defense: "Anti-Replay Nonce",
-  databases: ["MongoDB", "MySQL"]
-}`,
-      skills: [
-        { name: "2FA / TOTP", tag: "Security", level: 94, isCore: true },
-        { name: "JWT Session", tag: "Auth Security", level: 95, isCore: true },
-        { name: t("Defensa Replay Attack", "Replay Attack Defense"), tag: "HTTP Nonce", level: 92, isCore: true },
-        { name: "MongoDB", tag: "NoSQL", level: 90, isCore: true },
-        { name: "MySQL", tag: "Relational", level: 88 },
-        { name: "PostgreSQL", tag: "Relational", level: 86 },
+        { name: "Docker & Compose", tag: "CONTAINERIZATION", level: 82, isCore: true },
+        { name: "AWS S3 Cloud Storage", tag: "OBJECT_STORAGE", level: 85 },
+        { name: "Git & GitHub Actions CI/CD", tag: "VERSION_CONTROL", level: 90, isCore: true },
+        { name: "Swagger / Postman", tag: "API_TESTING", level: 92 },
       ],
     },
   ]
 
-  const currentTab = TABS.find(t => t.id === activeTabId) || TABS[0]
+  const currentTab = CATEGORIES.find((c) => c.id === activeCategory) || CATEGORIES[0]
 
   return (
     <section
@@ -174,171 +109,156 @@ export default function SkillsSection() {
       style={{
         position: "relative",
         zIndex: 10,
-        padding: "5rem 1.5rem",
+        padding: "7rem 1.5rem",
         maxWidth: "1400px",
         margin: "0 auto",
         opacity: inView ? 1 : 0,
-        transform: inView ? "none" : "translateY(30px)",
-        transition: "opacity 0.6s ease, transform 0.6s ease",
+        transform: inView ? "translate3d(0, 0, 0)" : "translate3d(0, 30px, 0)",
+        transition: "opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)",
+        willChange: "opacity, transform",
       }}
     >
-      {/* Title Header */}
-      <div style={{ marginBottom: "3rem", position: "relative" }}>
+      {/* Background Accents */}
+      <GraffitiCircle size={380} color="#A31621" opacity={0.06} style={{ top: "0px", left: "-60px", zIndex: 0 }} />
+      <GraffitiCircle size={300} color="#0F1B33" opacity={0.07} style={{ bottom: "0px", right: "-50px", zIndex: 0 }} />
 
+      {/* ══ HEADER TITLE BANNER ══ */}
+      <div style={{ marginBottom: "4.5rem", position: "relative", zIndex: 5 }}>
         <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
           <span className="font-tag" style={{
             background: "var(--red)",
             color: "#FFFFFF",
-            padding: "0.3rem 1.2rem",
+            padding: "0.35rem 1.4rem",
             fontSize: "1.3rem",
-            transform: "rotate(-2deg)",
-            boxShadow: "4px 4px 0px var(--navy)",
+            transform: "rotate(-3deg)",
+            boxShadow: "5px 5px 0px var(--navy)",
             border: "2px solid var(--navy)",
           }}>
-            // {t("MPC SOUNDBOARD & STACK", "MPC SOUNDBOARD & STACK")}
+            // {t("CONSOLA DE CONTROL & SKILLS", "CONTROL CONSOLE & SKILLS")}
           </span>
           <span className="stamp-badge">
-            PROTOTYPE
+            LIVE MONITOR
           </span>
           <span className="handwritten-note font-marker">
-            Peak Equalizer Levels ➔
+            Full Stack Matrix ➔
           </span>
         </div>
 
         <h2 className="spray-drippy-title" style={{
-          fontSize: "clamp(3rem, 8.5vw, 7.5rem)",
+          fontSize: "clamp(3.2rem, 9vw, 8rem)",
           color: "var(--navy)",
           WebkitTextStroke: "2px var(--red)",
           textShadow: "5px 5px 0px var(--red)",
           margin: 0,
         }}>
-          ARSENAL
+          {t("HABILIDADES", "SKILLS")}
         </h2>
         <div className="font-spray" style={{
-          fontSize: "clamp(2.5rem, 7.5vw, 6.5rem)",
+          fontSize: "clamp(2.6rem, 8vw, 7rem)",
           color: "var(--red)",
           lineHeight: 0.9,
-          transform: "rotate(-4deg) translateY(-12px) translateX(15px)",
+          transform: "rotate(-4.5deg) translateY(-14px) translateX(20px)",
           WebkitTextStroke: "2px var(--navy)",
           textShadow: "5px 5px 0px var(--navy)",
           display: "inline-block",
         }}>
-          SKILLS &amp; TECH SOUNDBOARD
+          &amp; {t("TECNOLOGÍAS", "STACK")}
         </div>
       </div>
 
-      {/* MPC Drum Machine Pads Selector */}
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
-        gap: "0.9rem",
-        marginBottom: "2.5rem",
-      }}>
-        {TABS.map((tab) => {
-          const isActive = tab.id === activeTabId
-          const Icon = tab.Icon
+      {/* ══ STREET TAB BUTTONS ══ */}
+      <div style={{ display: "flex", gap: "1.2rem", flexWrap: "wrap", marginBottom: "4rem", position: "relative", zIndex: 10 }}>
+        {CATEGORIES.map((tab, idx) => {
+          const isActive = activeCategory === tab.id
+          const Icon = tab.icon
+          const rots = ["-2.5deg", "3deg", "-2deg", "2.5deg"]
+          const rot = rots[idx % rots.length]
 
           return (
             <button
               key={tab.id}
-              onClick={() => setActiveTabId(tab.id)}
+              onClick={() => setActiveCategory(tab.id)}
+              className="font-mono"
               style={{
                 background: isActive ? "var(--red)" : "var(--navy)",
                 color: "#FFFFFF",
                 border: "3px solid var(--navy)",
                 boxShadow: isActive ? "6px 6px 0px var(--navy)" : "4px 4px 0px var(--red)",
-                padding: "1rem 0.9rem",
+                padding: "0.8rem 1.6rem",
+                fontSize: "0.9rem",
+                fontWeight: 900,
                 cursor: "pointer",
-                textAlign: "left",
-                transform: isActive ? "rotate(-3deg) scale(1.02)" : "none",
-                transition: "all 0.15s ease",
+                transform: `rotate(${rot}) ${isActive ? "scale(1.05)" : "scale(1)"}`,
+                transition: "all 0.2s cubic-bezier(0.34,1.56,0.64,1)",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.8rem",
+                clipPath: isActive ? "polygon(0% 0%, 96% 0%, 100% 100%, 4% 100%)" : "none",
               }}
             >
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
-                <span className="font-mono" style={{ fontSize: "0.7rem", background: "#061024", color: "#FFF", padding: "2px 6px", fontWeight: 900 }}>
-                  {tab.channelNum}
-                </span>
-                <span style={{
-                  width: 10, height: 10, borderRadius: "50%",
-                  background: isActive ? "#FFFFFF" : "var(--red)",
-                  boxShadow: isActive ? "0 0 8px #FFF" : "none",
-                  display: "inline-block",
-                }} />
-              </div>
-
-              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <Icon size={18} style={{ color: "#FFFFFF", flexShrink: 0 }} />
-                <span className="font-display" style={{ fontSize: "1.3rem", lineHeight: 1 }}>
-                  {tab.title}
-                </span>
+              <Icon size={18} style={{ color: isActive ? "#FFF" : "var(--red)" }} />
+              <div>
+                <div style={{ fontSize: "0.68rem", opacity: 0.85, letterSpacing: "0.1em" }}>{tab.channelNum}</div>
+                <div className="font-display" style={{ fontSize: "1.3rem", lineHeight: 1 }}>{tab.title}</div>
               </div>
             </button>
           )
         })}
       </div>
 
-      {/* Main Grid */}
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "1fr",
-        gap: "2rem",
-        alignItems: "start",
-      }} className="lg:!grid-cols-[1.3fr_380px]">
-
-        {/* LEFT: SKILL METERS */}
-        <div style={{
-          background: "#FAF5EB",
-          border: "4px solid var(--navy)",
-          boxShadow: "12px 12px 0px var(--red)",
-          padding: "2.2rem 2rem",
-          color: "var(--navy)",
-          position: "relative",
-          transform: "rotate(-0.8deg)",
-        }}>
-          {/* Washi Tape */}
-          <div className="washi-tape-top" />
-
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem", marginBottom: "0.5rem" }}>
-            <h3 className="font-display" style={{ fontSize: "2.8rem", color: "var(--navy)", margin: 0 }}>
-              {currentTab.title}
-            </h3>
-            <span className="font-tag" style={{ background: "var(--red)", color: "#FFF", padding: "0.2rem 0.8rem", fontSize: "1.2rem", transform: "rotate(2deg)" }}>
+      {/* ══ ASYMMETRICAL EQUALIZER CANVAS GRID ══ */}
+      <div
+        style={{ display: "grid", gridTemplateColumns: "1fr", gap: "3.5rem", alignItems: "start", position: "relative", zIndex: 10 }}
+        className="lg:!grid-cols-[1.3fr_380px]"
+      >
+        {/* LEFT: SKILL EQUALIZER CANVAS */}
+        <TornCard
+          shape="torn1"
+          shadow="red"
+          rotate={-2}
+          style={{ zIndex: 1 }}
+          floatingElements={<div className="washi-tape-top" style={{ top: "-16px", left: "20%" }} />}
+        >
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem", marginBottom: "0.8rem" }}>
+            <h3 className="font-display" style={{ fontSize: "3rem", color: "var(--navy)", margin: 0 }}>{currentTab.title}</h3>
+            <span className="font-tag" style={{ background: "var(--red)", color: "#FFF", padding: "0.3rem 1rem", fontSize: "1.2rem", transform: "rotate(2deg)" }}>
               {currentTab.channelNum} // ON AIR
             </span>
           </div>
 
-          <p className="font-spray" style={{ fontSize: "1.5rem", color: "var(--red)", marginBottom: "1.8rem" }}>
-            {currentTab.tagline}
-          </p>
+          <p className="font-spray" style={{ fontSize: "1.6rem", color: "var(--red)", marginBottom: "2rem" }}>{currentTab.tagline}</p>
 
-          {/* 2-Column Audio Equalizer Skill Meters */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1rem" }}>
-            {currentTab.skills.map((skill) => (
-              <div key={skill.name} style={{ background: "#EAE0D0", padding: "1rem", border: "2px solid var(--navy)", boxShadow: "4px 4px 0px var(--navy)", transform: "rotate(-0.5deg)" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.4rem" }}>
-                  <span className="font-mono" style={{ fontSize: "0.95rem", color: "var(--navy)", fontWeight: 900 }}>
-                    {skill.name}
-                  </span>
-                  <span className="font-mono" style={{ fontSize: "0.85rem", color: "var(--red)", fontWeight: 900 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))", gap: "1.2rem" }}>
+            {currentTab.skills.map((skill, sIdx) => (
+              <div
+                key={skill.name}
+                style={{
+                  background: "#EAE0D0",
+                  padding: "1.2rem 1.1rem",
+                  border: "2px solid var(--navy)",
+                  boxShadow: "4px 4px 0px var(--navy)",
+                  transform: `rotate(${sIdx % 2 === 0 ? -0.8 : 0.8}deg)`,
+                }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.6rem" }}>
+                  <span className="font-mono" style={{ fontSize: "0.98rem", color: "var(--navy)", fontWeight: 900 }}>{skill.name}</span>
+                  <SprayBlob
+                    variant={sIdx % 2 === 1 ? 2 : 1}
+                    color={skill.isCore ? "#A31621" : "#0F1B33"}
+                    style={{ width: "3.2rem", height: "3.2rem", fontSize: "0.75rem", fontFamily: "var(--font-mono)", fontWeight: 900 }}
+                  >
                     {skill.level}%
-                  </span>
+                  </SprayBlob>
                 </div>
 
-                {/* VU Meter Audio Equalizer Gauge */}
                 <div style={{ width: "100%", height: "10px", background: "#FAF5EB", border: "2px solid var(--navy)", padding: "1px" }}>
-                  <div style={{
-                    width: `${skill.level}%`,
-                    height: "100%",
-                    background: skill.isCore ? "var(--red)" : "var(--navy)",
-                  }} />
+                  <div style={{ width: `${skill.level}%`, height: "100%", background: skill.isCore ? "var(--red)" : "var(--navy)" }} />
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "0.5rem" }}>
-                  <span className="font-mono" style={{ fontSize: "0.68rem", color: "#334455", fontWeight: 700 }}>
-                    {skill.tag}
-                  </span>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "0.6rem" }}>
+                  <span className="font-mono" style={{ fontSize: "0.7rem", color: "#334455", fontWeight: 800 }}>{skill.tag}</span>
                   {skill.isCore && (
-                    <span className="font-mono" style={{ fontSize: "0.6rem", background: "var(--red)", color: "#FFF", padding: "1px 6px", fontWeight: 900 }}>
+                    <span style={{ fontSize: "0.62rem", background: "var(--red)", color: "#FFF", padding: "2px 7px", fontWeight: 900, clipPath: "polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%)", fontFamily: "var(--font-mono)" }}>
                       CORE
                     </span>
                   )}
@@ -346,63 +266,46 @@ export default function SkillsSection() {
               </div>
             ))}
           </div>
-        </div>
+        </TornCard>
 
-        {/* RIGHT: BOOMBOX CODE CONSOLE */}
-        <div style={{
-          background: "#FAF5EB",
-          border: "4px solid var(--navy)",
-          boxShadow: "12px 12px 0px var(--navy)",
-          padding: "1.8rem",
-          display: "flex",
-          flexDirection: "column",
-          fontFamily: "var(--font-mono)",
-          color: "var(--navy)",
-          position: "relative",
-          transform: "rotate(1.5deg)",
-        }}>
-          {/* Washi Tape Corner */}
-          <div className="washi-tape-corner" />
-
-          {/* Stamp Badge */}
-          <div className="stamp-badge" style={{ position: "absolute", top: "15px", right: "15px" }}>
-            APPROVED
-          </div>
-
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem", borderBottom: "3px dashed var(--red)", paddingBottom: "0.6rem" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-              <Volume2 size={18} style={{ color: "var(--red)" }} />
-              <span className="font-mono" style={{ fontSize: "0.8rem", color: "var(--navy)", fontWeight: 900 }}>
-                CONSOLE // AUDIO_MONITOR
-              </span>
+        {/* RIGHT: STENCIL CODE CONSOLE */}
+        <TornCard
+          shape="tagSharp"
+          shadow="navy"
+          rotate={3}
+          style={{ zIndex: 1 }}
+          floatingElements={
+            <>
+              <div className="washi-tape-corner" style={{ top: "-16px", left: "-14px", zIndex: 25 }} />
+              <div
+                className="stamp-badge"
+                style={{ position: "absolute", top: "-22px", right: "24px", zIndex: 25, transform: "rotate(5deg)", boxShadow: "3px 3px 0px #0F1B33" }}
+              >
+                APPROVED
+              </div>
+            </>
+          }
+        >
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.2rem", borderBottom: "3px dashed var(--red)", paddingBottom: "0.8rem" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+              <Volume2 size={20} style={{ color: "var(--red)" }} />
+              <span className="font-mono" style={{ fontSize: "0.85rem", color: "var(--navy)", fontWeight: 900 }}>CONSOLE // AUDIO_MONITOR</span>
             </div>
           </div>
 
-          <div style={{ background: "var(--navy)", padding: "0.5rem 0.8rem", border: "2px solid var(--navy)", color: "#FFFFFF", fontSize: "0.78rem", marginBottom: "0.8rem", fontWeight: 900 }}>
+          <div style={{ background: "var(--navy)", padding: "0.6rem 0.9rem", border: "2px solid var(--navy)", color: "#FFF", fontSize: "0.8rem", marginBottom: "1rem", fontWeight: 900 }}>
             {currentTab.cmdPrompt}
           </div>
 
-          <pre style={{
-            fontSize: "0.85rem",
-            color: "var(--navy)",
-            lineHeight: 1.7,
-            whiteSpace: "pre-wrap",
-            wordBreak: "break-word",
-            margin: 0,
-            background: "#EAE0D0",
-            padding: "1.2rem",
-            border: "2px solid var(--navy)",
-            fontWeight: 800,
-          }}>
+          <pre style={{ fontSize: "0.88rem", color: "var(--navy)", lineHeight: 1.7, whiteSpace: "pre-wrap", wordBreak: "break-word", margin: 0, background: "#EAE0D0", padding: "1.3rem", border: "2px solid var(--navy)", fontWeight: 800, boxShadow: "4px 4px 0px var(--navy)" }}>
             <code>{currentTab.codeSnippet}</code>
           </pre>
 
-          <div style={{ marginTop: "1.2rem", display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.75rem", color: "var(--navy)", fontWeight: 900 }}>
-            <Activity size={14} style={{ color: "var(--red)" }} />
+          <div style={{ marginTop: "1.4rem", display: "flex", alignItems: "center", gap: "0.6rem", fontSize: "0.78rem", color: "var(--navy)", fontWeight: 900 }}>
+            <Activity size={16} style={{ color: "var(--red)" }} />
             <span>EXECUTION_TIME: 0.1ms // 100% OK</span>
           </div>
-        </div>
-
+        </TornCard>
       </div>
     </section>
   )

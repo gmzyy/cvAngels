@@ -97,6 +97,7 @@ export default function CaraOjos() {
   return (
     // zIndex 98 < 99 (menú mobile) → el menú lo tapa cuando está abierto
     <div
+      id="cara-ojos-container"
       aria-hidden="true"
       style={{
         position: "fixed",
