@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { useLanguage } from "@/context/LanguageContext"
@@ -9,6 +9,7 @@ export default function TopNavBar() {
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState("hero")
   const [mobileOpen, setMobileOpen] = useState(false)
+  const toggleLockRef = useRef(false)
   const { lang, setLang, t } = useLanguage()
 
   const NAV = [
@@ -20,6 +21,16 @@ export default function TopNavBar() {
     { num: "06", label: t("FORMACIÓN", "EDUCATION"), href: "/#education", rot: "1.5deg", shape: "polygon(0% 0%, 94% 0%, 100% 100%, 6% 100%)" },
     { num: "07", label: t("CONOCE DE MÍ", "ABOUT ME"), href: "/conoce-de-mi", page: true, rot: "-2deg", shape: "polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%)" },
   ]
+
+  // Safe throttled menu toggle
+  const handleToggle = () => {
+    if (toggleLockRef.current) return
+    toggleLockRef.current = true
+    setMobileOpen((prev) => !prev)
+    setTimeout(() => {
+      toggleLockRef.current = false
+    }, 180)
+  }
 
   // Hide floating eyes widget & prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -54,7 +65,7 @@ export default function TopNavBar() {
 
   return (
     <>
-      {/* ══ FLOATING STREET STENCIL TAPE DOCK (NAVBAR PERMANECE VISIBLE ARRIBA) ══ */}
+      {/* ══ FLOATING STREET STENCIL TAPE DOCK ══ */}
       <header
         style={{
           position: "fixed",
@@ -195,7 +206,7 @@ export default function TopNavBar() {
           </button>
         </nav>
 
-        {/* ── MOBILE CONTROLS (BOTÓN CONMUTADOR 3 RAYITAS <-> X EN EL NAVBAR) ── */}
+        {/* ── MOBILE CONTROLS (SMOOTH ROTATING ICON TOGGLE BUTTON) ── */}
         <div className="lg:!hidden" style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
           {/* Language Switcher Mobile */}
           <button
@@ -216,10 +227,9 @@ export default function TopNavBar() {
             {lang === "es" ? "EN" : "ES"}
           </button>
 
-          {/* Hamburger 3-Lines Button transforms to X when menu is open */}
+          {/* Clean Smooth Icon Toggle Button */}
           <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="street-card-hover"
+            onClick={handleToggle}
             style={{
               background: mobileOpen ? "var(--red)" : "var(--navy)",
               border: "2px solid var(--navy)",
@@ -238,20 +248,45 @@ export default function TopNavBar() {
             }}
             aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
           >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            <AnimatePresence mode="wait" initial={false}>
+              {mobileOpen ? (
+                <motion.div
+                  key="icon-x"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                  style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+                >
+                  <X size={22} />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="icon-menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                  style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+                >
+                  <Menu size={22} />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </button>
         </div>
       </header>
 
-      {/* ══ MOBILE MENU OVERLAY (DESPLIEGA ABAJO DEL NAVBAR OCUPANDO EL RESTO DE LA PANTALLA) ══ */}
-      <AnimatePresence>
+      {/* ══ MOBILE MENU OVERLAY ══ */}
+      <AnimatePresence mode="wait">
         {mobileOpen && (
           <motion.div
+            key="mobile-nav-overlay"
             className="lg:!hidden"
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.22, ease: "easeOut" }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.18, ease: "easeInOut" }}
             style={{
               position: "fixed",
               top: "72px",
