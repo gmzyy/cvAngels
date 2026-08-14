@@ -1,6 +1,7 @@
 "use client"
 import { useRef } from "react"
 import Link from "next/link"
+import { motion } from "framer-motion"
 import { useLanguage } from "@/context/LanguageContext"
 
 export default function HeroSection() {
@@ -75,12 +76,16 @@ export default function HeroSection() {
         }}
         className="lg:!grid-cols-[1.1fr_0.9fr]"
       >
-        {/* LEFT COLUMN — BONE, NAVY & BURNT RED TYPOGRAPHY */}
-        <div style={{ zIndex: 10, display: "flex", flexDirection: "column", gap: "1.2rem" }}>
-
-          {/* Metadata Stamp & Hand-Drawn Markers */}
+        {/* LEFT COLUMN — TYPOGRAPHY WITH STAGGER ANIMATIONS */}
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          style={{ zIndex: 10, display: "flex", flexDirection: "column", gap: "1.2rem" }}
+        >
+          {/* Metadata Stamp */}
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
-            <span className="sticker-box font-mono">
+            <span className="sticker-box font-mono animate-stamp">
               V 2.4.0 // STABLE
             </span>
             <span className="font-marker" style={{ color: "var(--red)", fontSize: "1.6rem", transform: "rotate(-3deg)" }}>
@@ -88,7 +93,7 @@ export default function HeroSection() {
             </span>
           </div>
 
-          {/* SOFTWARE TITLE + GEELMZ SPRAY OVERLAY */}
+          {/* SOFTWARE TITLE + SPRAY PULSE GEELMZ */}
           <div style={{ position: "relative" }}>
             <h1 className="font-display" style={{
               fontSize: "clamp(2.6rem, 10vw, 8rem)",
@@ -101,12 +106,11 @@ export default function HeroSection() {
               SOFTWARE
             </h1>
 
-            {/* GEELMZ Overlay Tag in Burnt Red Spray */}
-            <div className="font-spray" style={{
+            {/* GEELMZ Overlay Tag with Dynamic Spray Pulse Animation */}
+            <div className="font-spray spray-pulse" style={{
               fontSize: "clamp(2.5rem, 9.5vw, 7.8rem)",
               color: "var(--red)",
               lineHeight: 0.9,
-              transform: "rotate(-6deg) translateY(-18px)",
               WebkitTextStroke: "1.5px var(--navy)",
               textShadow: "4px 4px 0px var(--navy)",
               display: "inline-block",
@@ -122,8 +126,8 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Description Card in Navy Blue */}
-          <div style={{
+          {/* Description Card with Street Hover Bounce */}
+          <div className="street-card-hover" style={{
             background: "var(--navy)",
             border: "3px solid var(--red)",
             boxShadow: "8px 8px 0px var(--red)",
@@ -161,18 +165,22 @@ export default function HeroSection() {
               {t("CONOCE DE MÍ", "KNOW MORE")} ➔
             </Link>
           </div>
-        </div>
+        </motion.div>
 
-        {/* RIGHT COLUMN — PROTAGONIST AVATAR WITH GRAFFITI DETAILS */}
-        <div style={{
-          position: "relative",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}>
-
-          {/* Avatar Frame */}
-          <div style={{
+        {/* RIGHT COLUMN — PROTAGONIST AVATAR WITH SPRING ENTRY */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, y: 30 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          style={{
+            position: "relative",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {/* Avatar Frame with Street Card Hover */}
+          <div className="street-card-hover" style={{
             position: "relative",
             zIndex: 10,
             maxWidth: "520px",
@@ -194,7 +202,7 @@ export default function HeroSection() {
               #FULLSTACK
             </div>
 
-            <div className="font-marker font-bold" style={{
+            <div className="font-marker font-bold animate-stamp" style={{
               position: "absolute",
               bottom: "20px",
               right: "10px",
@@ -253,7 +261,7 @@ export default function HeroSection() {
               <span style={{ color: "var(--red)" }}>[FIG_01]</span> ANGEL GOMEZ GARCIA ➔
             </div>
           </div>
-        </div>
+        </motion.div>
 
       </div>
 

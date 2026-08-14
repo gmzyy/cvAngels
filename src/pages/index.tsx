@@ -14,6 +14,7 @@ import SiteFooter           from "@/components/portfolio/SiteFooter"
 // Load canvas-based components client-side only
 const BgCanvas   = dynamic(() => import("@/components/portfolio/BgCanvas"),   { ssr: false })
 const CursorGlow = dynamic(() => import("@/components/portfolio/CursorGlow"), { ssr: false })
+const CaraOjos   = dynamic(() => import("@/components/portfolio/CaraOjos"),   { ssr: false })
 
 export default function Home() {
   return (
@@ -34,6 +35,9 @@ export default function Home() {
 
       {/* Cursor glow effect */}
       <CursorGlow />
+
+      {/* Cara con ojos que siguen el cursor — fixed bottom right */}
+      <CaraOjos />
 
       {/* Fixed top navigation */}
       <TopNavBar />

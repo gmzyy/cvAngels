@@ -9,13 +9,6 @@ export default function EducationSection() {
   const inView = useInView(ref, { once: true, amount: 0.15 })
   const { t } = useLanguage()
 
-  const CERTIFICATIONS = [
-    { name: "Scrum Fundamentals Certified (SFC)", org: "SCRUMstudy", year: "2026", code: "CERT-SFC-2026" },
-    { name: "NestJS Microservices & Architecture", org: "Udemy / Enterprise", year: "2025", code: "CERT-NEST-01" },
-    { name: "FastAPI & Python Advanced Async", org: "Udemy / Core", year: "2025", code: "CERT-FAST-02" },
-    { name: "LangChain & Vector DBs (ChromaDB)", org: "AI Academy", year: "2025", code: "CERT-RAG-03" },
-  ]
-
   return (
     <section
       ref={ref}
@@ -44,13 +37,13 @@ export default function EducationSection() {
             boxShadow: "4px 4px 0px var(--navy)",
             border: "2px solid var(--navy)",
           }}>
-            // {t("FORMACIÓN & DIPLOMAS", "ACADEMIC DIPLOMAS")}
+            // {t("FORMACIÓN ACADÉMICA", "ACADEMIC EDUCATION")}
           </span>
           <span className="stamp-badge">
             APPROVED
           </span>
           <span className="handwritten-note font-marker">
-            Certified Skills ➔
+            Verified Degree ➔
           </span>
         </div>
 
@@ -72,14 +65,14 @@ export default function EducationSection() {
           textShadow: "5px 5px 0px var(--navy)",
           display: "inline-block",
         }}>
-          &amp; {t("CERTIFICACIONES", "CERTIFICATIONS")}
+          &amp; {t("TITULACIÓN", "DEGREE")}
         </div>
       </div>
 
-      {/* Grid: Left University Degree + Right Certifications Stack */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr" }} className="lg:!grid-cols-[1.1fr_0.9fr] gap-10">
+      {/* University Degree Card */}
+      <div style={{ maxWidth: "980px", margin: "0 auto" }}>
 
-        {/* LEFT: DIPLOMA CARD */}
+        {/* DIPLOMA CARD */}
         <div style={{
           background: "#FAF5EB",
           border: "4px solid var(--navy)",
@@ -138,50 +131,6 @@ export default function EducationSection() {
               ))}
             </div>
           </div>
-        </div>
-
-        {/* RIGHT: CERTIFICATIONS LIST */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "1.2rem" }}>
-          {CERTIFICATIONS.map((cert, idx) => (
-            <div
-              key={cert.name}
-              style={{
-                background: "#FAF5EB",
-                border: "3px solid var(--navy)",
-                boxShadow: "8px 8px 0px var(--red)",
-                padding: "1.4rem 1.6rem",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                gap: "1rem",
-                color: "var(--navy)",
-                position: "relative",
-                transform: idx % 2 === 0 ? "rotate(-1deg)" : "rotate(1deg)",
-              }}
-            >
-              {/* Washi Tape Corner */}
-              <div className="washi-tape-corner" style={{ width: "50px", height: "18px" }} />
-
-              <div>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.2rem" }}>
-                  <Award size={18} style={{ color: "var(--red)" }} />
-                  <span className="font-mono" style={{ fontSize: "0.7rem", color: "var(--red)", fontWeight: 900 }}>
-                    [{cert.code}]
-                  </span>
-                </div>
-                <div className="font-display" style={{ fontSize: "1.6rem", color: "var(--navy)", lineHeight: 1 }}>
-                  {cert.name}
-                </div>
-                <div className="font-mono" style={{ fontSize: "0.75rem", color: "#334455", marginTop: 4, fontWeight: 700 }}>
-                  {cert.org}
-                </div>
-              </div>
-
-              <span className="font-mono" style={{ fontSize: "0.85rem", background: "var(--navy)", color: "#FFF", padding: "0.4rem 0.8rem", border: "2px solid var(--navy)", fontWeight: 900 }}>
-                {cert.year}
-              </span>
-            </div>
-          ))}
         </div>
 
       </div>

@@ -28,27 +28,85 @@ export default function PortfolioSection() {
 
   const PROJECTS: ProjectItem[] = [
     {
-      id: "sendro",
-      title: "SENDRO PAYMENTS",
-      subtitle: "Fintech Core & 2FA / SPEI Platform",
-      category: "fintech",
-      tag: "FINTECH_SECURITY",
+      id: "staicka-agency",
+      title: "STAICKA STUDIO",
+      subtitle: "Digital Agency & Software Lab",
+      category: "web",
+      tag: "AGENCIA_PRINCIPAL",
       description: t(
-        "Plataforma fintech de alta concurrencia con integración SPEI y autenticación 2FA/TOTP end-to-end con firmas anti-replay.",
-        "High-concurrency fintech platform with SPEI integration and end-to-end 2FA/TOTP auth featuring anti-replay signatures."
+        "Sitio web oficial de Staicka: agencia digital especializada en desarrollo de aplicaciones web de alto rendimiento, IA y soluciones digitales personalizadas.",
+        "Official website for Staicka: digital agency specialized in high-performance web applications, AI, and custom digital solutions."
       ),
       features: [
-        t("Flujo 2FA/TOTP con QR, OTP y códigos de respaldo", "2FA/TOTP flow with QR, OTP & backup codes"),
-        t("Token de un solo uso y firmas de solicitud en NestJS", "One-time tokens & request signatures in NestJS"),
-        t("Panel de control administrativo con Prisma ORM", "Admin dashboard backed by Prisma ORM"),
-        t("Especificación OpenAPI 3.1.0 (Swagger)", "OpenAPI 3.1.0 specification (Swagger)"),
+        t("Arquitectura web moderna con Next.js y React 19", "Modern web architecture with Next.js and React 19"),
+        t("Animaciones e interacciones fluidas de alto impacto", "Fluid animations and high-impact micro-interactions"),
+        t("Diseño responsive con enfoque en conversión y SEO", "Responsive design focused on conversion and technical SEO"),
       ],
-      techStack: ["NestJS", "Next.js 15", "Prisma ORM", "2FA / TOTP", "MySQL", "Swagger"],
-      status: "PRODUCTION",
+      techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      demoUrl: "https://staicka.vercel.app/",
+      status: "LIVE",
       highlighted: true,
     },
     {
-      id: "staicka",
+      id: "empaques-san-andres",
+      title: "EMPAQUES SAN ANDRÉS",
+      subtitle: "Industrial Packaging & Catalog",
+      category: "web",
+      tag: "INDUSTRIAL_WEB",
+      description: t(
+        "Plataforma web comercial y catálogo de productos para empresa distribuidora de empaques e insumos industriales.",
+        "Commercial web platform and product catalog for industrial packaging distributor."
+      ),
+      features: [
+        t("Catálogo interactivo estructurado de productos", "Structured interactive product catalog"),
+        t("Rendimiento de carga optimizado en Netlify CDN", "Optimized load performance on Netlify CDN"),
+        t("Navegación adaptativa para dispositivos móviles", "Adaptive mobile-first navigation"),
+      ],
+      techStack: ["HTML5", "JavaScript", "CSS3", "Netlify"],
+      demoUrl: "https://sanandrestt.netlify.app/",
+      status: "LIVE",
+      highlighted: true,
+    },
+    {
+      id: "barber-angeles",
+      title: "BARBER ÁNGELES",
+      subtitle: "Realtime Booking & Admin System",
+      category: "web",
+      tag: "WEB_PLATFORM",
+      description: t(
+        "Sistema integral de reservas en tiempo real y catálogo digital interactivo para barbería con gestión de servicios.",
+        "Comprehensive real-time booking system and interactive digital catalog for barbershop."
+      ),
+      features: [
+        t("Reserva de turnos interactiva con confirmación instantánea", "Interactive slot booking with instant confirmation"),
+        t("Panel de administración para horarios y catálogo", "Admin panel for schedule and service catalog"),
+        t("Despliegue continuo en Vercel", "Continuous deployment on Vercel"),
+      ],
+      techStack: ["Next.js", "React", "MongoDB", "Tailwind CSS"],
+      demoUrl: "https://barber-angeles.vercel.app/home",
+      status: "LIVE",
+      highlighted: true,
+    },
+    {
+      id: "emciel-nails",
+      title: "EMCIEL NAILS",
+      subtitle: "Beauty Studio & Catalog",
+      category: "web",
+      tag: "BEAUTY_WEB",
+      description: t(
+        "Aplicación web y catálogo digital de servicios para estudio de uñas y estética profesional.",
+        "Web application and digital service catalog for beauty and nail studio."
+      ),
+      features: [
+        t("Catálogo visual interactivo de diseños y servicios", "Interactive visual catalog of nail designs and services"),
+        t("Integración de contacto rápido por WhatsApp", "Quick WhatsApp contact integration"),
+        t("Diseño responsivo enfocado en experiencia móvil", "Responsive design focused on mobile experience"),
+      ],
+      techStack: ["Next.js", "React", "Tailwind CSS"],
+      status: "LIVE",
+    },
+    {
+      id: "staicka-rag",
       title: "STAICKA TALENT SCOUT",
       subtitle: "AI Resume Parsing & RAG Engine",
       category: "ai",
@@ -59,52 +117,12 @@ export default function PortfolioSection() {
       ),
       features: [
         t("Extracción de texto PDF en backend Python / FastAPI", "PDF text extraction in Python / FastAPI backend"),
-        t("Embeddings vectoriales con Google Gemini 1.5 Pro", "Vector embeddings via Google Gemini 1.5 Pro"),
-        t("RAG Pipeline estructurado con LangChain y ChromaDB", "Structured RAG pipeline with LangChain & ChromaDB"),
-        t("Despliegue automatizado en Docker Compose", "Automated deployment in Docker Compose"),
+        t("Embeddings vectoriales con LangChain y ChromaDB", "Vector embeddings via LangChain and ChromaDB"),
+        t("Scoring semántico ponderado por perfil de vacante", "Weighted semantic scoring per job profile"),
       ],
-      techStack: ["FastAPI", "Python 3.10", "SpaCy NLP", "LangChain", "ChromaDB", "Docker"],
+      techStack: ["FastAPI", "Python", "SpaCy NLP", "LangChain", "ChromaDB", "Docker"],
       githubUrl: "https://github.com/Gmzyy",
       status: "STABLE",
-      highlighted: true,
-    },
-    {
-      id: "barber-angeles",
-      title: "BARBER ANGELES",
-      subtitle: "Realtime Booking & Admin System",
-      category: "web",
-      tag: "WEB_PLATFORM",
-      description: t(
-        "Sistema integral de reservas en tiempo real y catálogo digital interactivo para barberías con panel de control para estilistas.",
-        "Comprehensive real-time booking system and interactive digital catalog for barbershops with stylist dashboards."
-      ),
-      features: [
-        t("Reserva de turnos interactiva con confirmación instantánea", "Interactive slot booking with instant confirmation"),
-        t("Panel administrativo para control de horarios y cajas", "Admin panel for schedule and cash flow control"),
-        t("Almacenamiento de activos e imágenes en AWS S3", "Asset & image storage on AWS S3"),
-      ],
-      techStack: ["Next.js", "React", "MongoDB", "AWS S3", "Tailwind CSS"],
-      githubUrl: "https://github.com/Gmzyy",
-      status: "LIVE",
-    },
-    {
-      id: "sante-dental",
-      title: "SANTĒ DENTAL CLINIC",
-      subtitle: "Medical Appointments & Clinical Portal",
-      category: "web",
-      tag: "CLINICAL_WEB",
-      description: t(
-        "Portal clínico interactivo para citas odontológicas, expedientes digitales y agenda médica en tiempo real.",
-        "Interactive clinical portal for dental appointments, digital records, and real-time medical scheduling."
-      ),
-      features: [
-        t("Gestión de citas médicas y catálogo de tratamientos", "Medical appointment management & treatment catalog"),
-        t("Interfaces optimizadas para dispositivos móviles", "Mobile-optimized responsive interfaces"),
-        t("Rendimiento de carga ultrarrápido (Lighthouse 98)", "Ultra-fast load performance (Lighthouse 98)"),
-      ],
-      techStack: ["Next.js", "TypeScript", "Node.js", "CSS Modules"],
-      githubUrl: "https://github.com/Gmzyy",
-      status: "LIVE",
     },
   ]
 
@@ -140,7 +158,7 @@ export default function PortfolioSection() {
             boxShadow: "4px 4px 0px var(--navy)",
             border: "2px solid var(--navy)",
           }}>
-            // {t("PROYECTOS & GRAFFITI WALL", "PROJECTS & STREET WALL")}
+            // {t("PROYECTOS & COMPROBABLES", "VERIFIABLE PROJECTS")}
           </span>
           <span className="stamp-badge">
             ONLY ONE
@@ -175,10 +193,9 @@ export default function PortfolioSection() {
       {/* Filter Tabs */}
       <div style={{ display: "flex", gap: "0.8rem", flexWrap: "wrap", marginBottom: "3rem" }}>
         {[
-          { id: "all", label: t("TODOS (4)", "ALL (4)") },
-          { id: "fintech", label: "FINTECH & 2FA" },
-          { id: "ai", label: "IA & RAG" },
+          { id: "all", label: t("TODOS (5)", "ALL (5)") },
           { id: "web", label: "WEB PLATFORMS" },
+          { id: "ai", label: "IA & RAG" },
         ].map((f) => {
           const isActive = filter === f.id
           return (
@@ -278,17 +295,30 @@ export default function PortfolioSection() {
                 ))}
               </div>
 
-              {p.githubUrl && (
-                <a
-                  href={p.githubUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn-street-secondary"
-                  style={{ width: "100%", justifyContent: "center", fontSize: "1.2rem", padding: "0.6rem" }}
-                >
-                  <Github size={16} /> REPO GITHUB ➔
-                </a>
-              )}
+              <div style={{ display: "flex", gap: "0.8rem", flexWrap: "wrap" }}>
+                {p.demoUrl && (
+                  <a
+                    href={p.demoUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-street-primary"
+                    style={{ flex: 1, justifyContent: "center", fontSize: "1.1rem", padding: "0.6rem" }}
+                  >
+                    <ExternalLink size={16} /> SITIO LIVE ➔
+                  </a>
+                )}
+                {p.githubUrl && (
+                  <a
+                    href={p.githubUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-street-secondary"
+                    style={{ flex: 1, justifyContent: "center", fontSize: "1.1rem", padding: "0.6rem" }}
+                  >
+                    <Github size={16} /> REPO ➔
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         ))}

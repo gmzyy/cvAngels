@@ -18,7 +18,7 @@ const navLinks = [
 const contactLinks = [
   { icon: MapPin,   label: 'Puebla, México',          href: '#' },
   { icon: Mail,     label: 'angelgom042@gmail.com',   href: 'mailto:angelgom042@gmail.com' },
-  { icon: Phone,    label: '+52 221 915 6631 (WA)',   href: 'https://wa.me/522219156631', external: true },
+  { icon: Phone,    label: '+52 221 822 6470 (WA)',   href: 'https://wa.me/522218226470', external: true },
   { icon: Github,   label: 'github.com/Gmzyy',        href: 'https://github.com/Gmzyy', external: true },
   { icon: Linkedin, label: 'LinkedIn',                href: 'https://www.linkedin.com/in/angel-gomez-59b341350', external: true },
 ]

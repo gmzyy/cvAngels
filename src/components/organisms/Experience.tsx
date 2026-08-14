@@ -38,7 +38,7 @@ const jobs = [
     ],
   },
   {
-    title: "Fullstack Developer",
+    title: "Desarrollador Fullstack Freelance",
     company: "Staicka",
     link: "https://staicka.vercel.app",
     period: "Noviembre 2025 – Presente",

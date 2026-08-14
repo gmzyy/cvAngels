@@ -58,31 +58,55 @@ export default function ExperienceSection() {
     {
       id: "staicka-ai",
       trackNum: "TRACK 02",
-      company: "STAICKA STUDIO",
-      companyTag: "AI & RAG MOTORS",
-      role: t("Lead AI & Fullstack Developer", "Lead AI & Fullstack Developer"),
-      period: "08/2025 – 12/2025",
+      company: "STAICKA",
+      companyTag: "AI & WEB DEVELOPMENT",
+      role: t("Desarrollador Fullstack Freelance", "Freelance Fullstack Developer"),
+      period: "11/2025 – Presente",
       projects: [
         {
           name: "Staicka Talent Scout & RAG Engine",
           tag: "AI_RECRUITMENT",
           desc: t(
-            "Sistema inteligente de reclutamiento con lectura masiva de CVs (PDF) usando SpaCy NLP y motor RAG con LangChain + ChromaDB para búsqueda semántica.",
-            "Intelligent recruitment system reading PDF resumes with SpaCy NLP and a RAG engine with LangChain + ChromaDB for semantic search."
+            "Sistema inteligente de reclutamiento con lectura masiva de CVs (PDF) usando SpaCy NLP y motor RAG con LangChain + ChromaDB para búsqueda semántica, junto con aplicaciones web escalables con Next.js y Tailwind CSS.",
+            "Intelligent recruitment system reading PDF resumes with SpaCy NLP and a RAG engine with LangChain + ChromaDB for semantic search, alongside scalable web apps with Next.js and Tailwind CSS."
           ),
           highlights: [
-            t("Extracción de texto PDF en backend Python con FastAPI", "PDF text extraction on Python backend with FastAPI"),
-            t("Indexación vectorial con ChromaDB y embeddings con Google Gemini", "Vector indexing with ChromaDB and Google Gemini embeddings"),
+            t("Diseño y desarrollo de aplicaciones web escalables con Next.js y NestJS", "Design and development of scalable web applications with Next.js and NestJS"),
+            t("Extracción de texto PDF e indexación vectorial RAG (LangChain + ChromaDB)", "PDF text extraction and RAG vector indexing (LangChain + ChromaDB)"),
             t("Ranking de candidatos por ajuste semántico con la descripción del puesto", "Candidate scoring based on semantic fit with job specs"),
-            t("Despliegue multi-contenedor con Docker Compose", "Multi-container deployment via Docker Compose"),
+            t("Interfaces responsivas optimizadas con Tailwind CSS para SEO y rendimiento", "Responsive interfaces optimized with Tailwind CSS for SEO and performance"),
           ],
-          stack: ["FastAPI", "Python 3.10", "SpaCy NLP", "LangChain", "ChromaDB", "Docker"],
+          stack: ["Next.js", "NestJS", "FastAPI", "Python", "SpaCy NLP", "LangChain", "ChromaDB", "Tailwind CSS"],
+        },
+      ],
+    },
+    {
+      id: "softech",
+      trackNum: "TRACK 03",
+      company: "SOFTECH",
+      companyTag: "SOFTWARE & DATABASE OPTIMIZATION",
+      role: t("Fullstack Developer", "Fullstack Developer"),
+      period: "07/2024 – 02/2025",
+      projects: [
+        {
+          name: "Plataforma Web & Optimización MongoDB",
+          tag: "FULLSTACK_CORE",
+          desc: t(
+            "Desarrollo de módulos web con Next.js App Router y optimización estratégica de la arquitectura de datos y consultas en MongoDB.",
+            "Web module development with Next.js App Router and strategic data architecture & query optimization in MongoDB."
+          ),
+          highlights: [
+            t("Reducción del 35% en latencia de consultas MongoDB mediante rediseño de esquemas e índices", "35% reduction in MongoDB query latency via strategic schema and index redesign"),
+            t("Mejora del 20% en métricas LCP (Largest Contentful Paint) con Next.js App Router", "20% improvement in LCP metrics with Next.js App Router"),
+            t("Configuración de pipelines CI/CD acelerando la velocidad de entrega a producción", "CI/CD pipeline configuration accelerating production delivery speed"),
+          ],
+          stack: ["Next.js", "React", "MongoDB", "Node.js", "CI/CD"],
         },
       ],
     },
     {
       id: "freelance",
-      trackNum: "TRACK 03",
+      trackNum: "TRACK 04",
       company: "DESARROLLO INDEPENDIENTE",
       companyTag: "WEB & CLOUD SERVICES",
       role: t("Fullstack Developer Freelance", "Freelance Fullstack Developer"),

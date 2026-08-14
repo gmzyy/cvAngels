@@ -9,31 +9,29 @@ import { fadeUp, staggerContainer, defaultTransition } from "@/lib/animations"
 
 const projects = [
   {
-    title: "STAICKA ARCIKA — Generador de Arquitecturas con IA",
-    description: "Herramienta que transforma requerimientos técnicos en esquemas y diagramas de flujo mediante LLMs avanzados. Redujo un 60% el tiempo de configuración inicial de proyectos automatizando estructura de carpetas y dependencias.",
-    tech: ["Next.js", "NestJS", "LLMs", "Prompt Engineering", "Docker"],
+    title: "STAICKA STUDIO — Agencia Digital & Software Lab",
+    description: "Sitio web oficial de Staicka. Desarrollado con Next.js y React para ofrecer experiencia web ultra reactiva, arquitectura moderna y desarrollo a medida.",
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
     github: "https://github.com/Gmzyy",
     demo: "https://staicka.vercel.app/",
     featured: true,
   },
   {
-    title: "STAICKA Talent Scout — Motor de Reclutamiento con IA (On-Premise)",
-    description: "Sistema de reclutamiento inteligente 100% on-premise. Extrae y analiza CVs en PDF con NLP (SpaCy). Motor de detección de ~60 patrones de habilidades técnicas y scoring semántico ponderado por sección.",
-    tech: ["FastAPI", "Next.js", "MongoDB", "SpaCy", "NLP", "Docker Compose", "GitHub Actions"],
-    github: "https://github.com/Gmzyy",
-    featured: false,
+    title: "EMPAQUES SAN ANDRÉS — Plataforma Industrial",
+    description: "Plataforma web comercial y catálogo interactivo de productos para distribuidora de empaques e insumos industriales.",
+    tech: ["HTML5", "JavaScript", "CSS3", "Netlify"],
+    demo: "https://sanandrestt.netlify.app/",
   },
   {
-    title: "AUTH CORE — Identity System",
-    description: "Sistema de identidad fullstack dockerizado con NestJS y Prisma. JWT para gestión segura de sesiones, roles y control de acceso. Arquitectura limpia lista para producción.",
-    tech: ["NestJS", "Prisma", "MySQL", "Docker", "JWT"],
-    github: "https://github.com/gmzyy/auth-system-docker",
+    title: "BARBER ÁNGELES — Sistema de Citas en Tiempo Real",
+    description: "Sistema integral de reservas en tiempo real y catálogo digital interactivo para barbería con panel de control.",
+    tech: ["Next.js", "React", "MongoDB", "Tailwind CSS"],
+    demo: "https://barber-angeles.vercel.app/home",
   },
   {
-    title: "TRELLUNA — API Kanban",
-    description: "API REST modular para gestión de tableros Kanban. Validación TypeScript estricta, manejo de workspaces, columnas y tareas con Node.js + Express + SQL.",
-    tech: ["Node.js", "Express", "SQL", "TypeScript"],
-    github: "https://github.com/gmzyy/kanban-api",
+    title: "EMCIEL NAILS — Estudio de Estética & Catálogo",
+    description: "Aplicación web y catálogo digital de servicios para estudio de uñas y estética profesional.",
+    tech: ["Next.js", "React", "Tailwind CSS"],
   },
 ]
 

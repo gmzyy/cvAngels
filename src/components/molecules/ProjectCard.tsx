@@ -9,7 +9,7 @@ type Props = {
   title: string
   description: string
   tech: string[]
-  github: string
+  github?: string
   demo?: string
   link?: string
   featured?: boolean
@@ -87,17 +87,19 @@ export default function ProjectCard({ title, description, tech, github, demo, li
 
       {/* Footer */}
       <div className="flex items-center gap-4 px-5 py-3" style={{ borderTop: '1px solid var(--border)' }}>
-        <motion.a
-          href={github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-1.5 text-xs font-medium"
-          style={{ color: 'var(--text-muted)' }}
-          whileHover={{ color: 'var(--accent)', x: 2 }}
-        >
-          <Github className="w-3.5 h-3.5" />
-          Código
-        </motion.a>
+        {github && (
+          <motion.a
+            href={github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-xs font-medium"
+            style={{ color: 'var(--text-muted)' }}
+            whileHover={{ color: 'var(--accent)', x: 2 }}
+          >
+            <Github className="w-3.5 h-3.5" />
+            Código
+          </motion.a>
+        )}
         {demoUrl && (
           <motion.a
             href={demoUrl}

@@ -1,6 +1,6 @@
 "use client"
 import { useRef } from "react"
-import { useInView } from "framer-motion"
+import { motion, useInView } from "framer-motion"
 import { MapPin, Mail, MessageSquare, Award, Flame, Disc, Radio } from "lucide-react"
 import { useLanguage } from "@/context/LanguageContext"
 
@@ -19,14 +19,15 @@ export default function AboutSection() {
         padding: "6rem 1.5rem",
         maxWidth: "1400px",
         margin: "0 auto",
-        opacity: inView ? 1 : 0,
-        transform: inView ? "none" : "translateY(30px)",
-        transition: "opacity 0.6s ease, transform 0.6s ease",
       }}
     >
-      {/* ══ HEADER TITLE BANNER — PUNK ZINE SPRAY DRIP ══ */}
-      <div style={{ marginBottom: "4rem", position: "relative" }}>
-
+      {/* ══ HEADER TITLE BANNER ══ */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6 }}
+        style={{ marginBottom: "4rem", position: "relative" }}
+      >
         <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
           <span className="font-tag" style={{
             background: "var(--red)",
@@ -39,7 +40,7 @@ export default function AboutSection() {
           }}>
             // {t("MANIFIESTO & PROFILE", "MANIFESTO & PROFILE")}
           </span>
-          <span className="stamp-badge">
+          <span className="stamp-badge animate-stamp">
             DRAFT
           </span>
           <span className="handwritten-note font-marker">
@@ -66,15 +67,20 @@ export default function AboutSection() {
         }}>
           &amp; {t("DESARROLLO FULLSTACK", "FULLSTACK DEV")}
         </div>
-      </div>
+      </motion.div>
 
       {/* ══ DYNAMIC PUNK ZINE COLLAGE ══ */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr" }} className="lg:!grid-cols-[1.2fr_0.8fr] gap-12">
 
         {/* ── LEFT: MANIFESTO ── */}
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}
+        >
           
-          <div style={{
+          <div className="street-card-hover" style={{
             background: "#FAF5EB",
             border: "4px solid var(--navy)",
             boxShadow: "12px 12px 0px var(--red)",
@@ -87,7 +93,7 @@ export default function AboutSection() {
             <div className="washi-tape-top" />
 
             {/* Rubber Stamp */}
-            <div className="stamp-badge" style={{ position: "absolute", bottom: "15px", right: "20px" }}>
+            <div className="stamp-badge animate-stamp" style={{ position: "absolute", bottom: "15px", right: "20px" }}>
               APPROVED
             </div>
 
@@ -133,7 +139,7 @@ export default function AboutSection() {
               { num: "3", label: t("EMPRESAS", "COMPANIES"), bg: "#FAF5EB", color: "var(--navy)", rot: "3deg" },
               { num: "100%", label: t("CÓDIGO PROPIO", "CUSTOM CODE"), bg: "var(--navy)", color: "#FFF", rot: "-2deg" },
             ].map(({ num, label, bg, color, rot }) => (
-              <div key={label} style={{
+              <div key={label} className="street-card-hover" style={{
                 border: "3px solid var(--navy)",
                 padding: "1rem",
                 background: bg,
@@ -161,14 +167,20 @@ export default function AboutSection() {
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* ── RIGHT: POLAROID STYLE CONTACT CARD ── */}
-        <div className="polaroid-frame" style={{
-          transform: "rotate(2deg)",
-          background: "#FAF5EB",
-          color: "var(--navy)",
-        }}>
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="polaroid-frame street-card-hover"
+          style={{
+            transform: "rotate(2deg)",
+            background: "#FAF5EB",
+            color: "var(--navy)",
+          }}
+        >
           {/* Washi Tape Corner */}
           <div className="washi-tape-corner" />
 
@@ -235,7 +247,7 @@ export default function AboutSection() {
               transform: "rotate(1deg)",
             }}>
               <span className="font-mono" style={{ fontSize: "0.85rem", color: "var(--navy)", fontWeight: 800 }}>
-                {t("Inglés Técnico (A2+ Lectura Documentación)", "Technical English (A2+ Docs Reading)")}
+                {t("Nivel Técnico A2", "Technical Level A2")}
               </span>
             </div>
           </div>
@@ -243,7 +255,8 @@ export default function AboutSection() {
           {/* Download CV CTA Button */}
           <div style={{ marginTop: "1.8rem" }}>
             <a
-              href="https://drive.google.com/drive/folders/17lB8lK8cZgX2Yd2y1z-yX-w0"
+              href="/CV_Angel_GG.pdf"
+              download="CV_Angel_GG.pdf"
               target="_blank"
               rel="noreferrer"
               className="btn-street-primary"
@@ -252,7 +265,7 @@ export default function AboutSection() {
               {t("DESCARGAR CV", "DOWNLOAD CV")} ➔
             </a>
           </div>
-        </div>
+        </motion.div>
 
       </div>
     </section>

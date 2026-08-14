@@ -92,13 +92,12 @@ export default function Education() {
             style={{ background: 'var(--accent-soft)', color: 'var(--accent-light)', border: '1px solid var(--accent-border)' }}
             whileHover={{ scale: 1.05 }}
           >
-            A2+ → B2
+            Nivel Técnico A2
           </motion.span>
         </div>
         <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-          Nivel técnico (A2+). Lectura de{" "}
-          <strong style={{ color: 'var(--text-primary)' }}>documentación técnica</strong>, resolución de issues en GitHub y comunicación escrita en entornos de desarrollo.{" "}
-          <span style={{ color: 'var(--accent)' }}>En preparación activa para certificación B2 (2026)</span>.
+          Nivel Técnico A2. Lectura de{" "}
+          <strong style={{ color: 'var(--text-primary)' }}>documentación técnica</strong>, resolución de issues en GitHub y comunicación escrita en entornos de desarrollo.
         </p>
       </motion.div>
     </motion.section>
