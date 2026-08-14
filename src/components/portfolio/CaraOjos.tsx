@@ -33,10 +33,7 @@ export default function CaraOjos() {
   const pupRRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // En touch no hay cursor — no registrar nada
-    if (window.matchMedia("(pointer: coarse)").matches) return
-
-    // Cachear rect — reflow solo en resize/scroll, nunca en mousemove
+    // Cachear rect — reflow solo en resize/scroll, nunca en mousemove/touch
     const rectRef = { current: null as DOMRect | null }
     const updateRect = () => {
       if (imgRef.current) rectRef.current = imgRef.current.getBoundingClientRect()
@@ -45,14 +42,14 @@ export default function CaraOjos() {
     window.addEventListener("resize", updateRect, { passive: true })
     window.addEventListener("scroll", updateRect, { passive: true })
 
-    const onMove = (e: MouseEvent) => {
+    const handlePos = (clientX: number, clientY: number) => {
       const rect = rectRef.current
       const pL   = pupLRef.current
       const pR   = pupRRef.current
       if (!rect || !pL || !pR) return
 
-      const mx = (e.clientX - rect.left) * (IMG_W / rect.width)
-      const my = (e.clientY - rect.top)  * (IMG_H / rect.height)
+      const mx = (clientX - rect.left) * (IMG_W / rect.width)
+      const my = (clientY - rect.top)  * (IMG_H / rect.height)
 
       const lx = clamp(mx - 461,   -MAX_NX, MAX_NX) * SCALE_X
       const ly = clamp(my - 688,   -MAX_NY, MAX_NY) * SCALE_Y
@@ -64,10 +61,21 @@ export default function CaraOjos() {
       pR.style.transform = `translate(calc(-50% + ${rx}px), calc(-50% + ${ry}px))`
     }
 
-    window.addEventListener("mousemove", onMove, { passive: true })
+    const onMouseMove = (e: MouseEvent) => handlePos(e.clientX, e.clientY)
+    const onTouchMove = (e: TouchEvent) => {
+      if (e.touches && e.touches[0]) {
+        handlePos(e.touches[0].clientX, e.touches[0].clientY)
+      }
+    }
+
+    window.addEventListener("mousemove", onMouseMove, { passive: true })
+    window.addEventListener("touchstart", onTouchMove, { passive: true })
+    window.addEventListener("touchmove", onTouchMove, { passive: true })
 
     return () => {
-      window.removeEventListener("mousemove", onMove)
+      window.removeEventListener("mousemove", onMouseMove)
+      window.removeEventListener("touchstart", onTouchMove)
+      window.removeEventListener("touchmove", onTouchMove)
       window.removeEventListener("resize", updateRect)
       window.removeEventListener("scroll", updateRect)
     }
