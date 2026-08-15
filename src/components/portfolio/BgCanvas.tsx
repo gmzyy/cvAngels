@@ -1,27 +1,24 @@
 "use client"
 import { useEffect, useRef } from "react"
 
-interface Particle { x: number; y: number; r: number; a: number; da: number }
-interface Streak {
-  x0: number; y0: number; cx1: number; cy1: number
-  cx2: number; cy2: number; x1: number; y1: number
-  color: string; width: number; offset: number
+interface Particle {
+  x: number
+  y: number
+  vx: number
+  vy: number
+  size: number
+  alpha: number
+  color: string
 }
 
-function makeParticle(W: number, H: number): Particle {
-  return { x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.2+0.2, a: Math.random(), da: (Math.random()-0.5)*0.004 }
-}
-function makeStreak(W: number, H: number): Streak {
-  const isRed = Math.random() < 0.65
-  const alpha = (Math.random()*0.1+0.03).toFixed(3)
-  const color = isRed ? `rgba(201,24,74,${alpha})` : `rgba(255,255,255,${(+alpha*0.5).toFixed(3)})`
-  return {
-    x0: Math.random()*W*1.4-W*0.2, y0: Math.random()*H,
-    cx1: Math.random()*W,           cy1: Math.random()*H*0.5,
-    cx2: Math.random()*W,           cy2: Math.random()*H*0.5+H*0.5,
-    x1: Math.random()*W*1.4-W*0.2, y1: Math.random()*H,
-    color, width: Math.random()*1.4+0.4, offset: Math.random()*Math.PI*2,
-  }
+interface CircuitLine {
+  x0: number; y0: number
+  x1: number; y1: number
+  x2: number; y2: number
+  progress: number
+  speed: number
+  color: string
+  width: number
 }
 
 export default function BgCanvas() {
@@ -36,46 +33,152 @@ export default function BgCanvas() {
     let animId: number
     let W = 0, H = 0
     let particles: Particle[] = []
-    let streaks:   Streak[]   = []
+    let circuits: CircuitLine[] = []
+
+    function createParticle(): Particle {
+      const isCyan = Math.random() < 0.6
+      const isMagenta = !isCyan && Math.random() < 0.7
+      return {
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        size: Math.random() * 2 + 0.5,
+        alpha: Math.random() * 0.6 + 0.2,
+        color: isCyan ? "0, 240, 255" : isMagenta ? "255, 0, 85" : "0, 255, 157",
+      }
+    }
+
+    function createCircuit(): CircuitLine {
+      const isCyan = Math.random() < 0.65
+      const startX = Math.random() * W
+      const startY = Math.random() * H
+      const angle = (Math.floor(Math.random() * 4) * Math.PI) / 2
+      const dist1 = Math.random() * 180 + 60
+      const dist2 = Math.random() * 180 + 60
+      
+      const midX = startX + Math.cos(angle) * dist1
+      const midY = startY + Math.sin(angle) * dist1
+      
+      const angle2 = angle + (Math.random() < 0.5 ? Math.PI / 2 : -Math.PI / 2)
+      const endX = midX + Math.cos(angle2) * dist2
+      const endY = midY + Math.sin(angle2) * dist2
+
+      return {
+        x0: startX, y0: startY,
+        x1: midX, y1: midY,
+        x2: endX, y2: endY,
+        progress: 0,
+        speed: Math.random() * 0.008 + 0.003,
+        color: isCyan ? "rgba(0, 240, 255, " : "rgba(255, 0, 85, ",
+        width: Math.random() * 1.5 + 0.8,
+      }
+    }
 
     function resize() {
       if (!canvas) return
-      W = canvas.width  = window.innerWidth
+      W = canvas.width = window.innerWidth
       H = canvas.height = window.innerHeight
-      particles = Array.from({ length: 160 }, () => makeParticle(W, H))
-      streaks   = Array.from({ length: 14  }, () => makeStreak(W, H))
+      particles = Array.from({ length: 90 }, createParticle)
+      circuits = Array.from({ length: 12 }, createCircuit)
     }
 
-    function draw(t: number) {
+    function draw() {
       if (!ctx) return
       ctx.clearRect(0, 0, W, H)
-      // Stars
-      particles.forEach(p => {
-        p.a += p.da
-        if (p.a < 0) p.da = Math.abs(p.da)
-        if (p.a > 1) p.da = -Math.abs(p.da)
+
+      // ── 1. Cyber Digital Grid Overlay ──
+      const gridSize = 64
+      ctx.strokeStyle = "rgba(0, 240, 255, 0.035)"
+      ctx.lineWidth = 1
+
+      for (let x = 0; x < W; x += gridSize) {
         ctx.beginPath()
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2)
-        ctx.fillStyle = `rgba(255,255,255,${(p.a*0.45).toFixed(3)})`
-        ctx.fill()
-      })
-      // Light streaks
-      streaks.forEach(s => {
-        const wave = Math.sin(t*0.0004+s.offset)*42
-        ctx.beginPath()
-        ctx.moveTo(s.x0, s.y0)
-        ctx.bezierCurveTo(s.cx1+wave, s.cy1+wave*0.5, s.cx2-wave, s.cy2-wave*0.5, s.x1, s.y1)
-        ctx.strokeStyle = s.color
-        ctx.lineWidth   = s.width
+        ctx.moveTo(x, 0)
+        ctx.lineTo(x, H)
         ctx.stroke()
+      }
+      for (let y = 0; y < H; y += gridSize) {
+        ctx.beginPath()
+        ctx.moveTo(0, y)
+        ctx.lineTo(W, y)
+        ctx.stroke()
+      }
+
+      // ── 2. Quantum Cyber Particles & Node Mesh ──
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i]
+        p.x += p.vx
+        p.y += p.vy
+
+        if (p.x < 0) p.x = W
+        if (p.x > W) p.x = 0
+        if (p.y < 0) p.y = H
+        if (p.y > H) p.y = 0
+
+        ctx.beginPath()
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(${p.color}, ${p.alpha})`
+        ctx.shadowBlur = 8
+        ctx.shadowColor = `rgb(${p.color})`
+        ctx.fill()
+        ctx.shadowBlur = 0
+
+        // Connect close particles with subtle energy threads
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j]
+          const dx = p.x - p2.x
+          const dy = p.y - p2.y
+          const dist = Math.sqrt(dx * dx + dy * dy)
+          if (dist < 110) {
+            ctx.beginPath()
+            ctx.moveTo(p.x, p.y)
+            ctx.lineTo(p2.x, p2.y)
+            ctx.strokeStyle = `rgba(0, 240, 255, ${(1 - dist / 110) * 0.12})`
+            ctx.lineWidth = 0.6
+            ctx.stroke()
+          }
+        }
+      }
+
+      // ── 3. Animated Circuit Energy Pulse Streams ──
+      circuits.forEach((c) => {
+        c.progress += c.speed
+        if (c.progress > 1) {
+          Object.assign(c, createCircuit())
+        }
+
+        ctx.beginPath()
+        ctx.moveTo(c.x0, c.y0)
+        
+        if (c.progress <= 0.5) {
+          const t = c.progress * 2
+          ctx.lineTo(c.x0 + (c.x1 - c.x0) * t, c.y0 + (c.y1 - c.y0) * t)
+        } else {
+          ctx.lineTo(c.x1, c.y1)
+          const t = (c.progress - 0.5) * 2
+          ctx.lineTo(c.x1 + (c.x2 - c.x1) * t, c.y1 + (c.y2 - c.y1) * t)
+        }
+
+        ctx.strokeStyle = `${c.color}0.4)`
+        ctx.lineWidth = c.width
+        ctx.shadowBlur = 10
+        ctx.shadowColor = c.color.includes("0, 240") ? "#00F0FF" : "#FF0055"
+        ctx.stroke()
+        ctx.shadowBlur = 0
       })
+
       animId = requestAnimationFrame(draw)
     }
 
     resize()
     window.addEventListener("resize", resize)
     animId = requestAnimationFrame(draw)
-    return () => { cancelAnimationFrame(animId); window.removeEventListener("resize", resize) }
+
+    return () => {
+      cancelAnimationFrame(animId)
+      window.removeEventListener("resize", resize)
+    }
   }, [])
 
   return (

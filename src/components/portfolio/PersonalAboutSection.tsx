@@ -43,44 +43,37 @@ export default function PersonalAboutSection() {
     <section
       ref={ref}
       id="about-personal"
-      className="container-pad"
       style={{
         position: "relative",
         zIndex: 10,
-        borderTop: "1px solid rgba(255,255,255,0.05)",
+        padding: "6rem 1.5rem",
+        maxWidth: "1400px",
+        margin: "0 auto",
         opacity: inView ? 1 : 0,
         transform: inView ? "none" : "translateY(30px)",
         transition: "opacity 0.7s ease, transform 0.7s ease",
       }}
     >
-      <p style={{ fontSize: "0.6rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "var(--red)", fontWeight: 600, marginBottom: "0.7rem" }}>
-        Más Allá del Código
-      </p>
-      <h2 style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em", marginBottom: "3rem" }}>
-        Conoce de Mí
+      <div className="tag-white" style={{ marginBottom: "0.8rem" }}>
+        // MÁS ALLÁ DEL CÓDIGO
+      </div>
+      <h2 className="spray-drippy-title" style={{ fontSize: "clamp(2.4rem, 6vw, 4.5rem)", color: "#FFFFFF", marginBottom: "3rem" }}>
+        FILOSOFÍA &amp; VISIÓN
       </h2>
 
-      {/* Grid containing Ideología, Metas & Gustos */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr" }} className="lg:!grid-cols-3 gap-8">
-
         {/* 1. Ideología & Filosofía */}
-        <div style={{
-          background: "var(--bg-card)",
-          border: "1px solid rgba(255,255,255,0.06)",
-          borderRadius: 12,
-          padding: "1.8rem",
-          display: "flex", flexDirection: "column", gap: "1.5rem",
-        }}>
+        <div className="cyber-card" style={{ padding: "1.8rem", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-            <div style={{ width: 34, height: 34, borderRadius: 8, background: "rgba(201,24,74,0.12)", border: "1px solid rgba(201,24,74,0.3)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--red)" }}>
+            <div style={{ width: 34, height: 34, background: "rgba(0, 240, 255, 0.15)", border: "1px solid var(--cyan)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--cyan)" }}>
               <Compass size={18} />
             </div>
             <div>
-              <h3 style={{ fontSize: "1rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.04em", color: "#fff" }}>
+              <h3 className="font-display" style={{ fontSize: "1.2rem", color: "#FFFFFF", margin: 0 }}>
                 Filosofía de Trabajo
               </h3>
-              <p style={{ fontSize: "0.62rem", color: "var(--grey)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-                Principios e Ideología
+              <p className="font-mono" style={{ fontSize: "0.68rem", color: "var(--cyan)" }}>
+                PRINCIPIOS E IDEOLOGÍA
               </p>
             </div>
           </div>
@@ -88,12 +81,12 @@ export default function PersonalAboutSection() {
           <div style={{ display: "flex", flexDirection: "column", gap: "1.2rem" }}>
             {ideologia.map((item, idx) => (
               <div key={idx} style={{ display: "flex", gap: "0.8rem", alignItems: "flex-start" }}>
-                <item.Icon size={16} style={{ color: "var(--red)", marginTop: 2, flexShrink: 0 }} />
+                <item.Icon size={16} style={{ color: "var(--cyan)", marginTop: 2, flexShrink: 0 }} />
                 <div>
-                  <h4 style={{ fontSize: "0.82rem", fontWeight: 700, color: "#fff", marginBottom: 3 }}>
+                  <h4 className="font-mono" style={{ fontSize: "0.88rem", fontWeight: 700, color: "#FFFFFF", marginBottom: 3 }}>
                     {item.title}
                   </h4>
-                  <p style={{ fontSize: "0.75rem", color: "var(--grey)", lineHeight: 1.6 }}>
+                  <p style={{ fontSize: "0.82rem", color: "#CBD5E1", lineHeight: 1.6, fontFamily: "var(--font-body)", margin: 0 }}>
                     {item.desc}
                   </p>
                 </div>
@@ -103,31 +96,25 @@ export default function PersonalAboutSection() {
         </div>
 
         {/* 2. Metas & Objetivos */}
-        <div style={{
-          background: "var(--bg-card)",
-          border: "1px solid rgba(255,255,255,0.06)",
-          borderRadius: 12,
-          padding: "1.8rem",
-          display: "flex", flexDirection: "column", gap: "1.5rem",
-        }}>
+        <div className="cyber-card-magenta" style={{ padding: "1.8rem", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-            <div style={{ width: 34, height: 34, borderRadius: 8, background: "rgba(201,24,74,0.12)", border: "1px solid rgba(201,24,74,0.3)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--red)" }}>
+            <div style={{ width: 34, height: 34, background: "rgba(255, 0, 85, 0.15)", border: "1px solid var(--magenta)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--magenta)" }}>
               <Target size={18} />
             </div>
             <div>
-              <h3 style={{ fontSize: "1rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.04em", color: "#fff" }}>
+              <h3 className="font-display" style={{ fontSize: "1.2rem", color: "#FFFFFF", margin: 0 }}>
                 Metas &amp; Visión
               </h3>
-              <p style={{ fontSize: "0.62rem", color: "var(--grey)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-                Hacia Dónde Voy
+              <p className="font-mono" style={{ fontSize: "0.68rem", color: "var(--magenta)" }}>
+                HACIA DÓNDE VOY
               </p>
             </div>
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "0.9rem" }}>
             {metas.map((meta, idx) => (
-              <div key={idx} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start", fontSize: "0.78rem", color: "var(--grey)", lineHeight: 1.6 }}>
-                <span style={{ color: "var(--red)", fontWeight: 700, fontSize: "0.7rem", marginTop: 2, flexShrink: 0 }}>0{idx + 1}.</span>
+              <div key={idx} className="font-mono" style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start", fontSize: "0.82rem", color: "#CBD5E1", lineHeight: 1.6 }}>
+                <span style={{ color: "var(--magenta)", fontWeight: 700, flexShrink: 0 }}>0{idx + 1}.</span>
                 <span>{meta}</span>
               </div>
             ))}
@@ -135,34 +122,28 @@ export default function PersonalAboutSection() {
         </div>
 
         {/* 3. Gustos & Intereses */}
-        <div style={{
-          background: "var(--bg-card)",
-          border: "1px solid rgba(255,255,255,0.06)",
-          borderRadius: 12,
-          padding: "1.8rem",
-          display: "flex", flexDirection: "column", gap: "1.5rem",
-        }}>
+        <div className="cyber-card" style={{ padding: "1.8rem", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-            <div style={{ width: 34, height: 34, borderRadius: 8, background: "rgba(201,24,74,0.12)", border: "1px solid rgba(201,24,74,0.3)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--red)" }}>
+            <div style={{ width: 34, height: 34, background: "rgba(0, 240, 255, 0.15)", border: "1px solid var(--cyan)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--cyan)" }}>
               <Heart size={18} />
             </div>
             <div>
-              <h3 style={{ fontSize: "1rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.04em", color: "#fff" }}>
+              <h3 className="font-display" style={{ fontSize: "1.2rem", color: "#FFFFFF", margin: 0 }}>
                 Gustos &amp; Intereses
               </h3>
-              <p style={{ fontSize: "0.62rem", color: "var(--grey)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-                Lo Que Me Apasiona
+              <p className="font-mono" style={{ fontSize: "0.68rem", color: "var(--cyan)" }}>
+                LO QUE ME APASIONA
               </p>
             </div>
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "0.9rem" }}>
             {gustos.map((item, idx) => (
-              <div key={idx} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.04)", borderRadius: 8, padding: "0.85rem" }}>
-                <h4 style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--red)", marginBottom: 4 }}>
+              <div key={idx} style={{ background: "rgba(3, 7, 18, 0.6)", border: "1px solid rgba(255,255,255,0.06)", padding: "0.85rem" }}>
+                <h4 className="font-mono" style={{ fontSize: "0.82rem", fontWeight: 700, color: "var(--cyan)", marginBottom: 4, margin: 0 }}>
                   {item.label}
                 </h4>
-                <p style={{ fontSize: "0.74rem", color: "var(--grey)", lineHeight: 1.55 }}>
+                <p style={{ fontSize: "0.8rem", color: "#CBD5E1", lineHeight: 1.55, margin: 0, fontFamily: "var(--font-body)" }}>
                   {item.text}
                 </p>
               </div>

@@ -5,14 +5,13 @@ import dynamic from "next/dynamic"
 import TopNavBar            from "@/components/portfolio/TopNavBar"
 import HeroSection          from "@/components/portfolio/HeroSection"
 import AboutSection         from "@/components/portfolio/AboutSection"
-import ExperienceSection    from "@/components/portfolio/ExperienceSection"
-import SkillsSection        from "@/components/portfolio/SkillsSection"
 import PortfolioSection     from "@/components/portfolio/PortfolioSection"
+import SkillsSection        from "@/components/portfolio/SkillsSection"
+import ExperienceSection    from "@/components/portfolio/ExperienceSection"
 import EducationSection     from "@/components/portfolio/EducationSection"
 import SiteFooter           from "@/components/portfolio/SiteFooter"
 
-// Load canvas-based components client-side only
-const BgCanvas   = dynamic(() => import("@/components/portfolio/BgCanvas"),   { ssr: false })
+// Dynamic client-side components
 const CursorGlow = dynamic(() => import("@/components/portfolio/CursorGlow"), { ssr: false })
 const CaraOjos   = dynamic(() => import("@/components/portfolio/CaraOjos"),   { ssr: false })
 
@@ -32,34 +31,39 @@ export default function Home() {
         <meta property="og:description" content="Construyendo software con precisión y arquitectura real." />
       </Head>
 
-      {/* Background (stars + light streaks) */}
-      <BgCanvas />
-
-      {/* Cursor glow effect */}
+      {/* Interactive Cursor Glow */}
       <CursorGlow />
 
-      {/* Cara con ojos que siguen el cursor — fixed bottom right */}
-      <CaraOjos />
-
-      {/* Fixed top navigation */}
+      {/* Floating Bottom Navigation Dock */}
       <TopNavBar />
 
-      {/* Main Page Sections */}
+      {/* Restructured Page Sections */}
       <main>
+        {/* 1. Hero Section */}
         <HeroSection />
         <SprayDivider color="var(--red)" />
+
+        {/* 2. About / Profile Section */}
         <AboutSection />
         <SprayDivider color="var(--navy)" flip />
-        <ExperienceSection />
-        <SprayDivider color="var(--red)" />
-        <SkillsSection />
-        <SprayDivider color="var(--navy)" flip />
+
+        {/* 3. Projects Showcase (Moved upfront!) */}
         <PortfolioSection />
         <SprayDivider color="var(--red)" />
+
+        {/* 4. Tech Stack & Frameworks Interactive 3D Grid */}
+        <SkillsSection />
+        <SprayDivider color="var(--navy)" flip />
+
+        {/* 5. Work Experience Timeline */}
+        <ExperienceSection />
+        <SprayDivider color="var(--red)" />
+
+        {/* 6. Education & Certifications */}
         <EducationSection />
       </main>
 
-      {/* Footer */}
+      {/* Site Footer */}
       <SiteFooter />
     </>
   )

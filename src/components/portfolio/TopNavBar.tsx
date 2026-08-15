@@ -3,26 +3,24 @@ import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { useLanguage } from "@/context/LanguageContext"
-import { Mail, MessageSquare, Menu, X, ArrowUpRight } from "lucide-react"
+import { Mail, MessageSquare, Menu, X, ArrowUpRight, Sparkles, Home, User, Briefcase, Code, FolderGit2, GraduationCap, Globe, Download } from "lucide-react"
 
 export default function TopNavBar() {
-  const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState("hero")
   const [mobileOpen, setMobileOpen] = useState(false)
   const toggleLockRef = useRef(false)
   const { lang, setLang, t } = useLanguage()
 
   const NAV = [
-    { num: "01", label: t("INICIO", "HOME"), href: "/#hero", rot: "-1.5deg", shape: "polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%)" },
-    { num: "02", label: t("PERFIL", "PROFILE"), href: "/#about", rot: "1.5deg", shape: "polygon(0% 0%, 96% 0%, 100% 100%, 4% 100%)" },
-    { num: "03", label: t("EXPERIENCIA", "EXPERIENCE"), href: "/#experience", rot: "-1deg", shape: "polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%)" },
-    { num: "04", label: t("SKILLS", "SKILLS"), href: "/#skills", rot: "1.2deg", shape: "polygon(0% 0%, 95% 0%, 100% 100%, 5% 100%)" },
-    { num: "05", label: t("PROYECTOS", "PROJECTS"), href: "/#portfolio", rot: "-1.5deg", shape: "polygon(6% 0%, 94% 0%, 100% 100%, 0% 100%)" },
-    { num: "06", label: t("FORMACIÓN", "EDUCATION"), href: "/#education", rot: "1.5deg", shape: "polygon(0% 0%, 94% 0%, 100% 100%, 6% 100%)" },
-    { num: "07", label: t("CONOCE DE MÍ", "ABOUT ME"), href: "/conoce-de-mi", page: true, rot: "-2deg", shape: "polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%)" },
+    { label: t("INICIO", "HOME"), href: "/#hero", icon: Home },
+    { label: t("PERFIL", "PROFILE"), href: "/#about", icon: User },
+    { label: t("PROYECTOS", "PROJECTS"), href: "/#portfolio", icon: FolderGit2 },
+    { label: t("SKILLS", "SKILLS"), href: "/#skills", icon: Code },
+    { label: t("EXPERIENCIA", "EXPERIENCE"), href: "/#experience", icon: Briefcase },
+    { label: t("FORMACIÓN", "EDUCATION"), href: "/#education", icon: GraduationCap },
+    { label: t("CONOCE DE MÍ", "ABOUT ME"), href: "/conoce-de-mi", page: true, icon: Sparkles },
   ]
 
-  // Safe throttled menu toggle
   const handleToggle = () => {
     if (toggleLockRef.current) return
     toggleLockRef.current = true
@@ -32,28 +30,23 @@ export default function TopNavBar() {
     }, 180)
   }
 
-  // Hide floating eyes widget & prevent body scroll when mobile menu is open
   useEffect(() => {
     if (mobileOpen) {
       document.body.style.overflow = "hidden"
-      document.body.classList.add("mobile-menu-active")
     } else {
       document.body.style.overflow = ""
-      document.body.classList.remove("mobile-menu-active")
     }
     return () => {
       document.body.style.overflow = ""
-      document.body.classList.remove("mobile-menu-active")
     }
   }, [mobileOpen])
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30)
-      const sections = ["hero", "about", "experience", "skills", "portfolio", "education"]
+      const sections = ["hero", "about", "portfolio", "skills", "experience", "education"]
       for (const s of sections.reverse()) {
         const el = document.getElementById(s)
-        if (el && el.getBoundingClientRect().top <= 220) {
+        if (el && el.getBoundingClientRect().top <= 280) {
           setActiveSection(s)
           break
         }
@@ -65,94 +58,58 @@ export default function TopNavBar() {
 
   return (
     <>
-      {/* ══ FLOATING STREET STENCIL TAPE DOCK ══ */}
+      {/* ══ EXPANDED APPLE LIQUID GLASS FLOATING DOCK NAVBAR ══ */}
       <header
         style={{
           position: "fixed",
-          top: "14px",
+          bottom: "20px",
           left: "50%",
           transform: "translateX(-50%)",
-          width: "min(95%, 1360px)",
           zIndex: 100,
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0.65rem 1.4rem",
-          background: "#FAF5EB",
-          border: "3px solid var(--navy)",
-          boxShadow: scrolled || mobileOpen ? "6px 6px 0px var(--red)" : "5px 5px 0px var(--navy)",
-          clipPath: "polygon(0% 0%, 99% 0%, 100% 100%, 1% 96%)",
-          transition: "background 0.3s ease, box-shadow 0.3s ease",
+          gap: "0.5rem",
+          padding: "0.45rem 0.85rem",
+          background: "rgba(10, 14, 26, 0.92)",
+          backdropFilter: "blur(28px) saturate(180%)",
+          WebkitBackdropFilter: "blur(28px) saturate(180%)",
+          border: "1px solid rgba(255, 255, 255, 0.22)",
+          borderRadius: "9999px",
+          boxShadow: "0 18px 45px rgba(0, 0, 0, 0.95)",
+          transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+          maxWidth: "min(96vw, 1200px)",
         }}
       >
-        {/* ── BRAND LOGO & AVATAR ── */}
-        <Link href="/" onClick={() => setMobileOpen(false)} style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.8rem" }}>
-          <div
-            style={{
-              position: "relative",
-              width: 44,
-              height: 44,
-              background: "#0F1B33",
-              border: "2px solid var(--red)",
-              boxShadow: "3px 3px 0px var(--red)",
-              overflow: "hidden",
-              flexShrink: 0,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              transform: "rotate(-3deg)",
-              clipPath: "polygon(8% 0%, 100% 0%, 92% 100%, 0% 100%)",
-            }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/image.png"
-              alt="FEELMZ Avatar"
-              style={{ width: "100%", height: "100%", objectFit: "contain", padding: "2px" }}
-            />
-          </div>
-
-          <div style={{ lineHeight: 1 }}>
-            <div className="font-display" style={{ fontSize: "1.5rem", color: "var(--navy)", letterSpacing: "0.03em" }}>
-              FEELMZ // 2026
-            </div>
-            <div className="font-mono" style={{ fontSize: "0.58rem", letterSpacing: "0.15em", color: "var(--red)", fontWeight: 900, marginTop: 2 }}>
-              [ FULLSTACK ARCHITECT ]
-            </div>
-          </div>
-        </Link>
-
-        {/* ── DESKTOP TABS (DIRECTLY VISIBLE ON PC) ── */}
-        <nav style={{ display: "none" }} className="lg:!flex items-center gap-1.5">
+        {/* DESKTOP EXPANDED NAV ITEMS */}
+        <nav style={{ display: "none" }} className="md:!flex items-center gap-1">
           {NAV.map((item) => {
             const sectionKey = item.href.replace("/#", "").replace("#", "")
             const isActive = !item.page && activeSection === sectionKey
+            const Icon = item.icon
 
             if (item.page) {
               return (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="font-mono street-card-hover"
+                  className="font-mono"
                   style={{
-                    fontSize: "0.74rem",
-                    fontWeight: 900,
-                    letterSpacing: "0.08em",
+                    fontSize: "0.75rem",
+                    fontWeight: 700,
+                    letterSpacing: "0.05em",
                     textDecoration: "none",
                     color: "#FFFFFF",
-                    padding: "0.45rem 1.1rem",
-                    background: "var(--navy)",
-                    border: "2px solid var(--red)",
-                    boxShadow: "3px 3px 0px var(--red)",
-                    marginLeft: "0.6rem",
-                    transform: "rotate(-2.5deg)",
-                    clipPath: item.shape,
+                    padding: "0.42rem 0.95rem",
+                    background: "rgba(255, 255, 255, 0.18)",
+                    border: "1px solid rgba(255, 255, 255, 0.35)",
+                    borderRadius: "9999px",
                     display: "inline-flex",
                     alignItems: "center",
-                    gap: "0.3rem",
+                    gap: "0.35rem",
+                    transition: "all 0.2s ease",
                   }}
                 >
-                  {item.label} <ArrowUpRight size={14} />
+                  <Icon size={14} /> {item.label} <ArrowUpRight size={13} />
                 </Link>
               )
             }
@@ -161,223 +118,288 @@ export default function TopNavBar() {
               <Link
                 key={item.label}
                 href={item.href}
-                className="font-display street-card-hover"
+                className="font-mono"
                 style={{
-                  fontSize: "1.15rem",
+                  fontSize: "0.75rem",
                   letterSpacing: "0.04em",
                   textDecoration: "none",
-                  color: isActive ? "#FFFFFF" : "var(--navy)",
-                  padding: "0.35rem 0.9rem",
-                  background: isActive ? "#A31621" : "transparent",
-                  border: isActive ? "2px solid var(--navy)" : "2px solid transparent",
-                  transform: isActive ? item.rot : "none",
-                  boxShadow: isActive ? "3px 3px 0px var(--navy)" : "none",
-                  clipPath: isActive ? item.shape : "none",
+                  color: isActive ? "#FFFFFF" : "#CBD5E1",
+                  padding: "0.42rem 0.85rem",
+                  borderRadius: "9999px",
+                  background: isActive ? "rgba(255, 255, 255, 0.16)" : "transparent",
+                  border: isActive ? "1px solid rgba(255, 255, 255, 0.28)" : "1px solid transparent",
                   transition: "all 0.2s ease",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.35rem",
+                  fontWeight: isActive ? 700 : 500,
                 }}
               >
-                {item.label}
+                <Icon size={14} /> {item.label}
               </Link>
             )
           })}
+        </nav>
 
-          {/* Language Switcher Badge PC */}
-          <button
-            onClick={() => setLang(lang === "es" ? "en" : "es")}
-            className="font-marker"
+        {/* DESKTOP QUICK ACTION SHORTCUTS (WHATSAPP & CV & LANG) */}
+        <div style={{ display: "none" }} className="md:!flex items-center gap-1.5 border-l border-white/15 pl-2">
+          <a
+            href="https://wa.me/522218226470"
+            target="_blank"
+            rel="noreferrer"
+            className="font-mono"
             style={{
-              marginLeft: "0.8rem",
-              background: "var(--navy)",
-              border: "2px solid var(--red)",
+              background: "rgba(255, 255, 255, 0.1)",
+              border: "1px solid rgba(255, 255, 255, 0.25)",
               color: "#FFFFFF",
-              padding: "0.25rem 0.9rem",
-              fontSize: "1.15rem",
-              cursor: "pointer",
-              boxShadow: "3px 3px 0px var(--red)",
-              transform: "rotate(-3deg)",
-              display: "flex",
+              padding: "0.4rem 0.8rem",
+              borderRadius: "9999px",
+              fontSize: "0.74rem",
+              textDecoration: "none",
+              fontWeight: 700,
+              display: "inline-flex",
               alignItems: "center",
               gap: "0.3rem",
-              clipPath: "polygon(6% 0%, 94% 0%, 100% 100%, 0% 100%)",
+            }}
+          >
+            <MessageSquare size={13} /> WHATSAPP
+          </a>
+
+          <a
+            href="/CV_Angel_GG.pdf"
+            download="CV_Angel_GG.pdf"
+            className="font-mono"
+            style={{
+              background: "rgba(255, 255, 255, 0.1)",
+              border: "1px solid rgba(255, 255, 255, 0.25)",
+              color: "#FFFFFF",
+              padding: "0.4rem 0.8rem",
+              borderRadius: "9999px",
+              fontSize: "0.74rem",
+              textDecoration: "none",
+              fontWeight: 700,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.3rem",
+            }}
+          >
+            <Download size={13} /> CV
+          </a>
+
+          <button
+            onClick={() => setLang(lang === "es" ? "en" : "es")}
+            className="font-mono"
+            style={{
+              background: "rgba(255, 255, 255, 0.12)",
+              border: "1px solid rgba(255, 255, 255, 0.25)",
+              color: "#FFFFFF",
+              padding: "0.4rem 0.75rem",
+              borderRadius: "9999px",
+              fontSize: "0.74rem",
+              cursor: "pointer",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.3rem",
+              fontWeight: 700,
             }}
             title={lang === "es" ? "Switch to English" : "Cambiar a Español"}
           >
-            <span>{lang === "es" ? "ES" : "EN"}</span>
+            <Globe size={13} /> <span>{lang === "es" ? "ES" : "EN"}</span>
           </button>
-        </nav>
+        </div>
 
-        {/* ── MOBILE CONTROLS (SMOOTH ROTATING ICON TOGGLE BUTTON) ── */}
-        <div className="lg:!hidden" style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-          {/* Language Switcher Mobile */}
+        {/* MOBILE DOCK WITH QUICK ACTION ICONS & MENU TRIGGER */}
+        <div className="md:!hidden" style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+          <Link
+            href="/#hero"
+            style={{
+              background: "rgba(255, 255, 255, 0.08)",
+              border: "1px solid rgba(255, 255, 255, 0.2)",
+              color: "#FFFFFF",
+              width: "36px",
+              height: "36px",
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            title="Inicio"
+          >
+            <Home size={16} />
+          </Link>
+
+          <Link
+            href="/#portfolio"
+            style={{
+              background: "rgba(255, 255, 255, 0.08)",
+              border: "1px solid rgba(255, 255, 255, 0.2)",
+              color: "#FFFFFF",
+              width: "36px",
+              height: "36px",
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            title="Proyectos"
+          >
+            <FolderGit2 size={16} />
+          </Link>
+
+          <a
+            href="https://wa.me/522218226470"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              background: "rgba(255, 255, 255, 0.08)",
+              border: "1px solid rgba(255, 255, 255, 0.2)",
+              color: "#FFFFFF",
+              width: "36px",
+              height: "36px",
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            title="WhatsApp"
+          >
+            <MessageSquare size={16} />
+          </a>
+
+          <button
+            onClick={handleToggle}
+            className="font-mono"
+            style={{
+              background: "rgba(255, 255, 255, 0.16)",
+              border: "1px solid rgba(255, 255, 255, 0.3)",
+              color: "#FFFFFF",
+              padding: "0.45rem 0.95rem",
+              borderRadius: "9999px",
+              fontSize: "0.82rem",
+              cursor: "pointer",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.4rem",
+              fontWeight: 700,
+            }}
+          >
+            <Menu size={16} /> <span>{t("MENÚ", "MENU")}</span>
+          </button>
+
           <button
             onClick={() => setLang(lang === "es" ? "en" : "es")}
-            className="font-marker"
+            className="font-mono"
             style={{
-              background: "var(--navy)",
-              border: "2px solid var(--red)",
+              background: "rgba(255, 255, 255, 0.1)",
+              border: "1px solid rgba(255, 255, 255, 0.2)",
               color: "#FFFFFF",
-              padding: "0.25rem 0.7rem",
-              fontSize: "1.1rem",
+              padding: "0.45rem 0.75rem",
+              borderRadius: "9999px",
+              fontSize: "0.78rem",
               cursor: "pointer",
-              boxShadow: "2px 2px 0px var(--red)",
-              transform: "rotate(-2deg)",
-              clipPath: "polygon(6% 0%, 94% 0%, 100% 100%, 0% 100%)",
+              fontWeight: 700,
             }}
           >
             {lang === "es" ? "EN" : "ES"}
           </button>
-
-          {/* Clean Smooth Icon Toggle Button */}
-          <button
-            onClick={handleToggle}
-            style={{
-              background: mobileOpen ? "var(--red)" : "var(--navy)",
-              border: "2px solid var(--navy)",
-              color: "#FFFFFF",
-              width: "42px",
-              height: "42px",
-              borderRadius: "8px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              boxShadow: mobileOpen ? "3px 3px 0px var(--navy)" : "3px 3px 0px var(--red)",
-              transform: "rotate(1deg)",
-              flexShrink: 0,
-              transition: "background 0.2s ease, box-shadow 0.2s ease",
-            }}
-            aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              {mobileOpen ? (
-                <motion.div
-                  key="icon-x"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                  style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
-                >
-                  <X size={22} />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="icon-menu"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                  style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
-                >
-                  <Menu size={22} />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </button>
         </div>
       </header>
 
-      {/* ══ MOBILE MENU OVERLAY ══ */}
+      {/* MOBILE APPLE GLASS MENU CARD */}
       <AnimatePresence mode="wait">
         {mobileOpen && (
           <motion.div
             key="mobile-nav-overlay"
-            className="lg:!hidden"
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.18, ease: "easeInOut" }}
+            className="md:!hidden"
+            initial={{ opacity: 0, y: 15, x: "-50%" }}
+            animate={{ opacity: 1, y: 0, x: "-50%" }}
+            exit={{ opacity: 0, y: 15, x: "-50%" }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
             style={{
               position: "fixed",
-              top: "72px",
-              left: 0,
-              right: 0,
-              bottom: 0,
-              height: "calc(100vh - 72px)",
-              background: "#FAF5EB",
-              borderTop: "3px solid var(--navy)",
-              padding: "1.4rem 1.4rem 2.5rem",
+              bottom: "80px",
+              left: "50%",
+              width: "calc(100vw - 32px)",
+              maxWidth: "380px",
+              background: "rgba(10, 14, 26, 0.95)",
+              border: "1px solid rgba(255, 255, 255, 0.28)",
+              borderRadius: "28px",
+              padding: "1.2rem",
               display: "flex",
               flexDirection: "column",
-              backdropFilter: "blur(24px)",
-              WebkitBackdropFilter: "blur(24px)",
-              zIndex: 95,
+              backdropFilter: "blur(32px) saturate(180%)",
+              WebkitBackdropFilter: "blur(32px) saturate(180%)",
+              zIndex: 99,
+              boxShadow: "0 25px 60px rgba(0, 0, 0, 0.95)",
+              maxHeight: "75vh",
               overflowY: "auto",
+              boxSizing: "border-box",
             }}
           >
-            {/* Header Directory Banner */}
             <div
               style={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                marginBottom: "1.5rem",
-                borderBottom: "3px dashed var(--red)",
-                paddingBottom: "1rem",
+                marginBottom: "1rem",
+                borderBottom: "1px solid rgba(255, 255, 255, 0.15)",
+                paddingBottom: "0.8rem",
               }}
             >
-              <div>
-                <span className="font-mono" style={{ background: "var(--navy)", color: "#FFF", padding: "4px 12px", fontWeight: 900, fontSize: "0.8rem", transform: "rotate(-2deg)", display: "inline-block" }}>
-                  MENÚ DE NAVEGACIÓN // 2026
-                </span>
-                <div className="font-spray" style={{ fontSize: "2rem", color: "var(--red)", marginTop: 4 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#FFFFFF" }} />
+                <span className="font-mono" style={{ color: "#FFFFFF", fontWeight: 700, fontSize: "0.85rem" }}>
                   ANGEL GOMEZ GARCIA
-                </div>
+                </span>
               </div>
-              <span className="stamp-badge" style={{ fontSize: "0.85rem", border: "2px solid var(--navy)", color: "var(--navy)", padding: "3px 8px" }}>
-                FULLSTACK
-              </span>
+              <button
+                onClick={() => setMobileOpen(false)}
+                style={{
+                  background: "rgba(255, 255, 255, 0.15)",
+                  border: "1px solid rgba(255, 255, 255, 0.25)",
+                  color: "#FFFFFF",
+                  borderRadius: "50%",
+                  width: "30px",
+                  height: "30px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                }}
+              >
+                <X size={16} />
+              </button>
             </div>
 
-            {/* Mobile Nav Cards */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem", flex: 1 }}>
+            {/* Mobile Nav Links */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
               {NAV.map((item) => {
                 const sectionKey = item.href.replace("/#", "").replace("#", "")
                 const isActive = !item.page && activeSection === sectionKey
+                const Icon = item.icon
 
                 return (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    onClick={() => setMobileOpen(false)}
-                    style={{ textDecoration: "none" }}
-                  >
+                  <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)} style={{ textDecoration: "none" }}>
                     <div
-                      className="street-card-hover"
                       style={{
-                        background: item.page ? "var(--red)" : isActive ? "var(--navy)" : "#EAE0D0",
-                        color: item.page ? "#FFFFFF" : isActive ? "#FFFFFF" : "var(--navy)",
-                        border: "2px solid var(--navy)",
-                        boxShadow: isActive ? "5px 5px 0px var(--red)" : "4px 4px 0px var(--navy)",
-                        padding: "0.95rem 1.4rem",
+                        background: isActive ? "rgba(255, 255, 255, 0.18)" : "rgba(255, 255, 255, 0.05)",
+                        color: "#FFFFFF",
+                        border: isActive ? "1px solid rgba(255, 255, 255, 0.35)" : "1px solid rgba(255, 255, 255, 0.1)",
+                        borderRadius: "16px",
+                        padding: "0.75rem 1rem",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "space-between",
-                        transform: item.rot,
-                        clipPath: item.shape,
                       }}
                     >
-                      <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                        <span
-                          className="font-mono"
-                          style={{
-                            fontSize: "0.78rem",
-                            background: item.page ? "var(--navy)" : isActive ? "var(--red)" : "#FAF5EB",
-                            color: item.page || isActive ? "#FFF" : "var(--navy)",
-                            padding: "4px 10px",
-                            fontWeight: 900,
-                            border: "1px solid var(--navy)",
-                          }}
-                        >
-                          {item.num}
-                        </span>
-                        <span className="font-display" style={{ fontSize: "1.9rem", letterSpacing: "0.04em", lineHeight: 1 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.7rem" }}>
+                        <Icon size={16} style={{ color: "#FFFFFF" }} />
+                        <span className="font-mono" style={{ fontSize: "0.9rem", letterSpacing: "0.03em", fontWeight: 700 }}>
                           {item.label}
                         </span>
                       </div>
-
-                      <span className="font-mono" style={{ fontSize: "0.9rem", fontWeight: 900 }}>
-                        {item.page ? "PÁGINA ➔" : isActive ? "ACTIVE" : "➔"}
+                      <span className="font-mono" style={{ fontSize: "0.75rem", color: "#94A3B8" }}>
+                        {item.page ? "PÁGINA ➔" : isActive ? "ACTIVO" : "➔"}
                       </span>
                     </div>
                   </Link>
@@ -385,63 +407,62 @@ export default function TopNavBar() {
               })}
             </div>
 
-            {/* Quick Contact Buttons at Bottom */}
+            {/* Quick Contact Actions */}
             <div
               style={{
-                borderTop: "3px dashed var(--navy)",
-                paddingTop: "1.4rem",
-                marginTop: "1.8rem",
+                borderTop: "1px solid rgba(255, 255, 255, 0.15)",
+                paddingTop: "0.9rem",
+                marginTop: "0.9rem",
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr",
-                gap: "1rem",
+                gap: "0.6rem",
               }}
             >
               <a
                 href="https://wa.me/522218226470"
                 target="_blank"
                 rel="noreferrer"
-                className="font-mono street-card-hover"
+                className="font-mono"
                 style={{
-                  background: "var(--red)",
+                  background: "rgba(255, 255, 255, 0.12)",
                   color: "#FFFFFF",
-                  border: "2px solid var(--navy)",
-                  padding: "0.85rem",
-                  fontSize: "0.85rem",
+                  border: "1px solid rgba(255, 255, 255, 0.25)",
+                  padding: "0.65rem",
+                  borderRadius: "12px",
+                  fontSize: "0.78rem",
                   textAlign: "center",
                   textDecoration: "none",
-                  fontWeight: 900,
-                  boxShadow: "4px 4px 0px var(--navy)",
+                  fontWeight: 700,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  gap: "0.5rem",
-                  clipPath: "polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%)",
+                  gap: "0.4rem",
                 }}
               >
-                <MessageSquare size={16} /> WHATSAPP
+                <MessageSquare size={14} /> WHATSAPP
               </a>
 
               <a
-                href="mailto:angelgom042@gmail.com"
-                className="font-mono street-card-hover"
+                href="/CV_Angel_GG.pdf"
+                download="CV_Angel_GG.pdf"
+                className="font-mono"
                 style={{
-                  background: "var(--navy)",
+                  background: "rgba(255, 255, 255, 0.12)",
                   color: "#FFFFFF",
-                  border: "2px solid var(--navy)",
-                  padding: "0.85rem",
-                  fontSize: "0.85rem",
+                  border: "1px solid rgba(255, 255, 255, 0.25)",
+                  padding: "0.65rem",
+                  borderRadius: "12px",
+                  fontSize: "0.78rem",
                   textAlign: "center",
                   textDecoration: "none",
-                  fontWeight: 900,
-                  boxShadow: "4px 4px 0px var(--red)",
+                  fontWeight: 700,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  gap: "0.5rem",
-                  clipPath: "polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%)",
+                  gap: "0.4rem",
                 }}
               >
-                <Mail size={16} style={{ color: "var(--red)" }} /> CORREO
+                <Download size={14} /> CV
               </a>
             </div>
           </motion.div>

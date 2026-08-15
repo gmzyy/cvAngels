@@ -1,9 +1,9 @@
 "use client"
+
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
-import { MapPin, Mail, MessageSquare, GraduationCap, CheckCircle2 } from "lucide-react"
+import { MapPin, Mail, MessageSquare, ShieldCheck, Terminal, Cpu, Download, ArrowRight, Sparkles } from "lucide-react"
 import { useLanguage } from "@/context/LanguageContext"
-import { TornCard, GraffitiCircle, SprayBlob } from "./TornCard"
 
 export default function AboutSection() {
   const ref = useRef<HTMLElement>(null)
@@ -17,282 +17,246 @@ export default function AboutSection() {
       style={{
         position: "relative",
         zIndex: 10,
-        padding: "7rem 1.5rem",
+        padding: "6rem 1.5rem",
         maxWidth: "1400px",
         margin: "0 auto",
-        overflow: "visible",
       }}
     >
-      {/* Background Graffiti Accents */}
-      <GraffitiCircle size={350} color="#A31621" opacity={0.06} style={{ top: "0px", left: "-60px", zIndex: 0 }} />
-      <GraffitiCircle size={280} color="#0F1B33" opacity={0.07} style={{ bottom: "20px", right: "-40px", zIndex: 0 }} />
-
-      {/* ══ HEADER CANVAS BANNER ══ */}
+      {/* ══ HEADER BANNER ══ */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 25 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
-        style={{ marginBottom: "4.5rem", position: "relative", zIndex: 5 }}
+        style={{ marginBottom: "3.5rem", textAlign: "center" }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
-          <span className="font-tag" style={{
-            background: "var(--red)",
-            color: "#FFFFFF",
-            padding: "0.35rem 1.4rem",
-            fontSize: "1.3rem",
-            transform: "rotate(-3deg)",
-            boxShadow: "5px 5px 0px var(--navy)",
-            border: "2px solid var(--navy)",
-          }}>
-            // {t("MANIFIESTO & PROFILE", "MANIFESTO & PROFILE")}
-          </span>
-          <span className="stamp-badge animate-stamp" style={{ transform: "rotate(5deg)" }}>
-            REAL TALK
-          </span>
-          <span className="handwritten-note font-marker">
-            Street Verified ➔
+        <div style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", background: "rgba(255, 255, 255, 0.08)", border: "1px solid rgba(255, 255, 255, 0.2)", padding: "0.4rem 1.2rem", borderRadius: "9999px", marginBottom: "1rem" }}>
+          <Sparkles size={14} style={{ color: "#FFFFFF" }} />
+          <span className="font-mono" style={{ fontSize: "0.78rem", color: "#FFFFFF", fontWeight: 700, letterSpacing: "0.08em" }}>
+            // {t("PERFIL & ARQUITECTURA", "PROFILE & ARCHITECTURE")}
           </span>
         </div>
 
-        <h2 className="spray-drippy-title" style={{
-          fontSize: "clamp(3.2rem, 9vw, 8rem)",
-          color: "var(--red)",
-          margin: 0,
-        }}>
-          {t("INGENIERÍA", "SOFTWARE")}
+        <h2 className="spray-drippy-title" style={{ fontSize: "clamp(3rem, 8vw, 6.2rem)", color: "#FFFFFF", margin: 0, lineHeight: 0.9 }}>
+          ANGEL GOMEZ GARCIA
         </h2>
-
-        <div className="font-spray" style={{
-          fontSize: "clamp(2.6rem, 8vw, 7rem)",
-          color: "var(--navy)",
-          lineHeight: 0.9,
-          transform: "rotate(-4.5deg) translateY(-14px) translateX(20px)",
-          WebkitTextStroke: "2px var(--red)",
-          textShadow: "5px 5px 0px var(--red)",
-          display: "inline-block",
-        }}>
-          &amp; {t("DESARROLLO FULLSTACK", "FULLSTACK DEV")}
-        </div>
       </motion.div>
 
-      {/* ══ STREET CANVAS COLLAGE LAYOUT ══ */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "3.5rem", alignItems: "center", position: "relative", zIndex: 10 }} className="lg:!grid-cols-[1.1fr_0.9fr]">
-
-        {/* ── LEFT: MANIFESTO POSTER ── */}
+      {/* ══ DIVERSE GEOMETRIC CONTENT CONTAINERS (CIRCULAR, UN-BOXED FLOATING, HEXAGONAL) ══ */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr",
+          gap: "3rem",
+          alignItems: "center",
+          position: "relative",
+          zIndex: 10,
+        }}
+        className="lg:!grid-cols-3"
+      >
+        {/* ITEM 1: CIRCULAR GLASS ENCLAVE */}
         <motion.div
-          initial={{ opacity: 0, x: -40, rotate: -2 }}
-          animate={inView ? { opacity: 1, x: 0, rotate: -1.5 } : {}}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          style={{ position: "relative" }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={inView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 0.7 }}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
         >
-          <TornCard
-            shape="torn3"
-            shadow="red"
-            rotate={-2}
-            floatingElements={
-              <>
-                <div className="washi-tape-top" style={{ top: "-18px", left: "15%" }} />
-                <div className="stamp-badge animate-stamp" style={{ position: "absolute", bottom: "-15px", right: "25px", zIndex: 25, transform: "rotate(-8deg)" }}>
-                  APPROVED
-                </div>
-              </>
-            }
+          <div
+            style={{
+              width: "min(100%, 340px)",
+              height: "340px",
+              borderRadius: "50%",
+              background: "rgba(10, 14, 26, 0.85)",
+              backdropFilter: "blur(24px)",
+              border: "1px solid rgba(255, 255, 255, 0.25)",
+              boxShadow: "0 20px 50px rgba(0, 0, 0, 0.85), inset 0 0 30px rgba(255, 255, 255, 0.08)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              padding: "2rem",
+              position: "relative",
+            }}
           >
-            <p className="font-body" style={{
-              fontSize: "1.2rem",
-              color: "var(--navy)",
-              lineHeight: 1.85,
-              fontWeight: 800,
-              marginBottom: "1.8rem",
-            }}>
+            {/* Concentric Circle Sheen */}
+            <div style={{ position: "absolute", inset: "12px", borderRadius: "50%", border: "1px stroke rgba(255, 255, 255, 0.2)", borderStyle: "dashed" }} />
+            
+            <div style={{ width: 44, height: 44, borderRadius: "50%", background: "rgba(255, 255, 255, 0.15)", border: "1px solid rgba(255, 255, 255, 0.35)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "0.8rem" }}>
+              <ShieldCheck size={22} style={{ color: "#FFFFFF" }} />
+            </div>
+            
+            <span className="font-mono" style={{ fontSize: "0.7rem", color: "#94A3B8" }}>// SPEI &amp; FINTECH</span>
+            <h3 className="font-display" style={{ fontSize: "1.5rem", color: "#FFFFFF", marginTop: "0.3rem", marginBottom: "0.6rem" }}>
+              FINTECH 2FA
+            </h3>
+            <p style={{ color: "#CBD5E1", fontSize: "0.88rem", lineHeight: 1.6, margin: 0, fontFamily: "var(--font-body)" }}>
               {t(
-                "Desarrollador Fullstack versátil, especializado en plataformas fintech de alta transaccionalidad, motores de IA para reclutamiento y aplicaciones web de alto rendimiento.",
-                "Versatile Fullstack Developer specializing in high-concurrency fintech platforms, AI recruitment engines, and high-performance web applications."
+                "Integración SPEI en tiempo real, autenticación 2FA/TOTP y encriptación bancaria de datos.",
+                "Real-time SPEI integration, 2FA/TOTP authentication, and banking data encryption."
               )}
             </p>
+          </div>
+        </motion.div>
 
-            <p className="font-body" style={{
-              fontSize: "1.08rem",
-              color: "#112233",
-              lineHeight: 1.75,
-              borderLeft: "6px solid var(--red)",
-              background: "#EAE0D0",
-              padding: "1.3rem 1.5rem",
-              border: "2px solid var(--navy)",
-              fontWeight: 700,
-              transform: "rotate(0.5deg)",
-              boxShadow: "4px 4px 0px var(--navy)",
-            }}>
-              {t(
-                "Manejo fluido entre backend (NestJS, FastAPI), frontend (Next.js 15, React 19), seguridad (2FA/TOTP, anti-replay) y modelos NLP (SpaCy, LangChain, ChromaDB).",
-                "Proficient across backend (NestJS, FastAPI), frontend (Next.js 15, React 19), security (2FA/TOTP, anti-replay) and NLP models (SpaCy, LangChain, ChromaDB)."
-              )}
-            </p>
-          </TornCard>
-
-          {/* OVERLAPPING STATS STICKERS PINNED TO THE MANIFESTO */}
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
+        {/* ITEM 2: UN-BOXED FLOATING FREE TEXT (FLOTANDO SIN NADA) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
             gap: "1.2rem",
-            marginTop: "2.5rem",
-            position: "relative",
-            zIndex: 15,
-          }}>
-            {[
-              { num: "2+", label: t("AÑOS EXP", "YEARS EXP"), bg: "var(--red)", color: "#FFF", rot: "-5deg", shape: "tagLeft" as const },
-              { num: "3", label: t("EMPRESAS", "COMPANIES"), bg: "#FAF5EB", color: "var(--navy)", rot: "4deg", shape: "ticketNotch" as const },
-              { num: "100%", label: t("CÓDIGO PROPIO", "CUSTOM CODE"), bg: "var(--navy)", color: "#FFF", rot: "-3deg", shape: "slashRight" as const },
-            ].map(({ num, label, bg, color, rot, shape }) => (
-              <TornCard
-                key={label}
-                shape={shape}
-                shadow="none"
-                rotate={parseFloat(rot)}
-                innerPadding="0.8rem 1rem"
-                innerStyle={{ background: bg, color: color, border: "3px solid var(--navy)" }}
+            padding: "1rem",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+            <Cpu size={22} style={{ color: "#FFFFFF" }} />
+            <span className="font-mono" style={{ fontSize: "0.85rem", color: "#FFFFFF", fontWeight: 700, letterSpacing: "0.1em" }}>
+              // IA &amp; MOTOR RAG (FLOTANTE)
+            </span>
+          </div>
+
+          <h3 className="font-display" style={{ fontSize: "2.4rem", color: "#FFFFFF", margin: 0, lineHeight: 1 }}>
+            INTELIGENCIA ARTIFICIAL
+          </h3>
+
+          <p style={{ color: "#CBD5E1", fontSize: "1.05rem", lineHeight: 1.8, margin: 0, fontFamily: "var(--font-body)" }}>
+            {t(
+              "Orquestación de pipelines NLP con SpaCy para lectura inteligente de documentos y CVs, vectores en ChromaDB y conexión de modelos LLMs.",
+              "Orchestration of NLP pipelines with SpaCy for intelligent CV parsing, ChromaDB vector embeddings, and LLM model integration."
+            )}
+          </p>
+
+          <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+            {["SpaCy NLP", "LangChain", "ChromaDB", "LLMs"].map((badge) => (
+              <span
+                key={badge}
+                className="font-mono"
+                style={{
+                  fontSize: "0.78rem",
+                  color: "#FFFFFF",
+                  background: "rgba(255, 255, 255, 0.08)",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  padding: "0.35rem 0.9rem",
+                  borderRadius: "9999px",
+                  fontWeight: 600,
+                }}
               >
-                <div className="font-display" style={{
-                  fontSize: "3.2rem",
-                  lineHeight: 0.85,
-                  color: color,
-                  textShadow: bg === "#FAF5EB" ? "3px 3px 0px var(--red)" : "none",
-                }}>
-                  {num}
-                </div>
-                <div className="font-mono" style={{
-                  fontSize: "0.68rem",
-                  letterSpacing: "0.12em",
-                  marginTop: 8,
-                  fontWeight: 900,
-                }}>
-                  {label}
-                </div>
-              </TornCard>
+                {badge}
+              </span>
             ))}
           </div>
         </motion.div>
 
-        {/* ── RIGHT: POLAROID ID STICKER CARD ── */}
+        {/* ITEM 3: HEXAGONAL ASYMMETRIC CAPSULE */}
         <motion.div
-          initial={{ opacity: 0, x: 40, rotate: 3 }}
-          animate={inView ? { opacity: 1, x: 0, rotate: 2.5 } : {}}
+          initial={{ opacity: 0, x: 25 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.3 }}
-          style={{ position: "relative" }}
+          style={{
+            background: "rgba(10, 14, 26, 0.85)",
+            backdropFilter: "blur(20px)",
+            border: "1px solid rgba(255, 255, 255, 0.25)",
+            padding: "2.2rem 1.8rem",
+            clipPath: "polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px)",
+            boxShadow: "0 15px 40px rgba(0, 0, 0, 0.8)",
+          }}
         >
-          <TornCard
-            shape="tagLeft"
-            shadow="navy"
-            rotate={3}
-            floatingElements={
-              <>
-                <div className="washi-tape-corner" style={{ top: "-16px", left: "-14px", zIndex: 25 }} />
-                <SprayBlob
-                  variant={1}
-                  color="#A31621"
-                  style={{
-                    position: "absolute",
-                    top: "-22px",
-                    right: "-12px",
-                    zIndex: 25,
-                    width: "4.2rem",
-                    height: "4.2rem",
-                    transform: "rotate(12deg)",
-                  }}
-                >
-                  <span className="font-mono" style={{ fontSize: "0.65rem", textAlign: "center", lineHeight: 1.1 }}>
-                    DEV ID<br />#042
-                  </span>
-                </SprayBlob>
-              </>
-            }
-          >
-            {/* Header Tag */}
-            <div style={{ marginBottom: "1.6rem", borderBottom: "3px dashed var(--red)", paddingBottom: "1.4rem" }}>
-              <span className="font-wild" style={{ fontSize: "2.4rem", color: "var(--red)", display: "block", transform: "rotate(-4deg)" }}>
-                #GEELMZ ➔
-              </span>
-              <h3 className="font-display" style={{ fontSize: "3.2rem", color: "var(--navy)", lineHeight: 0.9, marginTop: 4 }}>
-                ANGEL GOMEZ
-              </h3>
-              <div className="font-spray" style={{ fontSize: "1.9rem", color: "var(--red)", marginTop: 2 }}>
-                aka Feelmz
-              </div>
-              <div className="font-tag" style={{
-                marginTop: 12,
-                display: "inline-block",
-                background: "var(--navy)",
-                color: "#FFF",
-                padding: "0.25rem 0.9rem",
-                fontSize: "1.2rem",
-                transform: "rotate(-2deg)",
-                boxShadow: "4px 4px 0px var(--red)",
-              }}>
-                [ FULLSTACK DEVELOPER &amp; IA ]
-              </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", marginBottom: "1rem" }}>
+            <div style={{ width: 38, height: 38, borderRadius: "50%", background: "rgba(255, 255, 255, 0.12)", border: "1px solid rgba(255, 255, 255, 0.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <Terminal size={20} style={{ color: "#FFFFFF" }} />
             </div>
-
-            {/* Contact Details List */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.9rem" }}>
-              {[
-                { Icon: MapPin, text: "Puebla, México" },
-                { Icon: Mail, text: "angelgom042@gmail.com" },
-                { Icon: MessageSquare, text: "WA / Tel: +52 221 822 6470" },
-              ].map(({ Icon, text }, idx) => (
-                <div key={text} className="font-mono" style={{
-                  display: "flex", alignItems: "center", gap: "0.8rem",
-                  fontSize: "0.88rem",
-                  color: "var(--navy)",
-                  background: "#EAE0D0",
-                  padding: "0.7rem 0.9rem",
-                  border: "2px solid var(--navy)",
-                  fontWeight: 900,
-                  transform: `rotate(${idx % 2 === 0 ? -1 : 1}deg)`,
-                  boxShadow: "3px 3px 0px var(--navy)",
-                }}>
-                  <Icon size={16} style={{ color: "var(--red)", flexShrink: 0 }} />
-                  <span>{text}</span>
-                </div>
-              ))}
+            <div>
+              <span className="font-mono" style={{ fontSize: "0.68rem", color: "#94A3B8" }}>// FULLSTACK STACK</span>
+              <h3 className="font-display" style={{ fontSize: "1.6rem", color: "#FFFFFF", margin: 0 }}>HEXAGONAL WEB</h3>
             </div>
-
-            {/* Languages Section */}
-            <div style={{ borderTop: "2px dashed var(--red)", paddingTop: "1.2rem", marginTop: "1.6rem" }}>
-              <div className="font-mono" style={{
-                fontSize: "0.72rem", letterSpacing: "0.18em",
-                textTransform: "uppercase", color: "var(--red)",
-                marginBottom: "0.6rem", fontWeight: 900,
-              }}>
-                [ {t("IDIOMAS", "LANGUAGES")} ]
-              </div>
-              <div style={{
-                display: "flex", alignItems: "center", gap: "0.6rem",
-                background: "#EAE0D0", padding: "0.65rem 0.9rem", border: "2px solid var(--navy)",
-                transform: "rotate(1deg)",
-                boxShadow: "3px 3px 0px var(--navy)",
-              }}>
-                <span className="font-mono" style={{ fontSize: "0.85rem", color: "var(--navy)", fontWeight: 800 }}>
-                  {t("Nivel Técnico A2", "Technical Level A2")}
-                </span>
-              </div>
-            </div>
-
-            {/* Download CV CTA Button */}
-            <div style={{ marginTop: "1.8rem" }}>
-              <a
-                href="/CV_Angel_GG.pdf"
-                download="CV_Angel_GG.pdf"
-                target="_blank"
-                rel="noreferrer"
-                className="btn-street-primary"
-                style={{ width: "100%", justifyContent: "center" }}
-              >
-                {t("DESCARGAR CV", "DOWNLOAD CV")} ➔
-              </a>
-            </div>
-          </TornCard>
+          </div>
+          <p style={{ color: "#CBD5E1", fontSize: "0.95rem", lineHeight: 1.7, fontFamily: "var(--font-body)", margin: 0 }}>
+            {t(
+              "Desarrollo de interfaces reactivas con Next.js 16, React 19, TypeScript, NestJS, FastAPI y microservicios Docker.",
+              "Development of reactive interfaces with Next.js 16, React 19, TypeScript, NestJS, FastAPI, and Docker microservices."
+            )}
+          </p>
         </motion.div>
+      </div>
 
+      {/* ══ PERSONAL DATA SUMMARY STRIP (ROUNDED PILL TUBE) ══ */}
+      <div
+        style={{
+          marginTop: "3.5rem",
+          background: "rgba(10, 14, 26, 0.85)",
+          backdropFilter: "blur(20px)",
+          border: "1px solid rgba(255, 255, 255, 0.22)",
+          borderRadius: "9999px",
+          padding: "1.2rem 2.2rem",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "1.5rem",
+          position: "relative",
+          zIndex: 10,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "1.8rem", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+            <MapPin size={18} style={{ color: "#FFFFFF" }} />
+            <span className="font-mono" style={{ fontSize: "0.9rem", color: "#FFFFFF", fontWeight: 700 }}>PUEBLA, MÉXICO</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+            <Mail size={18} style={{ color: "#FFFFFF" }} />
+            <span className="font-mono" style={{ fontSize: "0.9rem", color: "#CBD5E1" }}>angelgom042@gmail.com</span>
+          </div>
+        </div>
+
+        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+          <a
+            href="https://wa.me/522218226470"
+            target="_blank"
+            rel="noreferrer"
+            className="font-mono"
+            style={{
+              background: "rgba(255, 255, 255, 0.12)",
+              color: "#FFFFFF",
+              border: "1px solid rgba(255, 255, 255, 0.3)",
+              padding: "0.55rem 1.4rem",
+              borderRadius: "9999px",
+              fontSize: "0.85rem",
+              textDecoration: "none",
+              fontWeight: 700,
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+            }}
+          >
+            <MessageSquare size={15} /> WHATSAPP
+          </a>
+          <a
+            href="/CV_Angel_GG.pdf"
+            download="CV_Angel_GG.pdf"
+            className="font-mono"
+            style={{
+              background: "rgba(255, 255, 255, 0.18)",
+              color: "#FFFFFF",
+              border: "1px solid rgba(255, 255, 255, 0.4)",
+              padding: "0.55rem 1.4rem",
+              borderRadius: "9999px",
+              fontSize: "0.85rem",
+              textDecoration: "none",
+              fontWeight: 700,
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+            }}
+          >
+            <Download size={15} /> DESCARGAR CV
+          </a>
+        </div>
       </div>
     </section>
   )

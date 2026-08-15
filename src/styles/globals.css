@@ -3,43 +3,56 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ══════════════════════════════════════════════════════
-   FEELMZ // GEELMZ — PUNK ZINE / GRUNGE EDITORIAL SYSTEM
-   Authentic Spray Paint · Washi Tape · Halftone · Stamps
-   Rojo Sangre (#C41E3A) · Azul Navy (#0B1B3D) · Hueso (#F4EFE6)
+   GEELMZ — MINIMALIST TECH & ETHEREAL DESIGN SYSTEM
+   Obsidian (#030712) · Ethereal Silver (#F8FAFC) · Platinum (#CBD5E1)
+   Pure Monochrome & Scroll-Driven WebGL Transitions
    ══════════════════════════════════════════════════════ */
 
 :root {
-  /* Street & Grunge Font Stack */
-  --font-spray:    'Rubik Spray Paint', cursive;
-  --font-tag:      'Sedgwick Ave', 'Mr Dafoe', cursive;
-  --font-marker:   'Rock Salt', 'Gloria Hallelujah', cursive;
-  --font-cursive:  'Mr Dafoe', 'Splash', cursive;
-  --font-wild:     'East Sea Dokdo', 'Creepster', cursive;
-  --font-display:  'Bebas Neue', sans-serif;
-  --font-glitch:   'Rubik Glitch', cursive;
-  --font-mono:     'Courier Prime', monospace;
+  /* Minimalist Tech Font Hierarchy */
+  --font-display:  'Orbitron', sans-serif;
+  --font-tech:     'Rajdhani', sans-serif;
+  --font-title:    'Space Grotesk', sans-serif;
+  --font-mono:     'JetBrains Mono', 'Share Tech Mono', monospace;
   --font-body:     'Inter', sans-serif;
+  --font-spray:    'Orbitron', sans-serif;
+  --font-tag:      'Share Tech Mono', monospace;
+  --font-marker:   'Rajdhani', sans-serif;
+  --font-wild:     'Orbitron', sans-serif;
 
-  /* Color Palette: Rojo Sangre, Azul Marino Oscuro, Crema Hueso & Negro Tinta */
-  --bg:            #F4EFE6; /* Fondo Hueso / Kraft Paper */
-  --bg-card:       #FAF5EB; /* Crema Papel Kraft */
-  --bg-paper:      #EAE0D0; /* Papel Envejecido */
+  /* Monochromatic Color Palette */
+  --bg-void:       #030712;
+  --bg-surface:    #0a0c16;
+  --bg-card:       rgba(10, 14, 26, 0.82);
+  --bg-card-hover: rgba(16, 22, 38, 0.90);
 
-  /* Rojo Sangre (#C41E3A) */
-  --red:           #C41E3A; /* Rojo Sangre Grunge */
-  --red-accent:    #A3182E;
-  --red-glow:      rgba(196, 30, 58, 0.35);
+  /* Ethereal Silver & Platinum (No harsh RGB) */
+  --cyan:          #F8FAFC; /* Pure Ethereal Silver */
+  --cyan-glow:     rgba(255, 255, 255, 0.45);
+  --cyan-dim:      rgba(255, 255, 255, 0.12);
 
-  /* Azul Marino Oscuro */
-  --navy:          #0B1B3D; /* Deep Dark Navy */
-  --navy-light:    #122B5C;
-  --navy-dark:     #050F24;
+  --magenta:       #CBD5E1; /* Metallic Platinum */
+  --magenta-glow:  rgba(203, 213, 225, 0.35);
+  --magenta-dim:   rgba(203, 213, 225, 0.12);
 
-  /* Negro Tinta */
-  --ink:           #0A0A0A; /* Negro Tinta Pura */
-  --white:         #FFFFFF;
-  --grey:          #556677;
-  --border:        #0A0A0A;
+  --emerald:       #E2E8F0;
+  --emerald-glow:  rgba(226, 232, 240, 0.35);
+
+  --purple:        #94A3B8;
+  --purple-glow:   rgba(148, 163, 184, 0.3);
+
+  /* Text & Border Colors */
+  --text-main:     #F8FAFC;
+  --text-muted:    #94A3B8;
+  --text-dark:     #64748B;
+  --border-cyan:   rgba(255, 255, 255, 0.18);
+  --border-magenta:rgba(255, 255, 255, 0.14);
+  --border-glass:  rgba(255, 255, 255, 0.10);
+
+  /* Compatibility Fallbacks */
+  --bg:            #030712;
+  --navy:          #0a0c16;
+  --red:           #F8FAFC;
 }
 
 *, *::before, *::after {
@@ -50,389 +63,218 @@
 
 html {
   scroll-behavior: smooth;
-  background: var(--bg);
+  background: #000000;
+  color-scheme: dark;
 }
 
 body {
   font-family: var(--font-body);
-  background: var(--bg);
-  color: var(--navy);
+  background: transparent;
+  color: var(--text-main);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  background-image: 
-    repeating-linear-gradient(-35deg, rgba(196, 30, 58, 0.05) 0px, rgba(196, 30, 58, 0.05) 3px, transparent 3px, transparent 160px),
-    repeating-linear-gradient(55deg, rgba(11, 27, 61, 0.04) 0px, rgba(11, 27, 61, 0.04) 2px, transparent 2px, transparent 200px),
-    radial-gradient(rgba(11, 27, 61, 0.1) 1.5px, transparent 0),
-    linear-gradient(to right, rgba(196, 30, 58, 0.03) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 24px 24px, 48px 48px;
 }
 
+/* Custom Minimal Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--red); border: 1px solid var(--navy); }
+::-webkit-scrollbar-track { background: #030712; }
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
 
 /* Typography Utilities */
-.font-spray   { font-family: var(--font-spray); }
-.font-tag     { font-family: var(--font-tag); }
-.font-marker  { font-family: var(--font-marker); }
-.font-cursive { font-family: var(--font-cursive); }
-.font-wild    { font-family: var(--font-wild); }
 .font-display { font-family: var(--font-display); }
-.font-glitch  { font-family: var(--font-glitch); }
+.font-tech    { font-family: var(--font-tech); }
+.font-title   { font-family: var(--font-title); }
 .font-mono    { font-family: var(--font-mono); }
+.font-spray   { font-family: var(--font-display); }
+.font-tag     { font-family: var(--font-mono); }
+.font-marker  { font-family: var(--font-tech); }
+.font-wild    { font-family: var(--font-display); }
 
 /* ══════════════════════════════════════════════════════
-   PUNK ZINE & GRUNGE UTILITIES
+   MINIMALIST GLASS & ETHEREAL TECH CARDS
    ══════════════════════════════════════════════════════ */
 
-/* 1. HALFTONE COMIC DOTS PATTERN */
-.halftone-bg {
-  background-image: radial-gradient(var(--navy) 22%, transparent 22%);
-  background-size: 12px 12px;
-}
-
-.halftone-red-bg {
-  background-image: radial-gradient(var(--red) 22%, transparent 22%);
-  background-size: 10px 10px;
-}
-
-/* 2. WASHI TAPE / MASKING TAPE (SIMULATED TAPE OVER CARDS) */
-.washi-tape-top {
-  position: absolute;
-  top: -14px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-2deg);
-  width: 110px;
-  height: 26px;
-  background: rgba(235, 225, 205, 0.9);
-  border: 1px dashed rgba(11, 27, 61, 0.4);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  z-index: 25;
-  pointer-events: none;
-}
-
-.washi-tape-corner {
-  position: absolute;
-  top: -12px;
-  left: -15px;
-  transform: rotate(-35deg);
-  width: 75px;
-  height: 24px;
-  background: rgba(196, 30, 58, 0.85);
-  border: 1px solid var(--navy);
-  z-index: 25;
-  pointer-events: none;
-}
-
-.washi-tape-right {
-  position: absolute;
-  top: -12px;
-  right: -15px;
-  transform: rotate(32deg);
-  width: 75px;
-  height: 24px;
-  background: rgba(11, 27, 61, 0.85);
-  border: 1px solid var(--red);
-  z-index: 25;
-  pointer-events: none;
-}
-
-/* 3. POLAROID IMAGE FRAME WITH SHADOW & HANDWRITTEN MARKER CAPTION */
-.polaroid-frame {
-  background: #FFFFFF;
-  border: 4px solid var(--ink);
-  box-shadow: 10px 10px 0px var(--navy), 14px 14px 20px rgba(0,0,0,0.2);
-  padding: 1rem 1rem 2.2rem 1rem;
+.cyber-card, .cyber-card-magenta {
+  background: var(--bg-card);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--border-cyan);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.03);
   position: relative;
-  transform: rotate(-2deg);
-  transition: transform 0.2s ease;
-}
-.polaroid-frame:hover {
-  transform: rotate(1deg) scale(1.02);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.polaroid-caption {
-  font-family: var(--font-marker);
-  font-size: 0.9rem;
-  color: var(--ink);
-  text-align: center;
-  margin-top: 0.8rem;
-  transform: rotate(-1deg);
+.cyber-card:hover, .cyber-card-magenta:hover {
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 12px 40px rgba(255, 255, 255, 0.12), inset 0 0 30px rgba(255, 255, 255, 0.08);
+  transform: translateY(-3px);
 }
 
-/* 4. RUBBER STAMP / SELLO EFFECT (PROTOTYPE, DRAFT, ONLY ONE, CONFIDENTIAL) */
-.stamp-badge {
+/* Chamfered Sci-Fi Corners */
+.cyber-clip {
+  clip-path: polygon(
+    0 12px,
+    12px 0,
+    calc(100% - 12px) 0,
+    100% 12px,
+    100% calc(100% - 12px),
+    calc(100% - 12px) 100%,
+    12px 100%,
+    0 calc(100% - 12px)
+  );
+}
+
+.cyber-clip-lg {
+  clip-path: polygon(
+    0 20px,
+    20px 0,
+    calc(100% - 20px) 0,
+    100% 20px,
+    100% calc(100% - 20px),
+    calc(100% - 20px) 100%,
+    20px 100%,
+    0 calc(100% - 20px)
+  );
+}
+
+/* HUD Target Brackets */
+.hud-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+}
+.hud-tl { top: -1px; left: -1px; border-top: 2px solid; border-left: 2px solid; }
+.hud-tr { top: -1px; right: -1px; border-top: 2px solid; border-right: 2px solid; }
+.hud-bl { bottom: -1px; left: -1px; border-bottom: 2px solid; border-left: 2px solid; }
+.hud-br { bottom: -1px; right: -1px; border-bottom: 2px solid; border-right: 2px solid; }
+
+/* Ethereal Tech Buttons */
+.cyber-btn-primary, .btn-street-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 2rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+  color: #FFFFFF;
   font-family: var(--font-display);
-  font-size: 1.2rem;
-  letter-spacing: 0.1em;
-  color: var(--red);
-  border: 3px solid var(--red);
-  padding: 0.2rem 0.8rem;
-  display: inline-block;
-  transform: rotate(-8deg);
-  text-shadow: 1px 1px 0px rgba(0,0,0,0.2);
-  box-shadow: inset 0 0 0 2px var(--red);
-  opacity: 0.9;
-  user-select: none;
-  font-weight: 900;
-}
-
-.stamp-badge-navy {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  letter-spacing: 0.1em;
-  color: var(--navy);
-  border: 3px solid var(--navy);
-  padding: 0.2rem 0.8rem;
-  display: inline-block;
-  transform: rotate(6deg);
-  text-shadow: 1px 1px 0px rgba(0,0,0,0.2);
-  box-shadow: inset 0 0 0 2px var(--navy);
-  opacity: 0.9;
-  user-select: none;
-  font-weight: 900;
-}
-
-/* 5. GRAFFITI SPRAY TITLE WITH DOUBLE CONTOUR (NAVY OUTLINE + RED FILL) */
-.spray-drippy-title {
-  font-family: var(--font-spray);
-  color: var(--red);
-  -webkit-text-stroke: 2px var(--navy);
-  text-shadow: 5px 5px 0px var(--navy), 8px 8px 0px rgba(10,10,10,0.25);
-  line-height: 0.9;
-}
-
-/* 6. HANDWRITTEN MARKER MARGIN NOTES */
-.handwritten-note {
-  font-family: var(--font-marker);
-  color: var(--red);
-  font-size: 0.95rem;
-  transform: rotate(-3deg);
-  display: inline-block;
-}
-
-/* 7. NEWSPAPER FILL / MOCK TEXT RECURRING DECORATIVE BANNER */
-.newspaper-fill-strip {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: rgba(11, 27, 61, 0.45);
-  line-height: 1.1;
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  text-decoration: none;
   text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
   overflow: hidden;
-  white-space: nowrap;
-  letter-spacing: 0.1em;
-  user-select: none;
 }
 
-/* 7.5 ORGANIC TORN PAPER / SPRAY STENCIL POLYGONS */
-.torn-wrapper-red {
-  position: relative;
-  overflow: visible;
-  filter: drop-shadow(10px 10px 0px var(--red));
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease;
-}
-.torn-wrapper-red:hover {
-  transform: translateY(-6px) rotate(-1.8deg) scale(1.01) !important;
-  filter: drop-shadow(16px 16px 0px var(--red)) !important;
-}
-
-.torn-wrapper-navy {
-  position: relative;
-  overflow: visible;
-  filter: drop-shadow(10px 10px 0px var(--navy));
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease;
-}
-.torn-wrapper-navy:hover {
-  transform: translateY(-6px) rotate(1.8deg) scale(1.01) !important;
-  filter: drop-shadow(16px 16px 0px var(--navy)) !important;
-}
-
-.torn-card-1 {
-  clip-path: polygon(0% 0.6rem, 16% 0.1rem, 84% 0.5rem, 100% 0%, 98.6% 45%, 100% 98.2%, 84% 99.4%, 14% 97.8%, 0.8% 100%, 1.4% 52%);
-}
-.torn-card-2 {
-  clip-path: polygon(1.2% 0%, 18% 0.6rem, 82% 0.1rem, 99.2% 0.8rem, 100% 50%, 98.2% 98.6%, 86% 97.5%, 16% 99.8%, 0% 98%, 1.8% 42%);
-}
-.torn-card-3 {
-  clip-path: polygon(0.5% 0.4rem, 22% 0rem, 78% 0.7rem, 100% 0.2rem, 98.4% 38%, 99.6% 99%, 80% 97.6%, 18% 100%, 0% 97.4%, 1.2% 48%);
-}
-.torn-card-4 {
-  clip-path: polygon(0% 0.1rem, 14% 0.7rem, 86% 0rem, 99.4% 0.5rem, 100% 48%, 98.8% 97.8%, 82% 99.6%, 12% 98.2%, 0.6% 99.2%, 1.6% 54%);
-}
-
-/* 8. TAG & STICKER UTILITIES */
-.tag-red {
-  background: var(--red);
+.cyber-btn-primary:hover, .btn-street-primary:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(200, 200, 220, 0.2));
+  border-color: #FFFFFF;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
   color: #FFFFFF;
-  padding: 0.2rem 0.8rem;
-  font-family: var(--font-marker);
-  font-size: 1.4rem;
-  display: inline-block;
-  transform: rotate(-2deg);
-  box-shadow: 4px 4px 0px var(--navy);
-  border: 2px solid var(--navy);
 }
 
-.tag-white {
-  background: var(--navy);
+.cyber-btn-secondary, .btn-street-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 2rem;
+  background: rgba(10, 14, 26, 0.85);
   color: #FFFFFF;
-  padding: 0.25rem 0.9rem;
   font-family: var(--font-display);
-  font-size: 1.4rem;
-  letter-spacing: 0.05em;
-  display: inline-block;
-  transform: rotate(1.5deg);
-  box-shadow: 4px 4px 0px var(--red);
-  border: 2px solid var(--red);
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-.sticker-box {
-  background: var(--navy);
-  border: 2px solid var(--red);
+.cyber-btn-secondary:hover, .btn-street-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
   color: #FFFFFF;
-  padding: 0.4rem 0.9rem;
+}
+
+/* Monochromatic Badges */
+.tag-white, .tag-red, .sticker-box, .stamp-badge, .stamp-badge-navy {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #F8FAFC;
+  padding: 0.3rem 0.9rem;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  text-transform: uppercase;
+  font-size: 0.82rem;
   letter-spacing: 0.1em;
-  box-shadow: 4px 4px 0px var(--red);
-}
-
-/* Street Buttons */
-.btn-street-primary {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.9rem 2.2rem;
-  background: var(--red);
+  gap: 0.5rem;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+
+/* Ethereal Typography & Text Glow Effects ("Letras Etéreas") */
+.glitch-text, .text-ethereal {
   color: #FFFFFF;
-  font-family: var(--font-marker);
-  font-size: 1.7rem;
-  text-decoration: none;
-  text-transform: uppercase;
-  border: 3px solid var(--navy);
-  box-shadow: 6px 6px 0px var(--navy);
-  transform: rotate(-1deg);
-  transition: all 0.2s ease;
-  cursor: pointer;
+  text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.6),
+    0 0 25px rgba(255, 255, 255, 0.3),
+    0 0 45px rgba(255, 255, 255, 0.15);
 }
-.btn-street-primary:hover {
-  background: var(--navy);
+
+.spray-drippy-title {
+  font-family: var(--font-display);
   color: #FFFFFF;
-  border-color: var(--red);
-  box-shadow: 6px 6px 0px var(--red);
-  transform: translate(-3px, -3px) rotate(1deg);
+  text-shadow: 
+    0 0 18px rgba(255, 255, 255, 0.5),
+    0 0 35px rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.04em;
 }
 
-.btn-street-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.9rem 2.2rem;
-  background: var(--navy);
-  color: #FFFFFF;
-  font-family: var(--font-marker);
-  font-size: 1.7rem;
-  text-decoration: none;
-  text-transform: uppercase;
-  border: 3px solid var(--red);
-  box-shadow: 6px 6px 0px var(--red);
-  transform: rotate(1deg);
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
-.btn-street-secondary:hover {
-  background: var(--red);
-  color: #FFFFFF;
-  box-shadow: 6px 6px 0px var(--navy);
-  transform: translate(-3px, -3px) rotate(-1deg);
-}
-
-/* ══════════════════════════════════════════════════════
-   STREET ANIMATIONS & DYNAMIC MICRO-INTERACTIONS
-   ══════════════════════════════════════════════════════ */
-
-/* 1. Spray Paint Pulse / Vibration Animation */
-@keyframes sprayPulse {
-  0%, 100% {
-    transform: rotate(-6deg) translateY(-18px) scale(1);
-  }
-  50% {
-    transform: rotate(-5.2deg) translateY(-20px) scale(1.02);
-  }
-}
-
-.spray-pulse {
-  animation: sprayPulse 3.5s ease-in-out infinite;
-}
-
-/* 2. Stamp Slam Down Animation */
-@keyframes stampSlam {
-  0% {
-    transform: scale(1.8) rotate(-15deg);
-    opacity: 0;
-  }
-  70% {
-    transform: scale(0.92) rotate(-6deg);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1) rotate(-8deg);
-    opacity: 0.9;
-  }
-}
-
-.animate-stamp {
-  animation: stampSlam 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-
-/* 3. Street Card Hover Bounce */
 .street-card-hover {
-  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
 }
 .street-card-hover:hover {
-  transform: translate3d(0, -6px, 0) rotate(-1.5deg) scale(1.01) !important;
-  box-shadow: 14px 14px 0px var(--red) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15) !important;
 }
 
-/* 4. Equalizer Bar Fluctuation */
-@keyframes eqPulse {
-  0%, 100% { opacity: 0.9; }
-  50% { opacity: 0.65; }
+/* Ethereal Scanning Beam */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
 }
 
-.eq-bar-pulse {
-  animation: eqPulse 1.8s ease-in-out infinite;
+.cyber-scanline {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  opacity: 0.6;
+  animation: scanline 4s linear infinite;
+  pointer-events: none;
 }
 
-/* 5. Infinite Slow Vinyl Rotation */
-@keyframes vinylSpin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+/* Floating Eye Aura */
+#cara-ojos-container {
+  filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.3)) drop-shadow(0 4px 14px rgba(0,0,0,0.8)) !important;
 }
 
-.animate-vinyl-spin {
-  animation: vinylSpin 12s linear infinite;
-}
-
-/* 6. MOBILE RESPONSIVE TUNING (Structured Disorder for 375px+) */
-@media (max-width: 768px) {
-  body, html {
-    overflow-x: hidden;
-  }
-  .torn-card-container {
-    transform: rotate(0deg) !important;
-  }
-  .torn-card-container:hover {
-    transform: translateY(-4px) scale(1.01) !important;
-  }
-  .spray-drippy-title {
-    font-size: clamp(2.4rem, 11vw, 4.5rem) !important;
-  }
-}
-
-/* 7. Hide Floating Eye Widget when Mobile Menu is Active */
 body.mobile-menu-active #cara-ojos-container {
   display: none !important;
   opacity: 0 !important;

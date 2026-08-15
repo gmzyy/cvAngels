@@ -22,7 +22,7 @@ const EYE_R = { x: 851.5 * SCALE_X, y: OFFSET_Y + 687.5 * SCALE_Y }
 const MAX_NX = 50
 const MAX_NY = 20
 
-const PR = 3   // radio pupila en px renderizados
+const PR = 3.2   // radio pupila en px renderizados
 
 const clamp = (v: number, lo: number, hi: number) =>
   v < lo ? lo : v > hi ? hi : v
@@ -33,7 +33,6 @@ export default function CaraOjos() {
   const pupRRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Cachear rect — reflow solo en resize/scroll, nunca en mousemove/touch
     const rectRef = { current: null as DOMRect | null }
     const updateRect = () => {
       if (imgRef.current) rectRef.current = imgRef.current.getBoundingClientRect()
@@ -56,7 +55,6 @@ export default function CaraOjos() {
       const rx = clamp(mx - 851.5, -MAX_NX, MAX_NX) * SCALE_X
       const ry = clamp(my - 687.5, -MAX_NY, MAX_NY) * SCALE_Y
 
-      // DOM directo — sin re-render, sin delay, sin parpadeo
       pL.style.transform = `translate(calc(-50% + ${lx}px), calc(-50% + ${ly}px))`
       pR.style.transform = `translate(calc(-50% + ${rx}px), calc(-50% + ${ry}px))`
     }
@@ -88,27 +86,28 @@ export default function CaraOjos() {
     width:  PR * 2,
     height: PR * 2,
     borderRadius: "50%",
-    background: "#0a1020",
+    background: "#030712",
     transform: "translate(-50%, -50%)",
     willChange: "transform",
-    boxShadow: `${PR * 0.4}px ${-PR * 0.4}px ${PR * 0.6}px rgba(255,255,255,0.5)`,
+    boxShadow: `0 0 6px #FFFFFF, 0 0 10px rgba(255,255,255,0.8)`,
+    border: "1px solid #FFFFFF",
   })
 
   return (
-    // zIndex 98 < 99 (menú mobile) → el menú lo tapa cuando está abierto
     <div
       id="cara-ojos-container"
       aria-hidden="true"
       style={{
         position: "fixed",
-        bottom: "1.2rem",
+        top: "1.2rem",
         right: "1.4rem",
         zIndex: 98,
         width: SIZE,
         height: SIZE,
         pointerEvents: "none",
         userSelect: "none",
-        filter: "drop-shadow(0 4px 14px rgba(0,0,0,0.55))",
+        filter: "drop-shadow(0 0 15px rgba(255, 255, 255, 0.4)) drop-shadow(0 6px 20px rgba(0,0,0,0.9))",
+        transition: "filter 0.3s ease",
       }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -2,146 +2,154 @@
 
 import Head from "next/head"
 import Link from "next/link"
+import { motion } from "framer-motion"
 import { useLanguage } from "@/context/LanguageContext"
 import TopNavBar from "@/components/portfolio/TopNavBar"
 import SiteFooter from "@/components/portfolio/SiteFooter"
+import { Terminal, ShieldCheck, Cpu, ArrowLeft, MessageSquare, Sparkles } from "lucide-react"
 
 export default function ConoceDeMiPage() {
   const { t } = useLanguage()
 
   const intereses = [
-    { label: t("Diseño de interfaces (UI) y experiencias digitales con personalidad única, cruda y brutalista.", "UI Design and digital experiences with raw, brutalist, and unique personality.") },
-    { label: t("Animaciones, interacciones web avanzadas y estética street underground sin censura.", "Animations, advanced web interactions, and uncensored underground street aesthetics.") },
+    { label: t("Diseño de interfaces (UI) y experiencias digitales con estética cyber futurista de alta precisión.", "UI Design and high-precision cyber futuristic digital experiences.") },
+    { label: t("Animaciones web avanzadas, interacciones reactivas y rendimiento sin concesiones.", "Advanced web animations, reactive interactions, and uncompromised performance.") },
     { label: t("Desarrollo personal, disciplina de hierro constante y superación de límites mentales.", "Personal growth, ironclad discipline, and constantly pushing mental limits.") },
     { label: t("Filosofía, lectura crítica y análisis profundo de la psicología humana.", "Philosophy, critical reading, and deep analysis of human psychology.") },
-    { label: t("Música independiente, hip hop, punk y producciones sonoras con verdadero carácter.", "Independent music, hip hop, punk, and high-energy sonic productions.") },
-    { label: t("Explorar lugares nuevos, cultura urbana de calle y vivir experiencias reales.", "Exploring new places, urban street culture, and living authentic experiences.") },
+    { label: t("Música electrónica independiente, synthwave, industrial y producciones sonoras con carácter.", "Independent electronic music, synthwave, industrial, and atmospheric sonic productions.") },
+    { label: t("Explorar lugares nuevos, cultura urbana contemporánea y vivir experiencias reales.", "Exploring new places, contemporary urban culture, and living authentic experiences.") },
     { label: t("Crear productos propios, startups e iniciativas tecnológicas verdaderamente disruptivas.", "Building proprietary products, startups, and truly disruptive tech ventures.") },
   ]
 
   return (
     <>
       <Head>
-        <title>{t("CONOCE DE MÍ — FEELMZ // GEELMZ", "ABOUT ME — FEELMZ // GEELMZ")}</title>
+        <title>{t("CONOCE DE MÍ — GEELMZ // BIO", "ABOUT ME — GEELMZ // BIO")}</title>
         <meta
           name="description"
           content={t(
-            "Visión personal, filosofía de vida e intereses de Angel Gomez Garcia (Geelmz).",
-            "Personal vision, philosophy of life, and passions of Angel Gomez Garcia (Geelmz)."
+            "Visión personal, filosofía de vida e intereses de Angel Gomez Garcia (GEELMZ).",
+            "Personal vision, philosophy of life, and passions of Angel Gomez Garcia (GEELMZ)."
           )}
         />
       </Head>
 
-      <div style={{ background: "var(--bg)", color: "var(--navy)", minHeight: "100vh", position: "relative" }}>
-
+      <div style={{ background: "transparent", color: "#F1F5F9", minHeight: "100vh", position: "relative" }}>
         <TopNavBar />
 
         {/* Main Content */}
-        <main style={{ maxWidth: 1100, margin: "0 auto", padding: "8rem 1.5rem 6rem" }}>
+        <main style={{ maxWidth: 1200, margin: "0 auto", padding: "7rem 1.5rem 6rem" }}>
 
-          {/* ══ HEADER HERO BANNER — RAW PUNK ZINE ══ */}
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "1fr",
-            gap: "3rem",
-            alignItems: "center",
-            marginBottom: "5rem",
-            borderBottom: "4px dashed var(--red)",
-            paddingBottom: "4rem",
-            position: "relative",
-          }} className="md:!grid-cols-[1fr_320px]">
-
+          {/* ══ HERO FLOATING ABSTRACT BANNER WITH IMAGE.PNG ══ */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr",
+              gap: "3rem",
+              alignItems: "center",
+              marginBottom: "5rem",
+              paddingBottom: "3rem",
+              position: "relative",
+            }}
+            className="md:!grid-cols-[1fr_340px]"
+          >
+            {/* LEFT: FLOATING TYPOGRAPHY */}
             <div>
-              <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.8rem" }}>
-                <span className="font-tag" style={{
-                  background: "var(--red)",
+              <h1
+                className="spray-drippy-title"
+                style={{
+                  fontSize: "clamp(3.2rem, 8vw, 6.8rem)",
                   color: "#FFFFFF",
-                  padding: "0.3rem 1.2rem",
-                  fontSize: "1.3rem",
-                  transform: "rotate(-2deg)",
-                  boxShadow: "4px 4px 0px var(--navy)",
-                  border: "2px solid var(--navy)",
-                }}>
-                  // {t("AUTOBIOGRAFÍA & MANIFIESTO", "AUTOBIOGRAPHY & MANIFESTO")}
-                </span>
-                <span className="stamp-badge">
-                  ONLY ONE
-                </span>
-                <span className="handwritten-note font-marker">
-                  Uncensored Journal ➔
-                </span>
-              </div>
-
-              <h1 className="spray-drippy-title" style={{
-                fontSize: "clamp(3.8rem, 9.5vw, 8rem)",
-                color: "var(--navy)",
-                WebkitTextStroke: "2px var(--red)",
-                textShadow: "6px 6px 0px var(--red)",
-                margin: 0,
-              }}>
+                  margin: 0,
+                  lineHeight: 0.9,
+                }}
+              >
                 {t("MÁS ALLÁ DEL", "BEYOND THE")}
               </h1>
-              <div className="font-spray" style={{
-                fontSize: "clamp(3.5rem, 8.5vw, 7rem)",
-                color: "var(--red)",
-                lineHeight: 0.9,
-                transform: "rotate(-4deg) translateY(-15px) translateX(10px)",
-                WebkitTextStroke: "2px var(--navy)",
-                textShadow: "6px 6px 0px var(--navy)",
-                display: "inline-block",
-              }}>
-                {t("CÓDIGO CRUDO", "RAW CODE")}
+              <div
+                className="font-display glitch-text"
+                style={{
+                  fontSize: "clamp(2.8rem, 7.5vw, 6rem)",
+                  color: "#94A3B8",
+                  lineHeight: 0.9,
+                  display: "block",
+                  marginTop: "0.2rem",
+                }}
+              >
+                {t("CÓDIGO & SISTEMAS", "CODE & SYSTEMS")}
               </div>
 
-              <div className="font-tag" style={{
-                marginTop: "2.2rem",
-                fontSize: "1.8rem",
-                transform: "rotate(-2deg)",
-                boxShadow: "6px 6px 0px var(--red)",
-                display: "inline-block",
-                border: "3px solid var(--navy)",
-                background: "var(--navy)",
-                color: "#FFFFFF",
-                padding: "0.3rem 1.2rem",
-              }}>
-                ANGEL GOMEZ GARCIA
-              </div>
+              <p style={{ color: "#CBD5E1", fontSize: "1.1rem", lineHeight: 1.8, marginTop: "1.8rem", maxWidth: "680px", fontFamily: "var(--font-body)" }}>
+                {t(
+                  "Ingeniero de Software y Desarrollador Fullstack motivado por la creación de soluciones digitales que combinan alto rendimiento, arquitectura bancaria y estética futurista.",
+                  "Fullstack Engineer motivated by digital solutions combining high performance, banking architecture, and futuristic design."
+                )}
+              </p>
             </div>
 
-            {/* AVATAR POLAROID FRAME WITH WASHI TAPE */}
-            <div className="polaroid-frame" style={{
-              transform: "rotate(3deg)",
-              maxWidth: "290px",
-              margin: "0 auto",
-            }}>
-              <div className="washi-tape-corner" />
-              <div className="stamp-badge" style={{ position: "absolute", top: "15px", right: "15px" }}>
-                ORIGINAL
-              </div>
+            {/* RIGHT: ABSTRACT FLOATING ARTWORK WITH IMAGE.PNG */}
+            <motion.div
+              animate={{ y: [0, -12, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              style={{
+                position: "relative",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {/* Abstract Concentric Glass Aura */}
+              <div
+                style={{
+                  position: "absolute",
+                  width: "280px",
+                  height: "280px",
+                  borderRadius: "50%",
+                  background: "radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%)",
+                  filter: "blur(40px)",
+                  pointerEvents: "none",
+                }}
+              />
+
+              {/* Glowing Ambient Ring */}
+              <div
+                style={{
+                  position: "absolute",
+                  width: "290px",
+                  height: "290px",
+                  borderRadius: "50%",
+                  border: "1px stroke rgba(255, 255, 255, 0.25)",
+                  borderStyle: "dashed",
+                  pointerEvents: "none",
+                }}
+              />
 
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/image.png"
-                alt="Geelmz Avatar"
-                style={{ width: "100%", height: "auto", display: "block", padding: "0.5rem", filter: "contrast(1.2)" }}
+                alt="GEELMZ Abstract Avatar"
+                style={{
+                  width: "240px",
+                  height: "240px",
+                  objectFit: "contain",
+                  filter: "drop-shadow(0 0 35px rgba(255, 255, 255, 0.35))",
+                  position: "relative",
+                  zIndex: 2,
+                }}
               />
-              <div className="polaroid-caption">
-                [PUEBLA_MX] ➔
-              </div>
-            </div>
-
+            </motion.div>
           </div>
 
-          {/* ══ ESSAY PUNK ZINE CARDS WITH WASHI TAPE ══ */}
-          <section style={{ marginBottom: "5rem", display: "flex", flexDirection: "column", gap: "2.5rem" }}>
+          {/* ══ UN-BOXED FLOATING MANIFESTO ESSAYS ══ */}
+          <section style={{ marginBottom: "6rem", display: "flex", flexDirection: "column", gap: "3.5rem" }}>
             {[
               {
                 num: "01",
                 tag: t("PROPÓSITO", "PURPOSE"),
-                title: t("CÓDIGO CON CARÁCTER E IDENTIDAD", "CODE WITH CHARACTER & IDENTITY"),
+                title: t("CÓDIGO CON ARQUITECTURA E IDENTIDAD", "CODE WITH ARCHITECTURE & IDENTITY"),
                 text: t(
-                  "Para mí, desarrollar software va mucho más allá de escribir código. Es una forma de crear, resolver problemas reales y convertir ideas complejas en productos digitales con personalidad, rendimiento brutal y carácter único.",
-                  "To me, developing software goes far beyond writing code. It's a way of creating, solving real-world problems, and turning complex ideas into digital products with personality, brutal performance, and unique character."
+                  "Para mí, desarrollar software va mucho más allá de escribir código. Es una forma de crear, resolver problemas reales y convertir ideas complejas en productos digitales con rendimiento brutal, máxima seguridad y carácter único.",
+                  "To me, developing software goes far beyond writing code. It's a way of creating, solving real-world problems, and turning complex ideas into digital products with brutal performance, top security, and unique character."
                 ),
               },
               {
@@ -155,15 +163,6 @@ export default function ConoceDeMiPage() {
               },
               {
                 num: "03",
-                tag: t("CULTURA", "CULTURE"),
-                title: t("MÚSICA INDEPENDIENTE & GRÁFICA DE CALLE", "INDEPENDENT MUSIC & STREET GRAPHICS"),
-                text: t(
-                  "La música y la estética urbana ocupan un lugar central en mi proceso creativo. Las letras crudas, la gráfica de calle y el diseño agresivo me motivan a construir software que destaque sobre lo común y desafíe la monotonía corporativa.",
-                  "Music and urban aesthetics sit at the core of my creative process. Raw lyrics, street graphics, and bold design motivate me to build software that breaks through generic noise and corporate monotony."
-                ),
-              },
-              {
-                num: "04",
                 tag: t("CRAFTSMANSHIP", "CRAFTSMANSHIP"),
                 title: t("ARQUITECTURA SÓLIDA & UI HIGH-PERFORMANCE", "SOLID ARCHITECTURE & HIGH-PERFORMANCE UI"),
                 text: t(
@@ -172,155 +171,177 @@ export default function ConoceDeMiPage() {
                 ),
               },
             ].map((card, idx) => (
-              <div
+              <motion.div
                 key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
                 style={{
-                  background: "#FAF5EB",
-                  border: "4px solid var(--navy)",
-                  boxShadow: idx % 2 === 0 ? "12px 12px 0px var(--red)" : "12px 12px 0px var(--navy)",
-                  padding: "2.5rem 2rem",
+                  padding: "1rem 0",
                   position: "relative",
-                  color: "var(--navy)",
-                  transform: idx % 2 === 0 ? "rotate(-1.2deg)" : "rotate(1.2deg)",
+                  color: "#F1F5F9",
                 }}
               >
-                {/* Washi Tape */}
-                <div className="washi-tape-top" />
-
-                <div style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  marginBottom: "1.2rem",
-                  borderBottom: "3px dashed var(--red)",
-                  paddingBottom: "1rem",
-                }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
-                    <span className="font-mono" style={{ background: "var(--red)", color: "#FFFFFF", padding: "3px 10px", fontSize: "0.8rem", fontWeight: 900 }}>
-                      SECTION_{card.num}
-                    </span>
-                    <span className="font-mono" style={{ fontSize: "0.85rem", color: "var(--red)", letterSpacing: "0.15em", fontWeight: 900 }}>
-                      // {card.tag}
-                    </span>
-                  </div>
-                  <span className="font-display" style={{ fontSize: "2.5rem", color: "var(--red)" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", marginBottom: "0.8rem" }}>
+                  <span className="font-mono" style={{ background: "rgba(255, 255, 255, 0.12)", color: "#FFFFFF", padding: "3px 12px", borderRadius: "9999px", fontSize: "0.75rem", fontWeight: 700, border: "1px solid rgba(255,255,255,0.2)" }}>
+                    // {card.tag}
+                  </span>
+                  <span className="font-mono" style={{ fontSize: "0.8rem", color: "#94A3B8" }}>
                     #{card.num}
                   </span>
                 </div>
 
-                <h2 className="font-display" style={{
-                  fontSize: "clamp(1.8rem, 4vw, 3rem)",
-                  color: "var(--navy)",
-                  marginBottom: "1rem",
-                  lineHeight: 1.05,
-                }}>
+                <h2
+                  className="font-display"
+                  style={{
+                    fontSize: "clamp(2rem, 4.5vw, 3.2rem)",
+                    color: "#FFFFFF",
+                    marginBottom: "1.2rem",
+                    lineHeight: 1.05,
+                  }}
+                >
                   {card.title}
                 </h2>
 
-                <p className="font-body" style={{
-                  fontSize: "1.1rem",
-                  lineHeight: 1.8,
-                  color: "#112233",
-                  fontWeight: 700,
-                  margin: 0,
-                }}>
+                <p
+                  style={{
+                    fontSize: "1.08rem",
+                    lineHeight: 1.8,
+                    color: "#CBD5E1",
+                    fontFamily: "var(--font-body)",
+                    margin: 0,
+                    maxWidth: "920px",
+                  }}
+                >
                   {card.text}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </section>
 
-          {/* ══ PASSIONS & INTERESTS GRID ══ */}
-          <section style={{ marginBottom: "5rem" }}>
-            <div style={{ marginBottom: "2rem" }}>
-              <span className="font-tag" style={{ background: "var(--navy)", color: "#FFF", padding: "0.3rem 1.2rem", fontSize: "1.3rem", transform: "rotate(-1deg)" }}>
-                // {t("INTERESES & INTERECCIONES", "PASSIONS & DRIVES")}
-              </span>
-              <h2 className="font-display" style={{ fontSize: "3.8rem", color: "var(--navy)", marginTop: "0.5rem", margin: 0, lineHeight: 0.9 }}>
+          {/* ══ UN-BOXED FLOATING PASSIONS ══ */}
+          <section style={{ marginBottom: "6rem" }}>
+            <div style={{ marginBottom: "2.5rem", textAlign: "center" }}>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", background: "rgba(255, 255, 255, 0.08)", border: "1px solid rgba(255, 255, 255, 0.2)", padding: "0.4rem 1.2rem", borderRadius: "9999px", marginBottom: "1rem" }}>
+                <Sparkles size={14} style={{ color: "#FFFFFF" }} />
+                <span className="font-mono" style={{ fontSize: "0.78rem", color: "#FFFFFF", fontWeight: 700, letterSpacing: "0.08em" }}>
+                  // {t("INTERESES & DRIVES", "PASSIONS & DRIVES")}
+                </span>
+              </div>
+              <h2 className="spray-drippy-title" style={{ fontSize: "clamp(3rem, 7vw, 5.5rem)", color: "#FFFFFF", margin: 0, lineHeight: 0.9 }}>
                 {t("LO QUE ME MUEVE", "WHAT DRIVES ME")}
               </h2>
             </div>
 
-            <div style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "1.4rem",
-            }}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+                gap: "1.4rem",
+              }}
+            >
               {intereses.map((item, idx) => (
-                <div
+                <motion.div
                   key={idx}
+                  whileHover={{ y: -4 }}
                   style={{
-                    background: "#FAF5EB",
-                    border: "3px solid var(--navy)",
-                    boxShadow: "8px 8px 0px var(--red)",
+                    background: "rgba(10, 14, 26, 0.85)",
+                    backdropFilter: "blur(20px)",
+                    border: "1px solid rgba(255, 255, 255, 0.2)",
+                    borderRadius: "24px",
                     padding: "1.5rem",
                     display: "flex",
                     alignItems: "flex-start",
                     gap: "1rem",
-                    color: "var(--navy)",
-                    position: "relative",
-                    transform: idx % 2 === 0 ? "rotate(-1deg)" : "rotate(1deg)",
                   }}
                 >
-                  <span style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "0.85rem",
-                    background: "var(--red)",
-                    color: "#FFF",
-                    padding: "3px 8px",
-                    fontWeight: 900,
-                    flexShrink: 0,
-                  }}>
+                  <span
+                    className="font-mono"
+                    style={{
+                      fontSize: "0.78rem",
+                      background: "rgba(255, 255, 255, 0.12)",
+                      color: "#FFFFFF",
+                      padding: "4px 10px",
+                      borderRadius: "9999px",
+                      fontWeight: 700,
+                      flexShrink: 0,
+                    }}
+                  >
                     #{idx + 1}
                   </span>
-                  <p className="font-body" style={{
-                    fontSize: "0.98rem",
-                    lineHeight: 1.6,
-                    color: "#112233",
-                    fontWeight: 700,
-                    margin: 0,
-                  }}>
+                  <p
+                    style={{
+                      fontSize: "0.95rem",
+                      lineHeight: 1.65,
+                      color: "#CBD5E1",
+                      fontFamily: "var(--font-body)",
+                      margin: 0,
+                    }}
+                  >
                     {item.label}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </section>
 
-          {/* ══ CONTACT FOOTER CTA CARD WITH WASHI TAPE & STAMP ══ */}
-          <section style={{
-            background: "#FAF5EB",
-            border: "4px solid var(--navy)",
-            boxShadow: "14px 14px 0px var(--red)",
-            padding: "3.5rem 2rem",
-            textAlign: "center",
-            color: "var(--navy)",
-            position: "relative",
-            transform: "rotate(-1deg)",
-          }}>
-            <div className="washi-tape-top" />
-            <div className="stamp-badge" style={{ position: "absolute", top: "20px", right: "20px" }}>
-              LET'S GO
+          {/* ══ UN-BOXED FLOATING CALL TO ACTION ══ */}
+          <section
+            style={{
+              padding: "4rem 1.5rem",
+              textAlign: "center",
+              color: "#FFFFFF",
+              position: "relative",
+            }}
+          >
+            <div className="font-mono" style={{ fontSize: "0.85rem", color: "#94A3B8", marginBottom: "0.5rem", fontWeight: 700 }}>
+              // {t("¿TIENES UN PROYECTO O UNA IDEA?", "HAVE A PROJECT OR IDEA?")}
             </div>
-
-            <div className="font-spray" style={{ fontSize: "3rem", color: "var(--red)", marginBottom: "0.5rem" }}>
-              {t("¿TIENES UN PROYECTO O UNA IDEA?", "HAVE A PROJECT OR IDEA?")}
-            </div>
-            <h2 className="font-display" style={{ fontSize: "clamp(2.6rem, 6vw, 4.8rem)", color: "var(--navy)", lineHeight: 0.95, marginBottom: "1.8rem" }}>
-              {t("CONSTRUYAMOS ALGO BRUTAL", "LET'S BUILD SOMETHING BRUTAL")}
+            <h2 className="spray-drippy-title" style={{ fontSize: "clamp(2.4rem, 6vw, 4.5rem)", color: "#FFFFFF", lineHeight: 1, marginBottom: "2rem" }}>
+              {t("CONSTRUYAMOS ALGO BRUTAL", "LET'S BUILD SOMETHING GREAT")}
             </h2>
 
-            <div style={{ display: "flex", justifyContent: "center", gap: "1.4rem", flexWrap: "wrap" }}>
+            <div style={{ display: "flex", justifyContent: "center", gap: "1.2rem", flexWrap: "wrap" }}>
               <a
                 href="https://wa.me/522218226470"
                 target="_blank"
                 rel="noreferrer"
-                className="btn-street-primary"
+                className="font-mono"
+                style={{
+                  background: "rgba(255, 255, 255, 0.22)",
+                  border: "1px solid rgba(255, 255, 255, 0.4)",
+                  color: "#FFFFFF",
+                  padding: "0.8rem 2rem",
+                  borderRadius: "9999px",
+                  textDecoration: "none",
+                  fontWeight: 700,
+                  fontSize: "0.9rem",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                }}
               >
-                WHATSAPP ➔
+                <MessageSquare size={16} /> WHATSAPP ➔
               </a>
-              <Link href="/#hero" className="btn-street-secondary">
-                ← {t("VOLVER AL INICIO", "BACK TO HOME")}
+              <Link
+                href="/#hero"
+                className="font-mono"
+                style={{
+                  background: "rgba(255, 255, 255, 0.08)",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  color: "#CBD5E1",
+                  padding: "0.8rem 2rem",
+                  borderRadius: "9999px",
+                  textDecoration: "none",
+                  fontWeight: 700,
+                  fontSize: "0.9rem",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                }}
+              >
+                <ArrowLeft size={16} /> {t("VOLVER AL INICIO", "BACK TO HOME")}
               </Link>
             </div>
           </section>

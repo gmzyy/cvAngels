@@ -1,9 +1,9 @@
 "use client"
-import { useState, useRef } from "react"
-import { useInView } from "framer-motion"
-import { ExternalLink, Github } from "lucide-react"
+import { useState, useEffect, useRef } from "react"
+import { useInView, motion, AnimatePresence } from "framer-motion"
+import { ExternalLink, Github, Sparkles, Search, X, CheckCircle2, Globe, Eye } from "lucide-react"
 import { useLanguage } from "@/context/LanguageContext"
-import { TornCard, GraffitiCircle, GraffitiShape, SprayBlob, CircularSealBadge } from "./TornCard"
+import CoverflowGallery, { CoverflowSlide } from "./CoverflowGallery"
 
 interface ProjectItem {
   id: string
@@ -12,12 +12,14 @@ interface ProjectItem {
   tag: string
   category: "web" | "ai"
   status: string
-  description: string
-  features: string[]
-  techStack: string[]
-  demoUrl?: string
+  image: string
+  demoUrl: string
   githubUrl?: string
-  highlighted?: boolean
+  description: string
+  architectureDetails: string
+  features: string[]
+  metrics: { label: string; val: string }[]
+  techStack: string[]
 }
 
 export default function PortfolioSection() {
@@ -25,107 +27,198 @@ export default function PortfolioSection() {
   const inView = useInView(ref, { once: true, amount: 0.1 })
   const { t } = useLanguage()
   const [filter, setFilter] = useState<string>("all")
+  const [searchQuery, setSearchQuery] = useState<string>("")
+  const [activeProjectIndex, setActiveProjectIndex] = useState<number>(0)
+  const [modalProject, setModalProject] = useState<ProjectItem | null>(null)
+
+  useEffect(() => {
+    if (modalProject) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [modalProject])
 
   const PROJECTS: ProjectItem[] = [
     {
-      id: "sendro",
-      title: "SENDRO SPEI / 2FA",
-      subtitle: "Fintech Core Platform",
-      tag: "FINTECH_SECURITY",
-      category: "web",
-      status: "IN PRODUCTION",
-      highlighted: true,
-      description: t(
-        "Módulo de alta seguridad bancaria con 2FA/TOTP end-to-end, mecanismos anti-replay (tokens de un solo uso y firmas de solicitud en NestJS) y gestión integral de operaciones SPEI.",
-        "High-security banking module with end-to-end 2FA/TOTP, anti-replay mechanisms (one-time tokens and NestJS request signatures), and full SPEI operations management."
-      ),
-      features: [
-        t("Flujo TOTP completo (QR, OTP, códigos de respaldo)", "Full TOTP flow (QR, OTP, backup codes)"),
-        t("Firmado y verificación anti-replay en NestJS", "Anti-replay signing and verification in NestJS"),
-        t("Panel administrativo multitenant para comercios", "Multitenant merchant admin portal"),
-        t("Especificación técnica OpenAPI 3.1.0", "OpenAPI 3.1.0 technical specification"),
-      ],
-      techStack: ["NestJS", "Next.js 15", "Prisma ORM", "2FA/TOTP", "OpenAPI 3.1", "MySQL"],
-    },
-    {
-      id: "staicka-ai",
-      title: "STAICKA RAG & RECRUITMENT",
-      subtitle: "AI Resume Parsing Engine",
-      tag: "AI_NLP_RAG",
-      category: "ai",
-      status: "LIVE DEMO",
-      highlighted: true,
-      description: t(
-        "Motor de inteligencia artificial para reclutamiento que analiza automáticamente CVs en PDF mediante SpaCy NLP, indexa perfiles en vectores con LangChain + ChromaDB y realiza búsquedas semánticas avanzadas.",
-        "AI recruitment engine automatically parsing PDF resumes with SpaCy NLP, vector-indexing candidate profiles with LangChain + ChromaDB, and executing advanced semantic searches."
-      ),
-      features: [
-        t("Extracción automatizada de texto y entidades de PDF", "Automated text and entity extraction from PDFs"),
-        t("Indexación vectorial con LangChain y ChromaDB", "Vector indexing with LangChain & ChromaDB"),
-        t("Puntuación semántica de candidatos vs requerimientos", "Semantic candidate scoring vs job requirements"),
-        t("Dashboard web responsivo desarrollado en Next.js", "Responsive web dashboard developed in Next.js"),
-      ],
-      techStack: ["FastAPI", "Python", "SpaCy NLP", "LangChain", "ChromaDB", "Next.js", "NestJS"],
-    },
-    {
-      id: "softech-mongo",
-      title: "SOFTECH MONGO ENGINE",
-      subtitle: "Database & LCP Optimization",
-      tag: "HIGH_PERFORMANCE",
-      category: "web",
-      status: "COMPLETED",
-      description: t(
-        "Rediseño integral de esquemas e índices en MongoDB reduciendo la latencia de consultas en un 35%, junto con optimizaciones Next.js App Router mejorando métricas LCP en 20%.",
-        "Complete MongoDB schema & index redesign cutting query latency by 35%, combined with Next.js App Router tuning boosting LCP performance by 20%."
-      ),
-      features: [
-        t("Reducción de latencia MongoDB del 35% vía índices", "35% MongoDB latency reduction via index strategy"),
-        t("Mejora del 20% en LCP con Next.js App Router", "20% LCP improvement with Next.js App Router"),
-        t("Automatización de despliegues mediante pipelines CI/CD", "Automated deployments via CI/CD pipelines"),
-      ],
-      techStack: ["Next.js", "React", "MongoDB", "Node.js", "CI/CD"],
-    },
-    {
       id: "barber-angeles",
-      title: "BARBER ANGELES PLATFORM",
-      subtitle: "Real-time Booking & Management",
-      tag: "SAAS_PLATFORM",
+      title: "BARBER ANGELES",
+      subtitle: "Plataforma Web de Citas & Barbería",
+      tag: "SAAS_BOOKING",
       category: "web",
-      status: "IN PRODUCTION",
+      status: "EN PRODUCCIÓN",
+      image: "/barber.png",
+      demoUrl: "https://barber-angeles.vercel.app/home",
       description: t(
-        "Plataforma web completa para reserva de citas en tiempo real, catálogo interactivo de servicios y panel administrativo para control de agenda y métricas.",
-        "Full web platform for real-time appointment booking, interactive service catalog, and admin dashboard for schedule and metric control."
+        "Plataforma web interactiva para agendamiento de citas en tiempo real, selección de barberos, catálogo de cortes y panel de administración.",
+        "Interactive web platform for real-time appointment booking, barber selection, service catalog, and schedule management."
       ),
+      architectureDetails: t(
+        "Arquitectura frontend reactiva con Next.js y Tailwind CSS. Almacenamiento de multimedia en AWS S3 y optimización de carga LCP < 1.1s con puntuación 96+ en Google Lighthouse.",
+        "Reactive frontend architecture with Next.js and Tailwind CSS. AWS S3 media storage and LCP load optimization < 1.1s with 96+ Google Lighthouse score."
+      ),
+      metrics: [
+        { label: "ESTADO", val: "En Producción" },
+        { label: "LIGHTHOUSE", val: "96 / 100" },
+        { label: "STORAGE", val: "AWS S3 Cloud" },
+      ],
       features: [
-        t("Sistema de agendamiento en tiempo real", "Real-time booking schedule system"),
-        t("Almacenamiento de archivos y multimedia en AWS S3", "File & media storage on AWS S3"),
-        t("Rendimiento 95+ en métricas Google Lighthouse", "95+ performance on Google Lighthouse metrics"),
+        t("Agendamiento de citas sin traslape en tiempo real", "Real-time non-overlapping appointment booking"),
+        t("Catálogo interactivo de servicios y estilos", "Interactive service & style catalog"),
+        t("Panel administrativo para control de agenda", "Admin dashboard for schedule management"),
       ],
       techStack: ["Next.js", "React", "MongoDB", "AWS S3", "Tailwind CSS"],
     },
     {
-      id: "sante-dental",
-      title: "SANTĒ DENTAL CLINIC",
-      subtitle: "Medical Service Management",
-      tag: "HEALTHCARE_WEB",
+      id: "san-andres-empaques",
+      title: "SAN ANDRÉS EMPAQUES",
+      subtitle: "Catálogo Industrial B2B (EMCiel)",
+      tag: "INDUSTRIAL_WEB",
       category: "web",
-      status: "IN PRODUCTION",
+      status: "EN PRODUCCIÓN",
+      image: "/empaques.png",
+      demoUrl: "https://emciel.vercel.app/",
       description: t(
-        "Aplicación web clínica para presentación de servicios odontológicos, contacto directo y gestión eficiente de pacientes.",
-        "Clinical web application for dental services showcase, direct contact, and efficient patient management."
+        "Aplicación web corporativa para catálogo de empaques industriales, especificaciones técnicas de productos y contacto comercial directo.",
+        "Corporate web application for industrial packaging catalog, technical product specs, and direct commercial contact."
       ),
-      features: [
-        t("Diseño accesible e interfaz ultra responsiva", "Accessible design & ultra-responsive UI"),
-        t("Optimización SEO técnica para posicionamiento local", "Technical SEO optimization for local search"),
+      architectureDetails: t(
+        "Construido con Next.js App Router, componentes optimizados e imágenes de alta definición alojadas en CDN global con tiempo de respuesta < 50ms.",
+        "Built with Next.js App Router, optimized components, and high-res images served via global CDN with response time < 50ms."
+      ),
+      metrics: [
+        { label: "CATÁLOGO", val: "Industrial B2B" },
+        { label: "PERFORMANCE", val: "CDN < 50ms" },
+        { label: "HOSTING", val: "Vercel Edge" },
       ],
-      techStack: ["Next.js", "React", "AWS S3", "Tailwind CSS"],
+      features: [
+        t("Catálogo de productos industriales con filtros", "Industrial product catalog with filters"),
+        t("Fichas técnicas descargables", "Downloadable technical datasheets"),
+        t("Formulario de cotización comercial directo", "Direct commercial quote form"),
+      ],
+      techStack: ["Next.js", "React", "Tailwind CSS", "Vercel"],
+    },
+    {
+      id: "staicka-saas",
+      title: "STAICKA SAAS",
+      subtitle: "Plataforma Web SaaS & Inteligencia Artificial",
+      tag: "SAAS_AI_PLATFORM",
+      category: "ai",
+      status: "EN PRODUCCIÓN",
+      image: "/staickasaas.png",
+      demoUrl: "https://staicka.vercel.app/",
+      description: t(
+        "Plataforma web SaaS de inteligencia artificial para gestión de talento, reclutamiento inteligente, lectura de documentos y servicios cloud.",
+        "SaaS AI web platform for talent management, intelligent recruitment, document parsing, and cloud services."
+      ),
+      architectureDetails: t(
+        "Desarrollo fullstack con Next.js, FastAPI, Python y servicios de IA. Búsquedas vectoriales de alta velocidad e interfaz web responsiva de nivel empresarial.",
+        "Fullstack engineering with Next.js, FastAPI, Python, and AI services. High-speed vector retrieval and enterprise-grade responsive web interface."
+      ),
+      metrics: [
+        { label: "DESPLIEGUE", val: "Vercel Production" },
+        { label: "TIPO", val: "SaaS AI Platform" },
+        { label: "STACK", val: "Next.js + Python" },
+      ],
+      features: [
+        t("Plataforma SaaS en tiempo real con autenticación", "Real-time SaaS platform with authentication"),
+        t("Procesamiento de documentos e inteligencia de datos", "Document processing and data intelligence"),
+        t("Diseño web fluido e interfaz responsiva", "Fluid web design and responsive UI"),
+      ],
+      techStack: ["Next.js", "React", "FastAPI", "Python", "Tailwind CSS", "Vercel"],
+    },
+    {
+      id: "nava-taller",
+      title: "TALLER MECÁNICO NAVA",
+      subtitle: "Sistema de Servicio & Cotizaciones",
+      tag: "AUTOMOTIVE_SAAS",
+      category: "web",
+      status: "EN PRODUCCIÓN",
+      image: "/tallerMecanico.png",
+      demoUrl: "https://nava-opal.vercel.app/",
+      description: t(
+        "Portal web automotriz para cotización de reparaciones, agendamiento de diagnóstico mecánico y catálogo de servicios especializados.",
+        "Automotive web portal for repair quotes, mechanical diagnostic scheduling, and specialized service showcase."
+      ),
+      architectureDetails: t(
+        "Frontend de alto rendimiento construido en Next.js. Integración directa con WhatsApp Business API para atención a clientes al instante.",
+        "High-performance frontend built with Next.js. Direct integration with WhatsApp Business API for instant client support."
+      ),
+      metrics: [
+        { label: "CONVERSIÓN", val: "Direct WhatsApp" },
+        { label: "TIEMPO", val: "LCP < 1.0s" },
+        { label: "HOSTING", val: "Vercel Edge" },
+      ],
+      features: [
+        t("Cotización rápida de diagnósticos mecánicos", "Fast mechanical diagnostic quoting"),
+        t("Contacto instantáneo vía WhatsApp API", "Instant contact via WhatsApp API"),
+        t("Catálogo interactivo de servicios mecánicos", "Interactive mechanical service catalog"),
+      ],
+      techStack: ["Next.js", "React", "Tailwind CSS", "Vercel"],
+    },
+    {
+      id: "emciel-nails",
+      title: "EMCIEL NAILS",
+      subtitle: "Plataforma Web de Agendamiento & Estética",
+      tag: "BEAUTY_SAAS",
+      category: "web",
+      status: "EN PRODUCCIÓN",
+      image: "/emciel.png",
+      demoUrl: "https://emciel.vercel.app/",
+      description: t(
+        "Sistema interactivo de reservas en tiempo real para salón de belleza y aplicación de uñas, catálogo de diseños y gestión eficiente de citas.",
+        "Interactive real-time booking system for beauty salon & nail art, design catalog, and efficient appointment management."
+      ),
+      architectureDetails: t(
+        "Interfaz web de alta velocidad desarrollada con Next.js y Tailwind CSS. Diseño adaptable a móviles y flujo de confirmación automática de citas.",
+        "High-speed web interface built with Next.js and Tailwind CSS. Mobile-responsive design and automated booking confirmation flow."
+      ),
+      metrics: [
+        { label: "TIPO", val: "Beauty SaaS" },
+        { label: "AGENDAMIENTO", val: "Tiempo Real" },
+        { label: "RESPONSIVE", val: "Mobile-First" },
+      ],
+      features: [
+        t("Sistema de agendamiento en tiempo real para salón de belleza", "Real-time appointment booking for beauty salon"),
+        t("Catálogo interactivo de diseños y servicios", "Interactive design and service catalog"),
+        t("Interfaz responsiva adaptada a dispositivos móviles", "Mobile-responsive user interface"),
+      ],
+      techStack: ["Next.js", "React", "Tailwind CSS", "Vercel"],
     },
   ]
 
   const filteredProjects = PROJECTS.filter((p) => {
-    if (filter === "all") return true
-    return p.category === filter
+    const matchesFilter = filter === "all" || p.category === filter
+    const matchesSearch = searchQuery === "" ||
+      p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.techStack.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()))
+    return matchesFilter && matchesSearch
   })
+
+  // Format slides for Coverflow Gallery
+  const coverflowSlides: CoverflowSlide[] = filteredProjects.map((p) => ({
+    image: { src: p.image, alt: p.title },
+    title: p.title,
+    subtitle: p.subtitle,
+    demoUrl: p.demoUrl,
+    techStack: p.techStack,
+  }))
+
+  const activeProject = filteredProjects[activeProjectIndex] || filteredProjects[0] || PROJECTS[0]
+
+  const handleSelectSlide = (slide: CoverflowSlide, idx: number) => {
+    setActiveProjectIndex(idx)
+  }
+
+  const handleOpenModal = (slide: CoverflowSlide) => {
+    const matched = PROJECTS.find((p) => p.title === slide.title)
+    if (matched) {
+      setModalProject(matched)
+    }
+  }
 
   return (
     <section
@@ -134,182 +227,376 @@ export default function PortfolioSection() {
       style={{
         position: "relative",
         zIndex: 10,
-        padding: "7rem 1.5rem",
+        padding: "6rem 1.5rem",
         maxWidth: "1400px",
         margin: "0 auto",
         opacity: inView ? 1 : 0,
         transform: inView ? "translate3d(0, 0, 0)" : "translate3d(0, 30px, 0)",
-        transition: "opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)",
-        willChange: "opacity, transform",
+        transition: "opacity 0.6s ease, transform 0.6s ease",
       }}
     >
-      {/* Background Accents */}
-      <GraffitiCircle size={360} color="#A31621" opacity={0.06} style={{ top: "-30px", right: "5%", zIndex: 0 }} />
-      <GraffitiCircle size={280} color="#0F1B33" opacity={0.07} style={{ bottom: "5%", left: "-40px", zIndex: 0 }} />
-
       {/* ══ HEADER TITLE BANNER ══ */}
-      <div style={{ marginBottom: "4rem", position: "relative", zIndex: 5 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
-          <span className="font-tag" style={{
-            background: "var(--red)",
-            color: "#FFFFFF",
-            padding: "0.35rem 1.4rem",
-            fontSize: "1.3rem",
-            transform: "rotate(-2deg)",
-            boxShadow: "5px 5px 0px var(--navy)",
-            border: "2px solid var(--navy)",
-          }}>
-            // {t("PROYECTOS & COMPROBABLES", "VERIFIABLE PROJECTS")}
-          </span>
-          <span className="stamp-badge">
-            ONLY ONE
-          </span>
-          <span className="handwritten-note font-marker">
-            Handcrafted Systems ➔
+      <div style={{ marginBottom: "2rem", textAlign: "center", position: "relative", zIndex: 5 }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", background: "rgba(255, 255, 255, 0.08)", border: "1px solid rgba(255, 255, 255, 0.2)", padding: "0.4rem 1.2rem", borderRadius: "9999px", marginBottom: "1rem" }}>
+          <Sparkles size={14} style={{ color: "#FFFFFF" }} />
+          <span className="font-mono" style={{ fontSize: "0.78rem", color: "#FFFFFF", fontWeight: 700, letterSpacing: "0.08em" }}>
+            // {t("GALERÍA DE PROYECTOS REALES", "REAL PROJECTS GALLERY")}
           </span>
         </div>
 
-        <h2 className="spray-drippy-title" style={{
-          fontSize: "clamp(3.2rem, 9vw, 8rem)",
-          color: "var(--navy)",
-          WebkitTextStroke: "2px var(--red)",
-          textShadow: "5px 5px 0px var(--red)",
-          margin: 0,
-        }}>
-          {t("PROYECTOS", "SELECTED")}
+        <h2 className="spray-drippy-title" style={{ fontSize: "clamp(3rem, 8vw, 6.2rem)", color: "#FFFFFF", margin: 0, lineHeight: 0.9 }}>
+          {t("GALERÍA DE PROYECTOS", "PROJECTS GALLERY")}
         </h2>
-        <div className="font-spray" style={{
-          fontSize: "clamp(2.6rem, 8vw, 7rem)",
-          color: "var(--red)",
-          lineHeight: 0.9,
-          transform: "rotate(-4.5deg) translateY(-14px) translateX(20px)",
-          WebkitTextStroke: "2px var(--navy)",
-          textShadow: "5px 5px 0px var(--navy)",
-          display: "inline-block",
-        }}>
-          {t("SELECCIONADOS", "WORKS")}
+      </div>
+
+      {/* ══ SEARCH & FILTER BAR ══ */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.2rem", marginBottom: "2rem", zIndex: 10, position: "relative" }}>
+        {/* Search Bar */}
+        <div
+          style={{
+            position: "relative",
+            width: "min(100%, 420px)",
+          }}
+        >
+          <Search size={16} style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", color: "#94A3B8" }} />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder={t("Buscar proyecto (ej. Barber, Staicka, EMCiel)...", "Search project (e.g. Barber, Staicka, EMCiel)...")}
+            className="font-mono"
+            style={{
+              width: "100%",
+              background: "rgba(10, 14, 26, 0.85)",
+              border: "1px solid rgba(255, 255, 255, 0.22)",
+              borderRadius: "9999px",
+              padding: "0.6rem 1rem 0.6rem 2.6rem",
+              color: "#FFFFFF",
+              fontSize: "0.82rem",
+              outline: "none",
+              boxShadow: "0 10px 25px rgba(0, 0, 0, 0.6)",
+              boxSizing: "border-box",
+            }}
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery("")}
+              style={{ position: "absolute", right: "12px", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "#94A3B8", cursor: "pointer" }}
+            >
+              <X size={14} />
+            </button>
+          )}
+        </div>
+
+        {/* Filter Category Tabs */}
+        <div style={{ display: "flex", gap: "0.7rem", flexWrap: "wrap", justifyContent: "center" }}>
+          {[
+            { id: "all", label: t("TODOS (5)", "ALL (5)") },
+            { id: "web", label: "WEB PLATFORMS" },
+            { id: "ai", label: "IA & SAAS" },
+          ].map((f) => {
+            const isActive = filter === f.id
+            return (
+              <button
+                key={f.id}
+                onClick={() => setFilter(f.id)}
+                className="font-mono"
+                style={{
+                  background: isActive ? "rgba(255, 255, 255, 0.2)" : "rgba(255, 255, 255, 0.05)",
+                  color: "#FFFFFF",
+                  border: isActive ? "1px solid rgba(255, 255, 255, 0.4)" : "1px solid rgba(255, 255, 255, 0.12)",
+                  boxShadow: isActive ? "0 0 20px rgba(255, 255, 255, 0.2)" : "none",
+                  padding: "0.55rem 1.4rem",
+                  borderRadius: "9999px",
+                  fontSize: "0.82rem",
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  transition: "all 0.25s ease",
+                }}
+              >
+                {f.label}
+              </button>
+            )
+          })}
         </div>
       </div>
 
-      {/* Street Stencil Filter Tabs */}
-      <div style={{ display: "flex", gap: "1.2rem", flexWrap: "wrap", marginBottom: "4rem", zIndex: 10, position: "relative" }}>
-        {[
-          { id: "all", label: t("TODOS (5)", "ALL (5)"), rot: "-3deg" },
-          { id: "web", label: "WEB PLATFORMS", rot: "2.5deg" },
-          { id: "ai", label: "IA & RAG", rot: "-2deg" },
-        ].map((f) => {
-          const isActive = filter === f.id
-          return (
-            <button
-              key={f.id}
-              onClick={() => setFilter(f.id)}
-              className="font-mono"
+      {/* ══ 3D COVERFLOW GALLERY SHOWCASE ══ */}
+      <div style={{ width: "100%", minHeight: "300px", marginBottom: "2rem", position: "relative", zIndex: 10 }}>
+        <CoverflowGallery
+          slides={coverflowSlides}
+          cardWidth={480}
+          cardHeight={340}
+          gap={8}
+          tilt={12}
+          sideTilt={8}
+          opacity={60}
+          showTitle={true}
+          onSelectSlide={handleSelectSlide}
+          onOpenModal={handleOpenModal}
+        />
+      </div>
+
+      {/* ══ CLEAN ACTIVE PROJECT EXPLANATION PANEL (NO CARDS GRID!) ══ */}
+      <AnimatePresence mode="wait">
+        {activeProject && (
+          <motion.div
+            key={activeProject.id}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.3 }}
+            style={{
+              maxWidth: "1050px",
+              margin: "0 auto",
+              background: "rgba(10, 14, 26, 0.88)",
+              backdropFilter: "blur(24px)",
+              border: "1px solid rgba(255, 255, 255, 0.22)",
+              borderRadius: "32px",
+              padding: "2.2rem 2.4rem",
+              boxShadow: "0 20px 50px rgba(0, 0, 0, 0.85)",
+              position: "relative",
+              zIndex: 10,
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem", marginBottom: "1.2rem" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap" }}>
+                <span className="font-mono" style={{ fontSize: "0.75rem", color: "#FFFFFF", background: "rgba(255, 255, 255, 0.12)", padding: "4px 12px", borderRadius: "9999px", border: "1px solid rgba(255, 255, 255, 0.25)" }}>
+                  [{activeProject.tag}]
+                </span>
+                <span className="font-mono" style={{ fontSize: "0.75rem", color: "#FFFFFF", fontWeight: 700 }}>
+                  ● {activeProject.status}
+                </span>
+              </div>
+
+              <div style={{ display: "flex", gap: "0.8rem", flexWrap: "wrap" }}>
+                <a
+                  href={activeProject.demoUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-mono"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.4rem",
+                    padding: "0.65rem 1.4rem",
+                    background: "rgba(255, 255, 255, 0.22)",
+                    border: "1px solid rgba(255, 255, 255, 0.4)",
+                    color: "#FFFFFF",
+                    borderRadius: "9999px",
+                    fontSize: "0.85rem",
+                    textDecoration: "none",
+                    fontWeight: 700,
+                  }}
+                >
+                  <Globe size={15} /> ABRIR SITIO EN VIVO <ExternalLink size={14} />
+                </a>
+
+                <button
+                  onClick={() => setModalProject(activeProject)}
+                  className="font-mono"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.4rem",
+                    padding: "0.65rem 1.2rem",
+                    background: "rgba(255, 255, 255, 0.08)",
+                    border: "1px solid rgba(255, 255, 255, 0.22)",
+                    color: "#CBD5E1",
+                    borderRadius: "9999px",
+                    fontSize: "0.85rem",
+                    cursor: "pointer",
+                    fontWeight: 700,
+                  }}
+                >
+                  <Eye size={15} /> VER IMAGEN COMPLETA &amp; ARQUITECTURA
+                </button>
+              </div>
+            </div>
+
+            <div style={{ marginBottom: "1.2rem" }}>
+              <div className="font-mono" style={{ fontSize: "0.85rem", color: "#94A3B8" }}>// {activeProject.subtitle}</div>
+              <h3 className="font-display" style={{ fontSize: "2.5rem", color: "#FFFFFF", lineHeight: 1.05, marginTop: "0.2rem", margin: 0 }}>
+                {activeProject.title}
+              </h3>
+            </div>
+
+            <p style={{ color: "#CBD5E1", fontSize: "1.05rem", lineHeight: 1.7, fontFamily: "var(--font-body)", marginBottom: "1.5rem" }}>
+              {activeProject.description}
+            </p>
+
+            {/* Key Features Bullet List */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "0.8rem", marginBottom: "1.5rem" }}>
+              {activeProject.features.map((feat, i) => (
+                <div key={i} className="font-mono" style={{ fontSize: "0.85rem", color: "#F1F5F9", display: "flex", alignItems: "center", gap: "0.6rem", background: "rgba(255, 255, 255, 0.05)", padding: "0.6rem 0.9rem", borderRadius: "14px", border: "1px solid rgba(255,255,255,0.12)" }}>
+                  <CheckCircle2 size={16} style={{ color: "#FFFFFF" }} />
+                  <span>{feat}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Tech Stack Pills */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", borderTop: "1px solid rgba(255, 255, 255, 0.12)", paddingTop: "1.2rem" }}>
+              {activeProject.techStack.map((tech) => (
+                <span key={tech} className="font-mono" style={{ fontSize: "0.75rem", background: "rgba(255, 255, 255, 0.08)", color: "#FFFFFF", padding: "4px 12px", borderRadius: "9999px", border: "1px solid rgba(255,255,255,0.2)" }}>
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ══ FULL HIGH-RES IMAGE & ARCHITECTURE MODAL (PERFECTLY CENTERED ON MOBILE) ══ */}
+      <AnimatePresence>
+        {modalProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setModalProject(null)}
+            style={{
+              position: "fixed",
+              inset: 0,
+              zIndex: 9999,
+              background: "rgba(0, 0, 0, 0.92)",
+              backdropFilter: "blur(28px)",
+              WebkitBackdropFilter: "blur(28px)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "1rem",
+              boxSizing: "border-box",
+            }}
+          >
+            <motion.div
+              initial={{ scale: 0.92, y: 10 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.92, y: 10 }}
+              onClick={(e) => e.stopPropagation()}
               style={{
-                background: isActive ? "var(--red)" : "var(--navy)",
+                width: "min(94vw, 780px)",
+                maxHeight: "86vh",
+                background: "#0A0E1A",
+                border: "1px solid rgba(255, 255, 255, 0.3)",
+                borderRadius: "24px",
+                padding: "1.4rem",
+                boxShadow: "0 25px 60px rgba(0, 0, 0, 0.95)",
                 color: "#FFFFFF",
-                border: "3px solid var(--navy)",
-                boxShadow: isActive ? "6px 6px 0px var(--navy)" : "4px 4px 0px var(--red)",
-                padding: "0.75rem 1.6rem",
-                fontSize: "0.92rem",
-                fontWeight: 900,
-                cursor: "pointer",
-                transform: `rotate(${f.rot}) ${isActive ? "scale(1.05)" : "scale(1)"}`,
-                transition: "all 0.2s cubic-bezier(0.34,1.56,0.64,1)",
-                clipPath: isActive ? "polygon(0% 0%, 96% 0%, 100% 100%, 4% 100%)" : "none",
+                position: "relative",
+                margin: "auto",
+                overflowY: "auto",
+                boxSizing: "border-box",
+                display: "flex",
+                flexDirection: "column",
               }}
             >
-              {f.label}
-            </button>
-          )
-        })}
-      </div>
+              <button
+                onClick={() => setModalProject(null)}
+                style={{
+                  position: "absolute",
+                  right: "1rem",
+                  top: "1rem",
+                  background: "rgba(255, 255, 255, 0.18)",
+                  border: "1px solid rgba(255, 255, 255, 0.35)",
+                  color: "#FFFFFF",
+                  borderRadius: "50%",
+                  width: "34px",
+                  height: "34px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  zIndex: 20,
+                }}
+              >
+                <X size={18} />
+              </button>
 
-      {/* ══ UNDERGROUND GALLERY CANVAS WALL ══ */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(330px, 1fr))", gap: "4rem", position: "relative", zIndex: 10 }}>
+              {/* Full Uncropped High-Res Image Banner */}
+              <div
+                style={{
+                  width: "100%",
+                  maxHeight: "320px",
+                  borderRadius: "16px",
+                  overflow: "hidden",
+                  marginBottom: "1.2rem",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  background: "#030712",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexShrink: 0,
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={modalProject.image}
+                  alt={modalProject.title}
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "320px",
+                    width: "auto",
+                    height: "auto",
+                    objectFit: "contain",
+                  }}
+                />
+              </div>
 
-        {filteredProjects.map((p, idx) => {
-          const shapes: GraffitiShape[] = ["torn1", "tagRight", "torn2", "arrowRight", "ticketNotch"]
-          const shape = shapes[idx % shapes.length]
-          const shadow = p.highlighted ? "red" as const : "navy" as const
-          const rotations = [-3, 2.8, -2, 3.5, -2.5]
-          const rotate = rotations[idx % rotations.length]
+              <div className="font-mono" style={{ fontSize: "0.75rem", color: "#94A3B8", marginBottom: "0.3rem" }}>
+                // PROYECTO REAL // {modalProject.tag}
+              </div>
+              <h3 className="font-display" style={{ fontSize: "2.1rem", color: "#FFFFFF", margin: 0, lineHeight: 1 }}>
+                {modalProject.title}
+              </h3>
 
-          return (
-            <TornCard
-              key={p.id}
-              shape={shape}
-              shadow={shadow}
-              rotate={rotate}
-              style={{ zIndex: 1 }}
-              innerStyle={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}
-              floatingElements={
-                <>
-                  <div className="washi-tape-top" style={{ top: "-16px", left: idx % 2 === 0 ? "15%" : "65%" }} />
-                  <CircularSealBadge
-                    label={p.status}
-                    sublabel={p.category === "ai" ? "NLP RAG" : "WEB APP"}
-                    bg={p.highlighted ? "#A31621" : "#0F1B33"}
-                    size={68}
-                    rotate={idx % 2 === 0 ? -6 : 6}
-                    style={{ position: "absolute", bottom: "-26px", right: "15px" }}
-                  />
-                </>
-              }
-            >
-              <div>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.2rem" }}>
-                  <span className="font-mono" style={{ fontSize: "0.75rem", background: "var(--red)", color: "#FFF", padding: "4px 12px", fontWeight: 900, transform: "rotate(-2deg)", clipPath: "polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%)" }}>
-                    [{p.tag}]
-                  </span>
-                </div>
+              {/* Metrics Grid */}
+              <div style={{ marginTop: "1rem", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.5rem" }}>
+                {modalProject.metrics.map((m) => (
+                  <div key={m.label} style={{ background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.12)", padding: "0.5rem", borderRadius: "10px", textAlign: "center" }}>
+                    <div className="font-mono" style={{ fontSize: "0.6rem", color: "#94A3B8" }}>{m.label}</div>
+                    <div className="font-mono" style={{ fontSize: "0.8rem", color: "#FFFFFF", fontWeight: 700, marginTop: "2px" }}>{m.val}</div>
+                  </div>
+                ))}
+              </div>
 
-                <h3 className="font-display" style={{ fontSize: "2.6rem", color: "var(--navy)", lineHeight: 0.95, marginBottom: "0.4rem" }}>
-                  {p.title}
-                </h3>
-                <div className="font-spray" style={{ fontSize: "1.6rem", color: "var(--red)", marginBottom: "1.2rem" }}>
-                  {p.subtitle}
-                </div>
-
-                <p className="font-body" style={{ color: "#112233", fontSize: "1rem", lineHeight: 1.65, fontWeight: 700, marginBottom: "1.5rem" }}>
-                  {p.description}
+              <div style={{ marginTop: "1.2rem" }}>
+                <h4 className="font-mono" style={{ fontSize: "0.82rem", color: "#FFFFFF", fontWeight: 700, marginBottom: "0.4rem" }}>
+                  [ DESCRIPCIÓN &amp; DETALLES TÉCNICOS ]
+                </h4>
+                <p style={{ color: "#CBD5E1", fontSize: "0.92rem", lineHeight: 1.65, fontFamily: "var(--font-body)", margin: 0 }}>
+                  {modalProject.architectureDetails}
                 </p>
-
-                <div style={{ marginBottom: "1.6rem", display: "flex", flexDirection: "column", gap: "0.65rem" }}>
-                  {p.features.map((feat, i) => (
-                    <div key={i} className="font-mono" style={{ fontSize: "0.85rem", color: "var(--navy)", display: "flex", alignItems: "flex-start", gap: "0.6rem", fontWeight: 800 }}>
-                      <span style={{ color: "var(--red)", fontWeight: 900 }}>▸</span>
-                      <span>{feat}</span>
-                    </div>
-                  ))}
-                </div>
               </div>
 
-              <div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem", marginBottom: "1.6rem", borderTop: "2px dashed var(--red)", paddingTop: "1.2rem" }}>
-                  {p.techStack.map((tech, i) => (
-                    <span key={tech} className="font-mono" style={{ fontSize: "0.75rem", background: "var(--navy)", color: "#FFF", padding: "4px 10px", border: "1px solid var(--navy)", fontWeight: 900, transform: `rotate(${i % 2 === 0 ? -1.5 : 1.5}deg)` }}>
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                <div style={{ display: "flex", gap: "0.8rem", flexWrap: "wrap" }}>
-                  {p.demoUrl && (
-                    <a href={p.demoUrl} target="_blank" rel="noreferrer" className="btn-street-primary" style={{ flex: 1, justifyContent: "center", fontSize: "1.1rem", padding: "0.65rem" }}>
-                      <ExternalLink size={16} /> SITIO LIVE ➔
-                    </a>
-                  )}
-                  {p.githubUrl && (
-                    <a href={p.githubUrl} target="_blank" rel="noreferrer" className="btn-street-secondary" style={{ flex: 1, justifyContent: "center", fontSize: "1.1rem", padding: "0.65rem" }}>
-                      <Github size={16} /> REPO ➔
-                    </a>
-                  )}
-                </div>
+              {/* Footer Actions */}
+              <div style={{ marginTop: "1.5rem", paddingTop: "1rem", borderTop: "1px solid rgba(255, 255, 255, 0.15)", display: "flex", gap: "1rem", justifyContent: "flex-end" }}>
+                <a
+                  href={modalProject.demoUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-mono"
+                  style={{
+                    background: "rgba(255, 255, 255, 0.22)",
+                    border: "1px solid rgba(255, 255, 255, 0.4)",
+                    color: "#FFFFFF",
+                    padding: "0.6rem 1.5rem",
+                    borderRadius: "9999px",
+                    textDecoration: "none",
+                    fontWeight: 700,
+                    fontSize: "0.82rem",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.4rem",
+                  }}
+                >
+                  <Globe size={15} /> ABRIR SITIO EN VIVO <ExternalLink size={14} />
+                </a>
               </div>
-            </TornCard>
-          )
-        })}
-      </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }

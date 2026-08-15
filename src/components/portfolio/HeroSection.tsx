@@ -1,12 +1,21 @@
 "use client"
+
 import { useRef } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { useLanguage } from "@/context/LanguageContext"
+import TextMorph from "./TextMorph"
+import { ArrowRight, Download, Sparkles } from "lucide-react"
+import { OrbitalRing, FloatingPolyhedron } from "./GeometricAccents"
 
 export default function HeroSection() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
   const ref = useRef<HTMLElement>(null)
+
+  const morphWords =
+    lang === "es"
+      ? "DESARROLLADOR FULLSTACK\nARQUITECTO DE IA & LLMs\nSISTEMAS SPEI & FINTECH\nFRONTENDS HIGH-PERFORMANCE\nCIUDADANO DIGITAL // PUEBLA"
+      : "FULLSTACK DEVELOPER\nAI & LLMs ARCHITECT\nSPEI & FINTECH SYSTEMS\nHIGH-PERFORMANCE FRONTENDS\nDIGITAL CITIZEN // PUEBLA"
 
   return (
     <section
@@ -17,286 +26,222 @@ export default function HeroSection() {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
-        background: "var(--bg)",
+        justifyContent: "center",
+        alignItems: "center",
+        background: "transparent",
         overflow: "hidden",
-        paddingTop: "clamp(5.5rem, 12vw, 7rem)",
+        padding: "4rem 1.5rem 5rem",
       }}
     >
-      {/* ══ TOP STREET BADGE BAR ══ */}
-      <div style={{
-        width: "100%",
-        marginTop: "0.2rem",
-        marginBottom: "1.2rem",
-        zIndex: 20,
-      }}>
-        <div style={{
-          background: "var(--red)",
-          color: "#FFFFFF",
-          borderTop: "3px solid var(--navy)",
-          borderBottom: "3px solid var(--navy)",
-          padding: "0.5rem 1rem",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-          gap: "0.8rem",
-          transform: "rotate(-0.8deg)",
-          boxShadow: "0 6px 12px rgba(11,27,61,0.2)",
-        }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap" }}>
-            <span className="font-mono" style={{ background: "var(--navy)", color: "#FFFFFF", padding: "2px 10px", fontSize: "0.75rem", fontWeight: 900, border: "1px solid #FFFFFF" }}>
-              [ FULLSTACK DEVELOPER &amp; IA ]
-            </span>
-          </div>
+      {/* ══ DYNAMIC GEOMETRIC ORBITAL ACCENTS ══ */}
+      <OrbitalRing size={520} top="20%" left="50%" opacity={0.2} />
+      <FloatingPolyhedron size={110} style={{ top: "15%", left: "10%" }} />
+      <FloatingPolyhedron size={95} style={{ bottom: "20%", right: "12%" }} />
 
-          <div style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
-            <span className="font-marker" style={{ color: "#FFFFFF", fontSize: "1.4rem", lineHeight: 1 }}>
-              ANGEL GOMEZ
-            </span>
-            <span className="font-mono" style={{ fontSize: "0.65rem", background: "#FFFFFF", color: "var(--navy)", padding: "2px 8px", fontWeight: 900, border: "1px solid var(--navy)" }}>
-              ONLINE
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* ══ HERO MAIN CONTENT ══ */}
+      {/* ══ AMBIENT LIGHT AURA ══ */}
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "1fr",
-          gap: "2.5rem",
-          alignItems: "center",
-          maxWidth: "1400px",
+          position: "absolute",
+          top: "45%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "min(95vw, 1000px)",
+          height: "450px",
+          background: "radial-gradient(ellipse at center, rgba(255, 255, 255, 0.12), transparent 70%)",
+          filter: "blur(70px)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
+
+      {/* ══ HERO MINIMALIST CONTAINER ══ */}
+      <div
+        style={{
+          maxWidth: "1200px",
           margin: "0 auto",
           width: "100%",
-          padding: "1rem 1.5rem 3rem",
           position: "relative",
+          zIndex: 10,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
+          gap: "2.4rem",
         }}
-        className="lg:!grid-cols-[1.1fr_0.9fr]"
       >
-        {/* LEFT COLUMN — TYPOGRAPHY WITH STAGGER ANIMATIONS */}
+        {/* ── GIANT GEELMZ GRAFFITI ARTWORK BANNER ── */}
         <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          style={{ zIndex: 10, display: "flex", flexDirection: "column", gap: "1.2rem" }}
-        >
-          {/* Metadata Stamp */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
-            <span className="sticker-box font-mono animate-stamp">
-              V 2.4.0 // STABLE
-            </span>
-            <span className="font-marker" style={{ color: "var(--red)", fontSize: "1.6rem", transform: "rotate(-3deg)" }}>
-              FULLSTACK ARCHITECT
-            </span>
-          </div>
-
-          {/* SOFTWARE TITLE + SPRAY PULSE GEELMZ */}
-          <div style={{ position: "relative" }}>
-            <h1 className="font-display" style={{
-              fontSize: "clamp(2.6rem, 10vw, 8rem)",
-              lineHeight: 0.85,
-              letterSpacing: "0.02em",
-              color: "var(--navy)",
-              textTransform: "uppercase",
-              textShadow: "4px 4px 0px rgba(196, 30, 58, 0.3)",
-            }}>
-              SOFTWARE
-            </h1>
-
-            {/* GEELMZ Overlay Tag with Dynamic Spray Pulse Animation */}
-            <div className="font-spray spray-pulse" style={{
-              fontSize: "clamp(2.5rem, 9.5vw, 7.8rem)",
-              color: "var(--red)",
-              lineHeight: 0.9,
-              WebkitTextStroke: "1.5px var(--navy)",
-              textShadow: "4px 4px 0px var(--navy)",
-              display: "inline-block",
-            }}>
-              GEELMZ
-            </div>
-          </div>
-
-          {/* Subtitle Tag */}
-          <div style={{ margin: "0.2rem 0 0.8rem" }}>
-            <div className="tag-white font-marker" style={{ fontSize: "clamp(1.4rem, 3.2vw, 2.2rem)", transform: "rotate(-1deg)" }}>
-              {t("DESARROLLADOR FULLSTACK & IA // PUEBLA, MÉXICO", "FULLSTACK & AI DEVELOPER // PUEBLA, MEXICO")}
-            </div>
-          </div>
-
-          {/* Description Card with Street Hover Bounce */}
-          <div className="street-card-hover" style={{
-            background: "var(--navy)",
-            border: "3px solid var(--red)",
-            boxShadow: "8px 8px 0px var(--red)",
-            padding: "1.5rem",
-            position: "relative",
-            maxWidth: "620px",
-            color: "#FFFFFF",
-          }}>
-            <div className="font-mono" style={{ fontSize: "0.75rem", color: "var(--red)", marginBottom: "0.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-              <span style={{ width: 8, height: 8, background: "var(--red)", display: "inline-block" }}></span>
-              SOFTWARE_ARCHITECTURE // HIGH_PERFORMANCE
-            </div>
-            <p style={{ color: "#F4EFE6", fontSize: "0.98rem", lineHeight: 1.65, fontFamily: "var(--font-body)", fontWeight: 600 }}>
-              {t(
-                "Construyendo infraestructura digital robusta y escalable. Enfoque en backends de alto rendimiento, frontends reactivos y arquitectura moderna que desafía la monotonía corporativa.",
-                "Building robust, scalable digital infrastructure. Focusing on high-performance backends, reactive frontends, and modern architecture that challenges corporate monotony."
-              )}
-            </p>
-
-            <div style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-              {["[ NODE.JS ]", "[ NESTJS ]", "[ NEXT.JS ]", "[ PYTHON/IA ]", "[ DOCKER ]"].map((tech) => (
-                <span key={tech} className="font-mono" style={{ fontSize: "0.7rem", color: "#FFFFFF", background: "#061024", padding: "2px 8px", border: "1px solid var(--red)", fontWeight: 700 }}>
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* CTA Buttons */}
-          <div style={{ display: "flex", gap: "1.2rem", flexWrap: "wrap", marginTop: "1rem" }}>
-            <a href="#portfolio" className="btn-street-primary">
-              {t("EXPLORAR PROYECTOS", "EXPLORE PROJECTS")} <span style={{ fontSize: "1.8rem" }}>➔</span>
-            </a>
-            <Link href="/conoce-de-mi" className="btn-street-secondary">
-              {t("CONOCE DE MÍ", "KNOW MORE")} ➔
-            </Link>
-          </div>
-        </motion.div>
-
-        {/* RIGHT COLUMN — PROTAGONIST AVATAR WITH SPRING ENTRY */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 30 }}
+          initial={{ opacity: 0, scale: 0.94, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           style={{
             position: "relative",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {/* Avatar Frame with Street Card Hover */}
-          <div className="street-card-hover" style={{
-            position: "relative",
-            zIndex: 10,
-            maxWidth: "520px",
             width: "100%",
+            maxWidth: "1150px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-          }}>
-            <div className="font-wild" style={{
-              position: "absolute",
-              top: "-22px",
-              left: "10px",
-              color: "var(--red)",
-              fontSize: "2.6rem",
-              zIndex: 20,
-              transform: "rotate(-12deg)",
-              textShadow: "2px 2px 0px var(--navy)",
-            }}>
-              #FULLSTACK
-            </div>
+            justifyContent: "center",
+          }}
+        >
+          <motion.div
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/geelmz-logo.png"
+              alt="GEELMZ Graffiti Artwork"
+              style={{
+                width: "100%",
+                height: "auto",
+                maxHeight: "440px",
+                objectFit: "contain",
+                filter: "invert(1) drop-shadow(0 0 35px rgba(255, 255, 255, 0.55)) drop-shadow(0 0 80px rgba(255, 255, 255, 0.2))",
+                transition: "all 0.3s ease",
+              }}
+            />
+          </motion.div>
 
-            <div className="font-marker font-bold animate-stamp" style={{
-              position: "absolute",
-              bottom: "20px",
-              right: "10px",
-              background: "var(--navy)",
-              color: "#FFFFFF",
-              border: "2px solid var(--red)",
-              padding: "0.2rem 0.6rem",
-              fontSize: "1.3rem",
-              zIndex: 20,
-              transform: "rotate(4deg)",
-              boxShadow: "4px 4px 0px var(--red)",
-            }}>
-              // ONLY ONE //
-            </div>
-
-            {/* Main Avatar Frame */}
-            <div style={{
-              position: "relative",
+          {/* Dynamic Text Morph Pill Subtitle */}
+          <div
+            style={{
+              marginTop: "0.8rem",
               width: "100%",
-              aspectRatio: "1/1",
-              background: "#FFFFFF",
-              border: "4px solid var(--navy)",
-              boxShadow: "12px 12px 0px var(--red)",
-              overflow: "hidden",
-              transform: "rotate(-2deg)",
-            }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/image.png"
-                alt="Geelmz / Feelmz Avatar"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
-                  padding: "0.3rem",
-                  filter: "contrast(1.15)",
-                }}
-              />
-            </div>
-
-            {/* Zine Caption */}
-            <div className="font-mono" style={{
-              marginTop: "1.2rem",
-              background: "var(--navy)",
-              border: "2px solid var(--red)",
-              padding: "0.4rem 0.9rem",
-              fontSize: "0.75rem",
-              color: "#FFFFFF",
+              maxWidth: "760px",
+              height: "60px",
+              background: "rgba(10, 14, 26, 0.85)",
+              backdropFilter: "blur(24px)",
+              border: "1px solid rgba(255, 255, 255, 0.25)",
+              borderRadius: "9999px",
+              boxShadow: "0 14px 40px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(255, 255, 255, 0.08)",
               display: "flex",
               alignItems: "center",
-              flexWrap: "wrap",
-              gap: "0.4rem",
-              maxWidth: "100%",
-              fontWeight: 700,
-            }}>
-              <span style={{ color: "var(--red)" }}>[FIG_01]</span> ANGEL GOMEZ GARCIA ➔
-            </div>
+              justifyContent: "center",
+              padding: "0 1.5rem",
+            }}
+          >
+            <TextMorph
+              words={morphWords}
+              color="#FFFFFF"
+              transition={{ duration: 0.8, delay: 1.4, ease: "easeInOut" }}
+              font={{
+                fontFamily: "'Orbitron', sans-serif",
+                fontSize: 21,
+                letterSpacing: "0.06em",
+                textAlign: "center",
+              }}
+            />
           </div>
         </motion.div>
 
-      </div>
+        {/* ── CLEAN & CONCISE ELEGANT BIO STATEMENT ── */}
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          style={{
+            maxWidth: "720px",
+            color: "#CBD5E1",
+            fontSize: "1.12rem",
+            lineHeight: 1.8,
+            fontFamily: "var(--font-body)",
+            margin: "0 auto",
+            fontWeight: 400,
+          }}
+        >
+          {t(
+            "Desarrollador Fullstack e Ingeniero de Software especializado en plataformas financieras de alta velocidad (SPEI/2FA), integración de Inteligencia Artificial (LLMs/SpaCy) e interfaces web reactivas de alto nivel.",
+            "Fullstack Engineer specialized in high-concurrency fintech platforms (SPEI/2FA), Artificial Intelligence integrations (LLMs/SpaCy), and reactive web platforms."
+          )}
+        </motion.p>
 
-      {/* ══ BOTTOM COLLABORATE BANNER ══ */}
-      <div style={{
-        background: "var(--navy)",
-        borderTop: "4px solid var(--red)",
-        padding: "1.5rem 1rem",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        flexWrap: "wrap",
-        gap: "1rem",
-        zIndex: 15,
-        width: "100%",
-        overflow: "hidden",
-        color: "#FFFFFF",
-      }}>
-        <div>
-          <h2 className="font-marker" style={{ fontSize: "clamp(1.6rem, 4.5vw, 3rem)", color: "var(--red)", lineHeight: 0.9 }}>
-            {t("LET'S COLLABORATE", "LET'S COLLABORATE")}
-          </h2>
-          <p className="font-mono" style={{ fontSize: "0.7rem", color: "#EAE0D0", marginTop: "0.3rem", fontWeight: 700 }}>
-            // DISRUPTING THE DIGITAL LANDSCAPE SINCE 2024
-          </p>
-        </div>
+        {/* ── HIGH-IMPACT ACTION BUTTONS ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          style={{
+            display: "flex",
+            gap: "1.2rem",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            marginTop: "0.4rem",
+          }}
+        >
+          <a
+            href="#portfolio"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.75rem",
+              padding: "0.9rem 2.2rem",
+              background: "linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08))",
+              color: "#FFFFFF",
+              fontFamily: "var(--font-display)",
+              fontSize: "1rem",
+              letterSpacing: "0.08em",
+              textDecoration: "none",
+              textTransform: "uppercase",
+              border: "1px solid rgba(255, 255, 255, 0.4)",
+              borderRadius: "9999px",
+              boxShadow: "0 0 25px rgba(255, 255, 255, 0.22)",
+              transition: "all 0.3s ease",
+              cursor: "pointer",
+            }}
+          >
+            {t("EXPLORAR PROYECTOS", "EXPLORE PROJECTS")} <ArrowRight size={18} />
+          </a>
 
-        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-          <a href="https://github.com/Gmzyy" target="_blank" rel="noreferrer" className="font-marker" style={{ fontSize: "1.3rem", color: "#FFFFFF", textDecoration: "none" }}>
-            <u>GITHUB_REPOS</u> ➔
+          <Link
+            href="/conoce-de-mi"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.75rem",
+              padding: "0.9rem 2.2rem",
+              background: "rgba(10, 14, 26, 0.85)",
+              color: "#FFFFFF",
+              fontFamily: "var(--font-display)",
+              fontSize: "1rem",
+              letterSpacing: "0.08em",
+              textDecoration: "none",
+              textTransform: "uppercase",
+              border: "1px solid rgba(255, 255, 255, 0.25)",
+              borderRadius: "9999px",
+              boxShadow: "0 0 15px rgba(0, 0, 0, 0.6)",
+              transition: "all 0.3s ease",
+              cursor: "pointer",
+            }}
+          >
+            {t("CONOCE DE MÍ", "KNOW MORE")} <Sparkles size={18} />
+          </Link>
+
+          <a
+            href="/CV_Angel_GG.pdf"
+            download="CV_Angel_GG.pdf"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.6rem",
+              padding: "0.9rem 1.8rem",
+              background: "rgba(255, 255, 255, 0.08)",
+              color: "#CBD5E1",
+              fontFamily: "var(--font-display)",
+              fontSize: "1rem",
+              letterSpacing: "0.08em",
+              textDecoration: "none",
+              textTransform: "uppercase",
+              border: "1px solid rgba(255, 255, 255, 0.2)",
+              borderRadius: "9999px",
+              transition: "all 0.3s ease",
+              cursor: "pointer",
+            }}
+          >
+            <Download size={18} /> CV
           </a>
-          <a href="mailto:angelgom042@gmail.com" className="font-marker" style={{ fontSize: "1.3rem", color: "var(--red)", textDecoration: "none" }}>
-            <u>EMAIL_ME</u> ➔
-          </a>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

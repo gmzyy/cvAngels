@@ -1,67 +1,89 @@
 "use client"
-import Link from "next/link"
+import { useState, useEffect } from "react"
 import { useLanguage } from "@/context/LanguageContext"
-import { Mail, MessageSquare, Github, ArrowUp } from "lucide-react"
+import { Mail, MessageSquare, ArrowUp, Copy, Check } from "lucide-react"
 
 export default function SiteFooter() {
   const { t } = useLanguage()
+  const [copied, setCopied] = useState(false)
+  const [timeStr, setTimeStr] = useState("")
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date()
+      const options: Intl.DateTimeFormatOptions = {
+        timeZone: "America/Mexico_City",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+      }
+      setTimeStr(now.toLocaleTimeString("es-MX", options))
+    }
+    updateTime()
+    const timer = setInterval(updateTime, 1000)
+    return () => clearInterval(timer)
+  }, [])
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText("angelgom042@gmail.com")
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
   return (
-    <footer style={{
-      background: "var(--navy)",
-      borderTop: "4px solid var(--red)",
-      color: "#FFFFFF",
-      padding: "4rem 1.5rem 2rem",
-      position: "relative",
-      zIndex: 10,
-    }}>
-      <div style={{
-        maxWidth: "1400px",
-        margin: "0 auto",
-        display: "grid",
-        gridTemplateColumns: "1fr",
-        gap: "3rem",
-      }} className="lg:!grid-cols-[1.2fr_0.8fr]">
-
-        {/* LEFT COLUMN — BRAND & BIO */}
+    <footer
+      style={{
+        background: "rgba(10, 14, 26, 0.95)",
+        borderTop: "1px solid rgba(255, 255, 255, 0.15)",
+        color: "#FFFFFF",
+        padding: "4rem 1.5rem 3rem",
+        position: "relative",
+        zIndex: 10,
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "1400px",
+          margin: "0 auto",
+          display: "grid",
+          gridTemplateColumns: "1fr",
+          gap: "3rem",
+        }}
+        className="lg:!grid-cols-[1.2fr_0.8fr]"
+      >
+        {/* LEFT COLUMN — BRAND & LIVE PUEBLA TIME */}
         <div>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", marginBottom: "1rem" }}>
-            <div style={{
-              width: 36, height: 36,
-              background: "#FFFFFF",
-              border: "2px solid var(--red)",
-              overflow: "hidden",
-            }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/image.png" alt="Geelmz Avatar" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "2px" }} />
-            </div>
-
-            <div className="font-tag" style={{ fontSize: "1.8rem", color: "#FFFFFF" }}>
-              FEELMZ // GEELMZ
-            </div>
+          <div className="font-display" style={{ fontSize: "2rem", color: "#FFFFFF", letterSpacing: "0.04em", marginBottom: "0.5rem" }}>
+            ANGEL GOMEZ GARCIA <span style={{ color: "#94A3B8" }}>// GEELMZ</span>
           </div>
 
-          <p style={{ color: "#EAE2D0", fontSize: "0.95rem", lineHeight: 1.6, maxWidth: "520px", fontFamily: "var(--font-body)", marginBottom: "1.5rem" }}>
+          <p style={{ color: "#CBD5E1", fontSize: "0.95rem", lineHeight: 1.6, maxWidth: "520px", fontFamily: "var(--font-body)", marginBottom: "1.2rem" }}>
             {t(
-              "Desarrollador Fullstack & IA enfocado en sistemas robustos, seguridad transaccional 2FA/TOTP y arquitectura moderna.",
-              "Fullstack & AI Developer focused on robust systems, 2FA/TOTP security, and modern software architecture."
+              "Desarrollador Fullstack e Ingeniero de Software enfocado en plataformas seguras SPEI/2FA, IA y arquitectura web moderna.",
+              "Fullstack Engineer & Software Developer focused on secure SPEI/2FA platforms, AI, and modern web architecture."
             )}
           </p>
 
-          <div className="font-mono" style={{ fontSize: "0.75rem", color: "var(--red)", fontWeight: 700 }}>
-            STATUS: OPEN FOR FULLSTACK &amp; AI OPPORTUNITIES
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+            <span className="font-mono" style={{ fontSize: "0.78rem", background: "rgba(255, 255, 255, 0.08)", border: "1px solid rgba(255, 255, 255, 0.2)", color: "#FFFFFF", padding: "0.35rem 0.9rem", borderRadius: "9999px" }}>
+              PUEBLA, MX {timeStr ? `[ ${timeStr} CST ]` : ""}
+            </span>
+            <span className="font-mono" style={{ fontSize: "0.78rem", color: "#FFFFFF", fontWeight: 700 }}>
+              ● AVAILABLE FOR HIRE
+            </span>
           </div>
         </div>
 
-        {/* RIGHT COLUMN — QUICK CONTACT & BACK TO TOP */}
+        {/* RIGHT COLUMN — QUICK CONTACT & COPY EMAIL */}
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "1.5rem" }}>
           <div>
-            <div className="font-mono" style={{ fontSize: "0.75rem", color: "var(--red)", marginBottom: "0.8rem", fontWeight: 700 }}>
-              [ DIRECT CONTACT ]
+            <div className="font-mono" style={{ fontSize: "0.75rem", color: "#94A3B8", marginBottom: "0.8rem", fontWeight: 700 }}>
+              // CONTACTO DIRECTO
             </div>
             <div style={{ display: "flex", gap: "0.8rem", flexWrap: "wrap" }}>
               <a
@@ -70,71 +92,72 @@ export default function SiteFooter() {
                 rel="noreferrer"
                 className="font-mono"
                 style={{
-                  background: "var(--red)",
+                  background: "rgba(255, 255, 255, 0.12)",
                   color: "#FFFFFF",
-                  padding: "0.6rem 1.2rem",
-                  fontSize: "0.8rem",
+                  border: "1px solid rgba(255, 255, 255, 0.25)",
+                  borderRadius: "9999px",
+                  padding: "0.6rem 1.4rem",
+                  fontSize: "0.82rem",
                   textDecoration: "none",
                   fontWeight: 700,
-                  border: "2px solid #FFFFFF",
-                  boxShadow: "4px 4px 0px #061024",
-                  display: "inline-flex",
+                  display: "flex",
                   alignItems: "center",
-                  gap: "0.5rem",
+                  gap: "0.4rem",
                 }}
               >
-                <MessageSquare size={16} /> WHATSAPP (+52 221 822 6470)
+                <MessageSquare size={14} /> WHATSAPP
               </a>
 
-              <a
-                href="mailto:angelgom042@gmail.com"
+              <button
+                onClick={copyEmail}
                 className="font-mono"
                 style={{
-                  background: "#061024",
+                  background: copied ? "rgba(255, 255, 255, 0.25)" : "rgba(255, 255, 255, 0.12)",
                   color: "#FFFFFF",
-                  padding: "0.6rem 1.2rem",
-                  fontSize: "0.8rem",
-                  textDecoration: "none",
+                  border: "1px solid rgba(255, 255, 255, 0.25)",
+                  borderRadius: "9999px",
+                  padding: "0.6rem 1.4rem",
+                  fontSize: "0.82rem",
+                  cursor: "pointer",
                   fontWeight: 700,
-                  border: "2px solid var(--red)",
-                  boxShadow: "4px 4px 0px var(--red)",
-                  display: "inline-flex",
+                  display: "flex",
                   alignItems: "center",
-                  gap: "0.5rem",
+                  gap: "0.4rem",
+                  transition: "all 0.2s ease",
                 }}
               >
-                <Mail size={16} style={{ color: "var(--red)" }} /> CORREO
-              </a>
+                {copied ? <Check size={14} /> : <Copy size={14} />}
+                <span>{copied ? "COPIADO!" : "COPIAR EMAIL"}</span>
+              </button>
             </div>
           </div>
 
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px dashed var(--red)", paddingTop: "1.5rem" }}>
-            <div className="font-mono" style={{ fontSize: "0.7rem", color: "#AAAAAA" }}>
-              © 2026 ANGEL GOMEZ GARCIA (GEELMZ). ALL RIGHTS RESERVED.
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid rgba(255, 255, 255, 0.12)", paddingTop: "1.4rem" }}>
+            <div className="font-mono" style={{ fontSize: "0.72rem", color: "#94A3B8" }}>
+              © 2026 ANGEL GOMEZ GARCIA (GEELMZ)
             </div>
 
             <button
               onClick={scrollToTop}
               className="font-mono"
               style={{
-                background: "var(--red)",
+                background: "rgba(255, 255, 255, 0.12)",
                 color: "#FFFFFF",
-                border: "2px solid #FFFFFF",
-                padding: "0.4rem 0.8rem",
+                border: "1px solid rgba(255, 255, 255, 0.25)",
+                padding: "0.4rem 1rem",
+                borderRadius: "9999px",
                 fontSize: "0.75rem",
                 cursor: "pointer",
-                fontWeight: 700,
-                boxShadow: "3px 3px 0px #061024",
                 display: "flex",
                 alignItems: "center",
                 gap: "0.3rem",
+                fontWeight: 700,
               }}
             >
               <ArrowUp size={14} /> TOP
             </button>
           </div>
         </div>
-
       </div>
     </footer>
   )
