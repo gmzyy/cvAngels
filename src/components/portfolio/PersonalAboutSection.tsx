@@ -57,7 +57,7 @@ export default function PersonalAboutSection() {
       <div className="tag-white" style={{ marginBottom: "0.8rem" }}>
         // MÁS ALLÁ DEL CÓDIGO
       </div>
-      <h2 className="spray-drippy-title" style={{ fontSize: "clamp(2.4rem, 6vw, 4.5rem)", color: "#FFFFFF", marginBottom: "3rem" }}>
+      <h2 className="spray-drippy-title" style={{ fontSize: "clamp(1.7rem, 6.5vw, 4.5rem)", color: "#FFFFFF", marginBottom: "3rem", lineHeight: 1 }}>
         FILOSOFÍA &amp; VISIÓN
       </h2>
 

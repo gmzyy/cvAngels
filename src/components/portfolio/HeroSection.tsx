@@ -110,7 +110,7 @@ export default function HeroSection() {
               marginTop: "0.8rem",
               width: "100%",
               maxWidth: "760px",
-              height: "60px",
+              minHeight: "54px",
               background: "rgba(10, 14, 26, 0.85)",
               backdropFilter: "blur(24px)",
               border: "1px solid rgba(255, 255, 255, 0.25)",
@@ -119,7 +119,8 @@ export default function HeroSection() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              padding: "0 1.5rem",
+              padding: "0.4rem 1.2rem",
+              boxSizing: "border-box",
             }}
           >
             <TextMorph
@@ -128,8 +129,8 @@ export default function HeroSection() {
               transition={{ duration: 0.8, delay: 1.4, ease: "easeInOut" }}
               font={{
                 fontFamily: "'Orbitron', sans-serif",
-                fontSize: 21,
-                letterSpacing: "0.06em",
+                fontSize: "clamp(13px, 3.8vw, 20px)" as any,
+                letterSpacing: "0.04em",
                 textAlign: "center",
               }}
             />

@@ -33,7 +33,7 @@ export default function EducationSection() {
           </span>
         </div>
 
-        <h2 className="spray-drippy-title" style={{ fontSize: "clamp(3rem, 8vw, 6.2rem)", color: "#FFFFFF", margin: 0, lineHeight: 0.9 }}>
+        <h2 className="spray-drippy-title" style={{ fontSize: "clamp(1.7rem, 6.5vw, 5.5rem)", color: "#FFFFFF", margin: 0, lineHeight: 1 }}>
           {t("FORMACIÓN", "EDUCATION")}
         </h2>
       </div>
@@ -49,7 +49,7 @@ export default function EducationSection() {
           backdropFilter: "blur(24px)",
           border: "1px solid rgba(255, 255, 255, 0.22)",
           borderRadius: "36px",
-          padding: "2.5rem 2rem",
+          padding: "1.5rem 1.2rem",
           boxShadow: "0 20px 50px rgba(0, 0, 0, 0.85)",
         }}
       >
@@ -61,7 +61,7 @@ export default function EducationSection() {
             <span className="font-mono" style={{ fontSize: "0.72rem", background: "rgba(255, 255, 255, 0.12)", color: "#FFFFFF", padding: "3px 10px", borderRadius: "9999px", border: "1px solid rgba(255, 255, 255, 0.25)" }}>
               DEGREE_CERTIFIED // UTP
             </span>
-            <h3 className="font-display" style={{ fontSize: "2.2rem", color: "#FFFFFF", lineHeight: 1.1, marginTop: 8, margin: 0 }}>
+            <h3 className="font-display" style={{ fontSize: "clamp(1.3rem, 4.5vw, 2.2rem)", color: "#FFFFFF", lineHeight: 1.15, marginTop: 8, margin: 0 }}>
               {t("INGENIERÍA EN DESARROLLO Y GESTIÓN DE SOFTWARE", "SOFTWARE DEVELOPMENT & MANAGEMENT DEGREE")}
             </h3>
             <div className="font-mono" style={{ fontSize: "1rem", color: "#94A3B8", marginTop: 4 }}>

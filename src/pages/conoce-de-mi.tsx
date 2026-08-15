@@ -58,10 +58,10 @@ export default function ConoceDeMiPage() {
               <h1
                 className="spray-drippy-title"
                 style={{
-                  fontSize: "clamp(3.2rem, 8vw, 6.8rem)",
+                  fontSize: "clamp(1.7rem, 6.5vw, 5.5rem)",
                   color: "#FFFFFF",
                   margin: 0,
-                  lineHeight: 0.9,
+                  lineHeight: 1,
                 }}
               >
                 {t("MÁS ALLÁ DEL", "BEYOND THE")}
@@ -69,9 +69,9 @@ export default function ConoceDeMiPage() {
               <div
                 className="font-display glitch-text"
                 style={{
-                  fontSize: "clamp(2.8rem, 7.5vw, 6rem)",
+                  fontSize: "clamp(1.5rem, 6vw, 4.8rem)",
                   color: "#94A3B8",
-                  lineHeight: 0.9,
+                  lineHeight: 1,
                   display: "block",
                   marginTop: "0.2rem",
                 }}
@@ -229,7 +229,7 @@ export default function ConoceDeMiPage() {
                   // {t("INTERESES & DRIVES", "PASSIONS & DRIVES")}
                 </span>
               </div>
-              <h2 className="spray-drippy-title" style={{ fontSize: "clamp(3rem, 7vw, 5.5rem)", color: "#FFFFFF", margin: 0, lineHeight: 0.9 }}>
+              <h2 className="spray-drippy-title" style={{ fontSize: "clamp(1.7rem, 6.5vw, 5rem)", color: "#FFFFFF", margin: 0, lineHeight: 1 }}>
                 {t("LO QUE ME MUEVE", "WHAT DRIVES ME")}
               </h2>
             </div>
@@ -237,7 +237,7 @@ export default function ConoceDeMiPage() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+                gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
                 gap: "1.4rem",
               }}
             >
@@ -298,7 +298,7 @@ export default function ConoceDeMiPage() {
             <div className="font-mono" style={{ fontSize: "0.85rem", color: "#94A3B8", marginBottom: "0.5rem", fontWeight: 700 }}>
               // {t("¿TIENES UN PROYECTO O UNA IDEA?", "HAVE A PROJECT OR IDEA?")}
             </div>
-            <h2 className="spray-drippy-title" style={{ fontSize: "clamp(2.4rem, 6vw, 4.5rem)", color: "#FFFFFF", lineHeight: 1, marginBottom: "2rem" }}>
+            <h2 className="spray-drippy-title" style={{ fontSize: "clamp(1.6rem, 5.5vw, 4rem)", color: "#FFFFFF", lineHeight: 1, marginBottom: "2rem" }}>
               {t("CONSTRUYAMOS ALGO BRUTAL", "LET'S BUILD SOMETHING GREAT")}
             </h2>
 

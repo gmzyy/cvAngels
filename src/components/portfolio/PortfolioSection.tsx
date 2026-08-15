@@ -244,7 +244,7 @@ export default function PortfolioSection() {
           </span>
         </div>
 
-        <h2 className="spray-drippy-title" style={{ fontSize: "clamp(3rem, 8vw, 6.2rem)", color: "#FFFFFF", margin: 0, lineHeight: 0.9 }}>
+        <h2 className="spray-drippy-title" style={{ fontSize: "clamp(1.7rem, 6.5vw, 5.5rem)", color: "#FFFFFF", margin: 0, lineHeight: 1 }}>
           {t("GALERÍA DE PROYECTOS", "PROJECTS GALLERY")}
         </h2>
       </div>
@@ -353,7 +353,7 @@ export default function PortfolioSection() {
               backdropFilter: "blur(24px)",
               border: "1px solid rgba(255, 255, 255, 0.22)",
               borderRadius: "32px",
-              padding: "2.2rem 2.4rem",
+              padding: "1.5rem 1.4rem",
               boxShadow: "0 20px 50px rgba(0, 0, 0, 0.85)",
               position: "relative",
               zIndex: 10,
@@ -416,7 +416,7 @@ export default function PortfolioSection() {
 
             <div style={{ marginBottom: "1.2rem" }}>
               <div className="font-mono" style={{ fontSize: "0.85rem", color: "#94A3B8" }}>// {activeProject.subtitle}</div>
-              <h3 className="font-display" style={{ fontSize: "2.5rem", color: "#FFFFFF", lineHeight: 1.05, marginTop: "0.2rem", margin: 0 }}>
+              <h3 className="font-display" style={{ fontSize: "clamp(1.5rem, 5vw, 2.5rem)", color: "#FFFFFF", lineHeight: 1.05, marginTop: "0.2rem", margin: 0 }}>
                 {activeProject.title}
               </h3>
             </div>
@@ -447,7 +447,7 @@ export default function PortfolioSection() {
         )}
       </AnimatePresence>
 
-      {/* ══ FULL HIGH-RES IMAGE & ARCHITECTURE MODAL (PERFECTLY CENTERED ON MOBILE) ══ */}
+      {/* ══ FULL HIGH-RES IMAGE & ARCHITECTURE MODAL (PERFECTLY SCROLLED & CENTERED ON MOBILE) ══ */}
       <AnimatePresence>
         {modalProject && (
           <motion.div
@@ -457,35 +457,38 @@ export default function PortfolioSection() {
             onClick={() => setModalProject(null)}
             style={{
               position: "fixed",
-              inset: 0,
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
               zIndex: 9999,
-              background: "rgba(0, 0, 0, 0.92)",
+              background: "rgba(0, 0, 0, 0.93)",
               backdropFilter: "blur(28px)",
               WebkitBackdropFilter: "blur(28px)",
               display: "flex",
-              alignItems: "center",
               justifyContent: "center",
-              padding: "1rem",
+              alignItems: "flex-start",
+              overflowY: "auto",
+              WebkitOverflowScrolling: "touch",
+              padding: "16px 12px 100px 12px",
               boxSizing: "border-box",
             }}
           >
             <motion.div
-              initial={{ scale: 0.92, y: 10 }}
+              initial={{ scale: 0.94, y: 15 }}
               animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.92, y: 10 }}
+              exit={{ scale: 0.94, y: 15 }}
               onClick={(e) => e.stopPropagation()}
               style={{
-                width: "min(94vw, 780px)",
-                maxHeight: "86vh",
+                width: "min(96vw, 760px)",
                 background: "#0A0E1A",
                 border: "1px solid rgba(255, 255, 255, 0.3)",
                 borderRadius: "24px",
-                padding: "1.4rem",
+                padding: "1.2rem",
                 boxShadow: "0 25px 60px rgba(0, 0, 0, 0.95)",
                 color: "#FFFFFF",
                 position: "relative",
-                margin: "auto",
-                overflowY: "auto",
+                margin: "20px auto 0 auto",
                 boxSizing: "border-box",
                 display: "flex",
                 flexDirection: "column",
@@ -493,21 +496,23 @@ export default function PortfolioSection() {
             >
               <button
                 onClick={() => setModalProject(null)}
+                aria-label="Cerrar modal"
                 style={{
                   position: "absolute",
-                  right: "1rem",
-                  top: "1rem",
-                  background: "rgba(255, 255, 255, 0.18)",
-                  border: "1px solid rgba(255, 255, 255, 0.35)",
+                  right: "12px",
+                  top: "12px",
+                  background: "rgba(255, 255, 255, 0.2)",
+                  border: "1px solid rgba(255, 255, 255, 0.4)",
                   color: "#FFFFFF",
                   borderRadius: "50%",
-                  width: "34px",
-                  height: "34px",
+                  width: "36px",
+                  height: "36px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   cursor: "pointer",
-                  zIndex: 20,
+                  zIndex: 30,
+                  boxShadow: "0 4px 15px rgba(0,0,0,0.6)",
                 }}
               >
                 <X size={18} />
@@ -517,10 +522,10 @@ export default function PortfolioSection() {
               <div
                 style={{
                   width: "100%",
-                  maxHeight: "320px",
+                  maxHeight: "260px",
                   borderRadius: "16px",
                   overflow: "hidden",
-                  marginBottom: "1.2rem",
+                  marginBottom: "1rem",
                   border: "1px solid rgba(255, 255, 255, 0.2)",
                   background: "#030712",
                   display: "flex",
@@ -535,7 +540,7 @@ export default function PortfolioSection() {
                   alt={modalProject.title}
                   style={{
                     maxWidth: "100%",
-                    maxHeight: "320px",
+                    maxHeight: "260px",
                     width: "auto",
                     height: "auto",
                     objectFit: "contain",
@@ -546,31 +551,31 @@ export default function PortfolioSection() {
               <div className="font-mono" style={{ fontSize: "0.75rem", color: "#94A3B8", marginBottom: "0.3rem" }}>
                 // PROYECTO REAL // {modalProject.tag}
               </div>
-              <h3 className="font-display" style={{ fontSize: "2.1rem", color: "#FFFFFF", margin: 0, lineHeight: 1 }}>
+              <h3 className="font-display" style={{ fontSize: "clamp(1.4rem, 4.5vw, 2.2rem)", color: "#FFFFFF", margin: 0, lineHeight: 1.1 }}>
                 {modalProject.title}
               </h3>
 
               {/* Metrics Grid */}
-              <div style={{ marginTop: "1rem", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.5rem" }}>
+              <div style={{ marginTop: "0.9rem", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.5rem" }}>
                 {modalProject.metrics.map((m) => (
-                  <div key={m.label} style={{ background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.12)", padding: "0.5rem", borderRadius: "10px", textAlign: "center" }}>
+                  <div key={m.label} style={{ background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.12)", padding: "0.5rem 0.3rem", borderRadius: "10px", textAlign: "center" }}>
                     <div className="font-mono" style={{ fontSize: "0.6rem", color: "#94A3B8" }}>{m.label}</div>
-                    <div className="font-mono" style={{ fontSize: "0.8rem", color: "#FFFFFF", fontWeight: 700, marginTop: "2px" }}>{m.val}</div>
+                    <div className="font-mono" style={{ fontSize: "0.78rem", color: "#FFFFFF", fontWeight: 700, marginTop: "2px" }}>{m.val}</div>
                   </div>
                 ))}
               </div>
 
-              <div style={{ marginTop: "1.2rem" }}>
+              <div style={{ marginTop: "1rem" }}>
                 <h4 className="font-mono" style={{ fontSize: "0.82rem", color: "#FFFFFF", fontWeight: 700, marginBottom: "0.4rem" }}>
                   [ DESCRIPCIÓN &amp; DETALLES TÉCNICOS ]
                 </h4>
-                <p style={{ color: "#CBD5E1", fontSize: "0.92rem", lineHeight: 1.65, fontFamily: "var(--font-body)", margin: 0 }}>
+                <p style={{ color: "#CBD5E1", fontSize: "0.9rem", lineHeight: 1.6, fontFamily: "var(--font-body)", margin: 0 }}>
                   {modalProject.architectureDetails}
                 </p>
               </div>
 
               {/* Footer Actions */}
-              <div style={{ marginTop: "1.5rem", paddingTop: "1rem", borderTop: "1px solid rgba(255, 255, 255, 0.15)", display: "flex", gap: "1rem", justifyContent: "flex-end" }}>
+              <div style={{ marginTop: "1.4rem", paddingTop: "1rem", borderTop: "1px solid rgba(255, 255, 255, 0.15)", display: "flex", gap: "0.8rem", justifyContent: "flex-end", flexWrap: "wrap" }}>
                 <a
                   href={modalProject.demoUrl}
                   target="_blank"
@@ -580,7 +585,7 @@ export default function PortfolioSection() {
                     background: "rgba(255, 255, 255, 0.22)",
                     border: "1px solid rgba(255, 255, 255, 0.4)",
                     color: "#FFFFFF",
-                    padding: "0.6rem 1.5rem",
+                    padding: "0.6rem 1.4rem",
                     borderRadius: "9999px",
                     textDecoration: "none",
                     fontWeight: 700,
@@ -588,6 +593,8 @@ export default function PortfolioSection() {
                     display: "inline-flex",
                     alignItems: "center",
                     gap: "0.4rem",
+                    width: "100%",
+                    justifyContent: "center",
                   }}
                 >
                   <Globe size={15} /> ABRIR SITIO EN VIVO <ExternalLink size={14} />

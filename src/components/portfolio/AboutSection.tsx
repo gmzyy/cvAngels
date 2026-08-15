@@ -36,7 +36,7 @@ export default function AboutSection() {
           </span>
         </div>
 
-        <h2 className="spray-drippy-title" style={{ fontSize: "clamp(3rem, 8vw, 6.2rem)", color: "#FFFFFF", margin: 0, lineHeight: 0.9 }}>
+        <h2 className="spray-drippy-title" style={{ fontSize: "clamp(1.7rem, 6.5vw, 5.5rem)", color: "#FFFFFF", margin: 0, lineHeight: 1 }}>
           ANGEL GOMEZ GARCIA
         </h2>
       </motion.div>
